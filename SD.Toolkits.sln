@@ -1,0 +1,59 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.40629.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{FF4ABECC-5097-4064-95CA-9BF579AEE43C}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.EntityFramework", "SD.Toolkits.EntityFramework\SD.Toolkits.EntityFramework.csproj", "{A101FBDF-273F-477F-85DF-D9AD39FDB117}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.NoGenerator", "SD.Toolkits.NoGenerator\SD.Toolkits.NoGenerator.csproj", "{33441B62-819C-409B-BBF3-43DDD96FCDC1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.EntityFrameworkTests", "SD.Toolkits.EntityFrameworkTests\SD.Toolkits.EntityFrameworkTests.csproj", "{2123B05C-FC6A-4AC0-8223-540B00F8F30C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.NoGeneratorTests", "SD.Toolkits.NoGeneratorTests\SD.Toolkits.NoGeneratorTests.csproj", "{021ED5C8-EF08-49BB-A4AE-337072E417B0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.TaskScheduler", "SD.Toolkits.TaskScheduler\SD.Toolkits.TaskScheduler.csproj", "{C9C33187-7EC3-40E1-AC8B-598777663408}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.TaskSchedulerTests", "SD.Toolkits.TaskSchedulerTests\SD.Toolkits.TaskSchedulerTests.csproj", "{393122FA-2373-4162-9566-08D306BF579E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A101FBDF-273F-477F-85DF-D9AD39FDB117}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A101FBDF-273F-477F-85DF-D9AD39FDB117}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A101FBDF-273F-477F-85DF-D9AD39FDB117}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A101FBDF-273F-477F-85DF-D9AD39FDB117}.Release|Any CPU.Build.0 = Release|Any CPU
+		{33441B62-819C-409B-BBF3-43DDD96FCDC1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{33441B62-819C-409B-BBF3-43DDD96FCDC1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{33441B62-819C-409B-BBF3-43DDD96FCDC1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{33441B62-819C-409B-BBF3-43DDD96FCDC1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2123B05C-FC6A-4AC0-8223-540B00F8F30C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2123B05C-FC6A-4AC0-8223-540B00F8F30C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2123B05C-FC6A-4AC0-8223-540B00F8F30C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2123B05C-FC6A-4AC0-8223-540B00F8F30C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{021ED5C8-EF08-49BB-A4AE-337072E417B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{021ED5C8-EF08-49BB-A4AE-337072E417B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{021ED5C8-EF08-49BB-A4AE-337072E417B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{021ED5C8-EF08-49BB-A4AE-337072E417B0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C9C33187-7EC3-40E1-AC8B-598777663408}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C9C33187-7EC3-40E1-AC8B-598777663408}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C9C33187-7EC3-40E1-AC8B-598777663408}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C9C33187-7EC3-40E1-AC8B-598777663408}.Release|Any CPU.Build.0 = Release|Any CPU
+		{393122FA-2373-4162-9566-08D306BF579E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{393122FA-2373-4162-9566-08D306BF579E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{393122FA-2373-4162-9566-08D306BF579E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{393122FA-2373-4162-9566-08D306BF579E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
