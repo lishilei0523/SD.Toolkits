@@ -44,16 +44,16 @@ namespace SD.Toolkits.SessionSharing
         /// <param name="context">应用程序上下文</param>
         public void Init(HttpApplication context)
         {
-            this.InitSharedSession(context);
+            this.InitSessionSharing(context);
         }
         #endregion
 
-        #region # 初始化Session共享 —— void InitSharedSession(HttpApplication context...
+        #region # 初始化Session共享 —— void InitSessionSharing(HttpApplication context...
         /// <summary>
         /// 初始化Session共享
         /// </summary>
         /// <param name="context">应用程序上下文</param>
-        private void InitSharedSession(HttpApplication context)
+        private void InitSessionSharing(HttpApplication context)
         {
             //获取Session Module
             IHttpModule sessionModule = this.GetSessionModule(context);
