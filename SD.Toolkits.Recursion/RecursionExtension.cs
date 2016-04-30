@@ -55,7 +55,20 @@ namespace SD.Toolkits.Recursion
         /// <param name="collection">可递归类型集</param>
         public static void TailRecursion<T>(this IEnumerable<T> nodes, HashSet<T> collection) where T : IRecursive<T>
         {
-            List<T> nodeList = nodes.ToList();
+            List<T> nodeList = nodes == null ? null : nodes.ToList();
+
+            #region # 验证参数
+
+            if (collection == null)
+            {
+                collection = new HashSet<T>();
+            }
+            if (nodes == null || !nodeList.Any())
+            {
+                return;
+            }
+
+            #endregion
 
             foreach (T node in nodeList)
             {
