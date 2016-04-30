@@ -10,6 +10,8 @@
 
     4、ASP.NET Session共享工具
 
+    5、递归扩展工具
+
 NuGet地址：
     
     https://www.nuget.org/packages/SD.Toolkits.EntityFramework
@@ -19,3 +21,5 @@ NuGet地址：
     https://www.nuget.org/packages/SD.Toolkits.TaskScheduler
 
     https://www.nuget.org/packages/SD.Toolkits.SessionSharing
+
+    https://www.nuget.org/packages/SD.Toolkits.Recursion
