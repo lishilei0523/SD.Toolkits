@@ -8,10 +8,14 @@
 
     3、定时任务调度工具
 
+    4、ASP.NET Session共享工具
+
 NuGet地址：
     
-    https://www.nuget.org/packages/SD.Toolkits.EntityFramework/
+    https://www.nuget.org/packages/SD.Toolkits.EntityFramework
 
-    https://www.nuget.org/packages/SD.Toolkits.NoGenerator/
+    https://www.nuget.org/packages/SD.Toolkits.NoGenerator
     
-    https://www.nuget.org/packages/SD.Toolkits.TaskScheduler/
+    https://www.nuget.org/packages/SD.Toolkits.TaskScheduler
+
+    https://www.nuget.org/packages/SD.Toolkits.SessionSharing
