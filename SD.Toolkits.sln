@@ -28,6 +28,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.SessionSharing.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.SessionSharing.TestSiteSub", "SD.Toolkits.SessionSharing.TestSiteSub\SD.Toolkits.SessionSharing.TestSiteSub.csproj", "{FC4588F7-2FE9-4D99-8352-6F344DE6EEC0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.Recursion", "SD.Toolkits.Recursion\SD.Toolkits.Recursion.csproj", "{22E02C79-4182-47E6-A67E-930254883FC7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -70,6 +72,10 @@ Global
 		{FC4588F7-2FE9-4D99-8352-6F344DE6EEC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FC4588F7-2FE9-4D99-8352-6F344DE6EEC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FC4588F7-2FE9-4D99-8352-6F344DE6EEC0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{22E02C79-4182-47E6-A67E-930254883FC7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{22E02C79-4182-47E6-A67E-930254883FC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{22E02C79-4182-47E6-A67E-930254883FC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{22E02C79-4182-47E6-A67E-930254883FC7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
