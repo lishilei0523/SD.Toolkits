@@ -47,7 +47,7 @@ namespace SD.Toolkits.Validation
                 }
 
                 string errorMessaage = builder.ToString().Substring(0, builder.Length - 1);
-                throw new ValiadateFailedException(errorMessaage);
+                throw new ValidateFailedException(errorMessaage);
             }
         }
     }
