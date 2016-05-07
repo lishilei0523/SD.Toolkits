@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using FluentValidation;
@@ -19,36 +19,30 @@ namespace SD.Toolkits.Validation
         /// <param name="instance">实例对象</param>
         public static void Validate<T>(T instance)
         {
-            //获取验证者实例
-            IValidator<T> validator = ResolveMediator.ResolveOptional<IValidator<T>>();
+            //获取验证者实例集
+            IEnumerable<IValidator<T>> validators = ResolveMediator.ResolveAll<IValidator<T>>();
 
-            #region # 验证类型是否已注册
+            //构造异常消息
+            StringBuilder builder = new StringBuilder();
 
-            if (validator == null)
+            foreach (IValidator<T> validator in validators)
             {
-                throw new NullReferenceException(string.Format("未找到类型{0}的验证配置，请检查程序！", typeof(T).Name));
-            }
+                //得到验证结果
+                ValidationResult validationResult = validator.Validate(instance);
 
-            #endregion
-
-            //得到验证结果
-            ValidationResult validationResult = validator.Validate(instance);
-
-            //如果未验证通过
-            if (!validationResult.IsValid)
-            {
-                //构造异常消息
-                StringBuilder builder = new StringBuilder();
-
-                foreach (string message in validationResult.Errors.Select(x => x.ErrorMessage))
+                //如果未验证通过
+                if (!validationResult.IsValid)
                 {
-                    builder.Append(message);
-                    builder.Append("/");
+                    foreach (string message in validationResult.Errors.Select(x => x.ErrorMessage))
+                    {
+                        builder.Append(message);
+                        builder.Append("/");
+                    }
                 }
-
-                string errorMessaage = builder.ToString().Substring(0, builder.Length - 1);
-                throw new ValidateFailedException(errorMessaage);
             }
+
+            string errorMessaage = builder.ToString().Substring(0, builder.Length - 1);
+            throw new ValidateFailedException(errorMessaage);
         }
     }
 }
