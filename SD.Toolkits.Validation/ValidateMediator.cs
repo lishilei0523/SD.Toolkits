@@ -41,6 +41,7 @@ namespace SD.Toolkits.Validation
                 }
             }
 
+            //说明验证未通过
             if (builder.Length > 0)
             {
                 string errorMessaage = builder.ToString().Substring(0, builder.Length - 1);
