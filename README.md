@@ -12,6 +12,8 @@
 
     5、递归扩展工具
 
+    6、实体验证工具
+
 NuGet地址：
     
     https://www.nuget.org/packages/SD.Toolkits.EntityFramework
@@ -23,3 +25,5 @@ NuGet地址：
     https://www.nuget.org/packages/SD.Toolkits.SessionSharing
 
     https://www.nuget.org/packages/SD.Toolkits.Recursion
+
+    https://www.nuget.org/packages/SD.Toolkits.Validation
