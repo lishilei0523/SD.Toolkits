@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using SD.Toolkits.Recursion;
+using SD.Toolkits.Recursion.Tree;
 
 namespace SD.Toolkits.RecursionTests.StubEntities
 {
     /// <summary>
     /// 品类
     /// </summary>
-    public class Category : IRecursive<Category>
+    public class Category : ITree<Category>
     {
         #region # 构造器
 

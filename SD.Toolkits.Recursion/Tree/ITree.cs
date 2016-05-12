@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 
-namespace SD.Toolkits.Recursion
+namespace SD.Toolkits.Recursion.Tree
 {
     /// <summary>
-    /// 可递归接口
+    /// 树形结构接口
     /// </summary>
-    public interface IRecursive<T>
+    public interface ITree<T>
     {
         #region 是否是根级节点 —— bool IsRoot
         /// <summary>
@@ -21,16 +21,16 @@ namespace SD.Toolkits.Recursion
         bool IsLeaf { get; }
         #endregion
 
-        #region 父节点 —— IRecursion ParentNode
+        #region 上级节点 —— T ParentNode
         /// <summary>
-        /// 父节点
+        /// 上级节点
         /// </summary>
         T ParentNode { get; }
         #endregion
 
-        #region 子节点集 —— ICollection<T> SubNodes
+        #region 下级节点集 —— ICollection<T> SubNodes
         /// <summary>
-        /// 子节点集
+        /// 下级节点集
         /// </summary>
         ICollection<T> SubNodes { get; }
         #endregion

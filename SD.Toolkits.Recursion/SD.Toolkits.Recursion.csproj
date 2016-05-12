@@ -41,9 +41,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IRecursive.cs" />
+    <Compile Include="Diagram\IDiagram.cs" />
+    <Compile Include="Tree\ITree.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RecursionExtension.cs" />
+    <Compile Include="Diagram\DiagramRecursionExtension.cs" />
+    <Compile Include="Tree\TreeRecursionExtension.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

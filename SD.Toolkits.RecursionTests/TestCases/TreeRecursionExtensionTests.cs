@@ -1,16 +1,16 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SD.Toolkits.Recursion;
+using SD.Toolkits.Recursion.Tree;
 using SD.Toolkits.RecursionTests.StubEntities;
 
 namespace SD.Toolkits.RecursionTests.TestCases
 {
     /// <summary>
-    /// 递归扩展测试
+    /// 树形递归扩展测试
     /// </summary>
     [TestClass]
-    public class RecursionExtensionTests
+    public class TreeRecursionExtensionTests
     {
         /// <summary>
         /// 品类集
@@ -59,33 +59,42 @@ namespace SD.Toolkits.RecursionTests.TestCases
         }
 
         /// <summary>
-        /// 递归方法测试
+        /// 深度获取上级节点集测试
         /// </summary>
         [TestMethod]
-        public void RecursionTest()
+        public void GetDeepParentNodesTest()
         {
-            Category area1 = this._categories.Single(x => x.Name == "一级类目1");
+            Category category = this._categories.Single(x => x.Name == "品类8");
 
-            ICollection<Category> collection = new HashSet<Category>();
+            IEnumerable<Category> parentCategories = category.GetDeepParentNodes();
 
-            area1.Recursion(collection);
-
-            Assert.IsTrue(collection.Count == 7);
+            Assert.IsTrue(parentCategories.Count() == 2);
         }
 
         /// <summary>
-        /// 尾递归方法测试
+        /// 深度获取下级节点集测试
         /// </summary>
         [TestMethod]
-        public void TailRecursionTest()
+        public void GetDeepSubNodesTest()
+        {
+            Category area1 = this._categories.Single(x => x.Name == "一级类目1");
+
+            IEnumerable<Category> collection = area1.GetDeepSubNodes();
+
+            Assert.IsTrue(collection.Count() == 6);
+        }
+
+        /// <summary>
+        /// 尾递归上级扩展方法测试
+        /// </summary>
+        [TestMethod]
+        public void TailRecursionParentNodesTest()
         {
             IEnumerable<Category> categories = this._categories.Where(x => x.IsLeaf);
 
-            HashSet<Category> collection = new HashSet<Category>();
+            IEnumerable<Category> collection = categories.TailRecursionParentNodes();
 
-            categories.TailRecursion(collection);
-
-            Assert.IsTrue(collection.Count == 14);
+            Assert.IsTrue(collection.Count() == 14);
         }
     }
 }
