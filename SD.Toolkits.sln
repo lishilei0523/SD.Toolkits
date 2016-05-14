@@ -36,6 +36,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.Validation", "S
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.ValidationTests", "SD.Toolkits.ValidationTests\SD.Toolkits.ValidationTests.csproj", "{37D68FA0-61F2-40D1-ADED-4EA91A18E298}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.Excel", "SD.Toolkits.Excel\SD.Toolkits.Excel.csproj", "{358AD308-557B-4C09-95C7-112D0058BE57}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.ExcelTests", "SD.Toolkits.ExcelTests\SD.Toolkits.ExcelTests.csproj", "{02740F70-7E2C-4FC1-864B-A76CE08E9962}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -94,6 +98,14 @@ Global
 		{37D68FA0-61F2-40D1-ADED-4EA91A18E298}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{37D68FA0-61F2-40D1-ADED-4EA91A18E298}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{37D68FA0-61F2-40D1-ADED-4EA91A18E298}.Release|Any CPU.Build.0 = Release|Any CPU
+		{358AD308-557B-4C09-95C7-112D0058BE57}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{358AD308-557B-4C09-95C7-112D0058BE57}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{358AD308-557B-4C09-95C7-112D0058BE57}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{358AD308-557B-4C09-95C7-112D0058BE57}.Release|Any CPU.Build.0 = Release|Any CPU
+		{02740F70-7E2C-4FC1-864B-A76CE08E9962}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02740F70-7E2C-4FC1-864B-A76CE08E9962}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02740F70-7E2C-4FC1-864B-A76CE08E9962}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02740F70-7E2C-4FC1-864B-A76CE08E9962}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
