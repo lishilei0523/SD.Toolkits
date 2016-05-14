@@ -14,6 +14,8 @@
 
     6、实体验证工具
 
+    7、Excel读写工具
+
 NuGet地址：
     
     https://www.nuget.org/packages/SD.Toolkits.EntityFramework
@@ -27,3 +29,5 @@ NuGet地址：
     https://www.nuget.org/packages/SD.Toolkits.Recursion
 
     https://www.nuget.org/packages/SD.Toolkits.Validation
+
+    https://www.nuget.org/packages/SD.Toolkits.Excel
