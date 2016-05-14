@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using SD.Toolkits.Recursion;
 using SD.Toolkits.Recursion.Tree;
 
 namespace SD.Toolkits.RecursionTests.StubEntities
@@ -111,6 +110,17 @@ namespace SD.Toolkits.RecursionTests.StubEntities
         {
             this.SubNodes.Add(subCategory);
             subCategory.ParentNode = this;
+        }
+        #endregion
+
+        #region 重写ToString方法 —— override string ToString()
+        /// <summary>
+        /// 重写ToString方法
+        /// </summary>
+        /// <returns>名称</returns>
+        public override string ToString()
+        {
+            return this.Name;
         }
         #endregion
 

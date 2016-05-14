@@ -92,9 +92,22 @@ namespace SD.Toolkits.RecursionTests.TestCases
         {
             IEnumerable<Category> categories = this._categories.Where(x => x.IsLeaf);
 
-            IEnumerable<Category> collection = categories.TailRecursionParentNodes();
+            IEnumerable<Category> collection = categories.TailRecurseParentNodes();
 
             Assert.IsTrue(collection.Count() == 14);
+        }
+
+        /// <summary>
+        ///获取树路径扩展方法测试
+        /// </summary>
+        [TestMethod]
+        public void GetTreePathTest()
+        {
+            Category category = this._categories.Single(x => x.Name == "品类8");
+
+            string treePath = category.GetTreePath();
+
+            Assert.IsNotNull(treePath);
         }
     }
 }
