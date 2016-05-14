@@ -21,7 +21,7 @@ namespace SD.Toolkits.Recursion.Diagram
         public static IEnumerable<T> GetDeepParentNodes<T>(this T vertex) where T : IDiagram<T>
         {
             HashSet<T> collection = new HashSet<T>();
-            RecursionParentNodes(vertex, collection);
+            RecurseParentNodes(vertex, collection);
 
             return collection;
         }
@@ -38,7 +38,7 @@ namespace SD.Toolkits.Recursion.Diagram
         public static IEnumerable<T> GetDeepSubNodes<T>(this T vertex) where T : IDiagram<T>
         {
             HashSet<T> collection = new HashSet<T>();
-            RecursionSubNodes(vertex, collection);
+            RecurseSubNodes(vertex, collection);
 
             return collection;
         }
@@ -47,14 +47,14 @@ namespace SD.Toolkits.Recursion.Diagram
 
         //Private
 
-        #region # 递归上级 —— static void RecursionParentNodes<T>(T vertex...
+        #region # 递归上级 —— static void RecurseParentNodes<T>(T vertex...
         /// <summary>
         /// 递归上级
         /// </summary>
         /// <typeparam name="T">图形结构类型</typeparam>
         /// <param name="vertex">顶点</param>
         /// <param name="collection">目标集合容器</param>
-        private static void RecursionParentNodes<T>(T vertex, ICollection<T> collection) where T : IDiagram<T>
+        private static void RecurseParentNodes<T>(T vertex, ICollection<T> collection) where T : IDiagram<T>
         {
             #region # 验证参数
 
@@ -76,19 +76,19 @@ namespace SD.Toolkits.Recursion.Diagram
             foreach (T parentNode in vertex.ParentNodes)
             {
                 collection.Add(parentNode);
-                RecursionParentNodes(parentNode, collection);
+                RecurseParentNodes(parentNode, collection);
             }
         }
         #endregion
 
-        #region # 递归下级 —— static void RecursionSubNodes<T>(T vertex...
+        #region # 递归下级 —— static void RecurseSubNodes<T>(T vertex...
         /// <summary>
         /// 递归下级
         /// </summary>
         /// <typeparam name="T">图形结构类型</typeparam>
         /// <param name="vertex">顶点</param>
         /// <param name="collection">目标集合容器</param>
-        private static void RecursionSubNodes<T>(T vertex, ICollection<T> collection) where T : IDiagram<T>
+        private static void RecurseSubNodes<T>(T vertex, ICollection<T> collection) where T : IDiagram<T>
         {
             #region # 验证参数
 
@@ -110,7 +110,7 @@ namespace SD.Toolkits.Recursion.Diagram
             foreach (T subNode in vertex.SubNodes)
             {
                 collection.Add(subNode);
-                RecursionParentNodes(subNode, collection);
+                RecurseParentNodes(subNode, collection);
             }
         }
         #endregion
