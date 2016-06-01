@@ -202,7 +202,7 @@ namespace SD.Toolkits.Excel
                     }
                     else
                     {
-                        row.CreateCell(j).SetCellValue(properties[j].GetValue(item).ToString());
+                        row.CreateCell(j).SetCellValue(properties[j].GetValue(item) == null ? string.Empty : properties[j].GetValue(item).ToString());
                     }
                 }
             }
