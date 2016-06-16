@@ -110,7 +110,7 @@ namespace SD.Toolkits.Recursion.Diagram
             foreach (T subNode in vertex.SubNodes)
             {
                 collection.Add(subNode);
-                RecurseParentNodes(subNode, collection);
+                RecurseSubNodes(subNode, collection);
             }
         }
         #endregion
