@@ -1,8 +1,0 @@
-﻿<configuration>
-  <system.webServer>
-    <modules>
-      <!--共享Session Module配置-->
-      <add name="sessionSharingModule" type="SD.Toolkits.SessionSharing.SessionSharingModule,SD.Toolkits.SessionSharing" />
-    </modules>
-  </system.webServer>
-</configuration>

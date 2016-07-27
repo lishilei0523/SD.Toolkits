@@ -7,7 +7,7 @@ namespace SD.Toolkits.SessionSharing.TestSiteSub
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            this.Response.Write(this.Session["SessionSharing"]);
+            this.Response.Write(this.Session["SessionSharing5"]);
         }
     }
 }

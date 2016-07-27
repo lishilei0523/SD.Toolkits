@@ -7,8 +7,8 @@ namespace SD.Toolkits.SessionSharing.TestSiteMain
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            this.Session["SessionSharing"] = "Hello world";
-            this.Response.Write(this.Session["SessionSharing"]);
+            this.Session["SessionSharing5"] = "Hello world2";
+            this.Response.Write(this.Session["SessionSharing5"]);
         }
     }
 }
