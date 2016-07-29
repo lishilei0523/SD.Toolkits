@@ -5,7 +5,7 @@ namespace SD.Toolkits.Redis.Configuration
     /// <summary>
     /// 服务器节点
     /// </summary>
-    public class ServerElement : ConfigurationElement
+    internal class ServerElement : ConfigurationElement
     {
         #region # 服务器 —— string Host
         /// <summary>
