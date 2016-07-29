@@ -15,7 +15,7 @@ namespace SD.Toolkits.Redis
         /// 创建客户端管理器
         /// </summary>
         /// <returns></returns>
-        private static IRedisClientsManager CreateClientsManager()
+        public static IRedisClientsManager CreateClientsManager()
         {
             IList<string> readWriteServers = new List<string>();
             IList<string> readOnlyServers = new List<string>();
