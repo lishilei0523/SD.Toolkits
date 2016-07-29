@@ -103,11 +103,13 @@ namespace SD.Toolkits.RecursionTests.TestCases
         [TestMethod]
         public void GetTreePathTest()
         {
+            string expectedPath = "/一级类目2/二级类目4/品类8";
+
             Category category = this._categories.Single(x => x.Name == "品类8");
 
             string treePath = category.GetTreePath();
 
-            Assert.IsNotNull(treePath);
+            Assert.IsTrue(treePath == expectedPath);
         }
     }
 }

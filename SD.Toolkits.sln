@@ -40,6 +40,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.Excel", "SD.Too
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.ExcelTests", "SD.Toolkits.ExcelTests\SD.Toolkits.ExcelTests.csproj", "{02740F70-7E2C-4FC1-864B-A76CE08E9962}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.RedisTests", "SD.Toolkits.RedisTests\SD.Toolkits.RedisTests.csproj", "{B30ACE1A-26E0-4EE4-A935-F7B64B9AB550}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.Redis", "SD.Toolkits.Redis\SD.Toolkits.Redis.csproj", "{32D0DFC1-5F8C-4538-A5B6-FB8833925314}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -106,6 +110,14 @@ Global
 		{02740F70-7E2C-4FC1-864B-A76CE08E9962}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{02740F70-7E2C-4FC1-864B-A76CE08E9962}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{02740F70-7E2C-4FC1-864B-A76CE08E9962}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B30ACE1A-26E0-4EE4-A935-F7B64B9AB550}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B30ACE1A-26E0-4EE4-A935-F7B64B9AB550}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B30ACE1A-26E0-4EE4-A935-F7B64B9AB550}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B30ACE1A-26E0-4EE4-A935-F7B64B9AB550}.Release|Any CPU.Build.0 = Release|Any CPU
+		{32D0DFC1-5F8C-4538-A5B6-FB8833925314}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{32D0DFC1-5F8C-4538-A5B6-FB8833925314}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{32D0DFC1-5F8C-4538-A5B6-FB8833925314}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{32D0DFC1-5F8C-4538-A5B6-FB8833925314}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
