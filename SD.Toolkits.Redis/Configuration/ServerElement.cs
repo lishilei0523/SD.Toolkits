@@ -7,6 +7,18 @@ namespace SD.Toolkits.Redis.Configuration
     /// </summary>
     internal class ServerElement : ConfigurationElement
     {
+        #region # 名称 —— string Name
+        /// <summary>
+        /// 名称
+        /// </summary>
+        [ConfigurationProperty("name", IsRequired = true, IsKey = true)]
+        public string Name
+        {
+            get { return (string)this["name"]; }
+            set { this["name"] = value; }
+        }
+        #endregion
+
         #region # 服务器 —— string Host
         /// <summary>
         /// 服务器
