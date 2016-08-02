@@ -51,6 +51,7 @@
     <Compile Include="Extensions\ConfigurationExtension.cs" />
     <Compile Include="Extensions\IndexType.cs" />
     <Compile Include="Extensions\PredicateBuilder.cs" />
+    <Compile Include="Extensions\QueryableExtension.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
