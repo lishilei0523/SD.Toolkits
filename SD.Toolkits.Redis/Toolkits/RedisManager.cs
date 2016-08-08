@@ -58,7 +58,13 @@ namespace SD.Toolkits.Redis
 
             #endregion
 
-            return new PooledRedisClientManager(readWriteServers, readOnlyServers);
+            PooledRedisClientManager manager = new PooledRedisClientManager(readWriteServers, readOnlyServers);
+
+            manager.ConnectTimeout = 5;
+            manager.IdleTimeOutSecs = 30;
+            manager.PoolTimeout = 3;
+
+            return manager;
         }
         #endregion
     }
