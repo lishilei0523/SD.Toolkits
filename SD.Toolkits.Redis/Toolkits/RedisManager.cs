@@ -60,7 +60,7 @@ namespace SD.Toolkits.Redis
 
             PooledRedisClientManager manager = new PooledRedisClientManager(readWriteServers, readOnlyServers);
 
-            manager.ConnectTimeout = 500;
+            manager.ConnectTimeout = 5000;
             manager.IdleTimeOutSecs = 30;
             manager.PoolTimeout = 3;
 
