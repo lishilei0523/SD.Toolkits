@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System;
+using System.Text;
 using SD.Toolkits.NoGenerator.DAL;
 using SD.Toolkits.NoGenerator.Model;
 
@@ -34,7 +35,18 @@ namespace SD.Toolkits.NoGenerator.Facade
         /// </summary>
         public NumberGenerator()
         {
-            this._generatorDal = GeneratorDal.CreateInstance();
+            try
+            {
+                this._generatorDal = new GeneratorDal();
+            }
+            catch (TypeLoadException typeLoadException)
+            {
+                if (typeLoadException.InnerException != null)
+                {
+                    throw typeLoadException.InnerException;
+                }
+                throw;
+            }
         }
 
         #endregion
@@ -57,12 +69,12 @@ namespace SD.Toolkits.NoGenerator.Facade
                 if (serialNumber == null)
                 {
                     serialNumber = new SerialNumber(prefix, formatDate, className, length, string.Format("创建{0}", description));
-                    this._generatorDal.RegisterAdd(serialNumber);
+                    this._generatorDal.Add(serialNumber);
                 }
                 else
                 {
                     serialNumber.UpdateInfo(serialNumber.TodayCount + 1, string.Format("新增{0}", description));
-                    this._generatorDal.RegisterSave(serialNumber);
+                    this._generatorDal.Save(serialNumber);
                 }
 
                 StringBuilder numberBuilder = new StringBuilder();

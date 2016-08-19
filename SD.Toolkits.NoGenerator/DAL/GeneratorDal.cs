@@ -31,7 +31,26 @@ namespace SD.Toolkits.NoGenerator.DAL
         {
             //初始化连接字符串
             string defaultConnectionStringName = ConfigurationManager.AppSettings[DefaultConnectionStringAppSettingKey];
+
+            #region # 验证
+
+            if (string.IsNullOrWhiteSpace(defaultConnectionStringName))
+            {
+                throw new ApplicationException("默认连接字符串名称未设置！");
+            }
+
+            #endregion
+
             string connectionString = ConfigurationManager.ConnectionStrings[defaultConnectionStringName].ConnectionString;
+
+            #region # 验证
+
+            if (string.IsNullOrWhiteSpace(connectionString))
+            {
+                throw new ApplicationException("默认连接字符串未设置！");
+            }
+
+            #endregion
 
             //初始化SQL工具
             _SqlHelper = new SqlHelper(connectionString);
@@ -40,29 +59,12 @@ namespace SD.Toolkits.NoGenerator.DAL
         /// <summary>
         /// 构造器
         /// </summary>
-        private GeneratorDal()
+        public GeneratorDal()
         {
             //初始化数据表
             this.InitTable();
         }
 
-        #endregion
-
-        #region # 访问器 —— static GeneratorDal CreateInstance()
-        /// <summary>
-        /// 创建编号生成器数据访问对象
-        /// </summary>
-        /// <returns>编号生成器数据访问对象</returns>
-        public static GeneratorDal CreateInstance()
-        {
-            GeneratorDal current = CallContext.GetData(typeof(GeneratorDal).Name) as GeneratorDal;
-            if (current == null)
-            {
-                current = new GeneratorDal();
-                CallContext.SetData(typeof(GeneratorDal).Name, current);
-            }
-            return current;
-        }
         #endregion
 
         //Internal
@@ -95,17 +97,16 @@ namespace SD.Toolkits.NoGenerator.DAL
         }
         #endregion
 
-        #region # 添加方法 —— SerialNumber RegisterAdd(SerialNumber serialNumber)
+        #region # 添加 —— SerialNumber Add(SerialNumber serialNumber)
         /// <summary>
-        /// 添加方法
+        /// 添加
         /// </summary>
         /// <param name="serialNumber">序列号实例</param>
         /// <returns>序列号实例</returns>
-        public SerialNumber RegisterAdd(SerialNumber serialNumber)
+        public SerialNumber Add(SerialNumber serialNumber)
         {
-            string sql = "INSERT INTO SerialNumbers (Id, Prefix, FormatDate, ClassName, Length, TodayCount, Description)  VALUES (@Id, @Prefix, @FormatDate, @ClassName, @Length, @TodayCount, @Description)";
+            string sql = "INSERT INTO SerialNumbers (Id, Prefix, FormatDate, ClassName, Length, TodayCount, Description) VALUES (NEWID(), @Prefix, @FormatDate, @ClassName, @Length, @TodayCount, @Description)";
             SqlParameter[] parameters = {
-					new SqlParameter("@Id", this.ToDbValue(serialNumber.Id)),
 					new SqlParameter("@Prefix", this.ToDbValue(serialNumber.Prefix)),
 					new SqlParameter("@FormatDate", this.ToDbValue(serialNumber.FormatDate)),
 					new SqlParameter("@ClassName", this.ToDbValue(serialNumber.ClassName)),
@@ -118,13 +119,13 @@ namespace SD.Toolkits.NoGenerator.DAL
         }
         #endregion
 
-        #region # 修改方法 —— int RegisterSave(SerialNumber serialNumber)
+        #region # 修改 —— int Save(SerialNumber serialNumber)
         /// <summary>
-        /// 修改方法
+        /// 修改
         /// </summary>
         /// <param name="serialNumber">序列号实例</param>
         /// <returns>受影响的行数</returns>
-        public int RegisterSave(SerialNumber serialNumber)
+        public int Save(SerialNumber serialNumber)
         {
             StringBuilder sql = new StringBuilder();
             sql.Append("UPDATE SerialNumbers SET Prefix = @Prefix");
@@ -134,7 +135,7 @@ namespace SD.Toolkits.NoGenerator.DAL
             sql.Append(", TodayCount = @TodayCount");
             sql.Append(", Description = @Description");
             sql.Append(" WHERE Id = @Id");
-            SqlParameter[] args = new SqlParameter[] {
+            SqlParameter[] args = {
 				     new SqlParameter("@Id", serialNumber.Id)
 					,new SqlParameter("@Prefix", this.ToDbValue(serialNumber.Prefix))
 					,new SqlParameter("@FormatDate", this.ToDbValue(serialNumber.FormatDate))
