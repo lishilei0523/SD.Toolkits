@@ -27,6 +27,23 @@ namespace SD.Toolkits.Recursion.Diagram
         }
         #endregion
 
+        #region # 深度获取上级节点集 —— static IEnumerable<T> GetAllDeepParentNodes<T>(this T vertex)
+        /// <summary>
+        /// 深度获取上级节点集
+        /// </summary>
+        /// <typeparam name="T">树形结构类型</typeparam>
+        /// <param name="vertex">顶点</param>
+        /// <returns>上级节点集</returns>
+        /// <remarks>包含上级的上级的上级...</remarks>
+        public static IEnumerable<T> GetAllDeepParentNodes<T>(this T vertex) where T : IDiagram<T>
+        {
+            IList<T> collection = new List<T>();
+            RecurseParentNodes(vertex, collection);
+
+            return collection;
+        }
+        #endregion
+
         #region # 深度获取下级节点集 —— static IEnumerable<T> GetDeepSubNodes<T>(this T vertex)
         /// <summary>
         /// 深度获取下级节点集
@@ -38,6 +55,23 @@ namespace SD.Toolkits.Recursion.Diagram
         public static IEnumerable<T> GetDeepSubNodes<T>(this T vertex) where T : IDiagram<T>
         {
             HashSet<T> collection = new HashSet<T>();
+            RecurseSubNodes(vertex, collection);
+
+            return collection;
+        }
+        #endregion
+
+        #region # 深度获取下级节点集 —— static IEnumerable<T> GetAllDeepSubNodes<T>(this T vertex)
+        /// <summary>
+        /// 深度获取下级节点集
+        /// </summary>
+        /// <typeparam name="T">树形结构类型</typeparam>
+        /// <param name="vertex">顶点</param>
+        /// <returns>下级节点集</returns>
+        /// <remarks>包含下级的下级的下级...</remarks>
+        public static IEnumerable<T> GetAllDeepSubNodes<T>(this T vertex) where T : IDiagram<T>
+        {
+            IList<T> collection = new List<T>();
             RecurseSubNodes(vertex, collection);
 
             return collection;
@@ -60,7 +94,7 @@ namespace SD.Toolkits.Recursion.Diagram
 
             if (collection == null)
             {
-                collection = new HashSet<T>();
+                collection = new List<T>();
             }
             if (vertex == null)
             {
@@ -94,7 +128,7 @@ namespace SD.Toolkits.Recursion.Diagram
 
             if (collection == null)
             {
-                collection = new HashSet<T>();
+                collection = new List<T>();
             }
             if (vertex == null)
             {
