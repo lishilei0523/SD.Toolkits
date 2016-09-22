@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System.Linq;
 using System.Reflection;
-using SD.Toolkits.EntityFramework.Attributes;
 
 namespace SD.Toolkits.EntityFramework.Base
 {
@@ -89,7 +89,7 @@ namespace SD.Toolkits.EntityFramework.Base
             #endregion
 
             //加载模型所在程序集查询出所有符合条件的实体类型
-            IEnumerable<Type> types = Assembly.Load(this.EntityAssembly).GetTypes().Where(x => !x.IsInterface && !x.IsDefined(typeof(NonMapAttribute)));
+            IEnumerable<Type> types = Assembly.Load(this.EntityAssembly).GetTypes().Where(x => !x.IsInterface && !x.IsDefined(typeof(NotMappedAttribute)));
 
             #region # 验证类型查询条件
 
