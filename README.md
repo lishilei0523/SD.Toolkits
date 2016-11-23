@@ -16,6 +16,8 @@
 
     7、Excel读写工具
 
+    8、Redis管理工具
+
 NuGet地址：
     
     https://www.nuget.org/packages/SD.Toolkits.EntityFramework
@@ -31,3 +33,5 @@ NuGet地址：
     https://www.nuget.org/packages/SD.Toolkits.Validation
 
     https://www.nuget.org/packages/SD.Toolkits.Excel
+
+    https://www.nuget.org/packages/SD.Toolkits.Redis
