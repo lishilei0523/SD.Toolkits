@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SD.Toolkits.Excel;
 using SD.Toolkits.ExcelTests.StubEntities;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 
 namespace SD.Toolkits.ExcelTests.TestCases
 {
@@ -39,7 +39,7 @@ namespace SD.Toolkits.ExcelTests.TestCases
                 new Person{姓名="唐三藏", 性别 = true, 年龄 = 25, 爱好 = "取经"},
                 new Person{姓名="孙悟空", 性别 = true, 年龄 = 19, 爱好 = "取经"},
                 new Person{姓名="猪八戒", 性别 = true, 年龄 = 18, 爱好 = "取经"},
-                new Person{姓名="沙悟净", 性别 = true, 年龄 = 17, 爱好 = "取经"}
+                new Person{姓名="沙悟净", 性别 = true, 年龄 = 17, 爱好 = null}
             };
         }
 
