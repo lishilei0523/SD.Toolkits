@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Core.Objects;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Reflection;
 
 namespace SD.Toolkits.EntityFramework.Extensions
@@ -112,6 +114,53 @@ namespace SD.Toolkits.EntityFramework.Extensions
             {
                 return false;
             }
+        }
+        #endregion
+
+        #region # IQueryable集合多列动态多条件排序 —— static IQueryable<T> OrderBy<T>(this IQueryable<T> queryable...
+        /// <summary>
+        /// IQueryable集合多列动态多条件排序
+        /// </summary>
+        /// <typeparam name="T">实体类型</typeparam>
+        /// <param name="queryable">可查询集合</param>
+        /// <param name="keySelectors">排序键</param>
+        /// <returns>IQueryable集合</returns>
+        public static IQueryable<T> OrderBy<T>(this IQueryable<T> queryable, IDictionary<string, bool> keySelectors)
+        {
+            int resetCount = 0;
+
+            Type type = typeof(T);
+
+            ParameterExpression param = Expression.Parameter(type, "x");
+
+            foreach (KeyValuePair<string, bool> selector in keySelectors)
+            {
+                PropertyInfo property = type.GetProperty(selector.Key);
+
+                #region # 验证
+
+                if (property == null)
+                {
+                    throw new InvalidOperationException(string.Format("属性\"{0}\"不存在！", selector.Key));
+                }
+
+                #endregion
+
+                Expression propertyAccessExpression = Expression.MakeMemberAccess(param, property);
+                LambdaExpression orderByExpression = Expression.Lambda(propertyAccessExpression, param);
+
+                string methodName = resetCount > 0
+                    ? (selector.Value ? "ThenBy" : "ThenByDescending")
+                    : (selector.Value ? "OrderBy" : "OrderByDescending");
+
+                MethodCallExpression resultExp = Expression.Call(typeof(Queryable), methodName, new Type[] { type, property.PropertyType }, queryable.Expression, Expression.Quote(orderByExpression));
+
+                queryable = queryable.Provider.CreateQuery<T>(resultExp);
+
+                resetCount++;
+            }
+
+            return queryable;
         }
         #endregion
     }
