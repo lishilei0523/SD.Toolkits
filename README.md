@@ -8,7 +8,7 @@
 
     3、定时任务调度工具
 
-    4、ASP.NET Session共享工具
+    4、Microsoft.Web.RedisSessionStateProvider测试用例（Redis Session存储，Session共享）
 
     5、递归扩展工具
 
@@ -25,8 +25,6 @@ NuGet地址：
     https://www.nuget.org/packages/SD.Toolkits.NoGenerator
     
     https://www.nuget.org/packages/SD.Toolkits.TaskScheduler
-
-    https://www.nuget.org/packages/SD.Toolkits.SessionSharing
 
     https://www.nuget.org/packages/SD.Toolkits.Recursion
 
