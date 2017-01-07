@@ -14,7 +14,8 @@ namespace SD.Toolkits.EntityFrameworkTests.EntityConfigurations
         /// </summary>
         public StudentConfig()
         {
-            this.HasIndex("IX_ClassId", IndexType.Nonclustered, tb => tb.Property(pr => pr.ClassId));
+            //创建Student表ClassId的非聚集索引
+            this.HasIndex("IX_ClassId", IndexType.Nonclustered, table => table.Property(stu => stu.ClassId));
         }
     }
 }
