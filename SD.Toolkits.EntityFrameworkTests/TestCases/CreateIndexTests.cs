@@ -4,13 +4,13 @@ using SD.Toolkits.EntityFrameworkTests.StubEntities;
 namespace SD.Toolkits.EntityFrameworkTests.TestCases
 {
     /// <summary>
-    /// 创建数据库测试
+    /// 创建索引测试
     /// </summary>
     /// <remarks>
-    /// 测试目标：能够正常生成数据库
+    /// 测试目标：成功创建Student表ClassId非聚集索引
     /// </remarks>
     [TestClass]
-    public class CreateDatabaseTests
+    public class CreateIndexTests
     {
         /// <summary>
         /// 测试初始化
@@ -34,19 +34,8 @@ namespace SD.Toolkits.EntityFrameworkTests.TestCases
             DbSession dbSession = new DbSession();
 
             //断言数据库已创建成功
+            //TODO 查看数据库Student表是否有ClassId的索引
             Assert.IsTrue(dbSession.Database.Exists());
-        }
-
-        /// <summary>
-        /// 测试清理
-        /// </summary>
-        [TestCleanup]
-        public void Clean()
-        {
-            //删除数据库
-            DbSession dbSession = new DbSession();
-            dbSession.Database.Delete();
-            dbSession.Dispose();
         }
     }
 }

@@ -61,6 +61,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="EntityConfigurations\StudentConfig.cs" />
     <Compile Include="StubEntities\Base\AggregateRootEntity.cs" />
     <Compile Include="StubEntities\Base\PlainEntity.cs" />
     <Compile Include="StubEntities\DbSession.cs" />
@@ -68,6 +69,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StubEntities\Student.cs" />
     <Compile Include="TestCases\CreateDatabaseTests.cs" />
+    <Compile Include="TestCases\CreateIndexTests.cs" />
+    <Compile Include="TestCases\DynamicSortTests.cs" />
+    <Compile Include="TestCases\BuildExpressionTests.cs" />
+    <Compile Include="TestCases\ParseSqlTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SD.Toolkits.EntityFramework\SD.Toolkits.EntityFramework.csproj">
