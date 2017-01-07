@@ -69,21 +69,13 @@ namespace SD.Toolkits.EntityFrameworkTests.TestCases
 
             IQueryable<Student> specStudents = dbSession.Set<Student>().Where(x => x.Age > 18);
 
-            string sql;
-
-            if (!specStudents.TryParseSQl(out sql))
-            {
-                throw new InvalidCastException("给定表达式不能转换为SQL语句！");
-            }
-
-            Assert.IsNotNull(sql);
+            Assert.IsTrue(specStudents.CanParseSQl());
         }
 
         /// <summary>
         /// 测试IQueryable集合不能转换SQL语句
         /// </summary>
         [TestMethod]
-        [ExpectedException(typeof(InvalidCastException))]
         public void TestCannotParseSql()
         {
             //初始化
@@ -91,12 +83,7 @@ namespace SD.Toolkits.EntityFrameworkTests.TestCases
 
             IQueryable<Student> specStudents = dbSession.Set<Student>().Where(x => x.Age > float.Parse("18"));
 
-            string sql;
-
-            if (!specStudents.TryParseSQl(out sql))
-            {
-                throw new InvalidCastException("给定表达式不能转换为SQL语句！");
-            }
+            Assert.IsFalse(specStudents.CanParseSQl());
         }
 
         /// <summary>
