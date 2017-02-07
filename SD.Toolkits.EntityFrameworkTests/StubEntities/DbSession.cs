@@ -2,8 +2,11 @@
 using SD.Toolkits.EntityFramework.Base;
 using SD.Toolkits.EntityFrameworkTests.StubEntities.Base;
 
-namespace SD.Toolkits.EntityFrameworkTests.Entities
+namespace SD.Toolkits.EntityFrameworkTests.StubEntities
 {
+    /// <summary>
+    /// EntityFramework上下文对象
+    /// </summary>
     public class DbSession : BaseDbContext
     {
         /// <summary>
@@ -27,7 +30,7 @@ namespace SD.Toolkits.EntityFrameworkTests.Entities
         /// </summary>
         public override string EntityConfigAssembly
         {
-            get { return null; }
+            get { return "SD.Toolkits.EntityFrameworkTests"; }
         }
 
         /// <summary>

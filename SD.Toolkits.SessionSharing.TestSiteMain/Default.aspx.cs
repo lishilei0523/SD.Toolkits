@@ -7,8 +7,16 @@ namespace SD.Toolkits.SessionSharing.TestSiteMain
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            this.Session["SessionSharing5"] = "Hello world2";
-            this.Response.Write(this.Session["SessionSharing5"]);
+            /***
+             * 测试说明：
+             * 主站以SessionSharing为键将"Hello world"存入Session，
+             * 子站以SessionSharing为键读取Session，
+             * 子站如果可以读到主站存放的Session，
+             * 则说明两站点Session共享成功。
+             * **/
+
+            this.Session["SessionSharing"] = "Hello world";
+            this.Response.Write(this.Session["SessionSharing"]);
         }
     }
 }
