@@ -15,7 +15,7 @@ namespace SD.Toolkits.SessionSharing.TestSiteSub
              * 则说明两站点Session共享成功。
              * **/
 
-            this.Response.Write(this.Session["SessionSharing5"]);
+            this.Response.Write(this.Session["SessionSharing"]);
         }
     }
 }
