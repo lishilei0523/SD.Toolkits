@@ -10,37 +10,41 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{FF4ABE
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.EntityFramework", "SD.Toolkits.EntityFramework\SD.Toolkits.EntityFramework.csproj", "{A101FBDF-273F-477F-85DF-D9AD39FDB117}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.EntityFramework", "sources\SD.Toolkits.EntityFramework\SD.Toolkits.EntityFramework.csproj", "{A101FBDF-273F-477F-85DF-D9AD39FDB117}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.NoGenerator", "SD.Toolkits.NoGenerator\SD.Toolkits.NoGenerator.csproj", "{33441B62-819C-409B-BBF3-43DDD96FCDC1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.NoGenerator", "sources\SD.Toolkits.NoGenerator\SD.Toolkits.NoGenerator.csproj", "{33441B62-819C-409B-BBF3-43DDD96FCDC1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.EntityFrameworkTests", "SD.Toolkits.EntityFrameworkTests\SD.Toolkits.EntityFrameworkTests.csproj", "{2123B05C-FC6A-4AC0-8223-540B00F8F30C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.EntityFramework.Tests", "tests\SD.Toolkits.EntityFramework.Tests\SD.Toolkits.EntityFramework.Tests.csproj", "{2123B05C-FC6A-4AC0-8223-540B00F8F30C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.NoGeneratorTests", "SD.Toolkits.NoGeneratorTests\SD.Toolkits.NoGeneratorTests.csproj", "{021ED5C8-EF08-49BB-A4AE-337072E417B0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.NoGenerator.Tests", "tests\SD.Toolkits.NoGenerator.Tests\SD.Toolkits.NoGenerator.Tests.csproj", "{021ED5C8-EF08-49BB-A4AE-337072E417B0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.TaskScheduler", "SD.Toolkits.TaskScheduler\SD.Toolkits.TaskScheduler.csproj", "{C9C33187-7EC3-40E1-AC8B-598777663408}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.TaskScheduler", "sources\SD.Toolkits.TaskScheduler\SD.Toolkits.TaskScheduler.csproj", "{C9C33187-7EC3-40E1-AC8B-598777663408}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.TaskSchedulerTests", "SD.Toolkits.TaskSchedulerTests\SD.Toolkits.TaskSchedulerTests.csproj", "{393122FA-2373-4162-9566-08D306BF579E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.TaskScheduler.Tests", "tests\SD.Toolkits.TaskScheduler.Tests\SD.Toolkits.TaskScheduler.Tests.csproj", "{393122FA-2373-4162-9566-08D306BF579E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.SessionSharing.TestSiteMain", "SD.Toolkits.SessionSharing.TestSiteMain\SD.Toolkits.SessionSharing.TestSiteMain.csproj", "{3002A0DC-268F-40CE-AF4D-D000ED904A58}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.SessionSharing.TestSiteMain", "tests\SD.Toolkits.SessionSharing.TestSiteMain\SD.Toolkits.SessionSharing.TestSiteMain.csproj", "{3002A0DC-268F-40CE-AF4D-D000ED904A58}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.SessionSharing.TestSiteSub", "SD.Toolkits.SessionSharing.TestSiteSub\SD.Toolkits.SessionSharing.TestSiteSub.csproj", "{FC4588F7-2FE9-4D99-8352-6F344DE6EEC0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.SessionSharing.TestSiteSub", "tests\SD.Toolkits.SessionSharing.TestSiteSub\SD.Toolkits.SessionSharing.TestSiteSub.csproj", "{FC4588F7-2FE9-4D99-8352-6F344DE6EEC0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.Recursion", "SD.Toolkits.Recursion\SD.Toolkits.Recursion.csproj", "{22E02C79-4182-47E6-A67E-930254883FC7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.Recursion", "sources\SD.Toolkits.Recursion\SD.Toolkits.Recursion.csproj", "{22E02C79-4182-47E6-A67E-930254883FC7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.RecursionTests", "SD.Toolkits.RecursionTests\SD.Toolkits.RecursionTests.csproj", "{3B3136DA-F25E-49EB-B817-B841A83E99D2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.Recursion.Tests", "tests\SD.Toolkits.Recursion.Tests\SD.Toolkits.Recursion.Tests.csproj", "{3B3136DA-F25E-49EB-B817-B841A83E99D2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.Validation", "SD.Toolkits.Validation\SD.Toolkits.Validation.csproj", "{433FDB1D-D2FD-4708-8072-F7EE71286843}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.Validation", "sources\SD.Toolkits.Validation\SD.Toolkits.Validation.csproj", "{433FDB1D-D2FD-4708-8072-F7EE71286843}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.ValidationTests", "SD.Toolkits.ValidationTests\SD.Toolkits.ValidationTests.csproj", "{37D68FA0-61F2-40D1-ADED-4EA91A18E298}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.Validation.Tests", "tests\SD.Toolkits.Validation.Tests\SD.Toolkits.Validation.Tests.csproj", "{37D68FA0-61F2-40D1-ADED-4EA91A18E298}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.Excel", "SD.Toolkits.Excel\SD.Toolkits.Excel.csproj", "{358AD308-557B-4C09-95C7-112D0058BE57}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.Excel", "sources\SD.Toolkits.Excel\SD.Toolkits.Excel.csproj", "{358AD308-557B-4C09-95C7-112D0058BE57}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.ExcelTests", "SD.Toolkits.ExcelTests\SD.Toolkits.ExcelTests.csproj", "{02740F70-7E2C-4FC1-864B-A76CE08E9962}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.Excel.Tests", "tests\SD.Toolkits.Excel.Tests\SD.Toolkits.Excel.Tests.csproj", "{02740F70-7E2C-4FC1-864B-A76CE08E9962}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.RedisTests", "SD.Toolkits.RedisTests\SD.Toolkits.RedisTests.csproj", "{B30ACE1A-26E0-4EE4-A935-F7B64B9AB550}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.Redis.Tests", "tests\SD.Toolkits.Redis.Tests\SD.Toolkits.Redis.Tests.csproj", "{B30ACE1A-26E0-4EE4-A935-F7B64B9AB550}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.Redis", "SD.Toolkits.Redis\SD.Toolkits.Redis.csproj", "{32D0DFC1-5F8C-4538-A5B6-FB8833925314}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.Redis", "sources\SD.Toolkits.Redis\SD.Toolkits.Redis.csproj", "{32D0DFC1-5F8C-4538-A5B6-FB8833925314}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01 - Sources", "01 - Sources", "{9D1A772B-E66B-444F-9A79-98B44C2D7D88}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02 - Tests", "02 - Tests", "{DE420171-A672-478A-99CA-62AB53D57785}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -115,5 +119,23 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{A101FBDF-273F-477F-85DF-D9AD39FDB117} = {9D1A772B-E66B-444F-9A79-98B44C2D7D88}
+		{33441B62-819C-409B-BBF3-43DDD96FCDC1} = {9D1A772B-E66B-444F-9A79-98B44C2D7D88}
+		{2123B05C-FC6A-4AC0-8223-540B00F8F30C} = {DE420171-A672-478A-99CA-62AB53D57785}
+		{021ED5C8-EF08-49BB-A4AE-337072E417B0} = {DE420171-A672-478A-99CA-62AB53D57785}
+		{C9C33187-7EC3-40E1-AC8B-598777663408} = {9D1A772B-E66B-444F-9A79-98B44C2D7D88}
+		{393122FA-2373-4162-9566-08D306BF579E} = {DE420171-A672-478A-99CA-62AB53D57785}
+		{3002A0DC-268F-40CE-AF4D-D000ED904A58} = {DE420171-A672-478A-99CA-62AB53D57785}
+		{FC4588F7-2FE9-4D99-8352-6F344DE6EEC0} = {DE420171-A672-478A-99CA-62AB53D57785}
+		{22E02C79-4182-47E6-A67E-930254883FC7} = {9D1A772B-E66B-444F-9A79-98B44C2D7D88}
+		{3B3136DA-F25E-49EB-B817-B841A83E99D2} = {DE420171-A672-478A-99CA-62AB53D57785}
+		{433FDB1D-D2FD-4708-8072-F7EE71286843} = {9D1A772B-E66B-444F-9A79-98B44C2D7D88}
+		{37D68FA0-61F2-40D1-ADED-4EA91A18E298} = {DE420171-A672-478A-99CA-62AB53D57785}
+		{358AD308-557B-4C09-95C7-112D0058BE57} = {9D1A772B-E66B-444F-9A79-98B44C2D7D88}
+		{02740F70-7E2C-4FC1-864B-A76CE08E9962} = {DE420171-A672-478A-99CA-62AB53D57785}
+		{B30ACE1A-26E0-4EE4-A935-F7B64B9AB550} = {DE420171-A672-478A-99CA-62AB53D57785}
+		{32D0DFC1-5F8C-4538-A5B6-FB8833925314} = {9D1A772B-E66B-444F-9A79-98B44C2D7D88}
 	EndGlobalSection
 EndGlobal
