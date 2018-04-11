@@ -142,22 +142,6 @@ namespace SD.Toolkits.EntityFrameworkCore.Base
                         }
                     }
                 }
-
-                //Assembly entityConfigAssembly = Assembly.Load(this.EntityConfigAssembly);
-                //Type[] types = entityConfigAssembly.GetTypes();
-
-                //IEnumerable<Type> configTypes = types.Where(x => typeof(IEntityTypeConfiguration<>).IsAssignableFrom(x));
-
-                //foreach (Type configType in configTypes)
-                //{
-                //    Type typeParam = configType.GenericTypeArguments.Single();
-
-                //    MethodInfo method = typeof(ModelBuilder).GetMethod("ApplyConfiguration");
-                //    method = method.MakeGenericMethod(typeParam);
-
-                //    object instance = Activator.CreateInstance(configType);
-                //    method.Invoke(modelBuilder, new[] { instance });
-                //}
             }
         }
         #endregion
