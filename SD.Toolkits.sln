@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.40629.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.27428.2002
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{FF4ABECC-5097-4064-95CA-9BF579AEE43C}"
 	ProjectSection(SolutionItems) = preProject
@@ -45,6 +45,10 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01 - Sources", "01 - Sources", "{9D1A772B-E66B-444F-9A79-98B44C2D7D88}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02 - Tests", "02 - Tests", "{DE420171-A672-478A-99CA-62AB53D57785}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Toolkits.EntityFrameworkCore", "sources\SD.Toolkits.EntityFrameworkCore\SD.Toolkits.EntityFrameworkCore.csproj", "{69617D73-C69F-45BF-A088-313F39F7AF91}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Toolkits.EntityFrameworkCore.Tests", "tests\SD.Toolkits.EntityFrameworkCore.Tests\SD.Toolkits.EntityFrameworkCore.Tests.csproj", "{440622EF-EA5A-4812-935E-01E658E2AC86}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -116,6 +120,14 @@ Global
 		{32D0DFC1-5F8C-4538-A5B6-FB8833925314}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{32D0DFC1-5F8C-4538-A5B6-FB8833925314}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{32D0DFC1-5F8C-4538-A5B6-FB8833925314}.Release|Any CPU.Build.0 = Release|Any CPU
+		{69617D73-C69F-45BF-A088-313F39F7AF91}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{69617D73-C69F-45BF-A088-313F39F7AF91}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{69617D73-C69F-45BF-A088-313F39F7AF91}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{69617D73-C69F-45BF-A088-313F39F7AF91}.Release|Any CPU.Build.0 = Release|Any CPU
+		{440622EF-EA5A-4812-935E-01E658E2AC86}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{440622EF-EA5A-4812-935E-01E658E2AC86}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{440622EF-EA5A-4812-935E-01E658E2AC86}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{440622EF-EA5A-4812-935E-01E658E2AC86}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -137,5 +149,10 @@ Global
 		{02740F70-7E2C-4FC1-864B-A76CE08E9962} = {DE420171-A672-478A-99CA-62AB53D57785}
 		{B30ACE1A-26E0-4EE4-A935-F7B64B9AB550} = {DE420171-A672-478A-99CA-62AB53D57785}
 		{32D0DFC1-5F8C-4538-A5B6-FB8833925314} = {9D1A772B-E66B-444F-9A79-98B44C2D7D88}
+		{69617D73-C69F-45BF-A088-313F39F7AF91} = {9D1A772B-E66B-444F-9A79-98B44C2D7D88}
+		{440622EF-EA5A-4812-935E-01E658E2AC86} = {DE420171-A672-478A-99CA-62AB53D57785}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E971DA80-FBCC-48DC-94AF-074536131022}
 	EndGlobalSection
 EndGlobal
