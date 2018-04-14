@@ -2,6 +2,7 @@
 using SD.Toolkits.TaskScheduler.ITask;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace SD.Toolkits.TaskScheduler.Tests.StubTasks
 {
@@ -13,15 +14,15 @@ namespace SD.Toolkits.TaskScheduler.Tests.StubTasks
         /// <summary>
         /// 参照时间集
         /// </summary>
-        public readonly static ICollection<DateTime> ReferenceTimes = new HashSet<DateTime>();
+        public static readonly ICollection<DateTime> ReferenceTimes = new HashSet<DateTime>();
 
         /// <summary>
         /// 执行任务
         /// </summary>
         /// <param name="context">执行上下文</param>
-        public override void Execute(IJobExecutionContext context)
+        public override async Task Execute(IJobExecutionContext context)
         {
-            ReferenceTimes.Add(DateTime.Now);
+            await Task.Run(() => ReferenceTimes.Add(DateTime.Now));
         }
     }
 }

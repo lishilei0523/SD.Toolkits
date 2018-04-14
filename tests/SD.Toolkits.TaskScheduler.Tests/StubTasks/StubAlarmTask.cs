@@ -1,6 +1,7 @@
 ﻿using Quartz;
 using SD.Toolkits.TaskScheduler.ITask;
 using System;
+using System.Threading.Tasks;
 
 namespace SD.Toolkits.TaskScheduler.Tests.StubTasks
 {
@@ -18,9 +19,9 @@ namespace SD.Toolkits.TaskScheduler.Tests.StubTasks
         /// 执行任务
         /// </summary>
         /// <param name="context">执行上下文</param>
-        public override void Execute(IJobExecutionContext context)
+        public override async Task Execute(IJobExecutionContext context)
         {
-            ReferenceParam = DateTime.Now.ToString("yyyy-MM-dd");
+            await Task.Run(() => ReferenceParam = DateTime.Now.ToString("yyyy-MM-dd"));
         }
     }
 }

@@ -1,5 +1,6 @@
-﻿using System;
-using Quartz;
+﻿using Quartz;
+using System;
+using System.Threading.Tasks;
 
 namespace SD.Toolkits.TaskScheduler.ITask
 {
@@ -28,12 +29,12 @@ namespace SD.Toolkits.TaskScheduler.ITask
 
         #endregion
 
-        #region # 执行任务 —— abstract void Execute(IJobExecutionContext context)
+        #region # 执行任务 —— abstract Task Execute(IJobExecutionContext context)
         /// <summary>
         /// 执行任务
         /// </summary>
         /// <param name="context">执行上下文</param>
-        public abstract void Execute(IJobExecutionContext context);
+        public abstract Task Execute(IJobExecutionContext context);
         #endregion
     }
 }

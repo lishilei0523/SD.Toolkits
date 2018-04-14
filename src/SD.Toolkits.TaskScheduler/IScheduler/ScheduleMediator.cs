@@ -1,6 +1,6 @@
-﻿using System;
-using Quartz;
+﻿using Quartz;
 using Quartz.Impl;
+using System;
 
 namespace SD.Toolkits.TaskScheduler.IScheduler
 {
@@ -21,7 +21,7 @@ namespace SD.Toolkits.TaskScheduler.IScheduler
         /// </summary>
         static ScheduleMediator()
         {
-            _Scheduler = StdSchedulerFactory.GetDefaultScheduler();
+            _Scheduler = StdSchedulerFactory.GetDefaultScheduler().Result;
         }
 
         #endregion
@@ -36,7 +36,7 @@ namespace SD.Toolkits.TaskScheduler.IScheduler
         public static void Schedule(IJobDetail jobDetail, DateTime executeTime)
         {
             //构造cron表达式
-            string cron = string.Format("{0} {1} {2} {3} {4} ? {5}", executeTime.Second, executeTime.Minute, executeTime.Hour, executeTime.Day, executeTime.Month, executeTime.Year);
+            string cron = $"{executeTime.Second} {executeTime.Minute} {executeTime.Hour} {executeTime.Day} {executeTime.Month} ? {executeTime.Year}";
             //开始调度
             Schedule(jobDetail, cron);
         }
@@ -55,7 +55,7 @@ namespace SD.Toolkits.TaskScheduler.IScheduler
             hours = hours > (byte)23 ? (byte)23 : hours;
 
             //构造cron表达式
-            string cron = string.Format("0 * 0/{0} * * ? ", hours);
+            string cron = $"0 * 0/{hours} * * ? ";
 
             //开始调度
             Schedule(jobDetail, cron);
@@ -75,7 +75,7 @@ namespace SD.Toolkits.TaskScheduler.IScheduler
             minutes = minutes > (byte)59 ? (byte)59 : minutes;
 
             //构造cron表达式
-            string cron = string.Format("0 0/{0} * * * ? ", minutes);
+            string cron = $"0 0/{minutes} * * * ? ";
 
             //开始调度
             Schedule(jobDetail, cron);
@@ -95,7 +95,7 @@ namespace SD.Toolkits.TaskScheduler.IScheduler
             seconds = seconds > (byte)59 ? (byte)59 : seconds;
 
             //构造cron表达式
-            string cron = string.Format("0/{0} * * * * ? ", seconds);
+            string cron = $"0/{seconds} * * * * ? ";
 
             //开始调度
             Schedule(jobDetail, cron);
@@ -111,7 +111,7 @@ namespace SD.Toolkits.TaskScheduler.IScheduler
         /// <param name="cron">cron表达式</param>
         public static void Schedule(IJobDetail jobDetail, string cron)
         {
-            if (!_Scheduler.CheckExists(jobDetail.Key))
+            if (!_Scheduler.CheckExists(jobDetail.Key).Result)
             {
                 //创建触发器
                 ITrigger trigger = TriggerBuilder.Create().WithCronSchedule(cron).Build();
@@ -136,7 +136,7 @@ namespace SD.Toolkits.TaskScheduler.IScheduler
         /// <param name="jobDetail">任务明细</param>
         public static void Remove(IJobDetail jobDetail)
         {
-            if (_Scheduler.CheckExists(jobDetail.Key))
+            if (_Scheduler.CheckExists(jobDetail.Key).Result)
             {
                 _Scheduler.DeleteJob(jobDetail.Key);
             }
