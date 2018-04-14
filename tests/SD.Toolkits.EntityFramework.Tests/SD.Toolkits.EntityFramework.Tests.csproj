@@ -75,7 +75,7 @@
     <Compile Include="TestCases\ParseSqlTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\sources\SD.Toolkits.EntityFramework\SD.Toolkits.EntityFramework.csproj">
+    <ProjectReference Include="..\..\src\SD.Toolkits.EntityFramework\SD.Toolkits.EntityFramework.csproj">
       <Project>{a101fbdf-273f-477f-85df-d9ad39fdb117}</Project>
       <Name>SD.Toolkits.EntityFramework</Name>
     </ProjectReference>

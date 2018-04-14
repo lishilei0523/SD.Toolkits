@@ -66,7 +66,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\sources\SD.Toolkits.Validation\SD.Toolkits.Validation.csproj">
+    <ProjectReference Include="..\..\src\SD.Toolkits.Validation\SD.Toolkits.Validation.csproj">
       <Project>{433fdb1d-d2fd-4708-8072-f7ee71286843}</Project>
       <Name>SD.Toolkits.Validation</Name>
     </ProjectReference>

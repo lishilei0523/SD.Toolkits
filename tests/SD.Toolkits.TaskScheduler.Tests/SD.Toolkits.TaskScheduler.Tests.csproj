@@ -70,7 +70,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\sources\SD.Toolkits.TaskScheduler\SD.Toolkits.TaskScheduler.csproj">
+    <ProjectReference Include="..\..\src\SD.Toolkits.TaskScheduler\SD.Toolkits.TaskScheduler.csproj">
       <Project>{c9c33187-7ec3-40e1-ac8b-598777663408}</Project>
       <Name>SD.Toolkits.TaskScheduler</Name>
     </ProjectReference>

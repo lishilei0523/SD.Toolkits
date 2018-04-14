@@ -55,7 +55,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\sources\SD.Toolkits.Redis\SD.Toolkits.Redis.csproj">
+    <ProjectReference Include="..\..\src\SD.Toolkits.Redis\SD.Toolkits.Redis.csproj">
       <Project>{32d0dfc1-5f8c-4538-a5b6-fb8833925314}</Project>
       <Name>SD.Toolkits.Redis</Name>
     </ProjectReference>

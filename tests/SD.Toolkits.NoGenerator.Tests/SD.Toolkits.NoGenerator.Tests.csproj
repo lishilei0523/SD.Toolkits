@@ -54,7 +54,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\sources\SD.Toolkits.NoGenerator\SD.Toolkits.NoGenerator.csproj">
+    <ProjectReference Include="..\..\src\SD.Toolkits.NoGenerator\SD.Toolkits.NoGenerator.csproj">
       <Project>{33441b62-819c-409b-bbf3-43ddd96fcdc1}</Project>
       <Name>SD.Toolkits.NoGenerator</Name>
     </ProjectReference>

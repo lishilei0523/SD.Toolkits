@@ -58,7 +58,7 @@
     <Compile Include="TestCases\ExcelReaderTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\sources\SD.Toolkits.Excel\SD.Toolkits.Excel.csproj">
+    <ProjectReference Include="..\..\src\SD.Toolkits.Excel\SD.Toolkits.Excel.csproj">
       <Project>{358AD308-557B-4C09-95C7-112D0058BE57}</Project>
       <Name>SD.Toolkits.Excel</Name>
     </ProjectReference>
