@@ -18,9 +18,9 @@ namespace SD.Toolkits.EntityFramework.Base
         /// <summary>
         /// 基础构造器
         /// </summary>
-        /// <param name="connectionName">连接字符串名称</param>
-        protected BaseDbContext(string connectionName)
-            : base(connectionName)
+        /// <param name="nameOrConnectionString">连接字符串名称/连接字符串</param>
+        protected BaseDbContext(string nameOrConnectionString)
+            : base(nameOrConnectionString)
         {
             this.Database.CreateIfNotExists();
         }
