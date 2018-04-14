@@ -89,8 +89,9 @@ namespace SD.Toolkits.NoGenerator.Facade
         }
         #endregion
 
+        #region # 批量生成编号方法 —— ICollection<string> GenerateNumbers(string prefix, string formatDate...
         /// <summary>
-        /// 生成编号方法
+        /// 批量生成编号方法
         /// </summary>
         /// <param name="prefix">编号前缀</param>
         /// <param name="formatDate">格式化日期</param>
@@ -99,11 +100,11 @@ namespace SD.Toolkits.NoGenerator.Facade
         /// <param name="description">编号描述</param>
         /// <param name="count">生成数量</param>
         /// <returns>编号集</returns>
-        public IEnumerable<string> GenerateNumbers(string prefix, string formatDate, string className, int length, string description, int count)
+        public ICollection<string> GenerateNumbers(string prefix, string formatDate, string className, int length, string description, int count)
         {
             lock (_SyncLock)
             {
-                using (TransactionScope scope = new TransactionScope())
+                using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
                 {
                     ICollection<string> numbers = new HashSet<string>();
 
@@ -112,19 +113,19 @@ namespace SD.Toolkits.NoGenerator.Facade
                         SerialNumber serialNumber = this._generatorDal.SingleOrDefault(prefix, formatDate, className, length);
                         if (serialNumber == null)
                         {
-                            serialNumber = new SerialNumber(prefix, formatDate, className, length, string.Format("创建{0}", description));
+                            serialNumber = new SerialNumber(prefix, formatDate, className, length, $"创建{description}");
                             this._generatorDal.Add(serialNumber);
                         }
                         else
                         {
-                            serialNumber.UpdateInfo(serialNumber.TodayCount + 1, string.Format("新增{0}", description));
+                            serialNumber.UpdateInfo(serialNumber.TodayCount + 1, $"新增{description}");
                             this._generatorDal.Save(serialNumber);
                         }
 
                         StringBuilder numberBuilder = new StringBuilder();
                         numberBuilder.Append(serialNumber.Prefix);
                         numberBuilder.Append(serialNumber.FormatDate);
-                        numberBuilder.Append(serialNumber.TodayCount.ToString(string.Format("D{0}", length)));
+                        numberBuilder.Append(serialNumber.TodayCount.ToString($"D{length}"));
 
                         numbers.Add(numberBuilder.ToString());
                     }
@@ -135,5 +136,6 @@ namespace SD.Toolkits.NoGenerator.Facade
                 }
             }
         }
+        #endregion
     }
 }
