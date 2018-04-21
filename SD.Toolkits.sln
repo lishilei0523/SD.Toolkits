@@ -38,9 +38,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.Excel", "src\SD
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.Excel.Tests", "tests\SD.Toolkits.Excel.Tests\SD.Toolkits.Excel.Tests.csproj", "{02740F70-7E2C-4FC1-864B-A76CE08E9962}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.Redis.Tests", "tests\SD.Toolkits.Redis.Tests\SD.Toolkits.Redis.Tests.csproj", "{B30ACE1A-26E0-4EE4-A935-F7B64B9AB550}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.Redis.ServiceStack.Tests", "tests\SD.Toolkits.Redis.ServiceStack.Tests\SD.Toolkits.Redis.ServiceStack.Tests.csproj", "{B30ACE1A-26E0-4EE4-A935-F7B64B9AB550}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.Redis", "src\SD.Toolkits.Redis\SD.Toolkits.Redis.csproj", "{32D0DFC1-5F8C-4538-A5B6-FB8833925314}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.Redis.ServiceStack", "src\SD.Toolkits.Redis.ServiceStack\SD.Toolkits.Redis.ServiceStack.csproj", "{32D0DFC1-5F8C-4538-A5B6-FB8833925314}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01 - Sources", "01 - Sources", "{9D1A772B-E66B-444F-9A79-98B44C2D7D88}"
 EndProject
@@ -53,6 +53,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Common", "src\SD.Common\SD.Common.csproj", "{37402463-F73A-4788-B9DE-5C57EC18604F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Common.Tests", "tests\SD.Common.Tests\SD.Common.Tests.csproj", "{7A8901CC-494E-46AC-AA04-4CDCDD5484BC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Toolkits.Redis.StackExchange", "src\SD.Toolkits.Redis.StackExchange\SD.Toolkits.Redis.StackExchange.csproj", "{85CCF2CF-082A-4BFA-BAB3-719FCE5E0A4C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.Redis.StackExchange.Tests", "tests\SD.Toolkits.Redis.StackExchange.Tests\SD.Toolkits.Redis.StackExchange.Tests.csproj", "{86B7F67E-3EED-49FD-B728-508EB75CA5E8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -140,6 +144,14 @@ Global
 		{7A8901CC-494E-46AC-AA04-4CDCDD5484BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7A8901CC-494E-46AC-AA04-4CDCDD5484BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7A8901CC-494E-46AC-AA04-4CDCDD5484BC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{85CCF2CF-082A-4BFA-BAB3-719FCE5E0A4C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{85CCF2CF-082A-4BFA-BAB3-719FCE5E0A4C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{85CCF2CF-082A-4BFA-BAB3-719FCE5E0A4C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{85CCF2CF-082A-4BFA-BAB3-719FCE5E0A4C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{86B7F67E-3EED-49FD-B728-508EB75CA5E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{86B7F67E-3EED-49FD-B728-508EB75CA5E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{86B7F67E-3EED-49FD-B728-508EB75CA5E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{86B7F67E-3EED-49FD-B728-508EB75CA5E8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -165,6 +177,8 @@ Global
 		{440622EF-EA5A-4812-935E-01E658E2AC86} = {DE420171-A672-478A-99CA-62AB53D57785}
 		{37402463-F73A-4788-B9DE-5C57EC18604F} = {9D1A772B-E66B-444F-9A79-98B44C2D7D88}
 		{7A8901CC-494E-46AC-AA04-4CDCDD5484BC} = {DE420171-A672-478A-99CA-62AB53D57785}
+		{85CCF2CF-082A-4BFA-BAB3-719FCE5E0A4C} = {9D1A772B-E66B-444F-9A79-98B44C2D7D88}
+		{86B7F67E-3EED-49FD-B728-508EB75CA5E8} = {DE420171-A672-478A-99CA-62AB53D57785}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E971DA80-FBCC-48DC-94AF-074536131022}

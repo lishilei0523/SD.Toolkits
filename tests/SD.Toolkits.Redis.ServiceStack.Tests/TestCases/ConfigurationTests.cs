@@ -2,7 +2,7 @@
 using SD.Toolkits.Redis.Configuration;
 using System.Diagnostics;
 
-namespace SD.Toolkits.Redis.Tests
+namespace SD.Toolkits.Redis.Tests.TestCases
 {
     [TestClass]
     public class ConfigurationTests
