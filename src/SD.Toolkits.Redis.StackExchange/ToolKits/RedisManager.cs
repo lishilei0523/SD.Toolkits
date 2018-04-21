@@ -43,5 +43,14 @@ namespace SD.Toolkits.Redis
         {
             get { return _Instance; }
         }
+
+        /// <summary>
+        /// 获取数据库
+        /// </summary>
+        /// <returns>数据库</returns>
+        public static IDatabase GetDatabase()
+        {
+            return _Instance.GetDatabase();
+        }
     }
 }
