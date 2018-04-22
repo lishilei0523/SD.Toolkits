@@ -15,6 +15,7 @@ namespace SD.Toolkits.EntityFrameworkCore.Tests.EntityConfigurations
         public void Configure(EntityTypeBuilder<Student> builder)
         {
             builder.Property(x => x.Name).HasMaxLength(32);
+            builder.HasIndex(x => x.ClassId);
         }
     }
 }

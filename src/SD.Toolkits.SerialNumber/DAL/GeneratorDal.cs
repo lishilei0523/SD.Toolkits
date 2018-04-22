@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Configuration;
 using System.Data.SqlClient;
-using System.Runtime.Remoting.Messaging;
 using System.Text;
-using SD.Toolkits.NoGenerator.Model;
 
-namespace SD.Toolkits.NoGenerator.DAL
+namespace SD.Toolkits.SerialNumber.DAL
 {
     /// <summary>
     /// 编号生成器数据访问类
@@ -17,7 +15,7 @@ namespace SD.Toolkits.NoGenerator.DAL
         /// <summary>
         /// 默认连接字符串名称AppSetting键
         /// </summary>
-        private const string DefaultConnectionStringAppSettingKey = "NoConnection";
+        private const string DefaultConnectionStringAppSettingKey = "SerialNumberConnection";
 
         /// <summary>
         /// SQL工具
@@ -30,7 +28,7 @@ namespace SD.Toolkits.NoGenerator.DAL
         static GeneratorDal()
         {
             //初始化连接字符串
-            string defaultConnectionStringName = ConfigurationManager.AppSettings[DefaultConnectionStringAppSettingKey];
+            string defaultConnectionStringName = ConfigurationManager.AppSettings[GeneratorDal.DefaultConnectionStringAppSettingKey];
 
             #region # 验证
 
@@ -53,7 +51,7 @@ namespace SD.Toolkits.NoGenerator.DAL
             #endregion
 
             //初始化SQL工具
-            _SqlHelper = new SqlHelper(connectionString);
+            GeneratorDal._SqlHelper = new SqlHelper(connectionString);
         }
 
         /// <summary>
@@ -79,7 +77,7 @@ namespace SD.Toolkits.NoGenerator.DAL
         /// <param name="className">类名</param>
         /// <param name="length">长度</param>
         /// <returns>唯一序列号</returns>
-        public SerialNumber SingleOrDefault(string prefix, string formatDate, string className, int length)
+        public Model.SerialNumber SingleOrDefault(string prefix, string formatDate, string className, int length)
         {
             string sql = "SELECT * FROM SerialNumbers WHERE Prefix = @prefix AND FormatDate = @formatDate AND ClassName = @className AND Length = @length";
 
@@ -90,7 +88,7 @@ namespace SD.Toolkits.NoGenerator.DAL
                 new SqlParameter("@length", length)
             };
 
-            using (SqlDataReader reader = _SqlHelper.ExecuteReader(sql, parameters))
+            using (SqlDataReader reader = GeneratorDal._SqlHelper.ExecuteReader(sql, parameters))
             {
                 return reader.Read() ? this.ToModel(reader) : null;
             }
@@ -103,18 +101,18 @@ namespace SD.Toolkits.NoGenerator.DAL
         /// </summary>
         /// <param name="serialNumber">序列号实例</param>
         /// <returns>序列号实例</returns>
-        public SerialNumber Add(SerialNumber serialNumber)
+        public Model.SerialNumber Add(Model.SerialNumber serialNumber)
         {
             string sql = "INSERT INTO SerialNumbers (Id, Prefix, FormatDate, ClassName, Length, TodayCount, Description) VALUES (NEWID(), @Prefix, @FormatDate, @ClassName, @Length, @TodayCount, @Description)";
             SqlParameter[] parameters = {
-					new SqlParameter("@Prefix", this.ToDbValue(serialNumber.Prefix)),
-					new SqlParameter("@FormatDate", this.ToDbValue(serialNumber.FormatDate)),
-					new SqlParameter("@ClassName", this.ToDbValue(serialNumber.ClassName)),
-					new SqlParameter("@Length", this.ToDbValue(serialNumber.Length)),
-					new SqlParameter("@TodayCount", this.ToDbValue(serialNumber.TodayCount)),
-					new SqlParameter("@Description", this.ToDbValue(serialNumber.Description))
-				};
-            _SqlHelper.ExecuteNonQuery(sql, parameters);
+                    new SqlParameter("@Prefix", this.ToDbValue(serialNumber.Prefix)),
+                    new SqlParameter("@FormatDate", this.ToDbValue(serialNumber.FormatDate)),
+                    new SqlParameter("@ClassName", this.ToDbValue(serialNumber.ClassName)),
+                    new SqlParameter("@Length", this.ToDbValue(serialNumber.Length)),
+                    new SqlParameter("@TodayCount", this.ToDbValue(serialNumber.TodayCount)),
+                    new SqlParameter("@Description", this.ToDbValue(serialNumber.Description))
+                };
+            GeneratorDal._SqlHelper.ExecuteNonQuery(sql, parameters);
             return serialNumber;
         }
         #endregion
@@ -125,7 +123,7 @@ namespace SD.Toolkits.NoGenerator.DAL
         /// </summary>
         /// <param name="serialNumber">序列号实例</param>
         /// <returns>受影响的行数</returns>
-        public int Save(SerialNumber serialNumber)
+        public int Save(Model.SerialNumber serialNumber)
         {
             StringBuilder sql = new StringBuilder();
             sql.Append("UPDATE SerialNumbers SET Prefix = @Prefix");
@@ -136,15 +134,15 @@ namespace SD.Toolkits.NoGenerator.DAL
             sql.Append(", Description = @Description");
             sql.Append(" WHERE Id = @Id");
             SqlParameter[] args = {
-				     new SqlParameter("@Id", serialNumber.Id)
-					,new SqlParameter("@Prefix", this.ToDbValue(serialNumber.Prefix))
-					,new SqlParameter("@FormatDate", this.ToDbValue(serialNumber.FormatDate))
-					,new SqlParameter("@ClassName", this.ToDbValue(serialNumber.ClassName))
-					,new SqlParameter("@Length", this.ToDbValue(serialNumber.Length))
-					,new SqlParameter("@TodayCount", this.ToDbValue(serialNumber.TodayCount))
-					,new SqlParameter("@Description", this.ToDbValue(serialNumber.Description))
-			};
-            return _SqlHelper.ExecuteNonQuery(sql.ToString(), args);
+                     new SqlParameter("@Id", serialNumber.Id)
+                    ,new SqlParameter("@Prefix", this.ToDbValue(serialNumber.Prefix))
+                    ,new SqlParameter("@FormatDate", this.ToDbValue(serialNumber.FormatDate))
+                    ,new SqlParameter("@ClassName", this.ToDbValue(serialNumber.ClassName))
+                    ,new SqlParameter("@Length", this.ToDbValue(serialNumber.Length))
+                    ,new SqlParameter("@TodayCount", this.ToDbValue(serialNumber.TodayCount))
+                    ,new SqlParameter("@Description", this.ToDbValue(serialNumber.Description))
+            };
+            return GeneratorDal._SqlHelper.ExecuteNonQuery(sql.ToString(), args);
         }
         #endregion
 
@@ -165,7 +163,7 @@ namespace SD.Toolkits.NoGenerator.DAL
             sqlBuilder.Append("END ");
 
             //执行创建表
-            _SqlHelper.ExecuteNonQuery(sqlBuilder.ToString());
+            GeneratorDal._SqlHelper.ExecuteNonQuery(sqlBuilder.ToString());
         }
         #endregion
 
@@ -175,9 +173,9 @@ namespace SD.Toolkits.NoGenerator.DAL
         /// </summary>
         /// <param name="reader">SqlDataReader对象</param>
         /// <returns>实体对象</returns>
-        private SerialNumber ToModel(SqlDataReader reader)
+        private Model.SerialNumber ToModel(SqlDataReader reader)
         {
-            SerialNumber serialNumber = new SerialNumber
+            Model.SerialNumber serialNumber = new Model.SerialNumber
             {
                 Id = (Guid)this.ToModelValue(reader, "Id"),
                 Prefix = (string)this.ToModelValue(reader, "Prefix"),

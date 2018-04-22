@@ -4,12 +4,16 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <AssemblyName>SD.Toolkits.Redis</AssemblyName>
     <RootNamespace>SD.Toolkits.Redis</RootNamespace>
-    <PackageId>SD.Toolkits.Redis.StackExchange</PackageId>
+    <PackageId>SD.Toolkits.Redis</PackageId>
     <Authors>Lee</Authors>
     <Company>SD</Company>
     <Product />
-    <Description>Redis工具</Description>
+    <Description>Redis配置工具</Description>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <Copyright>Copyright © SD 2018</Copyright>
+    <Version>2.0.0</Version>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <FileVersion>1.0.0.0</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

@@ -1,11 +1,10 @@
-﻿using SD.Toolkits.NoGenerator.DAL;
-using SD.Toolkits.NoGenerator.Model;
+﻿using SD.Toolkits.SerialNumber.DAL;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Transactions;
 
-namespace SD.Toolkits.NoGenerator.Facade
+namespace SD.Toolkits.SerialNumber.Facade
 {
     /// <summary>
     /// 编号生成器API
@@ -29,7 +28,7 @@ namespace SD.Toolkits.NoGenerator.Facade
         /// </summary>
         static NumberGenerator()
         {
-            _SyncLock = new object();
+            NumberGenerator._SyncLock = new object();
         }
 
         /// <summary>
@@ -65,12 +64,12 @@ namespace SD.Toolkits.NoGenerator.Facade
         /// <returns>编号</returns>
         public string GenerateNumber(string prefix, string formatDate, string className, int length, string description)
         {
-            lock (_SyncLock)
+            lock (NumberGenerator._SyncLock)
             {
-                SerialNumber serialNumber = this._generatorDal.SingleOrDefault(prefix, formatDate, className, length);
+                Model.SerialNumber serialNumber = this._generatorDal.SingleOrDefault(prefix, formatDate, className, length);
                 if (serialNumber == null)
                 {
-                    serialNumber = new SerialNumber(prefix, formatDate, className, length, string.Format("创建{0}", description));
+                    serialNumber = new Model.SerialNumber(prefix, formatDate, className, length, string.Format("创建{0}", description));
                     this._generatorDal.Add(serialNumber);
                 }
                 else
@@ -102,7 +101,7 @@ namespace SD.Toolkits.NoGenerator.Facade
         /// <returns>编号集</returns>
         public ICollection<string> GenerateNumbers(string prefix, string formatDate, string className, int length, string description, int count)
         {
-            lock (_SyncLock)
+            lock (NumberGenerator._SyncLock)
             {
                 using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
                 {
@@ -110,10 +109,10 @@ namespace SD.Toolkits.NoGenerator.Facade
 
                     for (int i = 0; i < count; i++)
                     {
-                        SerialNumber serialNumber = this._generatorDal.SingleOrDefault(prefix, formatDate, className, length);
+                        Model.SerialNumber serialNumber = this._generatorDal.SingleOrDefault(prefix, formatDate, className, length);
                         if (serialNumber == null)
                         {
-                            serialNumber = new SerialNumber(prefix, formatDate, className, length, $"创建{description}");
+                            serialNumber = new Model.SerialNumber(prefix, formatDate, className, length, $"创建{description}");
                             this._generatorDal.Add(serialNumber);
                         }
                         else

@@ -1,5 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SD.Toolkits.NoGenerator.Facade;
+using SD.Toolkits.SerialNumber.Facade;
 using System;
 
 namespace SD.Toolkits.NoGenerator.Tests

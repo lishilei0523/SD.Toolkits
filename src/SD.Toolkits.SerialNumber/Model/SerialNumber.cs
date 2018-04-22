@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SD.Toolkits.NoGenerator.Model
+namespace SD.Toolkits.SerialNumber.Model
 {
     /// <summary>
     /// 序列号字典
