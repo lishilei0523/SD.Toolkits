@@ -67,7 +67,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\SD.Toolkits.Redis.StackExchange\SD.Toolkits.Redis.csproj">
+    <ProjectReference Include="..\..\src\SD.Toolkits.Redis\SD.Toolkits.Redis.csproj">
       <Project>{85ccf2cf-082a-4bfa-bab3-719fce5e0a4c}</Project>
       <Name>SD.Toolkits.Redis</Name>
     </ProjectReference>
