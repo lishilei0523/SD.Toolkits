@@ -67,9 +67,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\SD.Toolkits.Redis.StackExchange\SD.Toolkits.Redis.StackExchange.csproj">
+    <ProjectReference Include="..\..\src\SD.Toolkits.Redis.StackExchange\SD.Toolkits.Redis.csproj">
       <Project>{85ccf2cf-082a-4bfa-bab3-719fce5e0a4c}</Project>
-      <Name>SD.Toolkits.Redis.StackExchange</Name>
+      <Name>SD.Toolkits.Redis</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />

@@ -38,9 +38,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.Excel", "src\SD
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.Excel.Tests", "tests\SD.Toolkits.Excel.Tests\SD.Toolkits.Excel.Tests.csproj", "{02740F70-7E2C-4FC1-864B-A76CE08E9962}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.Redis.ServiceStack.Tests", "tests\SD.Toolkits.Redis.ServiceStack.Tests\SD.Toolkits.Redis.ServiceStack.Tests.csproj", "{B30ACE1A-26E0-4EE4-A935-F7B64B9AB550}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.Redis.ServiceStack.Tests", "obsoleted\SD.Toolkits.Redis.ServiceStack.Tests\SD.Toolkits.Redis.ServiceStack.Tests.csproj", "{B30ACE1A-26E0-4EE4-A935-F7B64B9AB550}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.Redis.ServiceStack", "src\SD.Toolkits.Redis.ServiceStack\SD.Toolkits.Redis.ServiceStack.csproj", "{32D0DFC1-5F8C-4538-A5B6-FB8833925314}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.Redis.ServiceStack", "obsoleted\SD.Toolkits.Redis.ServiceStack\SD.Toolkits.Redis.ServiceStack.csproj", "{32D0DFC1-5F8C-4538-A5B6-FB8833925314}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01 - Sources", "01 - Sources", "{9D1A772B-E66B-444F-9A79-98B44C2D7D88}"
 EndProject
@@ -54,9 +54,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Common", "src\SD.Common\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Common.Tests", "tests\SD.Common.Tests\SD.Common.Tests.csproj", "{7A8901CC-494E-46AC-AA04-4CDCDD5484BC}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Toolkits.Redis.StackExchange", "src\SD.Toolkits.Redis.StackExchange\SD.Toolkits.Redis.StackExchange.csproj", "{85CCF2CF-082A-4BFA-BAB3-719FCE5E0A4C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Toolkits.Redis", "src\SD.Toolkits.Redis\SD.Toolkits.Redis.csproj", "{85CCF2CF-082A-4BFA-BAB3-719FCE5E0A4C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.Redis.StackExchange.Tests", "tests\SD.Toolkits.Redis.StackExchange.Tests\SD.Toolkits.Redis.StackExchange.Tests.csproj", "{86B7F67E-3EED-49FD-B728-508EB75CA5E8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.Redis.Tests", "tests\SD.Toolkits.Redis.Tests\SD.Toolkits.Redis.Tests.csproj", "{86B7F67E-3EED-49FD-B728-508EB75CA5E8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03 - Obsoleted", "03 - Obsoleted", "{5407248D-A1AD-48BB-9C3B-BEB9C05CC194}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -171,8 +173,8 @@ Global
 		{37D68FA0-61F2-40D1-ADED-4EA91A18E298} = {DE420171-A672-478A-99CA-62AB53D57785}
 		{358AD308-557B-4C09-95C7-112D0058BE57} = {9D1A772B-E66B-444F-9A79-98B44C2D7D88}
 		{02740F70-7E2C-4FC1-864B-A76CE08E9962} = {DE420171-A672-478A-99CA-62AB53D57785}
-		{B30ACE1A-26E0-4EE4-A935-F7B64B9AB550} = {DE420171-A672-478A-99CA-62AB53D57785}
-		{32D0DFC1-5F8C-4538-A5B6-FB8833925314} = {9D1A772B-E66B-444F-9A79-98B44C2D7D88}
+		{B30ACE1A-26E0-4EE4-A935-F7B64B9AB550} = {5407248D-A1AD-48BB-9C3B-BEB9C05CC194}
+		{32D0DFC1-5F8C-4538-A5B6-FB8833925314} = {5407248D-A1AD-48BB-9C3B-BEB9C05CC194}
 		{69617D73-C69F-45BF-A088-313F39F7AF91} = {9D1A772B-E66B-444F-9A79-98B44C2D7D88}
 		{440622EF-EA5A-4812-935E-01E658E2AC86} = {DE420171-A672-478A-99CA-62AB53D57785}
 		{37402463-F73A-4788-B9DE-5C57EC18604F} = {9D1A772B-E66B-444F-9A79-98B44C2D7D88}

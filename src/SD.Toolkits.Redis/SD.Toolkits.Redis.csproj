@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>SD.Toolkits.Redis</AssemblyName>
+    <RootNamespace>SD.Toolkits.Redis</RootNamespace>
+    <PackageId>SD.Toolkits.Redis.StackExchange</PackageId>
+    <Authors>Lee</Authors>
+    <Company>SD</Company>
+    <Product />
+    <Description>Redis工具</Description>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>bin\Debug\netstandard2.0\SD.Toolkits.Redis.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>bin\Release\netstandard2.0\SD.Toolkits.Redis.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="StackExchange.Redis" Version="1.2.6" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.4.1" />
+  </ItemGroup>
+
+</Project>
