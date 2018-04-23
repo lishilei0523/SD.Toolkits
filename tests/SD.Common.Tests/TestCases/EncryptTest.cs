@@ -7,13 +7,13 @@ namespace SD.Common.Tests.TestCases
     /// <summary>
     /// 字符串解密解密测试
     /// </summary>
-    [TestClassAttribute]
+    [TestClass]
     public class EncryptTest
     {
         /// <summary>
         /// 无Key测试
         /// </summary>
-        [TestMethodAttribute]
+        [TestMethod]
         public void TestNoKey()
         {
             const string text = "Hello World";
@@ -27,7 +27,7 @@ namespace SD.Common.Tests.TestCases
         /// <summary>
         /// 含Key测试
         /// </summary>
-        [TestMethodAttribute]
+        [TestMethod]
         public void TestContainsKey()
         {
             const string text = "Hello World";

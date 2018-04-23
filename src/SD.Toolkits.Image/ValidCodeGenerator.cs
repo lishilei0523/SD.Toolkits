@@ -1,11 +1,11 @@
 ﻿using System;
-using System.Drawing;
-using System.Drawing.Drawing2D;
-using System.Drawing.Imaging;
+using System.DrawingCore;
+using System.DrawingCore.Drawing2D;
+using System.DrawingCore.Imaging;
 using System.IO;
 using System.Text;
 
-namespace SD.Common.PoweredByLee
+namespace SD.Toolkits.Image
 {
     /// <summary>
     /// 验证码生成器

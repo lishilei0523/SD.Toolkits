@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using FluentValidation;
+using FluentValidation.Results;
+using SD.IOC.Core.Mediators;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using FluentValidation;
-using FluentValidation.Results;
-using SD.IOC.Core.Mediator;
 
 namespace SD.Toolkits.Validation
 {
