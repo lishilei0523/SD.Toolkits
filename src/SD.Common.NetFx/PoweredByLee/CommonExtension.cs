@@ -4,7 +4,7 @@ using System.Management;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace SD.Common.PoweredByLee
+namespace SD.Common.NetFx.PoweredByLee
 {
     /// <summary>
     /// 常用扩展方法
@@ -103,8 +103,8 @@ namespace SD.Common.PoweredByLee
         /// <returns>机器唯一码</returns>
         public static string GetMachineCode()
         {
-            ICollection<string> hardDiskIds = GetHardDiskIds();
-            ICollection<string> macs = GetMacAddresses();
+            ICollection<string> hardDiskIds = CommonExtension.GetHardDiskIds();
+            ICollection<string> macs = CommonExtension.GetMacAddresses();
 
             StringBuilder builder = new StringBuilder();
 
@@ -147,6 +147,5 @@ namespace SD.Common.PoweredByLee
             }
         }
         #endregion
-
     }
 }
