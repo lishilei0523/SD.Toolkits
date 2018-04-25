@@ -1,35 +1,35 @@
-# 工具类库
+# 通用扩展工具
+
+##### 2018.04 项目近期调整说明
+	
+	1、除SD.Common.NetFx与SD.Toolkits.EntityFramework外，其余项目全部使用 .NET Standard 2.0 重写；
+
+	2、SD.Toolkits.Redis 采用 StackExchange.Redis 重新实现；
+
+	3、SD.Toolkits.NoGenerator 更名为 SD.Toolkits.SerialNumber ；
+
+	4、将图像处理部分剥离出 SD.Common，新增 SD.Toolkits.Image ；
 
 包含
 
-    1、EntityFramework类表映射工具、索引生成工具
+	通用基础类库
+	
+	EntityFramework类表映射工具、索引生成工具、IQueryable扩展工具；
+	
+	EntityFramework Core类表映射工具；
 
-    2、编号生成器工具
+	Excel读写工具，基于 NPOI ；
 
-    3、定时任务调度工具
+	图像处理、验证码工具，基于 ZKWeb.System.Drawing ；
 
-    4、Microsoft.Web.RedisSessionStateProvider测试用例（Redis Session存储，Session共享）
+	递归扩展工具；
 
-    5、递归扩展工具
+	Redis管理工具，基于 StackExchange.Redis；
 
-    6、实体验证工具
+	编号生成器工具，基于 ADO.NET + SQL Server；
 
-    7、Excel读写工具
+    定时任务调度扩展工具，基于 Quartz.NET ；
 
-    8、Redis管理工具
+	实体验证工具，基于 FluentValidation；
 
-NuGet地址：
-    
-    https://www.nuget.org/packages/SD.Toolkits.EntityFramework
-
-    https://www.nuget.org/packages/SD.Toolkits.NoGenerator
-    
-    https://www.nuget.org/packages/SD.Toolkits.TaskScheduler
-
-    https://www.nuget.org/packages/SD.Toolkits.Recursion
-
-    https://www.nuget.org/packages/SD.Toolkits.Validation
-
-    https://www.nuget.org/packages/SD.Toolkits.Excel
-
-    https://www.nuget.org/packages/SD.Toolkits.Redis
+    Microsoft.Web.RedisSessionStateProvider 测试用例（Redis Session 存储，多网站 Session 共享）；
