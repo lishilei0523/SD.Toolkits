@@ -23,6 +23,7 @@ namespace SD.Toolkits.EntityFramework.Base
             : base(nameOrConnectionString)
         {
             this.Database.CreateIfNotExists();
+            this.Diposed = false;
         }
         #endregion
 
@@ -68,11 +69,18 @@ namespace SD.Toolkits.EntityFramework.Base
         public abstract string TablePrefix { get; }
         #endregion
 
+        #region 是否已释放 —— bool Diposed
+        /// <summary>
+        /// 是否已释放
+        /// </summary>
+        public bool Diposed { get; private set; }
+        #endregion
+
         #endregion
 
         #region # 方法
 
-        #region # 模型创建事件 —— override void OnModelCreating(DbModelBuilder modelBuilder)
+        #region 模型创建事件 —— override void OnModelCreating(DbModelBuilder modelBuilder)
         /// <summary>
         /// 模型创建事件
         /// </summary>
@@ -128,7 +136,7 @@ namespace SD.Toolkits.EntityFramework.Base
         }
         #endregion
 
-        #region # 注册实体配置 —— void RegisterEntityConfigurations(DbModelBuilder modelBuilder)
+        #region 注册实体配置 —— void RegisterEntityConfigurations(DbModelBuilder modelBuilder)
         /// <summary>
         /// 注册实体配置
         /// </summary>
@@ -143,7 +151,7 @@ namespace SD.Toolkits.EntityFramework.Base
         }
         #endregion
 
-        #region # 注册实体类型 —— void RegisterEntityTypes(DbModelBuilder modelBuilder...
+        #region 注册实体类型 —— void RegisterEntityTypes(DbModelBuilder modelBuilder...
         /// <summary>
         /// 注册实体类型
         /// </summary>
@@ -158,7 +166,7 @@ namespace SD.Toolkits.EntityFramework.Base
         }
         #endregion
 
-        #region # 注册数据表名前缀 —— void RegisterTableMaps(DbModelBuilder modelBuilder...
+        #region 注册数据表名前缀 —— void RegisterTableMaps(DbModelBuilder modelBuilder...
         /// <summary>
         /// 注册数据表名前缀
         /// </summary>
@@ -167,6 +175,17 @@ namespace SD.Toolkits.EntityFramework.Base
         {
             string tablePrefix = string.IsNullOrWhiteSpace(this.TablePrefix) ? string.Empty : this.TablePrefix;
             modelBuilder.Types().Configure(entity => entity.ToTable(tablePrefix + entity.ClrType.Name));
+        }
+        #endregion
+
+        #region 释放资源 —— override void Dispose(bool disposing)
+        /// <summary>
+        /// 释放资源
+        /// </summary>
+        protected override void Dispose(bool disposing)
+        {
+            base.Dispose(disposing);
+            this.Diposed = true;
         }
         #endregion
 

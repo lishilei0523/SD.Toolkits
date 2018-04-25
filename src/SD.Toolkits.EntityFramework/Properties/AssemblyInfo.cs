@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("SD")]
 [assembly: AssemblyProduct("SD.Toolkits.EntityFramework")]
-[assembly: AssemblyCopyright("Copyright © SD 2017")]
+[assembly: AssemblyCopyright("Copyright © SD 2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

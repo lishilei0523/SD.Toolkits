@@ -13,6 +13,16 @@ namespace SD.Toolkits.EntityFrameworkCore.Base
     /// </summary>
     public abstract class BaseDbContext : DbContext
     {
+        #region # 构造器
+        /// <summary>
+        /// 构造器
+        /// </summary>
+        protected BaseDbContext()
+        {
+            this.Diposed = false;
+        }
+        #endregion
+
         #region # 属性
 
         #region 实体所在程序集 —— abstract string EntityAssembly
@@ -53,10 +63,18 @@ namespace SD.Toolkits.EntityFrameworkCore.Base
         public abstract string TablePrefix { get; }
         #endregion
 
+        #region 是否已释放 —— bool Diposed
+        /// <summary>
+        /// 是否已释放
+        /// </summary>
+        public bool Diposed { get; private set; }
         #endregion
 
+        #endregion
 
-        #region # 模型创建事件 —— override void OnModelCreating(ModelBuilder modelBuilder)
+        #region # 方法
+
+        #region 模型创建事件 —— override void OnModelCreating(ModelBuilder modelBuilder)
         /// <summary>
         /// 模型创建事件
         /// </summary>
@@ -111,7 +129,7 @@ namespace SD.Toolkits.EntityFrameworkCore.Base
         }
         #endregion
 
-        #region # 注册实体配置 —— void RegisterEntityConfigurations(ModelBuilder modelBuilder...
+        #region 注册实体配置 —— void RegisterEntityConfigurations(ModelBuilder modelBuilder...
         /// <summary>
         /// 注册实体配置
         /// </summary>
@@ -146,7 +164,7 @@ namespace SD.Toolkits.EntityFrameworkCore.Base
         }
         #endregion
 
-        #region # 注册实体类型 —— void RegisterEntityTypes(ModelBuilder modelBuilder...
+        #region 注册实体类型 —— void RegisterEntityTypes(ModelBuilder modelBuilder...
         /// <summary>
         /// 注册实体类型
         /// </summary>
@@ -161,7 +179,7 @@ namespace SD.Toolkits.EntityFrameworkCore.Base
         }
         #endregion
 
-        #region # 注册数据表名前缀 —— void RegisterTableMaps(DbModelBuilder modelBuilder...
+        #region 注册数据表名前缀 —— void RegisterTableMaps(DbModelBuilder modelBuilder...
         /// <summary>
         /// 注册数据表名前缀
         /// </summary>
@@ -177,6 +195,19 @@ namespace SD.Toolkits.EntityFrameworkCore.Base
                 entityTypeBuilder.ToTable(tablePrefix + entityType.Name);
             }
         }
+        #endregion
+
+        #region 释放资源 —— override void Dispose()
+        /// <summary>
+        /// 释放资源
+        /// </summary>
+        public override void Dispose()
+        {
+            base.Dispose();
+            this.Diposed = true;
+        }
+        #endregion 
+
         #endregion
     }
 }
