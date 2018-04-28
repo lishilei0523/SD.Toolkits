@@ -3,13 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2036
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{FF4ABECC-5097-4064-95CA-9BF579AEE43C}"
-	ProjectSection(SolutionItems) = preProject
-		.nuget\NuGet.Config = .nuget\NuGet.Config
-		.nuget\NuGet.exe = .nuget\NuGet.exe
-		.nuget\NuGet.targets = .nuget\NuGet.targets
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.EntityFramework", "src\SD.Toolkits.EntityFramework\SD.Toolkits.EntityFramework.csproj", "{A101FBDF-273F-477F-85DF-D9AD39FDB117}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.EntityFramework.Tests", "tests\SD.Toolkits.EntityFramework.Tests\SD.Toolkits.EntityFramework.Tests.csproj", "{2123B05C-FC6A-4AC0-8223-540B00F8F30C}"
@@ -28,10 +21,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.Validation.Test
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.Excel.Tests", "tests\SD.Toolkits.Excel.Tests\SD.Toolkits.Excel.Tests.csproj", "{02740F70-7E2C-4FC1-864B-A76CE08E9962}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.Redis.ServiceStack.Tests", "obsoleted\SD.Toolkits.Redis.ServiceStack.Tests\SD.Toolkits.Redis.ServiceStack.Tests.csproj", "{B30ACE1A-26E0-4EE4-A935-F7B64B9AB550}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.Redis.ServiceStack", "obsoleted\SD.Toolkits.Redis.ServiceStack\SD.Toolkits.Redis.ServiceStack.csproj", "{32D0DFC1-5F8C-4538-A5B6-FB8833925314}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03 - Tests", "03 - Tests", "{DE420171-A672-478A-99CA-62AB53D57785}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Toolkits.EntityFrameworkCore", "src\SD.Toolkits.EntityFrameworkCore\SD.Toolkits.EntityFrameworkCore.csproj", "{69617D73-C69F-45BF-A088-313F39F7AF91}"
@@ -41,8 +30,6 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Toolkits.Redis", "src\SD.Toolkits.Redis\SD.Toolkits.Redis.csproj", "{85CCF2CF-082A-4BFA-BAB3-719FCE5E0A4C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.Redis.Tests", "tests\SD.Toolkits.Redis.Tests\SD.Toolkits.Redis.Tests.csproj", "{86B7F67E-3EED-49FD-B728-508EB75CA5E8}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "04 - Obsoleted", "04 - Obsoleted", "{5407248D-A1AD-48BB-9C3B-BEB9C05CC194}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01 - NET FX", "01 - NET FX", "{341CD552-661B-49D6-934A-9CE5C11437A3}"
 EndProject
@@ -60,11 +47,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Toolkits.Validation", "s
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Common", "src\SD.Common\SD.Common.csproj", "{B6E50065-9C06-4013-AD49-3C4901C0A6D2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.Image", "src\SD.Toolkits.Image\SD.Toolkits.Image.csproj", "{93635750-E60D-4525-9997-F1D9CD386263}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Toolkits.Image", "src\SD.Toolkits.Image\SD.Toolkits.Image.csproj", "{93635750-E60D-4525-9997-F1D9CD386263}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Common.Tests", "tests\SD.Common.Tests\SD.Common.Tests.csproj", "{CD94D63E-E7A3-46FF-ADC7-2AF9CEBB3755}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.Excel", "src\SD.Toolkits.Excel\SD.Toolkits.Excel.csproj", "{868D8D86-2753-4A2C-ACDC-A54509936734}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Toolkits.Excel", "src\SD.Toolkits.Excel\SD.Toolkits.Excel.csproj", "{868D8D86-2753-4A2C-ACDC-A54509936734}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -108,14 +95,6 @@ Global
 		{02740F70-7E2C-4FC1-864B-A76CE08E9962}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{02740F70-7E2C-4FC1-864B-A76CE08E9962}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{02740F70-7E2C-4FC1-864B-A76CE08E9962}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B30ACE1A-26E0-4EE4-A935-F7B64B9AB550}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B30ACE1A-26E0-4EE4-A935-F7B64B9AB550}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B30ACE1A-26E0-4EE4-A935-F7B64B9AB550}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B30ACE1A-26E0-4EE4-A935-F7B64B9AB550}.Release|Any CPU.Build.0 = Release|Any CPU
-		{32D0DFC1-5F8C-4538-A5B6-FB8833925314}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{32D0DFC1-5F8C-4538-A5B6-FB8833925314}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{32D0DFC1-5F8C-4538-A5B6-FB8833925314}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{32D0DFC1-5F8C-4538-A5B6-FB8833925314}.Release|Any CPU.Build.0 = Release|Any CPU
 		{69617D73-C69F-45BF-A088-313F39F7AF91}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{69617D73-C69F-45BF-A088-313F39F7AF91}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{69617D73-C69F-45BF-A088-313F39F7AF91}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -182,8 +161,6 @@ Global
 		{3B3136DA-F25E-49EB-B817-B841A83E99D2} = {DE420171-A672-478A-99CA-62AB53D57785}
 		{37D68FA0-61F2-40D1-ADED-4EA91A18E298} = {DE420171-A672-478A-99CA-62AB53D57785}
 		{02740F70-7E2C-4FC1-864B-A76CE08E9962} = {DE420171-A672-478A-99CA-62AB53D57785}
-		{B30ACE1A-26E0-4EE4-A935-F7B64B9AB550} = {5407248D-A1AD-48BB-9C3B-BEB9C05CC194}
-		{32D0DFC1-5F8C-4538-A5B6-FB8833925314} = {5407248D-A1AD-48BB-9C3B-BEB9C05CC194}
 		{69617D73-C69F-45BF-A088-313F39F7AF91} = {84CE5E54-82B6-4B0D-AEC5-3E22BF4FD0D2}
 		{37402463-F73A-4788-B9DE-5C57EC18604F} = {341CD552-661B-49D6-934A-9CE5C11437A3}
 		{85CCF2CF-082A-4BFA-BAB3-719FCE5E0A4C} = {84CE5E54-82B6-4B0D-AEC5-3E22BF4FD0D2}
