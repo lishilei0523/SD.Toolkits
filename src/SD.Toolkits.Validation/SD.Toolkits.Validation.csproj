@@ -22,4 +22,8 @@
     <PackageReference Include="SD.IOC.Core" Version="2.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Update="NETStandard.Library" Version="2.0.2" />
+  </ItemGroup>
+
 </Project>

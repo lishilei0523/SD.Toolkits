@@ -19,4 +19,8 @@
     <DocumentationFile>bin\Release\netstandard2.0\SD.Toolkits.Recursion.xml</DocumentationFile>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Update="NETStandard.Library" Version="2.0.2" />
+  </ItemGroup>
+
 </Project>

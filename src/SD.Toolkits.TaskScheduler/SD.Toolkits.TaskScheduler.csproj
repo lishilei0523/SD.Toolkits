@@ -23,4 +23,8 @@
     <PackageReference Include="Quartz" Version="3.0.4" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Update="NETStandard.Library" Version="2.0.2" />
+  </ItemGroup>
+
 </Project>
