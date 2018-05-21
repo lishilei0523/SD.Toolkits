@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <Authors>Lee</Authors>
+    <Company>SD</Company>
+    <Description>.NET Core与WCF相关工具封装</Description>
+    <Copyright>Copyright © SD 2018</Copyright>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>bin\Debug\netcoreapp2.0\System.ServiceModel.NetCore.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>bin\Release\netcoreapp2.0\System.ServiceModel.NetCore.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.4.1" />
+    <PackageReference Include="System.ServiceModel.Http" Version="4.4.2" />
+    <PackageReference Include="System.ServiceModel.NetTcp" Version="4.4.2" />
+    <PackageReference Include="System.ServiceModel.Primitives" Version="4.4.2" />
+  </ItemGroup>
+
+</Project>
