@@ -4,7 +4,6 @@ using System.Data;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
-using System.Text;
 
 namespace SD.Common.PoweredByLee
 {
@@ -462,14 +461,10 @@ namespace SD.Common.PoweredByLee
         /// <returns>分割字符串</returns>
         public static string ToSplicString<T>(this IEnumerable<T> enumerable)
         {
-            StringBuilder builder = new StringBuilder();
-            foreach (T item in enumerable)
-            {
-                builder.AppendFormat("'{0}'", item);
-                builder.Append(',');
-            }
+            IEnumerable<string> strings = enumerable.Select(x => x.ToString());
+            string result = strings.Aggregate((x, y) => $"{x},{y}");
 
-            return builder.Length > 0 ? builder.ToString().Substring(0, builder.Length - 1) : string.Empty;
+            return result;
         }
         #endregion
     }
