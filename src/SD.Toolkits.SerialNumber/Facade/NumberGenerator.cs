@@ -1,6 +1,7 @@
 ﻿using SD.Toolkits.SerialNumber.DAL;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Transactions;
 
@@ -88,7 +89,7 @@ namespace SD.Toolkits.SerialNumber.Facade
         }
         #endregion
 
-        #region # 批量生成编号方法 —— ICollection<string> GenerateNumbers(string prefix, string formatDate...
+        #region # 批量生成编号方法 —— string[] GenerateNumbers(string prefix, string formatDate...
         /// <summary>
         /// 批量生成编号方法
         /// </summary>
@@ -99,9 +100,9 @@ namespace SD.Toolkits.SerialNumber.Facade
         /// <param name="description">编号描述</param>
         /// <param name="count">生成数量</param>
         /// <returns>编号集</returns>
-        public ICollection<string> GenerateNumbers(string prefix, string formatDate, string className, int length, string description, int count)
+        public string[] GenerateNumbers(string prefix, string formatDate, string className, int length, string description, int count)
         {
-            lock (NumberGenerator._SyncLock)
+            lock (_SyncLock)
             {
                 using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
                 {
@@ -131,7 +132,7 @@ namespace SD.Toolkits.SerialNumber.Facade
 
                     scope.Complete();
 
-                    return numbers;
+                    return numbers.ToArray();
                 }
             }
         }

@@ -22,7 +22,7 @@ namespace SD.Toolkits.EntityFramework.Tests.StubEntities
         /// </summary>
         public override string EntityAssembly
         {
-            get { return "SD.Toolkits.EntityFrameworkTests"; }
+            get { return "SD.Toolkits.EntityFramework.Tests"; }
         }
 
         /// <summary>
@@ -30,7 +30,7 @@ namespace SD.Toolkits.EntityFramework.Tests.StubEntities
         /// </summary>
         public override string EntityConfigAssembly
         {
-            get { return "SD.Toolkits.EntityFrameworkTests"; }
+            get { return "SD.Toolkits.EntityFramework.Tests"; }
         }
 
         /// <summary>
