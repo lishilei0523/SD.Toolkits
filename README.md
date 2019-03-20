@@ -1,5 +1,11 @@
 # 通用扩展工具
 
+##### 2019.03 项目近期调整说明
+
+	1、定时任务相关组件集成到SD.Framework中，不再作为工具类库单独使用；
+
+	2、增加HttpContext异步环境支持（HttpContext.Current在异步/多线程环境下为null）；
+
 ##### 2018.04 项目近期调整说明
 	
 	1、除 SD.Common.NetFx 与 SD.Toolkits.EntityFramework 外，其余项目全部使用 .NET Standard 2.0 重写；
@@ -27,8 +33,6 @@
 	Redis 管理工具，基于 StackExchange.Redis ；
 
 	编号生成器工具，基于 ADO.NET + SQL Server ；
-
-    定时任务调度扩展工具，基于 Quartz.NET ；
 
 	实体验证工具，基于 FluentValidation ；
 
