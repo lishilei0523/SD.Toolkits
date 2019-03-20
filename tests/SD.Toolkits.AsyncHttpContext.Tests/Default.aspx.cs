@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using System.Web;
 
-namespace SD.Toolkits.HttpContextReader.Tests
+namespace SD.Toolkits.AsyncHttpContext.Tests
 {
     public partial class Default : System.Web.UI.Page
     {

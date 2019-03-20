@@ -1,7 +1,6 @@
 ﻿using System.Threading;
 using System.Web;
 
-// ReSharper disable once CheckNamespace
 namespace SD.Toolkits.AsyncHttpContext
 {
     /// <summary>

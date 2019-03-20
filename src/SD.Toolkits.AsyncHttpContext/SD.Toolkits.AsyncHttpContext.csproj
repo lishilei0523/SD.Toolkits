@@ -44,17 +44,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CacheHttpContextHttpModule.cs" />
+    <Compile Include="HttpContextReader.cs" />
     <Compile Include="PreAppStart.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\SD.Toolkits.HttpContextReader\SD.Toolkits.HttpContextReader.csproj">
-      <Project>{805ef543-7a01-460b-9905-4804101b5709}</Project>
-      <Name>SD.Toolkits.HttpContextReader</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

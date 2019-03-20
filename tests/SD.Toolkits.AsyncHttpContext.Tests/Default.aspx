@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="SD.Toolkits.HttpContextReader.Tests.Default" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="SD.Toolkits.AsyncHttpContext.Tests.Default" %>
 
 <!DOCTYPE html>
 

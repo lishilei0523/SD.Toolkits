@@ -11,8 +11,8 @@
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SD.Toolkits.HttpContextReader.Tests</RootNamespace>
-    <AssemblyName>SD.Toolkits.HttpContextReader.Tests</AssemblyName>
+    <RootNamespace>SD.Toolkits.AsyncHttpContext.Tests</RootNamespace>
+    <AssemblyName>SD.Toolkits.AsyncHttpContext.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
@@ -93,10 +93,6 @@
     <ProjectReference Include="..\..\src\SD.Toolkits.AsyncHttpContext\SD.Toolkits.AsyncHttpContext.csproj">
       <Project>{45562be3-1606-4a06-9ae7-aa76521e02d5}</Project>
       <Name>SD.Toolkits.AsyncHttpContext</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\SD.Toolkits.HttpContextReader\SD.Toolkits.HttpContextReader.csproj">
-      <Project>{805ef543-7a01-460b-9905-4804101b5709}</Project>
-      <Name>SD.Toolkits.HttpContextReader</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

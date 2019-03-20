@@ -7,7 +7,7 @@
 // </自动生成>
 //------------------------------------------------------------------------------
 
-namespace SD.Toolkits.HttpContextReader.Tests {
+namespace SD.Toolkits.AsyncHttpContext.Tests {
     
     
     public partial class Default {
