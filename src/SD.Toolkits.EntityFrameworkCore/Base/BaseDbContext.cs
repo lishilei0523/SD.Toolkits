@@ -120,7 +120,7 @@ namespace SD.Toolkits.EntityFrameworkCore.Base
             this.RegisterEntityTypes(modelBuilder, entityTypes);
 
             //注册实体配置
-            this.RegisterEntityConfigurations(modelBuilder, entityTypes);
+            this.RegisterEntityConfigurations(modelBuilder);
 
             //注册数据表前缀
             this.RegisterTableMaps(modelBuilder, entityTypes);
@@ -129,13 +129,12 @@ namespace SD.Toolkits.EntityFrameworkCore.Base
         }
         #endregion
 
-        #region 注册实体配置 —— void RegisterEntityConfigurations(ModelBuilder modelBuilder...
+        #region 注册实体配置 —— void RegisterEntityConfigurations(ModelBuilder modelBuilder)
         /// <summary>
         /// 注册实体配置
         /// </summary>
         /// <param name="modelBuilder">模型建造者</param>
-        /// <param name="entityTypes">实体类型集</param>
-        private void RegisterEntityConfigurations(ModelBuilder modelBuilder, IEnumerable<Type> entityTypes)
+        private void RegisterEntityConfigurations(ModelBuilder modelBuilder)
         {
             if (!string.IsNullOrWhiteSpace(this.EntityConfigAssembly))
             {
