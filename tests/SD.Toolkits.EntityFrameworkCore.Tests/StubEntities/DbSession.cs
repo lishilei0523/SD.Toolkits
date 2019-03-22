@@ -16,10 +16,7 @@ namespace SD.Toolkits.EntityFrameworkCore.Tests.StubEntities
         /// </summary>
         public DbSession()
         {
-            if (base.Database != null)
-            {
-                base.Database.EnsureCreated();
-            }
+            base.Database.EnsureCreated();
         }
 
         /// <summary>

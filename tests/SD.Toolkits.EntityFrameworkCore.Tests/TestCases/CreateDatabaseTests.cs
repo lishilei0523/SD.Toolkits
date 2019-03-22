@@ -33,10 +33,10 @@ namespace SD.Toolkits.EntityFrameworkCore.Tests.TestCases
             //初始化
             DbSession dbSession = new DbSession();
             dbSession.Database.EnsureCreated();
-            bool isDbExists = dbSession.Database.EnsureCreated();
+            bool alreadyExisted = dbSession.Database.EnsureCreated();
 
             //断言数据库已创建成功
-            Assert.IsTrue(isDbExists);
+            Assert.IsFalse(alreadyExisted);
         }
 
         /// <summary>

@@ -140,26 +140,7 @@ namespace SD.Toolkits.EntityFrameworkCore.Base
             if (!string.IsNullOrWhiteSpace(this.EntityConfigAssembly))
             {
                 Assembly entityConfigAssembly = Assembly.Load(this.EntityConfigAssembly);
-                Type[] types = entityConfigAssembly.GetTypes();
-
-                Type configGenericType = typeof(IEntityTypeConfiguration<>);
-
-                foreach (Type entityType in entityTypes)
-                {
-                    Type configConcreteType = configGenericType.MakeGenericType(entityType);
-
-                    foreach (Type type in types)
-                    {
-                        if (configConcreteType.IsAssignableFrom(type))
-                        {
-                            MethodInfo method = typeof(ModelBuilder).GetMethod("ApplyConfiguration");
-                            method = method.MakeGenericMethod(entityType);
-
-                            object instance = Activator.CreateInstance(type);
-                            method.Invoke(modelBuilder, new[] { instance });
-                        }
-                    }
-                }
+                modelBuilder.ApplyConfigurationsFromAssembly(entityConfigAssembly);
             }
         }
         #endregion
