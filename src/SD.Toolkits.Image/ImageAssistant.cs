@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections;
-using System.DrawingCore;
-using System.DrawingCore.Drawing2D;
-using System.DrawingCore.Imaging;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Drawing.Imaging;
 using System.IO;
 
-namespace SD.Common.PoweredByLee
+namespace SD.Toolkits.Image
 {
     /// <summary>
     /// 图片处理工具类
@@ -23,7 +23,7 @@ namespace SD.Common.PoweredByLee
         /// <param name="mode">生成缩略图的方式</param>    
         public static void MakeThumbnail(string sourceImagePath, string thumbnailPath, int width, int height, string mode)
         {
-            Image originalImage = Image.FromFile(sourceImagePath);
+            System.Drawing.Image originalImage = System.Drawing.Image.FromFile(sourceImagePath);
 
             int towidth = width;
             int toheight = height;
@@ -64,7 +64,7 @@ namespace SD.Common.PoweredByLee
             }
 
             //新建一个bmp图片
-            Image bitmap = new Bitmap(towidth, toheight);
+            System.Drawing.Image bitmap = new Bitmap(towidth, toheight);
 
             //新建一个画板
             Graphics g = Graphics.FromImage(bitmap);
@@ -109,10 +109,10 @@ namespace SD.Common.PoweredByLee
             {
                 DateTime time = DateTime.Now;
                 string filename = "" + time.Year.ToString() + time.Month.ToString() + time.Day.ToString() + time.Hour.ToString() + time.Minute.ToString() + time.Second.ToString() + time.Millisecond.ToString();
-                Image img = Bitmap.FromFile(path);
-                Image waterimg = Image.FromFile(waterpath);
+                System.Drawing.Image img = Bitmap.FromFile(path);
+                System.Drawing.Image waterimg = System.Drawing.Image.FromFile(waterpath);
                 Graphics g = Graphics.FromImage(img);
-                ArrayList loca = GetLocation(location, img, waterimg);
+                ArrayList loca = ImageAssistant.GetLocation(location, img, waterimg);
                 g.DrawImage(waterimg, new Rectangle(int.Parse(loca[0].ToString()), int.Parse(loca[1].ToString()), waterimg.Width, waterimg.Height));
                 waterimg.Dispose();
                 g.Dispose();
@@ -134,7 +134,7 @@ namespace SD.Common.PoweredByLee
         /// <param name="location">水印位置</param>
         /// <param name="img">需要添加水印的图片</param>
         /// <param name="waterimg">水印图片</param>
-        private static ArrayList GetLocation(string location, Image img, Image waterimg)
+        private static ArrayList GetLocation(string location, System.Drawing.Image img, System.Drawing.Image waterimg)
         {
             ArrayList loca = new ArrayList();
             int x = 0;
@@ -209,9 +209,9 @@ namespace SD.Common.PoweredByLee
             {
                 DateTime time = DateTime.Now;
                 string filename = "" + time.Year.ToString() + time.Month.ToString() + time.Day.ToString() + time.Hour.ToString() + time.Minute.ToString() + time.Second.ToString() + time.Millisecond.ToString();
-                Image img = Bitmap.FromFile(path);
+                System.Drawing.Image img = Bitmap.FromFile(path);
                 Graphics gs = Graphics.FromImage(img);
-                ArrayList loca = GetLocation(location, img, size, letter.Length);
+                ArrayList loca = ImageAssistant.GetLocation(location, img, size, letter.Length);
                 Font font = new Font("宋体", size);
                 Brush br = new SolidBrush(color);
                 gs.DrawString(letter, font, br, float.Parse(loca[0].ToString()), float.Parse(loca[1].ToString()));
@@ -237,7 +237,7 @@ namespace SD.Common.PoweredByLee
         /// <param name="img">图片对象</param>
         /// <param name="width">宽(当水印类型为文字时,传过来的就是字体的大小)</param>
         /// <param name="height">高(当水印类型为文字时,传过来的就是字符的长度)</param>
-        private static ArrayList GetLocation(string location, Image img, int width, int height)
+        private static ArrayList GetLocation(string location, System.Drawing.Image img, int width, int height)
         {
             #region
 
@@ -493,7 +493,7 @@ namespace SD.Common.PoweredByLee
         {
             try
             {
-                Image img = Image.FromFile(oldfile);
+                System.Drawing.Image img = System.Drawing.Image.FromFile(oldfile);
                 ImageFormat thisFormat = img.RawFormat;
                 Size newSize = new Size(100, 125);
                 Bitmap outBmp = new Bitmap(newSize.Width, newSize.Height);
@@ -574,7 +574,7 @@ namespace SD.Common.PoweredByLee
         /// <param name="pSavedPath">保存路径</param>
         public static void GetFrames(string pPath, string pSavedPath)
         {
-            Image gif = Image.FromFile(pPath);
+            System.Drawing.Image gif = System.Drawing.Image.FromFile(pPath);
             FrameDimension fd = new FrameDimension(gif.FrameDimensionsList[0]);
             int count = gif.GetFrameCount(fd); //获取帧数(gif图片可能包含多帧，其它格式图片一般仅一帧)
             for (int i = 0; i < count; i++)    //以Jpeg格式保存各帧

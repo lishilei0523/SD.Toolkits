@@ -17,20 +17,12 @@ namespace SD.Toolkits.SerialNumber.Facade
         /// <summary>
         /// 同步锁
         /// </summary>
-        private static readonly object _SyncLock;
+        private static readonly object _SyncLock = new object();
 
         /// <summary>
         /// 编号生成器数据访问层对象
         /// </summary>
         private readonly GeneratorDal _generatorDal;
-
-        /// <summary>
-        /// 静态构造器
-        /// </summary>
-        static NumberGenerator()
-        {
-            NumberGenerator._SyncLock = new object();
-        }
 
         /// <summary>
         /// 构造器
@@ -65,24 +57,24 @@ namespace SD.Toolkits.SerialNumber.Facade
         /// <returns>编号</returns>
         public string GenerateNumber(string prefix, string formatDate, string className, int length, string description)
         {
-            lock (NumberGenerator._SyncLock)
+            lock (_SyncLock)
             {
                 Model.SerialNumber serialNumber = this._generatorDal.SingleOrDefault(prefix, formatDate, className, length);
                 if (serialNumber == null)
                 {
-                    serialNumber = new Model.SerialNumber(prefix, formatDate, className, length, string.Format("创建{0}", description));
+                    serialNumber = new Model.SerialNumber(prefix, formatDate, className, length, $"创建{description}");
                     this._generatorDal.Add(serialNumber);
                 }
                 else
                 {
-                    serialNumber.UpdateInfo(serialNumber.TodayCount + 1, string.Format("新增{0}", description));
+                    serialNumber.UpdateInfo(serialNumber.TodayCount + 1, $"新增{description}");
                     this._generatorDal.Save(serialNumber);
                 }
 
                 StringBuilder numberBuilder = new StringBuilder();
                 numberBuilder.Append(serialNumber.Prefix);
                 numberBuilder.Append(serialNumber.FormatDate);
-                numberBuilder.Append(serialNumber.TodayCount.ToString(string.Format("D{0}", length)));
+                numberBuilder.Append(serialNumber.TodayCount.ToString($"D{length}"));
 
                 return numberBuilder.ToString();
             }
