@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Linq;
+using System.Text;
 
 namespace SD.Common.PoweredByLee
 {
@@ -37,9 +39,10 @@ namespace SD.Common.PoweredByLee
 
         #endregion
 
-        #region # Facade
 
-        #region 01.执行SQL语句命令 —— int ExecuteNonQuery(string sql, params SqlParameter[] args)
+        //Public
+
+        #region # 执行SQL语句命令 —— int ExecuteNonQuery(string sql, params SqlParameter[] args)
         /// <summary>
         /// ExecuteNonQuery —— Sql语句
         /// </summary>
@@ -52,7 +55,7 @@ namespace SD.Common.PoweredByLee
         }
         #endregion
 
-        #region 02.执行存储过程命令 —— int ExecuteNonQuerySP(string proc, params SqlParameter[] args)
+        #region # 执行存储过程命令 —— int ExecuteNonQuerySP(string proc, params SqlParameter[] args)
         /// <summary>
         /// ExecuteNonQuery —— 存储过程
         /// </summary>
@@ -65,7 +68,7 @@ namespace SD.Common.PoweredByLee
         }
         #endregion
 
-        #region 03.执行SQL语句返回首行首列值 —— object ExecuteScalar(string sql, params SqlParameter[] args)
+        #region # 执行SQL语句返回首行首列值 —— object ExecuteScalar(string sql, params SqlParameter[] args)
         /// <summary>
         /// ExecuteScalar —— Sql语句
         /// </summary>
@@ -78,7 +81,7 @@ namespace SD.Common.PoweredByLee
         }
         #endregion
 
-        #region 04.执行SQL语句返回首行首列值（泛型） —— T ExecuteScalar<T>(string sql, params SqlParameter[] args)
+        #region # 执行SQL语句返回首行首列值（泛型） —— T ExecuteScalar<T>(string sql, params SqlParameter[] args)
         /// <summary>
         /// ExecuteScalar —— Sql语句
         /// </summary>
@@ -92,7 +95,7 @@ namespace SD.Common.PoweredByLee
         }
         #endregion
 
-        #region 05.执行存储过程返回首行首列值 —— object ExecuteScalarSP(string proc, params SqlParameter[] args)
+        #region # 执行存储过程返回首行首列值 —— object ExecuteScalarSP(string proc, params SqlParameter[] args)
         /// <summary>
         /// ExecuteScalar —— 存储过程
         /// </summary>
@@ -105,7 +108,7 @@ namespace SD.Common.PoweredByLee
         }
         #endregion
 
-        #region 06.执行存储过程返回首行首列值（泛型） —— T ExecuteScalarSP<T>(string proc, params SqlParameter[] args)
+        #region # 执行存储过程返回首行首列值（泛型） —— T ExecuteScalarSP<T>(string proc, params SqlParameter[] args)
         /// <summary>
         /// ExecuteScalar —— 存储过程
         /// </summary>
@@ -118,7 +121,7 @@ namespace SD.Common.PoweredByLee
         }
         #endregion
 
-        #region 07.执行SQL语句返回DataReader —— SqlDataReader ExecuteReader(string sql, params SqlParameter[] args)
+        #region # 执行SQL语句返回DataReader —— SqlDataReader ExecuteReader(string sql, params SqlParameter[] args)
         /// <summary>
         /// ExecuteReader —— Sql语句
         /// </summary>
@@ -131,7 +134,7 @@ namespace SD.Common.PoweredByLee
         }
         #endregion
 
-        #region 08.执行存储过程返回DataReader —— SqlDataReader ExecuteReaderSP(string proc, params SqlParameter[] args)
+        #region # 执行存储过程返回DataReader —— SqlDataReader ExecuteReaderSP(string proc, params SqlParameter[] args)
         /// <summary>
         /// ExecuteReader —— 存储过程
         /// </summary>
@@ -144,7 +147,7 @@ namespace SD.Common.PoweredByLee
         }
         #endregion
 
-        #region 09.执行SQL语句返回DataTable —— DataTable GetDataTable(string sql, params SqlParameter[] args)
+        #region # 执行SQL语句返回DataTable —— DataTable GetDataTable(string sql, params SqlParameter[] args)
         /// <summary>
         /// GetDataTable —— Sql语句
         /// </summary>
@@ -157,7 +160,7 @@ namespace SD.Common.PoweredByLee
         }
         #endregion
 
-        #region 10.执行存储过程返回DataTable —— DataTable GetDataTableSP(string proc, params SqlParameter[] args)
+        #region # 执行存储过程返回DataTable —— DataTable GetDataTableSP(string proc, params SqlParameter[] args)
         /// <summary>
         /// GetDataTable —— 存储过程
         /// </summary>
@@ -170,7 +173,7 @@ namespace SD.Common.PoweredByLee
         }
         #endregion
 
-        #region 11.执行SQL语句返回DataSet —— DataSet GetDataSet(string sql, params SqlParameter[] args)
+        #region # 执行SQL语句返回DataSet —— DataSet GetDataSet(string sql, params SqlParameter[] args)
         /// <summary>
         /// GetDataSet —— Sql语句
         /// </summary>
@@ -183,7 +186,7 @@ namespace SD.Common.PoweredByLee
         }
         #endregion
 
-        #region 12.执行存储过程返回DataSet —— DataSet GetDataSetSP(string proc, params SqlParameter[] args)
+        #region # 执行存储过程返回DataSet —— DataSet GetDataSetSP(string proc, params SqlParameter[] args)
         /// <summary>
         /// GetDataSet —— 存储过程
         /// </summary>
@@ -196,7 +199,7 @@ namespace SD.Common.PoweredByLee
         }
         #endregion
 
-        #region 13.执行SQL语句返回泛型集合 —— IList<T> GetList<T>(string sql...
+        #region # 执行SQL语句返回泛型集合 —— IList<T> GetList<T>(string sql...
         /// <summary>
         /// GetDataTable —— Sql语句
         /// </summary>
@@ -209,7 +212,7 @@ namespace SD.Common.PoweredByLee
         }
         #endregion
 
-        #region 14.执行存储过程返回泛型集合 —— IList<T> GetListSP<T>(string proc...
+        #region # 执行存储过程返回泛型集合 —— IList<T> GetListSP<T>(string proc...
         /// <summary>
         /// GetDataTable —— 存储过程
         /// </summary>
@@ -222,11 +225,79 @@ namespace SD.Common.PoweredByLee
         }
         #endregion
 
+        #region # 分页执行SQL语句返回泛型集合 —— IList<T> GetListByPage<T>(string sql...
+        /// <summary>
+        /// 分页执行SQL语句返回泛型集合
+        /// </summary>
+        /// <param name="sql">SQL语句</param>
+        /// <param name="fieldSelectors">字段选择器</param>
+        /// <param name="keySelectors">排序键选择器</param>
+        /// <param name="pageIndex">页码</param>
+        /// <param name="pageSize">页容量</param>
+        /// <param name="rowCount">总记录条数</param>
+        /// <param name="pageCount">总页数</param>
+        /// <returns>泛型集合</returns>
+        public IList<T> GetListByPage<T>(string sql, IList<string> fieldSelectors, IDictionary<string, bool> keySelectors, int pageIndex, int pageSize, out int rowCount, out int pageCount) where T : class
+        {
+            #region # 验证
+
+            fieldSelectors = fieldSelectors ?? new List<string>();
+            keySelectors = keySelectors ?? new Dictionary<string, bool>();
+
+            if (string.IsNullOrWhiteSpace(sql))
+            {
+                throw new ArgumentNullException(nameof(sql), "SQL语句不可为空！");
+            }
+            if (!keySelectors.Any())
+            {
+                throw new ArgumentNullException(nameof(keySelectors), "排序键选择器不可为空！");
+            }
+            if (pageIndex < 1)
+            {
+                pageIndex = 1;
+            }
+            if (pageSize < 1)
+            {
+                pageSize = 1;
+            }
+
+            #endregion
+
+            const string totalFields = "*";
+            const string separator = ",";
+
+            IEnumerable<string> sortSelectors =
+                from keySelector in keySelectors
+                let sortMode = keySelector.Value ? "ASC" : "DESC"
+                select $"{keySelector.Key} {sortMode}";
+
+            string fields = fieldSelectors.Any() ? string.Join(separator, fieldSelectors) : totalFields;
+            string sorts = string.Join(separator, sortSelectors);
+
+            int startIndex = (pageIndex - 1) * pageSize + 1;
+            int endIndex = (pageIndex - 1) * pageSize + pageSize;
+
+            StringBuilder sqlBuilder = new StringBuilder();
+            sqlBuilder.Append($"WITH Buffer AS ");
+            sqlBuilder.Append($"( ");
+            sqlBuilder.Append($"SELECT ROW_NUMBER() OVER (ORDER BY {sorts}) AS RowIndex, {fields} FROM ({sql}) ");
+            sqlBuilder.Append($") ");
+            sqlBuilder.Append($"SELECT * FROM Buffer ");
+            sqlBuilder.Append($"WHERE RowIndex BETWEEN {startIndex} AND {endIndex} ");
+
+            rowCount = this.ExecuteScalar<int>($"SELECT COUNT(*) FROM ({sql}) ");
+            pageCount = (int)Math.Ceiling(rowCount * 1.0 / pageSize);
+
+            IList<T> list = this.GetList<T>(sqlBuilder.ToString());
+
+            return list;
+        }
         #endregion
 
-        #region # Private
 
-        #region 01.创建连接方法 —— SqlConnection CreateConnection()
+        //Private
+
+        #region # 创建连接方法 —— SqlConnection CreateConnection()
         /// <summary>
         /// 创建连接方法
         /// </summary>
@@ -237,7 +308,7 @@ namespace SD.Common.PoweredByLee
         }
         #endregion
 
-        #region 02.ExecuteNonQuery方法 —— int ExecuteNonQuery(string sql, CommandType type, params SqlParameter[] args)
+        #region # ExecuteNonQuery方法 —— int ExecuteNonQuery(string sql, CommandType type, params SqlParameter[] args)
         /// <summary>
         /// ExecuteNonQuery方法
         /// </summary>
@@ -269,7 +340,7 @@ namespace SD.Common.PoweredByLee
         }
         #endregion
 
-        #region 03.ExecuteScalar方法 —— object ExecuteScalar(string sql, CommandType type, params SqlParameter[] args)
+        #region # ExecuteScalar方法 —— object ExecuteScalar(string sql, CommandType type, params SqlParameter[] args)
         /// <summary>
         /// ExecuteScalar方法
         /// </summary>
@@ -301,7 +372,7 @@ namespace SD.Common.PoweredByLee
         }
         #endregion
 
-        #region 04.ExecuteScalar方法 —— T ExecuteScalar<T>(string sql, CommandType type, params SqlParameter[] args)
+        #region # ExecuteScalar方法 —— T ExecuteScalar<T>(string sql, CommandType type, params SqlParameter[] args)
         /// <summary>
         /// ExecuteScalar方法
         /// </summary>
@@ -323,7 +394,7 @@ namespace SD.Common.PoweredByLee
         }
         #endregion
 
-        #region 05.ExecuteReader方法 —— SqlDataReader ExecuteReader(string sql, CommandType type, params SqlParameter[] args)
+        #region # ExecuteReader方法 —— SqlDataReader ExecuteReader(string sql, CommandType type, params SqlParameter[] args)
         /// <summary>
         /// ExecuteReader方法
         /// </summary>
@@ -358,7 +429,7 @@ namespace SD.Common.PoweredByLee
         }
         #endregion
 
-        #region 06.返回DataTable方法 —— DataTable GetDataTable(string sql, CommandType type, params SqlParameter[] args)
+        #region # 返回DataTable方法 —— DataTable GetDataTable(string sql, CommandType type, params SqlParameter[] args)
         /// <summary>
         /// 返回DataTable方法
         /// </summary>
@@ -389,7 +460,7 @@ namespace SD.Common.PoweredByLee
         }
         #endregion
 
-        #region 07.返回DataSet方法 —— DataSet GetDataSet(string sql, CommandType type, params SqlParameter[] args)
+        #region # 返回DataSet方法 —— DataSet GetDataSet(string sql, CommandType type, params SqlParameter[] args)
         /// <summary>
         /// 返回DataSet方法
         /// </summary>
@@ -421,8 +492,6 @@ namespace SD.Common.PoweredByLee
                 return dataSet;
             }
         }
-        #endregion
-
         #endregion
     }
 }
