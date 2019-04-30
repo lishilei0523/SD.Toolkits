@@ -280,12 +280,12 @@ namespace SD.Common.PoweredByLee
             StringBuilder sqlBuilder = new StringBuilder();
             sqlBuilder.Append($"WITH Buffer AS ");
             sqlBuilder.Append($"( ");
-            sqlBuilder.Append($"SELECT ROW_NUMBER() OVER (ORDER BY {sorts}) AS RowIndex, {fields} FROM ({sql}) ");
+            sqlBuilder.Append($"SELECT ROW_NUMBER() OVER (ORDER BY {sorts}) AS RowIndex, {fields} FROM ({sql}) AS Container ");
             sqlBuilder.Append($") ");
             sqlBuilder.Append($"SELECT * FROM Buffer ");
             sqlBuilder.Append($"WHERE RowIndex BETWEEN {startIndex} AND {endIndex} ");
 
-            rowCount = this.ExecuteScalar<int>($"SELECT COUNT(*) FROM ({sql}) ");
+            rowCount = this.ExecuteScalar<int>($"SELECT COUNT(*) FROM ({sql}) AS Buffer ");
             pageCount = (int)Math.Ceiling(rowCount * 1.0 / pageSize);
 
             IList<T> list = this.GetList<T>(sqlBuilder.ToString());
