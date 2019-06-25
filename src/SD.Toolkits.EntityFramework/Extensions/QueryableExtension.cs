@@ -167,13 +167,13 @@ namespace SD.Toolkits.EntityFramework.Extensions
         }
         #endregion
 
-        #region # IQueryable集合包含导航属性 —— static IQueryable<T> IncludeNavigatorProperties<T>(...
+        #region # IQueryable集合包含导航属性 —— static IQueryable<T> IncludeNavigationProperties<T>(...
         /// <summary>
         /// IQueryable集合包含导航属性
         /// </summary>
         /// <param name="queryable">可查询集合</param>
         /// <returns>可查询集合</returns>
-        public static IQueryable<T> IncludeNavigatorProperties<T>(this IQueryable<T> queryable)
+        public static IQueryable<T> IncludeNavigationProperties<T>(this IQueryable<T> queryable)
         {
             queryable = (IQueryable<T>)IncludeRecursively(queryable, typeof(T), null, null);
 
