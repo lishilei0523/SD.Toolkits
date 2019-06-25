@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Core.Objects;
@@ -14,6 +15,8 @@ namespace SD.Toolkits.EntityFramework.Extensions
     /// </summary>
     public static class QueryableExtension
     {
+        //Public
+
         #region # IQueryable集合转换为SQL语句 —— static string ParseSql(this IQueryable...
         /// <summary>
         /// IQueryable集合转换为SQL语句
@@ -158,6 +161,72 @@ namespace SD.Toolkits.EntityFramework.Extensions
                 queryable = queryable.Provider.CreateQuery<T>(resultExp);
 
                 resetCount++;
+            }
+
+            return queryable;
+        }
+        #endregion
+
+        #region # IQueryable集合包含导航属性 —— static IQueryable<T> IncludeNavigatorProperties<T>(...
+        /// <summary>
+        /// IQueryable集合包含导航属性
+        /// </summary>
+        /// <param name="queryable">可查询集合</param>
+        /// <returns>可查询集合</returns>
+        public static IQueryable<T> IncludeNavigatorProperties<T>(this IQueryable<T> queryable)
+        {
+            queryable = (IQueryable<T>)IncludeRecursively(queryable, typeof(T), null, null);
+
+            return queryable;
+        }
+        #endregion
+
+
+        //Private
+
+        #region # IQueryable集合递归包含导航属性 —— static IQueryable IncludeRecursively(IQueryable queryable...
+        /// <summary>
+        /// IQueryable集合递归包含导航属性
+        /// </summary>
+        /// <param name="queryable">可查询集合</param>
+        /// <param name="classType">实体类型</param>
+        /// <param name="excludePropertyType">排除属性类型</param>
+        /// <param name="pathPrefix">路径前缀</param>
+        /// <returns>可查询集合</returns>
+        private static IQueryable IncludeRecursively(IQueryable queryable, Type classType, Type excludePropertyType, string pathPrefix)
+        {
+            //获取导航属性
+            IEnumerable<PropertyInfo> navigatorProperties = classType.GetProperties().Where(x => x.GetMethod.IsVirtual && x.SetMethod.IsVirtual);
+
+            foreach (PropertyInfo propertyInfo in navigatorProperties)
+            {
+                if (propertyInfo.PropertyType == excludePropertyType)
+                {
+                    continue;
+                }
+
+                //构造路径
+                string path = string.IsNullOrWhiteSpace(pathPrefix)
+                    ? propertyInfo.Name
+                    : $"{pathPrefix}.{propertyInfo.Name}";
+
+                queryable = queryable.Include(path);
+
+                Type propertyType = propertyInfo.PropertyType;
+                if (typeof(IEnumerable).IsAssignableFrom(propertyType))
+                {
+                    propertyType = propertyType.GetGenericArguments()[0];
+                    if (propertyType == excludePropertyType)
+                    {
+                        continue;
+                    }
+                }
+
+                string pathPrefix2 = string.IsNullOrWhiteSpace(pathPrefix)
+                    ? propertyInfo.Name
+                    : $"{pathPrefix}.{propertyInfo.Name}";
+
+                IncludeRecursively(queryable, propertyType, classType, pathPrefix2);
             }
 
             return queryable;
