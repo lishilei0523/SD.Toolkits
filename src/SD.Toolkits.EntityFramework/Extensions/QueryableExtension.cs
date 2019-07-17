@@ -195,10 +195,27 @@ namespace SD.Toolkits.EntityFramework.Extensions
         /// <returns>可查询集合</returns>
         private static IQueryable IncludeRecursively(IQueryable queryable, Type classType, Type excludePropertyType, string pathPrefix)
         {
-            //获取导航属性
-            IEnumerable<PropertyInfo> navigatorProperties = classType.GetProperties().Where(x => x.GetMethod.IsVirtual && x.SetMethod.IsVirtual);
+            //加载所有导航属性
+            Func<PropertyInfo, bool> navPropertySelector = typ =>
+            {
+                MethodInfo getMethod = typ.GetGetMethod(false) == null ? typ.GetGetMethod(true) : typ.GetGetMethod(false);
+                MethodInfo setMethod = typ.GetSetMethod(false) == null ? typ.GetSetMethod(true) : typ.GetSetMethod(false);
 
-            foreach (PropertyInfo propertyInfo in navigatorProperties)
+                if (setMethod == null)
+                {
+                    return false;
+                }
+                if (getMethod == null)
+                {
+                    return false;
+                }
+
+                return getMethod.IsVirtual && (setMethod.IsPrivate || setMethod.IsVirtual);
+            };
+
+            IEnumerable<PropertyInfo> navProperties = classType.GetProperties().Where(navPropertySelector);
+
+            foreach (PropertyInfo propertyInfo in navProperties)
             {
                 if (propertyInfo.PropertyType == excludePropertyType)
                 {
