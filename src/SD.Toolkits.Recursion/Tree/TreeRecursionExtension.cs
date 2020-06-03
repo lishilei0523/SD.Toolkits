@@ -11,7 +11,7 @@ namespace SD.Toolkits.Recursion.Tree
     {
         //Public
 
-        #region # 深度获取上级节点集 —— static IEnumerable<T> GetDeepParentNodes<T>(this T vertex)
+        #region # 深度获取上级节点集 —— static ICollection<T> GetDeepParentNodes<T>(this T vertex)
         /// <summary>
         /// 深度获取上级节点集
         /// </summary>
@@ -19,7 +19,7 @@ namespace SD.Toolkits.Recursion.Tree
         /// <param name="vertex">顶点</param>
         /// <returns>上级节点集</returns>
         /// <remarks>包含上级的上级的上级...</remarks>
-        public static IEnumerable<T> GetDeepParentNodes<T>(this T vertex) where T : ITree<T>
+        public static ICollection<T> GetDeepParentNodes<T>(this T vertex) where T : ITree<T>
         {
             HashSet<T> collection = new HashSet<T>();
             RecurseParentNodes(vertex, collection);
@@ -28,7 +28,7 @@ namespace SD.Toolkits.Recursion.Tree
         }
         #endregion
 
-        #region # 深度获取下级节点集 —— static IEnumerable<T> GetDeepSubNodes<T>(this T vertex)
+        #region # 深度获取下级节点集 —— static ICollection<T> GetDeepSubNodes<T>(this T vertex)
         /// <summary>
         /// 深度获取下级节点集
         /// </summary>
@@ -36,7 +36,7 @@ namespace SD.Toolkits.Recursion.Tree
         /// <param name="vertex">顶点</param>
         /// <returns>下级节点集</returns>
         /// <remarks>包含下级的下级的下级...</remarks>
-        public static IEnumerable<T> GetDeepSubNodes<T>(this T vertex) where T : ITree<T>
+        public static ICollection<T> GetDeepSubNodes<T>(this T vertex) where T : ITree<T>
         {
             HashSet<T> collection = new HashSet<T>();
             RecurseSubNodes(vertex, collection);
@@ -54,7 +54,7 @@ namespace SD.Toolkits.Recursion.Tree
         /// <returns>给定节点集 + 所有上级节点集</returns>
         public static IEnumerable<T> TailRecurseParentNodes<T>(this IEnumerable<T> nodes) where T : ITree<T>
         {
-            T[] nodeArray = nodes == null ? new T[0] : nodes.ToArray();
+            T[] nodeArray = nodes?.ToArray() ?? new T[0];
 
             HashSet<T> collection = new HashSet<T>();
 
