@@ -103,7 +103,7 @@ namespace SD.Common.PoweredByLee
         }
         #endregion
 
-        #region # 获取枚举类型完整信息 —— static IEnumerable<Tuple<int, string, string>> GetEnumMemberInfos(...
+        #region # 获取枚举类型完整信息 —— static ICollection<Tuple<int, string, string>> GetEnumMemberInfos(...
         /// <summary>
         /// 获取枚举类型完整信息
         /// </summary>
@@ -112,7 +112,7 @@ namespace SD.Common.PoweredByLee
         /// <remarks>
         /// Tuple[int, string, string]，[枚举int值，枚举名，枚举描述]
         /// </remarks>
-        public static IEnumerable<Tuple<int, string, string>> GetEnumMemberInfos(this Type enumType)
+        public static ICollection<Tuple<int, string, string>> GetEnumMemberInfos(this Type enumType)
         {
             #region # 验证参数
 
