@@ -1,5 +1,6 @@
 ﻿using SD.Toolkits.Redis.Configurations;
 using StackExchange.Redis;
+using System.Collections.Generic;
 
 // ReSharper disable once CheckNamespace
 namespace SD.Toolkits.Redis
@@ -10,7 +11,17 @@ namespace SD.Toolkits.Redis
     public static class RedisManager
     {
         /// <summary>
-        /// Redis连接通道字段
+        /// Redis密码
+        /// </summary>
+        private static readonly string _RedisPassword;
+
+        /// <summary>
+        /// Redis终结点列表
+        /// </summary>
+        private static readonly IList<KeyValuePair<string, int>> _RedisEndpoints;
+
+        /// <summary>
+        /// Redis连接通道
         /// </summary>
         private static readonly ConnectionMultiplexer _Instance;
 
@@ -19,11 +30,13 @@ namespace SD.Toolkits.Redis
         /// </summary>
         static RedisManager()
         {
+            _RedisEndpoints = new List<KeyValuePair<string, int>>();
             ConfigurationOptions config = new ConfigurationOptions();
 
             foreach (EndpointElement endpoint in RedisSection.Setting.EndpointElement)
             {
                 config.EndPoints.Add(endpoint.Host, endpoint.Port);
+                _RedisEndpoints.Add(new KeyValuePair<string, int>(endpoint.Host, endpoint.Port));
             }
 
             config.KeepAlive = 180;
@@ -32,9 +45,27 @@ namespace SD.Toolkits.Redis
             if (string.IsNullOrWhiteSpace(RedisSection.Setting.Password))
             {
                 config.Password = RedisSection.Setting.Password;
+                _RedisPassword = RedisSection.Setting.Password;
             }
 
             _Instance = ConnectionMultiplexer.Connect(config);
+        }
+
+
+        /// <summary>
+        /// Redis密码
+        /// </summary>
+        public static string RedisPassword
+        {
+            get { return _RedisPassword; }
+        }
+
+        /// <summary>
+        /// Redis终结点列表
+        /// </summary>
+        public static IList<KeyValuePair<string, int>> RedisEndpoints
+        {
+            get { return _RedisEndpoints; }
         }
 
         /// <summary>
@@ -44,6 +75,7 @@ namespace SD.Toolkits.Redis
         {
             get { return _Instance; }
         }
+
 
         /// <summary>
         /// 获取数据库
