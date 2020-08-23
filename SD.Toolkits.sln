@@ -53,7 +53,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "System.ServiceModel.NetCore
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.AsyncHttpContext.Tests", "src\SD.Toolkits.AsyncHttpContext.Tests\SD.Toolkits.AsyncHttpContext.Tests.csproj", "{40ECEC52-C9E8-4DCB-805E-3F3D9B99FDD0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.AsyncHttpContext", "src\SD.Toolkits.AsyncHttpContext\SD.Toolkits.AsyncHttpContext.csproj", "{45562BE3-1606-4A06-9AE7-AA76521E02D5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.AsyncHttpContext.NET461", "src\SD.Toolkits.AsyncHttpContext.NET461\SD.Toolkits.AsyncHttpContext.NET461.csproj", "{45562BE3-1606-4A06-9AE7-AA76521E02D5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Common.NET461", "src\SD.Common.NET461\SD.Common.NET461.csproj", "{78424159-8F86-478B-9C29-BFA5A7E5741B}"
 EndProject
