@@ -73,12 +73,11 @@
     <Compile Include="TestCases\ParseSqlTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\SD.Toolkits.EntityFramework\SD.Toolkits.EntityFramework.csproj">
+    <ProjectReference Include="..\SD.Toolkits.EntityFramework.NET461\SD.Toolkits.EntityFramework.NET461.csproj">
       <Project>{a101fbdf-273f-477f-85df-d9ad39fdb117}</Project>
-      <Name>SD.Toolkits.EntityFramework</Name>
+      <Name>SD.Toolkits.EntityFramework.NET461</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <None Include="App.config">
       <SubType>Designer</SubType>

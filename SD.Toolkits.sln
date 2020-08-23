@@ -3,21 +3,21 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2036
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.EntityFramework", "src\SD.Toolkits.EntityFramework\SD.Toolkits.EntityFramework.csproj", "{A101FBDF-273F-477F-85DF-D9AD39FDB117}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.EntityFramework.NET461", "src\SD.Toolkits.EntityFramework.NET461\SD.Toolkits.EntityFramework.NET461.csproj", "{A101FBDF-273F-477F-85DF-D9AD39FDB117}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.EntityFramework.Tests", "tests\SD.Toolkits.EntityFramework.Tests\SD.Toolkits.EntityFramework.Tests.csproj", "{2123B05C-FC6A-4AC0-8223-540B00F8F30C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.EntityFramework.Tests", "src\SD.Toolkits.EntityFramework.Tests\SD.Toolkits.EntityFramework.Tests.csproj", "{2123B05C-FC6A-4AC0-8223-540B00F8F30C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.SerialNumber.Tests", "tests\SD.Toolkits.SerialNumber.Tests\SD.Toolkits.SerialNumber.Tests.csproj", "{021ED5C8-EF08-49BB-A4AE-337072E417B0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.SerialNumber.Tests", "src\SD.Toolkits.SerialNumber.Tests\SD.Toolkits.SerialNumber.Tests.csproj", "{021ED5C8-EF08-49BB-A4AE-337072E417B0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.SessionSharing.TestSiteMain", "tests\SD.Toolkits.SessionSharing.TestSiteMain\SD.Toolkits.SessionSharing.TestSiteMain.csproj", "{3002A0DC-268F-40CE-AF4D-D000ED904A58}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.SessionSharing.TestSiteMain", "src\SD.Toolkits.SessionSharing.TestSiteMain\SD.Toolkits.SessionSharing.TestSiteMain.csproj", "{3002A0DC-268F-40CE-AF4D-D000ED904A58}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.SessionSharing.TestSiteSub", "tests\SD.Toolkits.SessionSharing.TestSiteSub\SD.Toolkits.SessionSharing.TestSiteSub.csproj", "{FC4588F7-2FE9-4D99-8352-6F344DE6EEC0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.SessionSharing.TestSiteSub", "src\SD.Toolkits.SessionSharing.TestSiteSub\SD.Toolkits.SessionSharing.TestSiteSub.csproj", "{FC4588F7-2FE9-4D99-8352-6F344DE6EEC0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.Recursion.Tests", "tests\SD.Toolkits.Recursion.Tests\SD.Toolkits.Recursion.Tests.csproj", "{3B3136DA-F25E-49EB-B817-B841A83E99D2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.Recursion.Tests", "src\SD.Toolkits.Recursion.Tests\SD.Toolkits.Recursion.Tests.csproj", "{3B3136DA-F25E-49EB-B817-B841A83E99D2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.Validation.Tests", "tests\SD.Toolkits.Validation.Tests\SD.Toolkits.Validation.Tests.csproj", "{37D68FA0-61F2-40D1-ADED-4EA91A18E298}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.Validation.Tests", "src\SD.Toolkits.Validation.Tests\SD.Toolkits.Validation.Tests.csproj", "{37D68FA0-61F2-40D1-ADED-4EA91A18E298}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.Excel.Tests", "tests\SD.Toolkits.Excel.Tests\SD.Toolkits.Excel.Tests.csproj", "{02740F70-7E2C-4FC1-864B-A76CE08E9962}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.Excel.Tests", "src\SD.Toolkits.Excel.Tests\SD.Toolkits.Excel.Tests.csproj", "{02740F70-7E2C-4FC1-864B-A76CE08E9962}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03 - Tests", "03 - Tests", "{DE420171-A672-478A-99CA-62AB53D57785}"
 EndProject
@@ -25,7 +25,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Toolkits.EntityFramework
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Toolkits.Redis", "src\SD.Toolkits.Redis\SD.Toolkits.Redis.csproj", "{85CCF2CF-082A-4BFA-BAB3-719FCE5E0A4C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.Redis.Tests", "tests\SD.Toolkits.Redis.Tests\SD.Toolkits.Redis.Tests.csproj", "{86B7F67E-3EED-49FD-B728-508EB75CA5E8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.Redis.Tests", "src\SD.Toolkits.Redis.Tests\SD.Toolkits.Redis.Tests.csproj", "{86B7F67E-3EED-49FD-B728-508EB75CA5E8}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01 - NET FX", "01 - NET FX", "{341CD552-661B-49D6-934A-9CE5C11437A3}"
 EndProject
@@ -35,7 +35,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Toolkits.SerialNumber", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Toolkits.Recursion", "src\SD.Toolkits.Recursion\SD.Toolkits.Recursion.csproj", "{83975BBB-0A8C-4782-80C5-AA717AF8FAA7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.EntityFrameworkCore.Tests", "tests\SD.Toolkits.EntityFrameworkCore.Tests\SD.Toolkits.EntityFrameworkCore.Tests.csproj", "{A0219A7C-D2F4-42DA-9285-3F2B5B298CF0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.EntityFrameworkCore.Tests", "src\SD.Toolkits.EntityFrameworkCore.Tests\SD.Toolkits.EntityFrameworkCore.Tests.csproj", "{A0219A7C-D2F4-42DA-9285-3F2B5B298CF0}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Toolkits.Validation", "src\SD.Toolkits.Validation\SD.Toolkits.Validation.csproj", "{824DAA9B-A087-4AAF-B4D4-A7B7A6C66A7B}"
 EndProject
@@ -43,15 +43,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Common", "src\SD.Common\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Toolkits.Image", "src\SD.Toolkits.Image\SD.Toolkits.Image.csproj", "{93635750-E60D-4525-9997-F1D9CD386263}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Common.Tests", "tests\SD.Common.Tests\SD.Common.Tests.csproj", "{CD94D63E-E7A3-46FF-ADC7-2AF9CEBB3755}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Common.Tests", "src\SD.Common.Tests\SD.Common.Tests.csproj", "{CD94D63E-E7A3-46FF-ADC7-2AF9CEBB3755}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Toolkits.Excel", "src\SD.Toolkits.Excel\SD.Toolkits.Excel.csproj", "{868D8D86-2753-4A2C-ACDC-A54509936734}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "System.ServiceModel.NetCore", "src\System.ServiceModel.NetCore\System.ServiceModel.NetCore.csproj", "{01E0206D-DBA4-4CCC-B8E5-CF0B202AF509}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "System.ServiceModel.NetCore.Tests", "tests\System.ServiceModel.NetCore.Tests\System.ServiceModel.NetCore.Tests.csproj", "{E08F6EA1-CC96-43D4-9CD0-58789BF3162E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "System.ServiceModel.NetCore.Tests", "src\System.ServiceModel.NetCore.Tests\System.ServiceModel.NetCore.Tests.csproj", "{E08F6EA1-CC96-43D4-9CD0-58789BF3162E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.AsyncHttpContext.Tests", "tests\SD.Toolkits.AsyncHttpContext.Tests\SD.Toolkits.AsyncHttpContext.Tests.csproj", "{40ECEC52-C9E8-4DCB-805E-3F3D9B99FDD0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.AsyncHttpContext.Tests", "src\SD.Toolkits.AsyncHttpContext.Tests\SD.Toolkits.AsyncHttpContext.Tests.csproj", "{40ECEC52-C9E8-4DCB-805E-3F3D9B99FDD0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.AsyncHttpContext", "src\SD.Toolkits.AsyncHttpContext\SD.Toolkits.AsyncHttpContext.csproj", "{45562BE3-1606-4A06-9AE7-AA76521E02D5}"
 EndProject
