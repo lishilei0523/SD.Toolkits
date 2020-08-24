@@ -193,3 +193,4 @@ ModelManifest.xml
 *.ide-shm
 *.ide-wal
 *.dtbcache
+/.vs/SD.Toolkits/config/applicationhost.config
