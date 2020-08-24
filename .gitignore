@@ -194,3 +194,4 @@ ModelManifest.xml
 *.ide-wal
 *.dtbcache
 /.vs/SD.Toolkits/config/applicationhost.config
+/.vs/SD.Toolkits/DesignTimeBuild/.dtbcache.v2

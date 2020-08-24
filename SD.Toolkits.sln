@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30413.136
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.EntityFramework.NET461", "src\SD.Toolkits.EntityFramework.NET461\SD.Toolkits.EntityFramework.NET461.csproj", "{A101FBDF-273F-477F-85DF-D9AD39FDB117}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.EntityFramework.NET45", "src\SD.Toolkits.EntityFramework.NET45\SD.Toolkits.EntityFramework.NET45.csproj", "{A101FBDF-273F-477F-85DF-D9AD39FDB117}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.EntityFramework.Tests", "src\SD.Toolkits.EntityFramework.Tests\SD.Toolkits.EntityFramework.Tests.csproj", "{2123B05C-FC6A-4AC0-8223-540B00F8F30C}"
 EndProject
@@ -71,7 +71,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.Validation.NET4
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.Redis.NET45", "src\SD.Toolkits.Redis.NET45\SD.Toolkits.Redis.NET45.csproj", "{71578971-07CC-4A62-BFC1-73DCD7B82C35}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.EntityFramework", "src\SD.Toolkits.EntityFramework\SD.Toolkits.EntityFramework.csproj", "{07165E19-A869-4F33-A906-46A8EF4E5AA2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Toolkits.EntityFramework", "src\SD.Toolkits.EntityFramework\SD.Toolkits.EntityFramework.csproj", "{07165E19-A869-4F33-A906-46A8EF4E5AA2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

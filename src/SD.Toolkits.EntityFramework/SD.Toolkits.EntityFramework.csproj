@@ -15,19 +15,19 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="..\SD.Toolkits.EntityFramework.NET461\Base\BaseDbContext.cs">
+    <Compile Include="..\SD.Toolkits.EntityFramework.NET45\Base\BaseDbContext.cs">
       <Link>Base\BaseDbContext.cs</Link>
     </Compile>
-    <Compile Include="..\SD.Toolkits.EntityFramework.NET461\Extensions\ConfigurationExtension.cs">
+    <Compile Include="..\SD.Toolkits.EntityFramework.NET45\Extensions\ConfigurationExtension.cs">
       <Link>Extensions\ConfigurationExtension.cs</Link>
     </Compile>
-    <Compile Include="..\SD.Toolkits.EntityFramework.NET461\Extensions\IndexType.cs">
+    <Compile Include="..\SD.Toolkits.EntityFramework.NET45\Extensions\IndexType.cs">
       <Link>Extensions\IndexType.cs</Link>
     </Compile>
-    <Compile Include="..\SD.Toolkits.EntityFramework.NET461\Extensions\PredicateBuilder.cs">
+    <Compile Include="..\SD.Toolkits.EntityFramework.NET45\Extensions\PredicateBuilder.cs">
       <Link>Extensions\PredicateBuilder.cs</Link>
     </Compile>
-    <Compile Include="..\SD.Toolkits.EntityFramework.NET461\Extensions\QueryableExtension.cs">
+    <Compile Include="..\SD.Toolkits.EntityFramework.NET45\Extensions\QueryableExtension.cs">
       <Link>Extensions\QueryableExtension.cs</Link>
     </Compile>
   </ItemGroup>

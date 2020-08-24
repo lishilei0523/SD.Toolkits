@@ -73,16 +73,16 @@
     <Compile Include="TestCases\ParseSqlTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SD.Toolkits.EntityFramework.NET461\SD.Toolkits.EntityFramework.NET461.csproj">
-      <Project>{a101fbdf-273f-477f-85df-d9ad39fdb117}</Project>
-      <Name>SD.Toolkits.EntityFramework.NET461</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SD.Toolkits.EntityFramework.NET45\SD.Toolkits.EntityFramework.NET45.csproj">
+      <Project>{a101fbdf-273f-477f-85df-d9ad39fdb117}</Project>
+      <Name>SD.Toolkits.EntityFramework.NET45</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
