@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -19,7 +19,7 @@
 
   <ItemGroup>
     <PackageReference Include="FluentValidation" Version="8.4.0" />
-    <PackageReference Include="SD.IOC.Core" Version="2.0.1" />
+    <PackageReference Include="SD.IOC.Core" Version="2.0.4" />
   </ItemGroup>
 
   <ItemGroup>
