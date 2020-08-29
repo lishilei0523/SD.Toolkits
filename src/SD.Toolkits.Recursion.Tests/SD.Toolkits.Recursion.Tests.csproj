@@ -56,9 +56,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\SD.Toolkits.Recursion\SD.Toolkits.Recursion.csproj">
-      <Project>{83975bbb-0a8c-4782-80c5-aa717af8faa7}</Project>
-      <Name>SD.Toolkits.Recursion</Name>
+    <ProjectReference Include="..\SD.Toolkits.Recursion.NET461\SD.Toolkits.Recursion.NET461.csproj">
+      <Project>{67de9cd1-b746-4390-8995-006cea1b0a3c}</Project>
+      <Name>SD.Toolkits.Recursion.NET461</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>
