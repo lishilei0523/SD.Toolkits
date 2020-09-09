@@ -37,14 +37,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.Configuration" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Data.OracleClient" />
-    <Reference Include="System.Drawing" />
     <Reference Include="System.Net" />
-    <Reference Include="System.ServiceProcess" />
-    <Reference Include="System.Transactions" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <Choose>
     <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
@@ -69,7 +62,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SD.Toolkits.SerialNumber.NET4\SD.Toolkits.SerialNumber.NET4.csproj">
-      <Project>{962dfc0b-e92c-4afa-95aa-c7999f0d249d}</Project>
+      <Project>{2b4d69ae-f997-4487-a328-cc221efd45d2}</Project>
       <Name>SD.Toolkits.SerialNumber.NET4</Name>
     </ProjectReference>
   </ItemGroup>

@@ -61,7 +61,18 @@ namespace SD.Toolkits.SerialNumber.Mediators
         {
             lock (_SyncLock)
             {
-                string timestamp = string.IsNullOrWhiteSpace(timeFormat) ? null : DateTime.Now.ToString(timeFormat);
+                #region # 验证参数
+
+                seedName = string.IsNullOrWhiteSpace(seedName) ? string.Empty : seedName;
+                prefix = string.IsNullOrWhiteSpace(prefix) ? string.Empty : prefix;
+                stem = string.IsNullOrWhiteSpace(stem) ? string.Empty : stem;
+                postfix = string.IsNullOrWhiteSpace(postfix) ? string.Empty : postfix;
+                timeFormat = string.IsNullOrWhiteSpace(timeFormat) ? string.Empty : timeFormat;
+                serialLength = serialLength < 1 ? 1 : serialLength;
+
+                #endregion
+
+                string timestamp = string.IsNullOrWhiteSpace(timeFormat) ? string.Empty : DateTime.Now.ToString(timeFormat);
                 SerialSeed serialSeed = this._serialSeedRepository.SingleOrDefault(seedName, prefix, stem, postfix, timestamp, serialLength);
 
                 if (serialSeed == null)
@@ -107,8 +118,14 @@ namespace SD.Toolkits.SerialNumber.Mediators
         {
             lock (_SyncLock)
             {
-                #region # 验证
+                #region # 验证参数
 
+                seedName = string.IsNullOrWhiteSpace(seedName) ? string.Empty : seedName;
+                prefix = string.IsNullOrWhiteSpace(prefix) ? string.Empty : prefix;
+                stem = string.IsNullOrWhiteSpace(stem) ? string.Empty : stem;
+                postfix = string.IsNullOrWhiteSpace(postfix) ? string.Empty : postfix;
+                timeFormat = string.IsNullOrWhiteSpace(timeFormat) ? string.Empty : timeFormat;
+                serialLength = serialLength < 1 ? 1 : serialLength;
                 if (count < 1)
                 {
                     throw new ArgumentOutOfRangeException(nameof(count), "数量不可小于1！");
@@ -116,9 +133,9 @@ namespace SD.Toolkits.SerialNumber.Mediators
 
                 #endregion
 
-                string timestamp = string.IsNullOrWhiteSpace(timeFormat) ? null : DateTime.Now.ToString(timeFormat);
+                string timestamp = string.IsNullOrWhiteSpace(timeFormat) ? string.Empty : DateTime.Now.ToString(timeFormat);
                 SerialSeed serialSeed = this._serialSeedRepository.SingleOrDefault(seedName, prefix, stem, postfix, timestamp, serialLength);
-                int initialTodayCount = serialSeed?.TodayCount ?? 1;
+                int initialIndex = serialSeed?.TodayCount ?? 0;
 
                 if (serialSeed == null)
                 {
@@ -134,9 +151,9 @@ namespace SD.Toolkits.SerialNumber.Mediators
                 }
 
                 ICollection<string> keys = new HashSet<string>();
-                for (int index = 0; index < count; index++)
+                for (int index = 1; index <= count; index++)
                 {
-                    int serial = initialTodayCount + index;
+                    int serial = initialIndex + index;
                     string serialText = serial.ToString($"D{serialLength}");
 
                     StringBuilder keyBuilder = new StringBuilder();

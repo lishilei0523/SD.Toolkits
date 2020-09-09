@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SD.Toolkits.SerialNumber.Mediators;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
@@ -73,6 +74,37 @@ namespace SD.Toolkits.NoGenerator.Tests
             //断言
             Assert.IsTrue(serialNos.All(serialNo => serialNo.Contains(patialKey)));
             Assert.AreEqual(serialNos.Length, count);
+        }
+
+        /// <summary>
+        /// Null测试
+        /// </summary>
+        [TestMethod]
+        public void NullTest()
+        {
+            string seedName = nameof(KeygenTests);
+            string prefix = null;
+            string stem = null;
+            string postfix = null;
+            string timeFormat = null;
+            int length = 3;
+            string description = null;
+
+            //生成序列号
+            Keygen keygen = new Keygen();
+
+            int count = 30;
+            ICollection<string> keys = new HashSet<string>();
+            for (int index = 0; index < count; index++)
+            {
+                string serialNo = keygen.Generate(seedName, prefix, stem, postfix, timeFormat, length, description);
+                keys.Add(serialNo);
+
+                //断言
+                Assert.AreEqual(serialNo.Length, length);
+            }
+
+            Assert.AreEqual(count, keys.Count);
         }
     }
 }
