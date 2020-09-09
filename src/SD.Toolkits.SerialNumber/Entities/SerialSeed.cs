@@ -34,12 +34,12 @@ namespace SD.Toolkits.SerialNumber.Entities
         public SerialSeed(string seedName, string prefix, string stem, string postfix, string timestamp, int serialLength, string description)
             : this()
         {
-            this.Name = seedName;
-            this.Prefix = prefix;
-            this.Stem = stem;
-            this.Postfix = postfix;
-            this.Timestamp = timestamp;
-            this.SerialLength = serialLength;
+            this.Name = string.IsNullOrWhiteSpace(seedName) ? string.Empty : seedName;
+            this.Prefix = string.IsNullOrWhiteSpace(prefix) ? string.Empty : prefix;
+            this.Stem = string.IsNullOrWhiteSpace(stem) ? string.Empty : stem;
+            this.Postfix = string.IsNullOrWhiteSpace(postfix) ? string.Empty : postfix;
+            this.Timestamp = string.IsNullOrWhiteSpace(timestamp) ? string.Empty : timestamp;
+            this.SerialLength = serialLength < 1 ? 1 : serialLength;
             this.Description = description;
         }
         #endregion

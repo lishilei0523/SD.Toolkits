@@ -75,12 +75,15 @@ namespace SD.Toolkits.SerialNumber.Mediators
                     this._serialSeedRepository.Save(serialSeed);
                 }
 
+                int serial = serialSeed.TodayCount;
+                string serialText = serial.ToString($"D{serialLength}");
+
                 StringBuilder keyBuilder = new StringBuilder();
                 keyBuilder.Append(serialSeed.Prefix);
                 keyBuilder.Append(serialSeed.Stem);
                 keyBuilder.Append(serialSeed.Postfix);
                 keyBuilder.Append(serialSeed.Timestamp);
-                keyBuilder.Append(serialSeed.TodayCount.ToString($"D{serialLength}"));
+                keyBuilder.Append(serialText);
 
                 return keyBuilder.ToString();
             }
@@ -104,6 +107,15 @@ namespace SD.Toolkits.SerialNumber.Mediators
         {
             lock (_SyncLock)
             {
+                #region # 验证
+
+                if (count < 1)
+                {
+                    throw new ArgumentOutOfRangeException(nameof(count), "数量不可小于1！");
+                }
+
+                #endregion
+
                 string timestamp = string.IsNullOrWhiteSpace(timeFormat) ? null : DateTime.Now.ToString(timeFormat);
                 SerialSeed serialSeed = this._serialSeedRepository.SingleOrDefault(seedName, prefix, stem, postfix, timestamp, serialLength);
                 int initialTodayCount = serialSeed?.TodayCount ?? 1;
