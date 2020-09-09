@@ -59,7 +59,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="GenerateNumberTests.cs" />
+    <Compile Include="KeygenTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -68,9 +68,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SD.Toolkits.SerialNumber.NET461\SD.Toolkits.SerialNumber.NET461.csproj">
+    <ProjectReference Include="..\SD.Toolkits.SerialNumber.NET4\SD.Toolkits.SerialNumber.NET4.csproj">
       <Project>{962dfc0b-e92c-4afa-95aa-c7999f0d249d}</Project>
-      <Name>SD.Toolkits.SerialNumber.NET461</Name>
+      <Name>SD.Toolkits.SerialNumber.NET4</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>

@@ -2,7 +2,7 @@
 using System.Data;
 using System.Data.SqlClient;
 
-namespace SD.Toolkits.SerialNumber.DAL
+namespace SD.Toolkits.SerialNumber.Commons
 {
     /// <summary>
     /// SQL Server数据库访问助手类

@@ -1,0 +1,145 @@
+﻿using SD.Toolkits.SerialNumber.Entities;
+using SD.Toolkits.SerialNumber.Repositories;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace SD.Toolkits.SerialNumber.Mediators
+{
+    /// <summary>
+    /// 序列号注册机
+    /// </summary>
+    public sealed class Keygen
+    {
+        #region # 字段及构造器
+
+        /// <summary>
+        /// 同步锁
+        /// </summary>
+        private static readonly object _SyncLock = new object();
+
+        /// <summary>
+        /// 序列种子仓储实现
+        /// </summary>
+        private readonly SerialSeedRepository _serialSeedRepository;
+
+        /// <summary>
+        /// 构造器
+        /// </summary>
+        public Keygen()
+        {
+            try
+            {
+                this._serialSeedRepository = new SerialSeedRepository();
+            }
+            catch (TypeLoadException typeLoadException)
+            {
+                if (typeLoadException.InnerException != null)
+                {
+                    throw typeLoadException.InnerException;
+                }
+                throw;
+            }
+        }
+
+        #endregion
+
+        #region # 生成序列号 —— string Generate(string seedName, string prefix...
+        /// <summary>
+        /// 生成序列号
+        /// </summary>
+        /// <param name="seedName">种子名称</param>
+        /// <param name="prefix">前缀</param>
+        /// <param name="stem">词根</param>
+        /// <param name="postfix">后缀</param>
+        /// <param name="timeFormat">时间格式</param>
+        /// <param name="serialLength">流水长度</param>
+        /// <param name="description">描述</param>
+        /// <returns>序列号</returns>
+        public string Generate(string seedName, string prefix, string stem, string postfix, string timeFormat, int serialLength, string description)
+        {
+            lock (_SyncLock)
+            {
+                string timestamp = string.IsNullOrWhiteSpace(timeFormat) ? null : DateTime.Now.ToString(timeFormat);
+                SerialSeed serialSeed = this._serialSeedRepository.SingleOrDefault(seedName, prefix, stem, postfix, timestamp, serialLength);
+
+                if (serialSeed == null)
+                {
+                    serialSeed = new SerialSeed(seedName, prefix, stem, postfix, timestamp, serialLength, description);
+                    this._serialSeedRepository.Create(serialSeed);
+                }
+                else
+                {
+                    serialSeed.UpdateInfo(serialSeed.TodayCount + 1);
+                    this._serialSeedRepository.Save(serialSeed);
+                }
+
+                StringBuilder keyBuilder = new StringBuilder();
+                keyBuilder.Append(serialSeed.Prefix);
+                keyBuilder.Append(serialSeed.Stem);
+                keyBuilder.Append(serialSeed.Postfix);
+                keyBuilder.Append(serialSeed.Timestamp);
+                keyBuilder.Append(serialSeed.TodayCount.ToString($"D{serialLength}"));
+
+                return keyBuilder.ToString();
+            }
+        }
+        #endregion
+
+        #region # 批量生成序列号 —— string[] GenerateRange(string seedName, string prefix...
+        /// <summary>
+        /// 批量生成序列号
+        /// </summary>
+        /// <param name="seedName">种子名称</param>
+        /// <param name="prefix">前缀</param>
+        /// <param name="stem">词根</param>
+        /// <param name="postfix">后缀</param>
+        /// <param name="timeFormat">时间格式</param>
+        /// <param name="serialLength">流水长度</param>
+        /// <param name="description">描述</param>
+        /// <param name="count">数量</param>
+        /// <returns>序列号集</returns>
+        public string[] GenerateRange(string seedName, string prefix, string stem, string postfix, string timeFormat, int serialLength, string description, int count)
+        {
+            lock (_SyncLock)
+            {
+                string timestamp = string.IsNullOrWhiteSpace(timeFormat) ? null : DateTime.Now.ToString(timeFormat);
+                SerialSeed serialSeed = this._serialSeedRepository.SingleOrDefault(seedName, prefix, stem, postfix, timestamp, serialLength);
+                int initialTodayCount = serialSeed?.TodayCount ?? 1;
+
+                if (serialSeed == null)
+                {
+                    serialSeed = new SerialSeed(seedName, prefix, stem, postfix, timestamp, serialLength, description);
+                    serialSeed.UpdateInfo(count);
+
+                    this._serialSeedRepository.Create(serialSeed);
+                }
+                else
+                {
+                    serialSeed.UpdateInfo(serialSeed.TodayCount + count);
+                    this._serialSeedRepository.Save(serialSeed);
+                }
+
+                ICollection<string> keys = new HashSet<string>();
+                for (int index = 0; index < count; index++)
+                {
+                    int serial = initialTodayCount + index;
+                    string serialText = serial.ToString($"D{serialLength}");
+
+                    StringBuilder keyBuilder = new StringBuilder();
+                    keyBuilder.Append(serialSeed.Prefix);
+                    keyBuilder.Append(serialSeed.Stem);
+                    keyBuilder.Append(serialSeed.Postfix);
+                    keyBuilder.Append(serialSeed.Timestamp);
+                    keyBuilder.Append(serialText);
+
+                    keys.Add(keyBuilder.ToString());
+                }
+
+                return keys.ToArray();
+            }
+        }
+        #endregion
+    }
+}
