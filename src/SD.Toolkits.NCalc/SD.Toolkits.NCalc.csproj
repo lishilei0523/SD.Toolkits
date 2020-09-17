@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Authors>Lee</Authors>
+    <Company>SD</Company>
+    <Description>NCalc扩展组件</Description>
+    <Copyright>Copyright © SD 2020</Copyright>
+    <PackageId>SD.Toolkits.NCalc</PackageId>
+    <Product>SD.Toolkits.NCalc</Product>
+    <AssemblyName>SD.Toolkits.NCalc</AssemblyName>
+    <RootNamespace>SD.Toolkits.NCalc</RootNamespace>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>bin\Release\netstandard2.0\SD.Toolkits.NCalc.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CoreCLR-NCalc" Version="2.2.88" />
+  </ItemGroup>
+
+</Project>
