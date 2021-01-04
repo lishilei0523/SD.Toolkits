@@ -78,6 +78,29 @@ namespace SD.Toolkits.NCalc
         }
         #endregion
 
+        #region 格式化表达式 —— string FormativeExpression
+        /// <summary>
+        /// 格式化表达式
+        /// </summary>
+        public string FormativeExpression
+        {
+            get
+            {
+                string formativeExpression = this.RawExpression;
+                foreach (KeyValuePair<string, string> kv in this.FormativeParameters)
+                {
+                    if (this.Parameters.TryGetValue(kv.Key, out object value))
+                    {
+                        string parameterValue = value.ToString();
+                        formativeExpression = formativeExpression.Replace(kv.Value, parameterValue);
+                    }
+                }
+
+                return formativeExpression;
+            }
+        }
+        #endregion
+
         #region 原始参数列表 —— ICollection<string> RawParameters
         /// <summary>
         /// 原始参数列表
@@ -86,16 +109,43 @@ namespace SD.Toolkits.NCalc
         {
             get
             {
-                string pattern = $@"\{FormulaExpression.BracketLeft}.*?\{FormulaExpression.BracketRight}";
+                string pattern = $@"\{BracketLeft}.*?\{BracketRight}";
                 MatchCollection matches = Regex.Matches(this.RawExpression, pattern);
 
                 ICollection<string> parameters = new HashSet<string>();
                 foreach (Match match in matches)
                 {
                     string parameter = match.Value;
-                    parameter = parameter.Replace(FormulaExpression.BracketLeft, string.Empty);
-                    parameter = parameter.Replace(FormulaExpression.BracketRight, string.Empty);
+                    parameter = parameter.Replace(BracketLeft, string.Empty);
+                    parameter = parameter.Replace(BracketRight, string.Empty);
                     parameters.Add(parameter);
+                }
+
+                return parameters;
+            }
+        }
+        #endregion
+
+        #region 格式化参数字典 —— IDictionary<string, string> FormativeParameters
+        /// <summary>
+        /// 格式化参数字典
+        /// </summary>
+        /// <remarks>键：参数名，值：格式化参数名</remarks>
+        public IDictionary<string, string> FormativeParameters
+        {
+            get
+            {
+                string pattern = $@"\{BracketLeft}.*?\{BracketRight}";
+                MatchCollection matches = Regex.Matches(this.RawExpression, pattern);
+
+                IDictionary<string, string> parameters = new Dictionary<string, string>();
+                foreach (Match match in matches)
+                {
+                    string parameter = match.Value;
+                    string formativeParameter = parameter;
+                    formativeParameter = formativeParameter.Replace(BracketLeft, string.Empty);
+                    formativeParameter = formativeParameter.Replace(BracketRight, string.Empty);
+                    parameters.Add(formativeParameter, parameter);
                 }
 
                 return parameters;
