@@ -40,6 +40,7 @@
     <Compile Include="Configurations\HostElement.cs" />
     <Compile Include="Configurations\HostElementCollection.cs" />
     <Compile Include="Configurations\WebApiSection.cs" />
+    <Compile Include="Extensions\HttpConfigurationExtension.cs" />
     <Compile Include="Extensions\WrapPostParameterBinding.cs" />
     <Compile Include="Extensions\WrapPostParametersAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

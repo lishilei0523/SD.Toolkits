@@ -37,7 +37,7 @@ namespace SD.Toolkits.WebApi.Extensions
     /// This class is based on a similar implementation from https://github.com/RoyiNamir/SimplePostVariableParameterBindingExtended
     /// (also based on Rick Strahl's SimplePostVariableParameterBinding class) which only supported simple types.
     /// </remarks>
-    public class WrapPostParameterBinding : HttpParameterBinding
+    public sealed class WrapPostParameterBinding : HttpParameterBinding
     {
         #region # Constructors
 
@@ -81,7 +81,7 @@ namespace SD.Toolkits.WebApi.Extensions
         /// Call this method in Global.asax.cs in Application_Start before the call to GlobalConfiguration.Configure(WebApiConfig.Register):
         ///		GlobalConfiguration.Configuration.ParameterBindingRules.Insert(0, MultiPostParameterBinding.CreateBindingForMarkedParameters);
         /// </remarks>
-        public static WrapPostParameterBinding CreateBindingForMarkedParameters(HttpParameterDescriptor descriptor)
+        public static WrapPostParameterBinding CreateBindingForMarkedAction(HttpParameterDescriptor descriptor)
         {
             // short circuit if action does not have this attribute
             if (!descriptor.ActionDescriptor.GetCustomAttributes<WrapPostParametersAttribute>().Any())
