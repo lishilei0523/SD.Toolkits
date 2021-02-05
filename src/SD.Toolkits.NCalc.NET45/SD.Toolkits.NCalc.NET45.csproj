@@ -47,7 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="CoreCLR-NCalc">
-      <Version>2.2.88</Version>
+      <Version>2.2.92</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

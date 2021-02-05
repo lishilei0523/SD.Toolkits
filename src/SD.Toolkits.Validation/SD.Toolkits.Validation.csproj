@@ -18,12 +18,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="FluentValidation" Version="9.2.0" />
-    <PackageReference Include="SD.IOC.Core" Version="2.0.4" />
+    <PackageReference Include="FluentValidation" Version="9.5.0" />
+    <PackageReference Include="SD.IOC.Core" Version="2.0.5" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Update="NETStandard.Library" Version="2.0.2" />
+    <PackageReference Update="NETStandard.Library" Version="2.0.3" />
   </ItemGroup>
 
 </Project>

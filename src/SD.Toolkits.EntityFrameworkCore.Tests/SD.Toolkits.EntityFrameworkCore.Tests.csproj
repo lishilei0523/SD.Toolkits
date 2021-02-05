@@ -1,96 +1,27 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{A0219A7C-D2F4-42DA-9285-3F2B5B298CF0}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SD.Toolkits.EntityFrameworkCore.Tests</RootNamespace>
-    <AssemblyName>SD.Toolkits.EntityFrameworkCore.Tests</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">15.0</VisualStudioVersion>
-    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
-    <ReferencePath>$(ProgramFiles)\Common Files\microsoft shared\VSTT\$(VisualStudioVersion)\UITestExtensionPackages</ReferencePath>
-    <IsCodedUITest>False</IsCodedUITest>
-    <TestProjectType>UnitTest</TestProjectType>
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+
+    <IsPackable>false</IsPackable>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
+
   <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Configuration" />
-    <Reference Include="System.Core" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.11" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.9.0" />
+    <PackageReference Include="MSTest.TestAdapter" Version="1.3.2" />
+    <PackageReference Include="MSTest.TestFramework" Version="1.3.2" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.7.0" />
   </ItemGroup>
+
   <ItemGroup>
-    <Compile Include="EntityConfigurations\StudentConfig.cs" />
-    <Compile Include="StubEntities\Base\AggregateRootEntity.cs" />
-    <Compile Include="StubEntities\Base\PlainEntity.cs" />
-    <Compile Include="StubEntities\Class.cs" />
-    <Compile Include="StubEntities\DbSession.cs" />
-    <Compile Include="StubEntities\Student.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TestCases\BuildExpressionTests.cs" />
-    <Compile Include="TestCases\CreateDatabaseTests.cs" />
-    <Compile Include="TestCases\CreateIndexTests.cs" />
+    <ProjectReference Include="..\SD.Toolkits.EntityFrameworkCore\SD.Toolkits.EntityFrameworkCore.csproj" />
   </ItemGroup>
+
   <ItemGroup>
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\src\SD.Toolkits.EntityFrameworkCore\SD.Toolkits.EntityFrameworkCore.csproj">
-      <Project>{69617d73-c69f-45bf-a088-313f39f7af91}</Project>
-      <Name>SD.Toolkits.EntityFrameworkCore</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Analyzers">
-      <Version>3.1.7</Version>
-    </PackageReference>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design">
-      <Version>3.1.7</Version>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer">
-      <Version>3.1.7</Version>
-    </PackageReference>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools">
-      <Version>3.1.7</Version>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
-    <PackageReference Include="Microsoft.Extensions.Configuration.Binder">
-      <Version>3.1.7</Version>
-    </PackageReference>
-    <PackageReference Include="MSTest.TestAdapter">
-      <Version>2.1.2</Version>
-    </PackageReference>
-    <PackageReference Include="MSTest.TestFramework">
-      <Version>2.1.2</Version>
-    </PackageReference>
-  </ItemGroup>
-  <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+
 </Project>

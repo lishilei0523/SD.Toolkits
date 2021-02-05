@@ -59,7 +59,7 @@
       <Version>2.1.2</Version>
     </PackageReference>
     <PackageReference Include="StackExchange.Redis">
-      <Version>2.1.58</Version>
+      <Version>2.2.4</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>

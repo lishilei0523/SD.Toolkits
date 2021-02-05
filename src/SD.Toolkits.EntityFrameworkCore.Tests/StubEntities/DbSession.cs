@@ -3,6 +3,7 @@ using SD.Toolkits.EntityFrameworkCore.Base;
 using SD.Toolkits.EntityFrameworkCore.Tests.StubEntities.Base;
 using System;
 using System.Configuration;
+using System.Diagnostics;
 
 namespace SD.Toolkits.EntityFrameworkCore.Tests.StubEntities
 {
@@ -24,7 +25,10 @@ namespace SD.Toolkits.EntityFrameworkCore.Tests.StubEntities
         /// </summary>
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            string connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+            ConnectionStringSettings connectionStringSettings = ConfigurationManager.ConnectionStrings["DefaultConnection"];
+            Trace.WriteLine(connectionStringSettings);
+
+            string connectionString = "Data Source=.;Initial Catalog=EntityFrameworkCore;User Id=sa;Password=realgoal123!;MultipleActiveResultSets=true;";
             optionsBuilder.UseSqlServer(connectionString);
 
             base.OnConfiguring(optionsBuilder);

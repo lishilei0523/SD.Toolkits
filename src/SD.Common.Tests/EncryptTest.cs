@@ -19,7 +19,7 @@ namespace SD.Common.Tests
             string password = text.Encrypt();
             string source = password.Decrypt();
 
-            Assert.AreEqual(text, source);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(text, source);
         }
 
         /// <summary>
@@ -34,7 +34,7 @@ namespace SD.Common.Tests
             string password = text.Encrypt(key);
             string source = password.Decrypt(key);
 
-            Assert.AreEqual(text, source);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(text, source);
         }
     }
 }
