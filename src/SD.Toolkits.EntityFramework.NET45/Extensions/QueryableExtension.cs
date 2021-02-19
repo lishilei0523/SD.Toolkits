@@ -210,7 +210,7 @@ namespace SD.Toolkits.EntityFramework.Extensions
                     return false;
                 }
 
-                return getMethod.IsVirtual && (setMethod.IsPrivate || setMethod.IsVirtual);
+                return getMethod.IsVirtual && !getMethod.IsFinal && !setMethod.IsFinal && (setMethod.IsPrivate || setMethod.IsVirtual);
             };
 
             IEnumerable<PropertyInfo> navProperties = classType.GetProperties().Where(navPropertySelector);
