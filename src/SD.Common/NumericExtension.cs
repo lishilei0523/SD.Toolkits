@@ -7,6 +7,45 @@ namespace SD.Common
     /// </summary>
     public static class NumericExtension
     {
+        #region # float修正精度 —— static float Revise(this float number...
+        /// <summary>
+        /// float修正精度
+        /// </summary>
+        /// <param name="number">数值</param>
+        /// <param name="digits">小数位数</param>
+        /// <returns>修正后的数值</returns>
+        public static float Revise(this float number, int digits = 5)
+        {
+            return (float)Math.Round(number, digits);
+        }
+        #endregion
+
+        #region # double修正精度 —— static double Revise(this double number...
+        /// <summary>
+        /// double修正精度
+        /// </summary>
+        /// <param name="number">数值</param>
+        /// <param name="digits">小数位数</param>
+        /// <returns>修正后的数值</returns>
+        public static double Revise(this double number, int digits = 7)
+        {
+            return Math.Round(number, digits);
+        }
+        #endregion
+
+        #region # decimal修正精度 —— static decimal Revise(this decimal number...
+        /// <summary>
+        /// decimal修正精度
+        /// </summary>
+        /// <param name="number">数值</param>
+        /// <param name="digits">小数位数</param>
+        /// <returns>修正后的数值</returns>
+        public static decimal Revise(this decimal number, int digits = 7)
+        {
+            return Math.Round(number, digits);
+        }
+        #endregion
+
         #region # short类型是否为0或负数 —— static bool IsZeroOrMinus(this short number)
         /// <summary>
         /// short类型是否为0或负数
