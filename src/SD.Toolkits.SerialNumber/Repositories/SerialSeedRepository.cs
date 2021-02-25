@@ -76,20 +76,16 @@ namespace SD.Toolkits.SerialNumber.Repositories
         /// </summary>
         /// <param name="seedName">种子名称</param>
         /// <param name="prefix">前缀</param>
-        /// <param name="stem">词根</param>
-        /// <param name="postfix">后缀</param>
         /// <param name="timestamp">时间戳</param>
         /// <param name="serialLength">流水长度</param>
         /// <returns>序列种子</returns>
         /// <remarks>如没有，则返回null</remarks>
-        public SerialSeed SingleOrDefault(string seedName, string prefix, string stem, string postfix, string timestamp, int serialLength)
+        public SerialSeed SingleOrDefault(string seedName, string prefix, string timestamp, int serialLength)
         {
             StringBuilder sqlBuilder = new StringBuilder();
             sqlBuilder.Append("SELECT * FROM dbo.SerialSeeds ");
             sqlBuilder.Append("WHERE [Name] = @Name ");
             sqlBuilder.Append("AND [Prefix] = @Prefix ");
-            sqlBuilder.Append("AND [Stem] = @Stem ");
-            sqlBuilder.Append("AND [Postfix] = @Postfix ");
             sqlBuilder.Append("AND [Timestamp] = @Timestamp ");
             sqlBuilder.Append("AND [SerialLength] = @SerialLength ");
 
@@ -97,8 +93,6 @@ namespace SD.Toolkits.SerialNumber.Repositories
             {
                 new SqlParameter("@Name", this.ToDbValue(seedName)),
                 new SqlParameter("@Prefix", this.ToDbValue(prefix)),
-                new SqlParameter("@Stem", this.ToDbValue(stem)),
-                new SqlParameter("@Postfix", this.ToDbValue(postfix)),
                 new SqlParameter("@Timestamp", this.ToDbValue(timestamp)),
                 new SqlParameter("@SerialLength", this.ToDbValue(serialLength))
             };
@@ -119,17 +113,15 @@ namespace SD.Toolkits.SerialNumber.Repositories
         {
             StringBuilder sqlBuilder = new StringBuilder();
             sqlBuilder.Append("INSERT INTO dbo.SerialSeeds ");
-            sqlBuilder.Append("	([Id], [Name], [Prefix], [Stem], [Postfix], [Timestamp], [SerialLength], [TodayCount], [Description]) ");
+            sqlBuilder.Append("	([Id], [Name], [Prefix], [Timestamp], [SerialLength], [TodayCount], [Description]) ");
             sqlBuilder.Append("OUTPUT Inserted.Id ");
             sqlBuilder.Append("VALUES ");
-            sqlBuilder.Append("	(NEWID(), @Name , @Prefix, @Stem, @Postfix, @Timestamp, @SerialLength, @TodayCount, @Description) ");
+            sqlBuilder.Append("	(NEWID(), @Name , @Prefix, @Timestamp, @SerialLength, @TodayCount, @Description) ");
 
             SqlParameter[] parameters =
             {
                 new SqlParameter("@Name", this.ToDbValue(serialSeed.Name)),
                 new SqlParameter("@Prefix", this.ToDbValue(serialSeed.Prefix)),
-                new SqlParameter("@Stem", this.ToDbValue(serialSeed.Stem)),
-                new SqlParameter("@Postfix", this.ToDbValue(serialSeed.Postfix)),
                 new SqlParameter("@Timestamp", this.ToDbValue(serialSeed.Timestamp)),
                 new SqlParameter("@SerialLength", this.ToDbValue(serialSeed.SerialLength)),
                 new SqlParameter("@TodayCount", this.ToDbValue(serialSeed.TodayCount)),
@@ -153,8 +145,6 @@ namespace SD.Toolkits.SerialNumber.Repositories
             sqlBuilder.Append("UPDATE dbo.SerialSeeds SET ");
             sqlBuilder.Append("	[Name] = @Name, ");
             sqlBuilder.Append("	[Prefix] = @Prefix, ");
-            sqlBuilder.Append("	[Stem] = @Stem, ");
-            sqlBuilder.Append("	[Postfix] = @Postfix, ");
             sqlBuilder.Append("	[Timestamp] = @Timestamp, ");
             sqlBuilder.Append("	[SerialLength] = @SerialLength, ");
             sqlBuilder.Append("	[TodayCount] = @TodayCount, ");
@@ -166,8 +156,6 @@ namespace SD.Toolkits.SerialNumber.Repositories
                 new SqlParameter("@Id", serialSeed.Id),
                 new SqlParameter("@Name", this.ToDbValue(serialSeed.Name)),
                 new SqlParameter("@Prefix", this.ToDbValue(serialSeed.Prefix)),
-                new SqlParameter("@Stem", this.ToDbValue(serialSeed.Stem)),
-                new SqlParameter("@Postfix", this.ToDbValue(serialSeed.Postfix)),
                 new SqlParameter("@Timestamp", this.ToDbValue(serialSeed.Timestamp)),
                 new SqlParameter("@SerialLength", this.ToDbValue(serialSeed.SerialLength)),
                 new SqlParameter("@TodayCount", this.ToDbValue(serialSeed.TodayCount)),
@@ -195,8 +183,6 @@ namespace SD.Toolkits.SerialNumber.Repositories
             sqlBuilder.Append("	[Id] [uniqueidentifier] PRIMARY KEY NOT NULL, ");
             sqlBuilder.Append("	[Name] [NVARCHAR](MAX) NULL, ");
             sqlBuilder.Append("	[Prefix] [NVARCHAR](MAX) NULL, ");
-            sqlBuilder.Append("	[Stem] [NVARCHAR](MAX) NULL, ");
-            sqlBuilder.Append("	[Postfix] [NVARCHAR](MAX) NULL, ");
             sqlBuilder.Append("	[Timestamp] [NVARCHAR](MAX) NULL, ");
             sqlBuilder.Append("	[SerialLength] [INT] NOT NULL, ");
             sqlBuilder.Append("	[TodayCount] [INT] NOT NULL, ");
@@ -222,8 +208,6 @@ namespace SD.Toolkits.SerialNumber.Repositories
                 Id = (Guid)this.ToModelValue(reader, "Id"),
                 Name = (string)this.ToModelValue(reader, "Name"),
                 Prefix = (string)this.ToModelValue(reader, "Prefix"),
-                Stem = (string)this.ToModelValue(reader, "Stem"),
-                Postfix = (string)this.ToModelValue(reader, "Postfix"),
                 Timestamp = (string)this.ToModelValue(reader, "Timestamp"),
                 SerialLength = (int)this.ToModelValue(reader, "SerialLength"),
                 TodayCount = (int)this.ToModelValue(reader, "TodayCount"),

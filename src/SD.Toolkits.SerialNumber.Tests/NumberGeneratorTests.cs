@@ -8,10 +8,10 @@ using System.Text;
 namespace SD.Toolkits.NoGenerator.Tests
 {
     /// <summary>
-    /// 注册机测试
+    /// 序列号生成器测试
     /// </summary>
     [TestClass]
-    public class KeygenTests
+    public class NumberGeneratorTests
     {
         /// <summary>
         /// 生成序列号测试
@@ -19,23 +19,19 @@ namespace SD.Toolkits.NoGenerator.Tests
         [TestMethod]
         public void GenerateTest()
         {
-            string seedName = nameof(KeygenTests);
+            string seedName = nameof(NumberGeneratorTests);
             string prefix = "PRE";
-            string stem = "STEM";
-            string postfix = "POST";
             string timeFormat = "yyyyMMdd";
             int length = 3;
             string description = "描述";
 
             //生成序列号
-            Keygen keygen = new Keygen();
-            string serialNo = keygen.Generate(seedName, prefix, stem, postfix, timeFormat, length, description);
+            NumberGenerator generator = new NumberGenerator();
+            string serialNo = generator.Generate(seedName, prefix, timeFormat, length, description);
 
             //预期序列号
             StringBuilder keyBuilder = new StringBuilder();
             keyBuilder.Append(prefix);
-            keyBuilder.Append(stem);
-            keyBuilder.Append(postfix);
             keyBuilder.Append(DateTime.Now.ToString(timeFormat));
             string patialKey = keyBuilder.ToString();
 
@@ -50,24 +46,20 @@ namespace SD.Toolkits.NoGenerator.Tests
         [TestMethod]
         public void GenerateRangeTest()
         {
-            string seedName = nameof(KeygenTests);
+            string seedName = nameof(NumberGeneratorTests);
             string prefix = "PRE";
-            string stem = "STEM";
-            string postfix = "POST";
             string timeFormat = "yyyyMMdd";
             int length = 3;
             string description = "描述";
             int count = 10;
 
             //生成序列号
-            Keygen keygen = new Keygen();
-            string[] serialNos = keygen.GenerateRange(seedName, prefix, stem, postfix, timeFormat, length, description, count);
+            NumberGenerator generator = new NumberGenerator();
+            string[] serialNos = generator.GenerateRange(seedName, prefix, timeFormat, length, description, count);
 
             //预期序列号
             StringBuilder keyBuilder = new StringBuilder();
             keyBuilder.Append(prefix);
-            keyBuilder.Append(stem);
-            keyBuilder.Append(postfix);
             keyBuilder.Append(DateTime.Now.ToString(timeFormat));
             string patialKey = keyBuilder.ToString();
 
@@ -82,22 +74,20 @@ namespace SD.Toolkits.NoGenerator.Tests
         [TestMethod]
         public void NullTest()
         {
-            string seedName = nameof(KeygenTests);
+            string seedName = nameof(NumberGeneratorTests);
             string prefix = null;
-            string stem = null;
-            string postfix = null;
             string timeFormat = null;
             int length = 3;
             string description = null;
 
             //生成序列号
-            Keygen keygen = new Keygen();
+            NumberGenerator generator = new NumberGenerator();
 
             int count = 30;
             ICollection<string> keys = new HashSet<string>();
             for (int index = 0; index < count; index++)
             {
-                string serialNo = keygen.Generate(seedName, prefix, stem, postfix, timeFormat, length, description);
+                string serialNo = generator.Generate(seedName, prefix, timeFormat, length, description);
                 keys.Add(serialNo);
 
                 //断言

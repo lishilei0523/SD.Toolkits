@@ -26,18 +26,14 @@ namespace SD.Toolkits.SerialNumber.Entities
         /// </summary>
         /// <param name="seedName">种子名称</param>
         /// <param name="prefix">前缀</param>
-        /// <param name="stem">词根</param>
-        /// <param name="postfix">后缀</param>
         /// <param name="timestamp">时间戳</param>
         /// <param name="serialLength">流水长度</param>
         /// <param name="description">描述</param>
-        public SerialSeed(string seedName, string prefix, string stem, string postfix, string timestamp, int serialLength, string description)
+        public SerialSeed(string seedName, string prefix, string timestamp, int serialLength, string description)
             : this()
         {
             this.Name = string.IsNullOrWhiteSpace(seedName) ? string.Empty : seedName;
             this.Prefix = string.IsNullOrWhiteSpace(prefix) ? string.Empty : prefix;
-            this.Stem = string.IsNullOrWhiteSpace(stem) ? string.Empty : stem;
-            this.Postfix = string.IsNullOrWhiteSpace(postfix) ? string.Empty : postfix;
             this.Timestamp = string.IsNullOrWhiteSpace(timestamp) ? string.Empty : timestamp;
             this.SerialLength = serialLength < 1 ? 1 : serialLength;
             this.Description = description;
@@ -67,20 +63,6 @@ namespace SD.Toolkits.SerialNumber.Entities
         /// 前缀
         /// </summary>
         public string Prefix { get; internal set; }
-        #endregion
-
-        #region 词根 —— string Stem
-        /// <summary>
-        /// 词根
-        /// </summary>
-        public string Stem { get; internal set; }
-        #endregion
-
-        #region 后缀 —— string Postfix
-        /// <summary>
-        /// 后缀
-        /// </summary>
-        public string Postfix { get; internal set; }
         #endregion
 
         #region 时间戳 —— string Timestamp

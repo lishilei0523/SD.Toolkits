@@ -8,9 +8,9 @@ using System.Text;
 namespace SD.Toolkits.SerialNumber.Mediators
 {
     /// <summary>
-    /// 序列号注册机
+    /// 序列号生成器
     /// </summary>
-    public sealed class Keygen
+    public sealed class NumberGenerator
     {
         #region # 字段及构造器
 
@@ -27,7 +27,7 @@ namespace SD.Toolkits.SerialNumber.Mediators
         /// <summary>
         /// 构造器
         /// </summary>
-        public Keygen()
+        public NumberGenerator()
         {
             try
             {
@@ -51,13 +51,11 @@ namespace SD.Toolkits.SerialNumber.Mediators
         /// </summary>
         /// <param name="seedName">种子名称</param>
         /// <param name="prefix">前缀</param>
-        /// <param name="stem">词根</param>
-        /// <param name="postfix">后缀</param>
         /// <param name="timeFormat">时间格式</param>
         /// <param name="serialLength">流水长度</param>
         /// <param name="description">描述</param>
         /// <returns>序列号</returns>
-        public string Generate(string seedName, string prefix, string stem, string postfix, string timeFormat, int serialLength, string description)
+        public string Generate(string seedName, string prefix, string timeFormat, int serialLength, string description)
         {
             lock (_SyncLock)
             {
@@ -65,19 +63,17 @@ namespace SD.Toolkits.SerialNumber.Mediators
 
                 seedName = string.IsNullOrWhiteSpace(seedName) ? string.Empty : seedName;
                 prefix = string.IsNullOrWhiteSpace(prefix) ? string.Empty : prefix;
-                stem = string.IsNullOrWhiteSpace(stem) ? string.Empty : stem;
-                postfix = string.IsNullOrWhiteSpace(postfix) ? string.Empty : postfix;
                 timeFormat = string.IsNullOrWhiteSpace(timeFormat) ? string.Empty : timeFormat;
                 serialLength = serialLength < 1 ? 1 : serialLength;
 
                 #endregion
 
                 string timestamp = string.IsNullOrWhiteSpace(timeFormat) ? string.Empty : DateTime.Now.ToString(timeFormat);
-                SerialSeed serialSeed = this._serialSeedRepository.SingleOrDefault(seedName, prefix, stem, postfix, timestamp, serialLength);
+                SerialSeed serialSeed = this._serialSeedRepository.SingleOrDefault(seedName, prefix, timestamp, serialLength);
 
                 if (serialSeed == null)
                 {
-                    serialSeed = new SerialSeed(seedName, prefix, stem, postfix, timestamp, serialLength, description);
+                    serialSeed = new SerialSeed(seedName, prefix, timestamp, serialLength, description);
                     this._serialSeedRepository.Create(serialSeed);
                 }
                 else
@@ -91,8 +87,6 @@ namespace SD.Toolkits.SerialNumber.Mediators
 
                 StringBuilder keyBuilder = new StringBuilder();
                 keyBuilder.Append(serialSeed.Prefix);
-                keyBuilder.Append(serialSeed.Stem);
-                keyBuilder.Append(serialSeed.Postfix);
                 keyBuilder.Append(serialSeed.Timestamp);
                 keyBuilder.Append(serialText);
 
@@ -107,14 +101,12 @@ namespace SD.Toolkits.SerialNumber.Mediators
         /// </summary>
         /// <param name="seedName">种子名称</param>
         /// <param name="prefix">前缀</param>
-        /// <param name="stem">词根</param>
-        /// <param name="postfix">后缀</param>
         /// <param name="timeFormat">时间格式</param>
         /// <param name="serialLength">流水长度</param>
         /// <param name="description">描述</param>
         /// <param name="count">数量</param>
         /// <returns>序列号集</returns>
-        public string[] GenerateRange(string seedName, string prefix, string stem, string postfix, string timeFormat, int serialLength, string description, int count)
+        public string[] GenerateRange(string seedName, string prefix, string timeFormat, int serialLength, string description, int count)
         {
             lock (_SyncLock)
             {
@@ -122,8 +114,6 @@ namespace SD.Toolkits.SerialNumber.Mediators
 
                 seedName = string.IsNullOrWhiteSpace(seedName) ? string.Empty : seedName;
                 prefix = string.IsNullOrWhiteSpace(prefix) ? string.Empty : prefix;
-                stem = string.IsNullOrWhiteSpace(stem) ? string.Empty : stem;
-                postfix = string.IsNullOrWhiteSpace(postfix) ? string.Empty : postfix;
                 timeFormat = string.IsNullOrWhiteSpace(timeFormat) ? string.Empty : timeFormat;
                 serialLength = serialLength < 1 ? 1 : serialLength;
                 if (count < 1)
@@ -134,12 +124,12 @@ namespace SD.Toolkits.SerialNumber.Mediators
                 #endregion
 
                 string timestamp = string.IsNullOrWhiteSpace(timeFormat) ? string.Empty : DateTime.Now.ToString(timeFormat);
-                SerialSeed serialSeed = this._serialSeedRepository.SingleOrDefault(seedName, prefix, stem, postfix, timestamp, serialLength);
+                SerialSeed serialSeed = this._serialSeedRepository.SingleOrDefault(seedName, prefix, timestamp, serialLength);
                 int initialIndex = serialSeed?.TodayCount ?? 0;
 
                 if (serialSeed == null)
                 {
-                    serialSeed = new SerialSeed(seedName, prefix, stem, postfix, timestamp, serialLength, description);
+                    serialSeed = new SerialSeed(seedName, prefix, timestamp, serialLength, description);
                     serialSeed.UpdateInfo(count);
 
                     this._serialSeedRepository.Create(serialSeed);
@@ -158,8 +148,6 @@ namespace SD.Toolkits.SerialNumber.Mediators
 
                     StringBuilder keyBuilder = new StringBuilder();
                     keyBuilder.Append(serialSeed.Prefix);
-                    keyBuilder.Append(serialSeed.Stem);
-                    keyBuilder.Append(serialSeed.Postfix);
                     keyBuilder.Append(serialSeed.Timestamp);
                     keyBuilder.Append(serialText);
 

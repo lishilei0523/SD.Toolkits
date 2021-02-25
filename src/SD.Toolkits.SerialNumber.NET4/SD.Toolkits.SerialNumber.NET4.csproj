@@ -46,8 +46,8 @@
     <Compile Include="..\SD.Toolkits.SerialNumber\Entities\SerialSeed.cs">
       <Link>Entities\SerialSeed.cs</Link>
     </Compile>
-    <Compile Include="..\SD.Toolkits.SerialNumber\Mediators\Keygen.cs">
-      <Link>Mediators\Keygen.cs</Link>
+    <Compile Include="..\SD.Toolkits.SerialNumber\Mediators\NumberGenerator.cs">
+      <Link>Mediators\NumberGenerator.cs</Link>
     </Compile>
     <Compile Include="..\SD.Toolkits.SerialNumber\Repositories\SerialSeedRepository.cs">
       <Link>Repositories\SerialSeedRepository.cs</Link>
