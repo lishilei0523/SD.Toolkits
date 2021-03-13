@@ -1,10 +1,10 @@
-﻿using System;
+﻿using NPOI.HSSF.UserModel;
+using NPOI.SS.UserModel;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using NPOI.HSSF.UserModel;
-using NPOI.SS.UserModel;
 
 namespace SD.Toolkits.Excel
 {
@@ -26,15 +26,15 @@ namespace SD.Toolkits.Excel
         /// <remarks>默认读取第一张工作表，第二行</remarks>
         public static T[] ReadFile<T>(string path, int sheetIndex = 0, int rowIndex = 1)
         {
-            #region # 验证参数
+            #region # 验证
 
             if (string.IsNullOrWhiteSpace(path))
             {
-                throw new ArgumentNullException("path", @"文件路径不可为空！");
+                throw new ArgumentNullException(nameof(path), "文件路径不可为空！");
             }
             if (Path.GetExtension(path) != Constant.Excel97ExtensionName)
             {
-                throw new ArgumentOutOfRangeException("path", string.Format("文件格式不正确，只能是\"{0}\"格式！", Constant.Excel97ExtensionName));
+                throw new ArgumentOutOfRangeException(nameof(path), $"文件格式不正确，只能是\"{Constant.Excel97ExtensionName}\"格式！");
             }
             if (sheetIndex < 0)
             {
@@ -53,7 +53,7 @@ namespace SD.Toolkits.Excel
                 //02.创建工作薄
                 IWorkbook workbook = new HSSFWorkbook(stream);
 
-                #region # 验证逻辑
+                #region # 验证
 
                 if (sheetIndex + 1 > workbook.NumberOfSheets)
                 {
@@ -82,19 +82,19 @@ namespace SD.Toolkits.Excel
         /// <remarks>默认读取第二行</remarks>
         public static T[] ReadFile<T>(string path, string sheetName, int rowIndex = 1)
         {
-            #region # 验证参数
+            #region # 验证
 
             if (string.IsNullOrWhiteSpace(path))
             {
-                throw new ArgumentNullException("path", @"文件路径不可为空！");
+                throw new ArgumentNullException(nameof(path), "文件路径不可为空！");
             }
             if (string.IsNullOrWhiteSpace(sheetName))
             {
-                throw new ArgumentNullException("sheetName", @"工作表名称不可为空！");
+                throw new ArgumentNullException(nameof(sheetName), "工作表名称不可为空！");
             }
             if (Path.GetExtension(path) != Constant.Excel97ExtensionName)
             {
-                throw new ArgumentOutOfRangeException("path", string.Format("文件格式不正确，只能是\"{0}\"格式！", Constant.Excel97ExtensionName));
+                throw new ArgumentOutOfRangeException(nameof(path), $"文件格式不正确，只能是\"{Constant.Excel97ExtensionName}\"格式！");
             }
             if (rowIndex < 0)
             {
@@ -131,11 +131,11 @@ namespace SD.Toolkits.Excel
         /// <returns>泛型集合</returns>
         private static T[] SheetToArray<T>(ISheet sheet, int rowIndex)
         {
-            #region # 验证逻辑
+            #region # 验证
 
             if (rowIndex > sheet.LastRowNum)
             {
-                throw new InvalidOperationException(string.Format("给定行索引\"{0}\"超出了Excel有效行数！", rowIndex));
+                throw new InvalidOperationException($"给定行索引\"{rowIndex}\"超出了Excel有效行数！");
             }
 
             #endregion
@@ -153,6 +153,7 @@ namespace SD.Toolkits.Excel
                 FillInstanceValue(sheet, index, properties, sourceObj);
                 collection.Add(sourceObj);
             }
+
             return collection.ToArray();
         }
         #endregion
@@ -167,58 +168,86 @@ namespace SD.Toolkits.Excel
         /// <param name="instance">对象实例</param>
         private static void FillInstanceValue<T>(ISheet sheet, int index, PropertyInfo[] properties, T instance)
         {
+            HSSFFormulaEvaluator evaluator = new HSSFFormulaEvaluator(sheet.Workbook);
             IRow row = sheet.GetRow(index);
 
             #region # 验证
 
             if (properties.Length != row.Cells.Count)
             {
-                throw new InvalidOperationException(string.Format("模型与Excel表格不兼容：第{0}行 列数不一致！", (index + 1)));
+                throw new InvalidOperationException($"模型与Excel表格不兼容：第{(index + 1)}行 列数不一致！");
             }
 
             #endregion
 
             for (int i = 0; i < properties.Length; i++)
             {
+                ICell cell = row.GetCell(i);
+                string cellValue = cell.ToString().Trim();
+
+                #region # 公式处理
+
+                if (cell.CellType == CellType.Formula)
+                {
+                    CellValue formulaValue = evaluator.Evaluate(cell);
+                    switch (formulaValue.CellType)
+                    {
+                        case CellType.Numeric:
+                            cellValue = formulaValue.NumberValue.ToString();
+                            break;
+                        case CellType.String:
+                            cellValue = formulaValue.StringValue;
+                            break;
+                        case CellType.Boolean:
+                            cellValue = formulaValue.BooleanValue.ToString();
+                            break;
+                        default:
+                            cellValue = formulaValue.StringValue;
+                            break;
+                    }
+                }
+
+                #endregion
+
                 if (properties[i].PropertyType == typeof(double))
                 {
-                    properties[i].SetValue(instance, Convert.ToDouble(row.GetCell(i).ToString().Trim()));
+                    properties[i].SetValue(instance, Convert.ToDouble(cellValue));
                 }
                 else if (properties[i].PropertyType == typeof(float))
                 {
-                    properties[i].SetValue(instance, Convert.ToSingle(row.GetCell(i).ToString().Trim()));
+                    properties[i].SetValue(instance, Convert.ToSingle(cellValue));
                 }
                 else if (properties[i].PropertyType == typeof(decimal))
                 {
-                    properties[i].SetValue(instance, Convert.ToDecimal(row.GetCell(i).ToString().Trim()));
+                    properties[i].SetValue(instance, Convert.ToDecimal(cellValue));
                 }
                 else if (properties[i].PropertyType == typeof(byte))
                 {
-                    properties[i].SetValue(instance, Convert.ToByte(row.GetCell(i).ToString().Trim()));
+                    properties[i].SetValue(instance, Convert.ToByte(cellValue));
                 }
                 else if (properties[i].PropertyType == typeof(short))
                 {
-                    properties[i].SetValue(instance, Convert.ToInt16(row.GetCell(i).ToString().Trim()));
+                    properties[i].SetValue(instance, Convert.ToInt16(cellValue));
                 }
                 else if (properties[i].PropertyType == typeof(int))
                 {
-                    properties[i].SetValue(instance, Convert.ToInt32(row.GetCell(i).ToString().Trim()));
+                    properties[i].SetValue(instance, Convert.ToInt32(cellValue));
                 }
                 else if (properties[i].PropertyType == typeof(long))
                 {
-                    properties[i].SetValue(instance, Convert.ToInt64(row.GetCell(i).ToString().Trim()));
+                    properties[i].SetValue(instance, Convert.ToInt64(cellValue));
                 }
                 else if (properties[i].PropertyType == typeof(bool))
                 {
-                    properties[i].SetValue(instance, Convert.ToBoolean(row.GetCell(i).ToString().Trim()));
+                    properties[i].SetValue(instance, Convert.ToBoolean(cellValue));
                 }
                 else if (properties[i].PropertyType == typeof(DateTime))
                 {
-                    properties[i].SetValue(instance, Convert.ToDateTime(row.GetCell(i).ToString().Trim()));
+                    properties[i].SetValue(instance, Convert.ToDateTime(cellValue));
                 }
                 else
                 {
-                    properties[i].SetValue(instance, row.GetCell(i).ToString().Trim());
+                    properties[i].SetValue(instance, cellValue);
                 }
             }
         }

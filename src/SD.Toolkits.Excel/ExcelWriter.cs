@@ -1,10 +1,10 @@
-﻿using System;
+﻿using NPOI.HSSF.UserModel;
+using NPOI.SS.UserModel;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using NPOI.HSSF.UserModel;
-using NPOI.SS.UserModel;
 
 namespace SD.Toolkits.Excel
 {
@@ -26,19 +26,19 @@ namespace SD.Toolkits.Excel
         {
             T[] array = enumerable == null ? new T[0] : enumerable.ToArray();
 
-            #region # 验证参数
+            #region # 验证
 
             if (!array.Any())
             {
-                throw new ArgumentNullException("enumerable", string.Format(@"源{0}类型集合不可为空！", typeof(T).Name));
+                throw new ArgumentNullException(nameof(enumerable), $"源{typeof(T).Name}类型集合不可为空！");
             }
             if (string.IsNullOrWhiteSpace(path))
             {
-                throw new ArgumentNullException("path", @"写入路径不可为空！");
+                throw new ArgumentNullException(nameof(path), "写入路径不可为空！");
             }
-            if (Path.GetExtension(path) != ".xls")
+            if (Path.GetExtension(path) != Constant.Excel97ExtensionName)
             {
-                throw new ArgumentOutOfRangeException("path", @"文件格式不正确！");
+                throw new ArgumentOutOfRangeException(nameof(path), "文件格式不正确！");
             }
 
             #endregion
@@ -65,11 +65,11 @@ namespace SD.Toolkits.Excel
         {
             T[] array = enumerable == null ? new T[0] : enumerable.ToArray();
 
-            #region # 验证参数
+            #region # 验证
 
             if (!array.Any())
             {
-                throw new ArgumentNullException("enumerable", string.Format(@"源{0}类型集合不可为空！", typeof(T).Name));
+                throw new ArgumentNullException(nameof(enumerable), $"源{typeof(T).Name}类型集合不可为空！");
             }
 
             #endregion
