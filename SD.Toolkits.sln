@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.1231
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30907.101
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.EntityFramework.NET45", "src\SD.Toolkits.EntityFramework.NET45\SD.Toolkits.EntityFramework.NET45.csproj", "{A101FBDF-273F-477F-85DF-D9AD39FDB117}"
 EndProject
@@ -95,7 +95,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.WebApi", "src\S
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.Owin", "src\SD.Toolkits.Owin\SD.Toolkits.Owin.csproj", "{6F684A0F-557C-4743-A842-33910411DDBD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.EntityFrameworkCore.Tests", "src\SD.Toolkits.EntityFrameworkCore.Tests\SD.Toolkits.EntityFrameworkCore.Tests.csproj", "{02137342-519A-4A6C-BA86-1DD0EC7A16F4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Toolkits.EntityFrameworkCore.Tests", "src\SD.Toolkits.EntityFrameworkCore.Tests\SD.Toolkits.EntityFrameworkCore.Tests.csproj", "{02137342-519A-4A6C-BA86-1DD0EC7A16F4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.WebApi.Core", "src\SD.Toolkits.WebApi.Core\SD.Toolkits.WebApi.Core.csproj", "{4D38298E-4887-4E1C-87B4-D0919545668B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.WebApi.Core.Tests", "src\SD.Toolkits.WebApi.Core.Tests\SD.Toolkits.WebApi.Core.Tests.csproj", "{7683471D-2021-4FE2-BFD5-2C5CC573ACCB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -279,6 +283,14 @@ Global
 		{02137342-519A-4A6C-BA86-1DD0EC7A16F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{02137342-519A-4A6C-BA86-1DD0EC7A16F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{02137342-519A-4A6C-BA86-1DD0EC7A16F4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4D38298E-4887-4E1C-87B4-D0919545668B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D38298E-4887-4E1C-87B4-D0919545668B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4D38298E-4887-4E1C-87B4-D0919545668B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4D38298E-4887-4E1C-87B4-D0919545668B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7683471D-2021-4FE2-BFD5-2C5CC573ACCB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7683471D-2021-4FE2-BFD5-2C5CC573ACCB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7683471D-2021-4FE2-BFD5-2C5CC573ACCB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7683471D-2021-4FE2-BFD5-2C5CC573ACCB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -328,6 +340,8 @@ Global
 		{5E9CBCF4-4B63-49B1-92D9-A5DDA71455E3} = {341CD552-661B-49D6-934A-9CE5C11437A3}
 		{6F684A0F-557C-4743-A842-33910411DDBD} = {341CD552-661B-49D6-934A-9CE5C11437A3}
 		{02137342-519A-4A6C-BA86-1DD0EC7A16F4} = {DE420171-A672-478A-99CA-62AB53D57785}
+		{4D38298E-4887-4E1C-87B4-D0919545668B} = {84CE5E54-82B6-4B0D-AEC5-3E22BF4FD0D2}
+		{7683471D-2021-4FE2-BFD5-2C5CC573ACCB} = {DE420171-A672-478A-99CA-62AB53D57785}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E971DA80-FBCC-48DC-94AF-074536131022}

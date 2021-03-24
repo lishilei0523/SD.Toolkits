@@ -1,0 +1,15 @@
+﻿<configuration>
+  <configSections>
+    <!--WebApi服务器配置节点-->
+    <section name="webApiConfiguration" type="SD.Toolkits.WebApi.Core.WebApiSection, SD.Toolkits.WebApi.Core" />
+  </configSections>
+
+  <!--WebApi服务器配置-->
+  <webApiConfiguration authorized="true">
+    <!--Host地址列表-->
+    <hosts>
+      <host ipAddress="localhost" port="33101" />
+      <host ipAddress="192.168.0.146" port="33101" />
+    </hosts>
+  </webApiConfiguration>
+</configuration>
