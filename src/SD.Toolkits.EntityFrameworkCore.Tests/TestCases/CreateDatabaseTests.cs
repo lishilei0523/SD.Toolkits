@@ -33,6 +33,7 @@ namespace SD.Toolkits.EntityFrameworkCore.Tests.TestCases
         {
             //初始化
             DbSession dbSession = new DbSession();
+            dbSession.Database.EnsureCreated();
             dbSession.Database.Migrate();
             bool alreadyExisted = dbSession.Database.EnsureCreated();
 

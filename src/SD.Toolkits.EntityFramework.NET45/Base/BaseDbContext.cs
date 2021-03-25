@@ -22,7 +22,7 @@ namespace SD.Toolkits.EntityFramework.Base
         protected BaseDbContext(string nameOrConnectionString)
             : base(nameOrConnectionString)
         {
-            this.Diposed = false;
+
         }
         #endregion
 
@@ -68,11 +68,29 @@ namespace SD.Toolkits.EntityFramework.Base
         public abstract string TablePrefix { get; }
         #endregion
 
-        #region 是否已释放 —— bool Diposed
+        #region 是否已释放 —— bool Disposed
         /// <summary>
         /// 是否已释放
         /// </summary>
-        public bool Diposed { get; private set; }
+        public bool Disposed
+        {
+            get
+            {
+                const string internalContextPropertyName = "InternalContext";
+                Type dbContextType = typeof(DbContext);
+                PropertyInfo internalContextPropertyInfo = dbContextType.GetProperty(internalContextPropertyName, BindingFlags.NonPublic | BindingFlags.Instance);
+                object internalContext = internalContextPropertyInfo.GetValue(this);
+
+                const string disposedPropertyName = "IsDisposed";
+                Type internalContextType = internalContext.GetType();
+                PropertyInfo disposedPropertyInfo = internalContextType.GetProperty(disposedPropertyName, BindingFlags.Public | BindingFlags.Instance);
+                object value = disposedPropertyInfo.GetValue(internalContext);
+
+                bool disposed = (bool)value;
+
+                return disposed;
+            }
+        }
         #endregion
 
         #endregion
@@ -110,7 +128,6 @@ namespace SD.Toolkits.EntityFramework.Base
             #region # 合并类型集
 
             HashSet<Type> entityTypes = new HashSet<Type>(types);
-
             if (this.TypesToRegister != null)
             {
                 foreach (Type entityType in this.TypesToRegister)
@@ -174,17 +191,6 @@ namespace SD.Toolkits.EntityFramework.Base
         {
             string tablePrefix = string.IsNullOrWhiteSpace(this.TablePrefix) ? string.Empty : this.TablePrefix;
             modelBuilder.Types().Configure(entity => entity.ToTable(tablePrefix + entity.ClrType.Name));
-        }
-        #endregion
-
-        #region 释放资源 —— override void Dispose(bool disposing)
-        /// <summary>
-        /// 释放资源
-        /// </summary>
-        protected override void Dispose(bool disposing)
-        {
-            base.Dispose(disposing);
-            this.Diposed = true;
         }
         #endregion
 

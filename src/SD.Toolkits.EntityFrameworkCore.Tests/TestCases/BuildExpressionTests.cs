@@ -26,6 +26,7 @@ namespace SD.Toolkits.EntityFrameworkCore.Tests.TestCases
             //删除数据库
             DbSession dbSession = new DbSession();
             dbSession.Database.EnsureDeleted();
+            dbSession.Database.EnsureCreated();
             dbSession.Database.Migrate();
 
             //初始化数据

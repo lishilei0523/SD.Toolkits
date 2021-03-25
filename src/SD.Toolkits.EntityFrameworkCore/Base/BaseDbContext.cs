@@ -19,7 +19,7 @@ namespace SD.Toolkits.EntityFrameworkCore.Base
         /// </summary>
         protected BaseDbContext()
         {
-            this.Diposed = false;
+
         }
         #endregion
 
@@ -63,11 +63,23 @@ namespace SD.Toolkits.EntityFrameworkCore.Base
         public abstract string TablePrefix { get; }
         #endregion
 
-        #region 是否已释放 —— bool Diposed
+        #region 是否已释放 —— bool Disposed
         /// <summary>
         /// 是否已释放
         /// </summary>
-        public bool Diposed { get; private set; }
+        public bool Disposed
+        {
+            get
+            {
+                const string fieldName = "_disposed";
+                Type type = typeof(DbContext);
+                FieldInfo field = type.GetField(fieldName, BindingFlags.NonPublic | BindingFlags.Instance);
+                object value = field.GetValue(this);
+                bool disposed = (bool)value;
+
+                return disposed;
+            }
+        }
         #endregion
 
         #endregion
@@ -176,17 +188,6 @@ namespace SD.Toolkits.EntityFrameworkCore.Base
             }
         }
         #endregion
-
-        #region 释放资源 —— override void Dispose()
-        /// <summary>
-        /// 释放资源
-        /// </summary>
-        public override void Dispose()
-        {
-            base.Dispose();
-            this.Diposed = true;
-        }
-        #endregion 
 
         #endregion
     }
