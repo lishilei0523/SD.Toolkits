@@ -13,8 +13,21 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DocumentationFile>bin\Release\netstandard2.1\SD.Toolkits.WebApi.Core.xml</DocumentationFile>
   </PropertyGroup>
+
   <ItemGroup>
-    <Compile Remove="Extensions\DynamicJsonReader.cs" />
+    <Compile Include="..\SD.Toolkits.WebApi\Configurations\HostElement.cs">
+      <Link>Configurations\HostElement.cs</Link>
+    </Compile>
+    <Compile Include="..\SD.Toolkits.WebApi\Configurations\HostElementCollection.cs">
+      <Link>Configurations\HostElementCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\SD.Toolkits.WebApi\Configurations\WebApiSection.cs">
+      <Link>Configurations\WebApiSection.cs</Link>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Configurations\" />
   </ItemGroup>
 
   <ItemGroup>
