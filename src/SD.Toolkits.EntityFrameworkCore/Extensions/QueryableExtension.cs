@@ -15,6 +15,60 @@ namespace SD.Toolkits.EntityFrameworkCore.Extensions
     {
         //Public
 
+        #region # IQueryable集合转换为SQL语句 —— static string ParseSql(this IQueryable...
+        /// <summary>
+        /// IQueryable集合转换为SQL语句
+        /// </summary>
+        /// <param name="queryable">IQueryable集合对象</param>
+        /// <returns>SQL语句</returns>
+        public static string ParseSql(this IQueryable queryable)
+        {
+            return queryable.ToQueryString();
+        }
+        #endregion
+
+        #region # IQueryable集合转换为SQL语句 —— static bool TryParseSQl(this IQueryable...
+        /// <summary>
+        /// IQueryable集合转换为SQL语句
+        /// </summary>
+        /// <param name="queryable">IQueryable集合</param>
+        /// <param name="sql">SQL语句</param>
+        /// <returns>是否转换成功</returns>
+        public static bool TryParseSQl(this IQueryable queryable, out string sql)
+        {
+            try
+            {
+                sql = ParseSql(queryable);
+                return true;
+            }
+            catch (InvalidOperationException)
+            {
+                sql = string.Empty;
+                return false;
+            }
+        }
+        #endregion
+
+        #region # 判断IQueryable集合能否转换为SQL语句 —— static bool CanParseSQl(this IQueryable...
+        /// <summary>
+        /// 判断IQueryable集合能否转换为SQL语句
+        /// </summary>
+        /// <param name="queryable">IQueryable集合</param>
+        /// <returns>能否转换</returns>
+        public static bool CanParseSQl(this IQueryable queryable)
+        {
+            try
+            {
+                ParseSql(queryable);
+                return true;
+            }
+            catch (InvalidOperationException)
+            {
+                return false;
+            }
+        }
+        #endregion
+
         #region # IQueryable集合多列动态多条件排序 —— static IQueryable<T> OrderBy<T>(this IQueryable<T> queryable...
         /// <summary>
         /// IQueryable集合多列动态多条件排序

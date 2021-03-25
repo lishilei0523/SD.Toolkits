@@ -22,7 +22,6 @@ namespace SD.Toolkits.EntityFramework.Base
         protected BaseDbContext(string nameOrConnectionString)
             : base(nameOrConnectionString)
         {
-            this.Database.CreateIfNotExists();
             this.Diposed = false;
         }
         #endregion

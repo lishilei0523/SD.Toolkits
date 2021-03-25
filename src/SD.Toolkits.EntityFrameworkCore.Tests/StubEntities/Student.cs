@@ -45,5 +45,13 @@ namespace SD.Toolkits.EntityFrameworkCore.Tests.StubEntities
         /// 班级Id
         /// </summary>
         public Guid ClassId { get; private set; }
+
+        /// <summary>
+        /// 只读属性 - 是否是成年人
+        /// </summary>
+        public bool IsAdult
+        {
+            get { return this.Age >= 18; }
+        }
     }
 }

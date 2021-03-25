@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SD.Toolkits.EntityFrameworkCore.Tests.StubEntities;
 
 namespace SD.Toolkits.EntityFrameworkCore.Tests.TestCases
@@ -32,8 +33,7 @@ namespace SD.Toolkits.EntityFrameworkCore.Tests.TestCases
         {
             //初始化
             DbSession dbSession = new DbSession();
-            dbSession.Database.EnsureCreated();
-            dbSession.Database.EnsureCreated();
+            dbSession.Database.Migrate();
 
             //TODO 查看数据库Student表是否有ClassId的索引
         }

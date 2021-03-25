@@ -195,3 +195,5 @@ ModelManifest.xml
 *.dtbcache
 /.vs/SD.Toolkits/config/applicationhost.config
 /.vs/SD.Toolkits/DesignTimeBuild/.dtbcache.v2
+/.vs/SD.Toolkits/v16/TestStore/0/000.testlog
+/.vs/SD.Toolkits/v16/TestStore/0/testlog.manifest

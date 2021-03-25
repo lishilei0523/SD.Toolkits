@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SD.Toolkits.EntityFrameworkCore.Extensions;
 using SD.Toolkits.EntityFrameworkCore.Tests.StubEntities;
 using System;
@@ -25,7 +26,7 @@ namespace SD.Toolkits.EntityFrameworkCore.Tests.TestCases
             //删除数据库
             DbSession dbSession = new DbSession();
             dbSession.Database.EnsureDeleted();
-            dbSession.Database.EnsureCreated();
+            dbSession.Database.Migrate();
 
             //初始化数据
             IList<Student> students = new List<Student>();
@@ -66,6 +67,29 @@ namespace SD.Toolkits.EntityFrameworkCore.Tests.TestCases
             IQueryable<Student> specStudents = dbSession.Set<Student>().Where(builder.Build());
 
             Assert.IsNotNull(specStudents.Any());
+        }
+
+        /// <summary>
+        /// 测试IQueryable转换SQL
+        /// </summary>
+        [TestMethod]
+        public void TestIQueryableToSql()
+        {
+            //初始化
+            DbSession dbSession = new DbSession();
+
+            IQueryable<Student> students1 = dbSession.Set<Student>().Where(x => x.Age < 18);
+
+            Assert.IsTrue(students1.CanParseSQl());
+
+            string sql1 = students1.ParseSql();
+
+            Assert.IsNotNull(sql1);
+
+            IQueryable<Student> students2 = dbSession.Set<Student>().Where(x => x.IsAdult);
+
+            Assert.IsFalse(students2.CanParseSQl());
+            Assert.ThrowsException<InvalidOperationException>(() => students2.ParseSql());
         }
 
         /// <summary>
