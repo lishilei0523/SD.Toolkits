@@ -5,13 +5,15 @@
     <Authors>Lee</Authors>
     <Company>SD</Company>
     <Copyright>Copyright © SD 2021</Copyright>
+    <AssemblyName>SD.Toolkits.OwinCore</AssemblyName>
+    <RootNamespace>SD.Toolkits.OwinCore</RootNamespace>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>bin\Debug\netstandard2.1\SD.Toolkits.Owin.Core.xml</DocumentationFile>
+    <DocumentationFile>bin\Debug\netstandard2.1\SD.Toolkits.OwinCore.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>bin\Release\netstandard2.1\SD.Toolkits.Owin.Core.xml</DocumentationFile>
+    <DocumentationFile>bin\Release\netstandard2.1\SD.Toolkits.OwinCore.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />

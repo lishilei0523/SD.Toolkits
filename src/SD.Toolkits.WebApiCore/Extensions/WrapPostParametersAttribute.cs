@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System;
 
-namespace SD.Toolkits.WebApi.Core.Extensions
+namespace SD.Toolkits.WebApiCore.Extensions
 {
     /// <summary>
     /// Use this attribute on API methods that need to support multiple POST parameters.

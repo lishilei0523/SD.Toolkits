@@ -4,7 +4,7 @@ using System.Dynamic;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace SD.Toolkits.WebApi.Core.Extensions
+namespace SD.Toolkits.WebApiCore.Extensions
 {
     /// <summary>
     ///     Temp Dynamic Converter

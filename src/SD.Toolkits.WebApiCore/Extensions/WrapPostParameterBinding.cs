@@ -10,7 +10,7 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace SD.Toolkits.WebApi.Core.Extensions
+namespace SD.Toolkits.WebApiCore.Extensions
 {
     /// <summary>
     /// Allows API methods to accept multiple parameters via a POST operation. If a method is marked

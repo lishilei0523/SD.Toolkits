@@ -8,10 +8,10 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>bin\Debug\netstandard2.1\SD.Toolkits.WebApi.Core.xml</DocumentationFile>
+    <DocumentationFile>bin\Debug\netstandard2.1\SD.Toolkits.WebApiCore.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>bin\Release\netstandard2.1\SD.Toolkits.WebApi.Core.xml</DocumentationFile>
+    <DocumentationFile>bin\Release\netstandard2.1\SD.Toolkits.WebApiCore.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -24,10 +24,6 @@
     <Compile Include="..\SD.Toolkits.WebApi\Configurations\WebApiSection.cs">
       <Link>Configurations\WebApiSection.cs</Link>
     </Compile>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Configurations\" />
   </ItemGroup>
 
   <ItemGroup>

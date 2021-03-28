@@ -1,7 +1,7 @@
 ﻿<configuration>
   <configSections>
     <!--WebApi服务器配置节点-->
-    <section name="webApiConfiguration" type="SD.Toolkits.WebApi.WebApiSection, SD.Toolkits.WebApi.Core" />
+    <section name="webApiConfiguration" type="SD.Toolkits.WebApi.WebApiSection, SD.Toolkits.WebApiCore" />
   </configSections>
 
   <!--WebApi服务器配置-->

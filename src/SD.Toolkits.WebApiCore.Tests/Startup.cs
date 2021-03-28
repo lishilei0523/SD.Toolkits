@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 
-namespace SD.Toolkits.WebApi.Core.Tests
+namespace SD.Toolkits.WebApiCore.Tests
 {
     public class Startup
     {

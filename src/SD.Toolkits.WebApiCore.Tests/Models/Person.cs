@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SD.Toolkits.WebApi.Core.Tests.Models
+namespace SD.Toolkits.WebApiCore.Tests.Models
 {
     public class Person
     {

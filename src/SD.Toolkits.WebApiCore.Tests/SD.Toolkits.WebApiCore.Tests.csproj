@@ -13,6 +13,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SD.Toolkits.WebApi.Core\SD.Toolkits.WebApi.Core.csproj" />
+    <ProjectReference Include="..\SD.Toolkits.WebApiCore\SD.Toolkits.WebApiCore.csproj" />
   </ItemGroup>
 </Project>

@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using SD.Toolkits.WebApi.Core.Extensions;
-using SD.Toolkits.WebApi.Core.Tests.Models;
+using SD.Toolkits.WebApiCore.Extensions;
+using SD.Toolkits.WebApiCore.Tests.Models;
 using System;
 using System.Collections.Generic;
 
-namespace SD.Toolkits.WebApi.Core.Tests.Controllers
+namespace SD.Toolkits.WebApiCore.Tests.Controllers
 {
     [ApiController]
     [Route("[controller]")]

@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System.Threading;
 
-namespace SD.Toolkits.Owin.Core.Extensions
+namespace SD.Toolkits.OwinCore.Extensions
 {
     /// <summary>
     /// OwinContext读取器

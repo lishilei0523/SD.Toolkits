@@ -1,10 +1,11 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
+using SD.Toolkits.WebApi;
 using SD.Toolkits.WebApi.Configurations;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace SD.Toolkits.WebApi.Core.Tests
+namespace SD.Toolkits.WebApiCore.Tests
 {
     public class Program
     {

@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
-using SD.Toolkits.Owin.Core.Extensions;
+using SD.Toolkits.OwinCore.Extensions;
 using System.Threading.Tasks;
 
-namespace SD.Toolkits.Owin.Core.Middlewares
+namespace SD.Toolkits.OwinCore.Middlewares
 {
     /// <summary>
     /// 缓存OwinContext中间件
