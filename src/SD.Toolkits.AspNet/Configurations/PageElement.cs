@@ -1,7 +1,7 @@
 ﻿using System.Configuration;
 using System.Xml;
 
-namespace SD.Toolkits.MVC.Configurations
+namespace SD.Toolkits.AspNet.Configurations
 {
     /// <summary>
     /// 页节点

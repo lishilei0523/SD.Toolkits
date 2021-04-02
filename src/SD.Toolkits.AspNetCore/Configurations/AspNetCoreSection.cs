@@ -74,5 +74,29 @@ namespace SD.Toolkits.AspNetCore
             set { this["hosts"] = value; }
         }
         #endregion
+
+        #region # 登录页节点 —— PageElement LoginPage
+        /// <summary>
+        /// 登录页节点
+        /// </summary>
+        [ConfigurationProperty("loginPage", IsRequired = false)]
+        public PageElement LoginPage
+        {
+            get { return (PageElement)this["loginPage"]; }
+            set { this["loginPage"] = value; }
+        }
+        #endregion
+
+        #region # 错误页节点 —— PageElement ErrorPage
+        /// <summary>
+        /// 错误页节点
+        /// </summary>
+        [ConfigurationProperty("errorPage", IsRequired = false)]
+        public PageElement ErrorPage
+        {
+            get { return (PageElement)this["errorPage"]; }
+            set { this["errorPage"] = value; }
+        }
+        #endregion
     }
 }

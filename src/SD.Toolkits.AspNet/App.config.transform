@@ -1,0 +1,19 @@
+﻿<configuration>
+  <configSections>
+    <!--ASP.NET服务器配置节点-->
+    <section name="aspNetConfiguration" type="SD.Toolkits.AspNet.AspNetSection, SD.Toolkits.AspNet" />
+  </configSections>
+
+  <!--ASP.NET服务器配置-->
+  <aspNetConfiguration authorized="true">
+    <!--Host地址列表-->
+    <hosts>
+      <host url="http://localhost:33100" />
+      <!--<host url="http://192.168.0.146:33100" />-->
+    </hosts>
+    <!--默认登录页-->
+    <loginPage>/User/Login</loginPage>
+    <!--默认错误页-->
+    <errorPage>/Error.html</errorPage>
+  </aspNetConfiguration>
+</configuration>

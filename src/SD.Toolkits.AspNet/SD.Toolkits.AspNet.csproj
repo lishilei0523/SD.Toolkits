@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{5E9CBCF4-4B63-49B1-92D9-A5DDA71455E3}</ProjectGuid>
+    <ProjectGuid>{11C3521B-3FBC-4F98-B55D-DCE321F02AC8}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SD.Toolkits.WebApi</RootNamespace>
-    <AssemblyName>SD.Toolkits.WebApi</AssemblyName>
+    <RootNamespace>SD.Toolkits.AspNet</RootNamespace>
+    <AssemblyName>SD.Toolkits.AspNet</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -21,6 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\SD.Toolkits.AspNet.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -29,23 +30,24 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Release\SD.Toolkits.WebApi.xml</DocumentationFile>
+    <DocumentationFile>bin\Release\SD.Toolkits.AspNet.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Extensions\HttpConfigurationExtension.cs" />
-    <Compile Include="Extensions\WrapPostParameterBinding.cs" />
-    <Compile Include="Extensions\WrapPostParametersAttribute.cs" />
+    <Compile Include="Configurations\HostElement.cs" />
+    <Compile Include="Configurations\HostElementCollection.cs" />
+    <Compile Include="Configurations\AspNetSection.cs" />
+    <Compile Include="Configurations\PageElement.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNet.WebApi.Core">
-      <Version>5.2.7</Version>
-    </PackageReference>
+    <None Include="App.config.transform" />
+    <None Include="Web.config.transform" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

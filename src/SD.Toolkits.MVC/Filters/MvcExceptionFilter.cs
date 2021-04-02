@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using SD.Toolkits.AspNet;
+using System.Collections;
 using System.Net;
 using System.Text;
 using System.Web.Mvc;
@@ -59,7 +60,7 @@ namespace SD.Toolkits.MVC.Filters
                 StringBuilder scriptBuilder = new StringBuilder();
                 scriptBuilder.Append("<script type=\"text/javascript\">");
                 scriptBuilder.Append("window.top.location.href=");
-                scriptBuilder.AppendFormat("\"{0}?message={1}\"", MvcSection.Setting.ErrorPage.Url, errorMessage);
+                scriptBuilder.AppendFormat("\"{0}?message={1}\"", AspNetSection.Setting.ErrorPage.Url, errorMessage);
                 scriptBuilder.Append("</script>");
 
                 //跳转至错误页

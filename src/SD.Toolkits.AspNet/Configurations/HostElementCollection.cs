@@ -1,6 +1,6 @@
 ﻿using System.Configuration;
 
-namespace SD.Toolkits.WebApi.Configurations
+namespace SD.Toolkits.AspNet.Configurations
 {
     /// <summary>
     /// 节点集合

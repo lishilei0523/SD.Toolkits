@@ -1,34 +1,34 @@
-﻿using SD.Toolkits.WebApi.Configurations;
+﻿using SD.Toolkits.AspNet.Configurations;
 using System;
 using System.Configuration;
 
 // ReSharper disable once CheckNamespace
-namespace SD.Toolkits.WebApi
+namespace SD.Toolkits.AspNet
 {
     /// <summary>
-    /// WebApi服务器配置
+    /// ASP.NET服务器配置
     /// </summary>
-    public class WebApiSection : ConfigurationSection
+    public class AspNetSection : ConfigurationSection
     {
         #region # 字段及构造器
 
         /// <summary>
         /// 单例
         /// </summary>
-        private static readonly WebApiSection _Setting;
+        private static readonly AspNetSection _Setting;
 
         /// <summary>
         /// 静态构造器
         /// </summary>
-        static WebApiSection()
+        static AspNetSection()
         {
-            _Setting = (WebApiSection)ConfigurationManager.GetSection("webApiConfiguration");
+            _Setting = (AspNetSection)ConfigurationManager.GetSection("aspNetConfiguration");
 
             #region # 非空验证
 
             if (_Setting == null)
             {
-                throw new ApplicationException("WebApi节点未配置，请检查程序！");
+                throw new ApplicationException("ASP.NET节点未配置，请检查程序！");
             }
 
             #endregion
@@ -36,11 +36,11 @@ namespace SD.Toolkits.WebApi
 
         #endregion
 
-        #region # 访问器 —— static WebApiSection Setting
+        #region # 访问器 —— static AspNetSection Setting
         /// <summary>
         /// 访问器
         /// </summary>
-        public static WebApiSection Setting
+        public static AspNetSection Setting
         {
             get { return _Setting; }
         }
@@ -72,6 +72,30 @@ namespace SD.Toolkits.WebApi
                 return collection ?? new HostElementCollection();
             }
             set { this["hosts"] = value; }
+        }
+        #endregion
+
+        #region # 登录页节点 —— PageElement LoginPage
+        /// <summary>
+        /// 登录页节点
+        /// </summary>
+        [ConfigurationProperty("loginPage", IsRequired = false)]
+        public PageElement LoginPage
+        {
+            get { return (PageElement)this["loginPage"]; }
+            set { this["loginPage"] = value; }
+        }
+        #endregion
+
+        #region # 错误页节点 —— PageElement ErrorPage
+        /// <summary>
+        /// 错误页节点
+        /// </summary>
+        [ConfigurationProperty("errorPage", IsRequired = false)]
+        public PageElement ErrorPage
+        {
+            get { return (PageElement)this["errorPage"]; }
+            set { this["errorPage"] = value; }
         }
         #endregion
     }
