@@ -105,6 +105,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Toolkits.OwinCore", "src
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.MVC", "src\SD.Toolkits.MVC\SD.Toolkits.MVC.csproj", "{E05EF0BD-BC92-4173-8EA4-3693DC5B636D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.AspNetCore", "src\SD.Toolkits.AspNetCore\SD.Toolkits.AspNetCore.csproj", "{C400ACF0-5E0F-49BE-A1A7-5B41298B9084}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -303,6 +305,10 @@ Global
 		{E05EF0BD-BC92-4173-8EA4-3693DC5B636D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E05EF0BD-BC92-4173-8EA4-3693DC5B636D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E05EF0BD-BC92-4173-8EA4-3693DC5B636D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C400ACF0-5E0F-49BE-A1A7-5B41298B9084}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C400ACF0-5E0F-49BE-A1A7-5B41298B9084}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C400ACF0-5E0F-49BE-A1A7-5B41298B9084}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C400ACF0-5E0F-49BE-A1A7-5B41298B9084}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -356,6 +362,7 @@ Global
 		{7683471D-2021-4FE2-BFD5-2C5CC573ACCB} = {DE420171-A672-478A-99CA-62AB53D57785}
 		{9D76BE5D-A734-4AAC-AF61-0DA80D0DDB8A} = {84CE5E54-82B6-4B0D-AEC5-3E22BF4FD0D2}
 		{E05EF0BD-BC92-4173-8EA4-3693DC5B636D} = {341CD552-661B-49D6-934A-9CE5C11437A3}
+		{C400ACF0-5E0F-49BE-A1A7-5B41298B9084} = {84CE5E54-82B6-4B0D-AEC5-3E22BF4FD0D2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E971DA80-FBCC-48DC-94AF-074536131022}

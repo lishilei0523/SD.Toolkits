@@ -1,0 +1,15 @@
+﻿<configuration>
+  <configSections>
+    <!--ASP.NET Core服务器配置节点-->
+    <section name="aspNetCoreConfiguration" type="SD.Toolkits.AspNetCore.AspNetCoreSection, SD.Toolkits.AspNetCore" />
+  </configSections>
+
+  <!--ASP.NET Core服务器配置-->
+  <aspNetCoreConfiguration authorized="true">
+    <!--Host地址列表-->
+    <hosts>
+      <host url="http://localhost:33000" />
+      <host url="http://192.168.0.146:33000" />
+    </hosts>
+  </aspNetCoreConfiguration>
+</configuration>
