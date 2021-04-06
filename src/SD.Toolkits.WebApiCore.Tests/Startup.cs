@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
+using SD.Toolkits.WebApiCore.Filters;
 
 namespace SD.Toolkits.WebApiCore.Tests
 {
@@ -18,7 +19,10 @@ namespace SD.Toolkits.WebApiCore.Tests
                 });
             });
 
-            services.AddControllers();
+            services.AddControllers(options =>
+            {
+                options.Filters.Add(new WebApiExceptionFilter());
+            });
         }
 
         public void Configure(IApplicationBuilder appBuilder)
