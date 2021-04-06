@@ -139,12 +139,19 @@ namespace SD.Toolkits.WebApi.Extensions
                 {
                     paramValue = stringValue;
                 }
+                else if (Descriptor.ParameterType == typeof(Guid))
+                {
+                    paramValue = Guid.Parse(stringValue);
+                }
+                else if (Descriptor.ParameterType == typeof(DateTime))
+                {
+                    paramValue = DateTime.Parse(stringValue);
+                }
                 else if (Descriptor.ParameterType.IsEnum)
                 {
                     paramValue = Enum.Parse(Descriptor.ParameterType, stringValue);
                 }
-                else if (Descriptor.ParameterType.IsPrimitive || Descriptor.ParameterType.IsValueType)
-                // TODO: Are these conditions ok? I'd rather not have to check that the type implements IConvertible.
+                else if (Descriptor.ParameterType.IsPrimitive)
                 {
                     paramValue = Convert.ChangeType(stringValue, Descriptor.ParameterType);
                 }

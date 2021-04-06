@@ -64,11 +64,19 @@ namespace SD.Toolkits.WebApiCore.Extensions
                 {
                     paramValue = stringValue;
                 }
+                else if (bindingContext.ModelType == typeof(Guid))
+                {
+                    paramValue = Guid.Parse(stringValue);
+                }
+                else if (bindingContext.ModelType == typeof(DateTime))
+                {
+                    paramValue = DateTime.Parse(stringValue);
+                }
                 else if (bindingContext.ModelType.IsEnum)
                 {
                     paramValue = Enum.Parse(bindingContext.ModelType, stringValue);
                 }
-                else if (bindingContext.ModelType.IsPrimitive || bindingContext.ModelType.IsValueType)
+                else if (bindingContext.ModelType.IsPrimitive)
                 {
                     paramValue = Convert.ChangeType(stringValue, bindingContext.ModelType);
                 }
