@@ -1,5 +1,5 @@
 ﻿using Newtonsoft.Json;
-using System.Collections;
+using Newtonsoft.Json.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading;
@@ -60,11 +60,11 @@ namespace SD.Toolkits.WebApi.Filters
         {
             try
             {
-                IDictionary json = JsonConvert.DeserializeObject(exceptionMessage) as IDictionary;
-
-                if (json != null && json.Contains("ErrorMessage"))
+                const string errorMessageKey = "ErrorMessage";
+                JObject jObject = (JObject)JsonConvert.DeserializeObject(exceptionMessage);
+                if (jObject != null && jObject.ContainsKey(errorMessageKey))
                 {
-                    errorMessage = json["ErrorMessage"].ToString();
+                    errorMessage = jObject.GetValue(errorMessageKey)?.ToString();
                 }
                 else
                 {
