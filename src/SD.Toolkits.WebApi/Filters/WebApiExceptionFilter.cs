@@ -2,6 +2,7 @@
 using Newtonsoft.Json.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Formatting;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http.Filters;
@@ -35,9 +36,11 @@ namespace SD.Toolkits.WebApi.Filters
             string errorMessage = string.Empty;
             errorMessage = GetErrorMessage(context.Exception.Message, ref errorMessage);
 
+            var message = new { Message = errorMessage };
+            ObjectContent objectContent = new ObjectContent(message.GetType(), message, new JsonMediaTypeFormatter());
             HttpResponseMessage httpResponseMessage = new HttpResponseMessage(HttpStatusCode.InternalServerError)
             {
-                Content = new StringContent(errorMessage)
+                Content = objectContent
             };
 
             context.Response = httpResponseMessage;
