@@ -45,14 +45,14 @@ namespace SD.Toolkits.Recursion.Tree
         }
         #endregion
 
-        #region # 尾递归上级扩展方法 —— static void TailRecurseParentNodes<T>(this IEnumerable<T>...
+        #region # 尾递归上级扩展方法 —— static ICollection<T> TailRecurseParentNodes<T>(this IEnumerable<T>...
         /// <summary>
         /// 尾递归上级扩展方法
         /// </summary>
         /// <typeparam name="T">树形结构类型</typeparam>
         /// <param name="nodes">节点集</param>
         /// <returns>给定节点集 + 所有上级节点集</returns>
-        public static IEnumerable<T> TailRecurseParentNodes<T>(this IEnumerable<T> nodes) where T : ITree<T>
+        public static ICollection<T> TailRecurseParentNodes<T>(this IEnumerable<T> nodes) where T : ITree<T>
         {
             T[] nodeArray = nodes?.ToArray() ?? new T[0];
 

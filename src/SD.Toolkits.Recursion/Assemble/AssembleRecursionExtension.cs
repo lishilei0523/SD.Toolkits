@@ -45,14 +45,14 @@ namespace SD.Toolkits.Recursion.Assemble
         }
         #endregion
 
-        #region # 尾递归上级扩展方法 —— static void TailRecurseParentElements<T>(this IEnumerable<T>...
+        #region # 尾递归上级扩展方法 —— static ICollection<T> TailRecurseParentElements<T>(this IEnumerable<T>...
         /// <summary>
         /// 尾递归上级扩展方法
         /// </summary>
         /// <typeparam name="T">可装配对象类型</typeparam>
         /// <param name="elements">元素集</param>
         /// <returns>给定元素集 + 所有上级元素集</returns>
-        public static IEnumerable<T> TailRecurseParentElements<T>(this IEnumerable<T> elements) where T : IAssemble<T>
+        public static ICollection<T> TailRecurseParentElements<T>(this IEnumerable<T> elements) where T : IAssemble<T>
         {
             T[] elementArray = elements?.ToArray() ?? new T[0];
 

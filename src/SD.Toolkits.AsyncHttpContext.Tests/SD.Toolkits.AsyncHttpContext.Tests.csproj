@@ -89,9 +89,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SD.Toolkits.AsyncHttpContext.NET461\SD.Toolkits.AsyncHttpContext.NET461.csproj">
+    <ProjectReference Include="..\SD.Toolkits.AsyncHttpContext\SD.Toolkits.AsyncHttpContext.csproj">
       <Project>{45562be3-1606-4a06-9ae7-aa76521e02d5}</Project>
-      <Name>SD.Toolkits.AsyncHttpContext.NET461</Name>
+      <Name>SD.Toolkits.AsyncHttpContext</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

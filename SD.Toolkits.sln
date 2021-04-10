@@ -25,9 +25,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Toolkits.Redis", "src\SD
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.Redis.Tests", "src\SD.Toolkits.Redis.Tests\SD.Toolkits.Redis.Tests.csproj", "{86B7F67E-3EED-49FD-B728-508EB75CA5E8}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01 - NET FX", "01 - NET FX", "{341CD552-661B-49D6-934A-9CE5C11437A3}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01 - .NET Framework", "01 - .NET Framework", "{341CD552-661B-49D6-934A-9CE5C11437A3}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02 - NET Standard", "02 - NET Standard", "{84CE5E54-82B6-4B0D-AEC5-3E22BF4FD0D2}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02 - .NET Standard", "02 - .NET Standard", "{84CE5E54-82B6-4B0D-AEC5-3E22BF4FD0D2}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Toolkits.SerialNumber", "src\SD.Toolkits.SerialNumber\SD.Toolkits.SerialNumber.csproj", "{F4CE2B91-69F2-4E82-B4B5-3925AD5D9D92}"
 EndProject
@@ -49,13 +49,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "System.ServiceModel.NetCore
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.AsyncHttpContext.Tests", "src\SD.Toolkits.AsyncHttpContext.Tests\SD.Toolkits.AsyncHttpContext.Tests.csproj", "{40ECEC52-C9E8-4DCB-805E-3F3D9B99FDD0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.AsyncHttpContext.NET461", "src\SD.Toolkits.AsyncHttpContext.NET461\SD.Toolkits.AsyncHttpContext.NET461.csproj", "{45562BE3-1606-4A06-9AE7-AA76521E02D5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.AsyncHttpContext", "src\SD.Toolkits.AsyncHttpContext\SD.Toolkits.AsyncHttpContext.csproj", "{45562BE3-1606-4A06-9AE7-AA76521E02D5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.Excel.NET461", "src\SD.Toolkits.Excel.NET461\SD.Toolkits.Excel.NET461.csproj", "{ECAB2CCF-D3B7-44AE-B79E-D60FDE3F9F0F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.Image.NET461", "src\SD.Toolkits.Image.NET461\SD.Toolkits.Image.NET461.csproj", "{9662890D-9B82-4B55-9582-2D6CDFEB8347}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.Image.NET4", "src\SD.Toolkits.Image.NET4\SD.Toolkits.Image.NET4.csproj", "{9662890D-9B82-4B55-9582-2D6CDFEB8347}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.Recursion.NET461", "src\SD.Toolkits.Recursion.NET461\SD.Toolkits.Recursion.NET461.csproj", "{67DE9CD1-B746-4390-8995-006CEA1B0A3C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.Recursion.NET4", "src\SD.Toolkits.Recursion.NET4\SD.Toolkits.Recursion.NET4.csproj", "{67DE9CD1-B746-4390-8995-006CEA1B0A3C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.Redis.NET461", "src\SD.Toolkits.Redis.NET461\SD.Toolkits.Redis.NET461.csproj", "{AFA4F07D-1581-4BF0-9AFA-394651FB144C}"
 EndProject
