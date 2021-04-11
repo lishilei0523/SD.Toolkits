@@ -3,17 +3,20 @@
     <!--ASP.NET Core服务器配置节点-->
     <section name="aspNetCoreConfiguration" type="SD.Toolkits.AspNetCore.AspNetCoreSection, SD.Toolkits.AspNetCore" />
   </configSections>
-
   <!--ASP.NET Core服务器配置-->
   <aspNetCoreConfiguration authorized="true">
     <!--Host地址列表-->
     <hosts>
       <host url="http://localhost:33000" />
-      <host url="http://192.168.0.146:33000" />
+      <!--<host url="http://192.168.0.146:33000" />-->
     </hosts>
     <!--默认登录页-->
     <loginPage>/User/Login</loginPage>
     <!--默认错误页-->
     <errorPage>/Error.html</errorPage>
+    <!--静态文件根目录-->
+    <staticFiles>wwwroot</staticFiles>
+    <!--文件服务器根目录-->
+    <fileServer>files</fileServer>
   </aspNetCoreConfiguration>
 </configuration>

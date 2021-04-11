@@ -98,5 +98,29 @@ namespace SD.Toolkits.AspNetCore
             set { this["errorPage"] = value; }
         }
         #endregion
+
+        #region # 静态文件节点 —— PathElement StaticFiles
+        /// <summary>
+        /// 静态文件节点
+        /// </summary>
+        [ConfigurationProperty("staticFiles", IsRequired = false)]
+        public PathElement StaticFiles
+        {
+            get { return (PathElement)this["staticFiles"]; }
+            set { this["staticFiles"] = value; }
+        }
+        #endregion
+
+        #region # 文件服务器节点 —— PathElement FileServer
+        /// <summary>
+        /// 文件服务器节点
+        /// </summary>
+        [ConfigurationProperty("fileServer", IsRequired = false)]
+        public PathElement FileServer
+        {
+            get { return (PathElement)this["fileServer"]; }
+            set { this["fileServer"] = value; }
+        }
+        #endregion
     }
 }

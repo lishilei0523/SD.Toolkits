@@ -3,7 +3,6 @@
     <!--ASP.NET服务器配置节点-->
     <section name="aspNetConfiguration" type="SD.Toolkits.AspNet.AspNetSection, SD.Toolkits.AspNet" />
   </configSections>
-
   <!--ASP.NET服务器配置-->
   <aspNetConfiguration authorized="true">
     <!--Host地址列表-->
@@ -15,5 +14,9 @@
     <loginPage>/User/Login</loginPage>
     <!--默认错误页-->
     <errorPage>/Error.html</errorPage>
+    <!--静态文件根目录-->
+    <staticFiles>wwwroot</staticFiles>
+    <!--文件服务器根目录-->
+    <fileServer>files</fileServer>
   </aspNetConfiguration>
 </configuration>
