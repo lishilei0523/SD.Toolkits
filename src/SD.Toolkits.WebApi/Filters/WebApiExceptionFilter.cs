@@ -33,7 +33,7 @@ namespace SD.Toolkits.WebApi.Filters
         /// </summary>
         public Task ExecuteExceptionFilterAsync(HttpActionExecutedContext context, CancellationToken cancellationToken)
         {
-            Exception innerException = GetInnerExceptionRecursively(context.Exception);
+            Exception innerException = GetInnerException(context.Exception);
 
             //处理异常消息
             string errorMessage = string.Empty;
@@ -57,17 +57,17 @@ namespace SD.Toolkits.WebApi.Filters
 
         //Private
 
-        #region # 递归获取内部异常 —— static Exception GetInnerExceptionRecursively(Exception exception)
+        #region # 递归获取内部异常 —— static Exception GetInnerException(Exception exception)
         /// <summary>
         /// 递归获取内部异常
         /// </summary>
         /// <param name="exception">异常</param>
         /// <returns>内部异常</returns>
-        private static Exception GetInnerExceptionRecursively(Exception exception)
+        private static Exception GetInnerException(Exception exception)
         {
             if (exception.InnerException != null)
             {
-                return GetInnerExceptionRecursively(exception.InnerException);
+                return GetInnerException(exception.InnerException);
             }
 
             return exception;
