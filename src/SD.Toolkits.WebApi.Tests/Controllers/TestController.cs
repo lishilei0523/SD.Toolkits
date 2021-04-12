@@ -1,14 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using SD.Toolkits.WebApiCore.Extensions;
-using SD.Toolkits.WebApiCore.Tests.Models;
+﻿using SD.Toolkits.WebApi.Extensions;
+using SD.Toolkits.WebApi.Tests.Models;
 using System;
 using System.Collections.Generic;
+using System.Web.Http;
 
-namespace SD.Toolkits.WebApiCore.Tests.Controllers
+namespace SD.Toolkits.WebApi.Tests.Controllers
 {
-    [ApiController]
-    [Route("[controller]/[action]")]
-    public class TestController : ControllerBase
+    public class TestController : ApiController
     {
         [HttpGet]
         public string Index()
@@ -53,7 +51,7 @@ namespace SD.Toolkits.WebApiCore.Tests.Controllers
 
         [HttpPost]
         [WrapPostParameters]
-        public void TestMultipleParamsWithObject([FromQuery] Person dad, [FromQuery] IEnumerable<Person> sons, [FromQuery] IEnumerable<Person> daughters)
+        public void TestMultipleParamsWithObject(Person dad, IEnumerable<Person> sons, IEnumerable<Person> daughters)
         {
             Console.WriteLine(dad);
             Console.WriteLine(sons);

@@ -48,7 +48,9 @@ namespace SD.Toolkits.WebApi.Filters
 
             context.Response = httpResponseMessage;
 
-            return Task.CompletedTask;
+            TaskCompletionSource<object> taskCompletionSource = new TaskCompletionSource<object>();
+            taskCompletionSource.SetResult(default);
+            return taskCompletionSource.Task;
         }
         #endregion
 
