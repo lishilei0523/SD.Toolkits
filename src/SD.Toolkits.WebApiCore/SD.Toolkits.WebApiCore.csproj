@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
     <Description>ASP.NET Core WebApi扩展工具</Description>
     <Authors>Lee</Authors>
     <Company>SD</Company>
@@ -9,14 +9,17 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>bin\Debug\netstandard2.0\SD.Toolkits.WebApiCore.xml</DocumentationFile>
+    <DocumentationFile>bin\Debug\netcoreapp3.1\SD.Toolkits.WebApiCore.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>bin\Release\netstandard2.0\SD.Toolkits.WebApiCore.xml</DocumentationFile>
+    <DocumentationFile>bin\Release\netcoreapp3.1\SD.Toolkits.WebApiCore.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="System.Text.Json" Version="4.7.0" />
   </ItemGroup>
 </Project>
