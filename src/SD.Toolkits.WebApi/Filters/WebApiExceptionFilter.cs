@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Formatting;
@@ -32,9 +33,11 @@ namespace SD.Toolkits.WebApi.Filters
         /// </summary>
         public Task ExecuteExceptionFilterAsync(HttpActionExecutedContext context, CancellationToken cancellationToken)
         {
+            Exception innerException = GetInnerExceptionRecursively(context.Exception);
+
             //处理异常消息
             string errorMessage = string.Empty;
-            errorMessage = GetErrorMessage(context.Exception.Message, ref errorMessage);
+            errorMessage = GetErrorMessage(innerException.Message, ref errorMessage);
 
             var message = new { Message = errorMessage };
             ObjectContent objectContent = new ObjectContent(message.GetType(), message, new JsonMediaTypeFormatter());
@@ -51,6 +54,23 @@ namespace SD.Toolkits.WebApi.Filters
 
 
         //Private
+
+        #region # 递归获取内部异常 —— static Exception GetInnerExceptionRecursively(Exception exception)
+        /// <summary>
+        /// 递归获取内部异常
+        /// </summary>
+        /// <param name="exception">异常</param>
+        /// <returns>内部异常</returns>
+        private static Exception GetInnerExceptionRecursively(Exception exception)
+        {
+            if (exception.InnerException != null)
+            {
+                return GetInnerExceptionRecursively(exception.InnerException);
+            }
+
+            return exception;
+        }
+        #endregion
 
         #region # 递归获取错误消息 —— static string GetErrorMessage(string exceptionMessage...
         /// <summary>
