@@ -15,5 +15,14 @@ namespace SD.Toolkits.WebApi.Extensions
         {
             httpConfiguration.ParameterBindingRules.Insert(0, WrapPostParameterBinding.CreateBindingForMarkedAction);
         }
+
+        /// <summary>
+        /// 注册文件参数绑定
+        /// </summary>
+        /// <param name="httpConfiguration">Http配置</param>
+        public static void RegisterFileParameterBindingRule(this HttpConfiguration httpConfiguration)
+        {
+            httpConfiguration.ParameterBindingRules.Insert(0, FileParameterBinding.CreateBindingForMarkedAction);
+        }
     }
 }

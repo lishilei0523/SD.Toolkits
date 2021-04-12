@@ -5,10 +5,10 @@ using System;
 namespace SD.Toolkits.WebApiCore.Extensions
 {
     /// <summary>
-    /// 包装POST请求参数绑定特性
+    /// 文件参数绑定特性
     /// </summary>
     [AttributeUsage(AttributeTargets.Method, Inherited = false)]
-    public sealed class WrapPostParametersAttribute : Attribute, IActionModelConvention
+    public sealed class FileParametersAttribute : Attribute, IActionModelConvention
     {
         /// <summary>
         /// 适用
@@ -18,7 +18,7 @@ namespace SD.Toolkits.WebApiCore.Extensions
             foreach (ParameterModel parameter in action.Parameters)
             {
                 parameter.BindingInfo ??= new BindingInfo();
-                parameter.BindingInfo.BinderType = typeof(WrapPostParameterBinding);
+                parameter.BindingInfo.BinderType = typeof(FileParameterBinding);
             }
         }
     }
