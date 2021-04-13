@@ -146,15 +146,15 @@ namespace SD.Common
 
         //FTP远程操作
 
-        #region # 创建ftp请求 —— static FtpWebRequest CreateRequest(string uri...
+        #region # 创建FTP请求 —— static FtpWebRequest CreateFtpRequest(string uri...
         /// <summary>
-        /// 创建ftp请求
+        /// 创建FTP请求
         /// </summary>
         /// <param name="uri">远程地址</param>
         /// <param name="loginId">用户名</param>
         /// <param name="password">密码</param>
-        /// <returns>ftp请求</returns>
-        private static FtpWebRequest CreateRequest(string uri, string loginId, string password)
+        /// <returns>FTP请求</returns>
+        public static FtpWebRequest CreateFtpRequest(string uri, string loginId, string password)
         {
             FtpWebRequest request = (FtpWebRequest)WebRequest.Create(uri);
 
@@ -205,7 +205,7 @@ namespace SD.Common
             string uri = $"ftp://{hostName}/{remoteDirectory}/{fileInfo.Name}";
             byte[] buffer = new byte[2048];
 
-            FtpWebRequest request = CreateRequest(uri, loginId, password);
+            FtpWebRequest request = CreateFtpRequest(uri, loginId, password);
             request.Method = WebRequestMethods.Ftp.UploadFile;
             request.UseBinary = true;
             request.UsePassive = true;
@@ -240,7 +240,7 @@ namespace SD.Common
             string localPath = $@"{localDirectory}\{fileName}";
             byte[] buffer = new byte[2048];
 
-            FtpWebRequest request = FileExtension.CreateRequest(uri, loginId, password);
+            FtpWebRequest request = CreateFtpRequest(uri, loginId, password);
             request.Method = WebRequestMethods.Ftp.DownloadFile;
             request.UseBinary = true;
             request.UsePassive = false;
@@ -292,7 +292,7 @@ namespace SD.Common
             try
             {
                 string uri = "ftp://" + hostName + "/" + directoryName;
-                FtpWebRequest ftp = CreateRequest(uri, loginId, password);
+                FtpWebRequest ftp = CreateFtpRequest(uri, loginId, password);
                 ftp.Method = WebRequestMethods.Ftp.MakeDirectory;
 
                 FtpWebResponse response = (FtpWebResponse)ftp.GetResponse();
@@ -328,7 +328,7 @@ namespace SD.Common
         public static string[] ReadRemoteFiles(string uri, string loginId, string password)
         {
             const char newLine = '\n';
-            FtpWebRequest ftp = CreateRequest(uri, loginId, password);
+            FtpWebRequest ftp = CreateFtpRequest(uri, loginId, password);
             ftp.Method = WebRequestMethods.Ftp.ListDirectory;
 
             FtpWebResponse response = (FtpWebResponse)ftp.GetResponse();

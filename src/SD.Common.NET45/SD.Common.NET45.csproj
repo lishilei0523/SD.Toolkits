@@ -54,6 +54,9 @@
     <Compile Include="..\SD.Common\FileExtension.cs">
       <Link>FileExtension.cs</Link>
     </Compile>
+    <Compile Include="..\SD.Common\MD5Extension.cs">
+      <Link>MD5Extension.cs</Link>
+    </Compile>
     <Compile Include="..\SD.Common\NumericExtension.cs">
       <Link>NumericExtension.cs</Link>
     </Compile>
@@ -63,11 +66,11 @@
     <Compile Include="..\SD.Common\ReflectionExtension.cs">
       <Link>ReflectionExtension.cs</Link>
     </Compile>
+    <Compile Include="..\SD.Common\SerializationExtension.cs">
+      <Link>SerializationExtension.cs</Link>
+    </Compile>
     <Compile Include="..\SD.Common\SqlHelper.cs">
       <Link>SqlHelper.cs</Link>
-    </Compile>
-    <Compile Include="..\SD.Common\StreamExtension.cs">
-      <Link>StreamExtension.cs</Link>
     </Compile>
     <Compile Include="..\SD.Common\StringExtension.cs">
       <Link>StringExtension.cs</Link>

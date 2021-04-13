@@ -44,7 +44,7 @@ namespace SD.Toolkits.Json.Tests
 
             string json = studentInfo.ToJson("yyyy-MM-dd HH:mm:ss");
 
-            StudentInfo student = json.JsonToObject<StudentInfo>();
+            StudentInfo student = json.AsJsonTo<StudentInfo>();
 
             Assert.IsTrue(studentInfo.Id == student.Id);
             Assert.IsTrue(studentInfo.Name == student.Name);

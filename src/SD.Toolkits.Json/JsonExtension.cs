@@ -46,13 +46,13 @@ namespace SD.Toolkits.Json
         }
         #endregion
 
-        #region # JSON反序列化对象 —— static T AsJsonToObject<T>(this string json)
+        #region # JSON反序列化对象 —— static T AsJsonTo<T>(this string json)
         /// <summary>
         /// JSON反序列化对象
         /// </summary>
         /// <param name="json">JSON文本</param>
         /// <returns>实例</returns>
-        public static T AsJsonToObject<T>(this string json)
+        public static T AsJsonTo<T>(this string json)
         {
             #region # 验证
 
