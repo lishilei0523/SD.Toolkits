@@ -40,12 +40,12 @@ namespace SD.Common
         }
         #endregion
 
-        #region # .NET类型值转数据库类型值空值处理 —— static object ToDbValue(this object value)
+        #region # CLS类型值转数据库类型值 —— static object ToDbValue(this object value)
         /// <summary>
-        /// .NET类型值转数据库类型值空值处理
+        /// CLS类型值转数据库类型值
         /// </summary>
-        /// <param name="value">.NET类型值</param>
-        /// <returns>处理后的数据库类型值</returns>
+        /// <param name="value">CLS类型值</param>
+        /// <returns>数据库类型值</returns>
         public static object ToDbValue(this object value)
         {
             return value ?? DBNull.Value;
