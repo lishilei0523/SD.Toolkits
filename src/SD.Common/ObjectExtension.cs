@@ -64,7 +64,6 @@ namespace SD.Common
         #region # object原型深拷贝扩展方法 —— static T Clone<T>(this object instance)
         /// <summary>
         /// object原型深拷贝扩展方法
-        /// 异常：ArgumentNullException，NullReferenceException，SerializationException
         /// </summary>
         /// <typeparam name="T">类型</typeparam>
         /// <param name="instance">object及其子类对象</param>
@@ -103,21 +102,19 @@ namespace SD.Common
         }
         #endregion
 
-        #region # object序列化为二进制字符串扩展方法 —— static string ToBinaryString(this object instance)
+        #region # 序列化二进制 —— static string ToBinary(this object instance)
         /// <summary>
-        /// object序列化为二进制字符串扩展方法
+        /// 序列化二进制
         /// </summary>
-        /// <param name="instance">object及其子类</param>
-        /// <returns>二进制字符串</returns>
-        /// <exception cref="ArgumentNullException">源对象为空</exception>
-        /// <exception cref="SerializationException">对象类型未标记"Serializable"特性</exception>
-        public static string ToBinaryString(this object instance)
+        /// <param name="instance">实例</param>
+        /// <returns>二进制文本</returns>
+        public static string ToBinary(this object instance)
         {
-            #region # 验证参数
+            #region # 验证
 
             if (instance == null)
             {
-                throw new ArgumentNullException("instance", @"源对象不可为空！");
+                return null;
             }
 
             #endregion
@@ -131,27 +128,25 @@ namespace SD.Common
                 }
                 catch (SerializationException)
                 {
-                    throw new SerializationException(string.Format("给定对象类型\"{0}\"未标记\"Serializable\"特性！", instance.GetType().Name));
+                    throw new SerializationException($"给定对象类型\"{instance.GetType().Name}\"未标记\"Serializable\"特性！");
                 }
             }
         }
         #endregion
 
-        #region # object序列化为byte数组扩展方法 —— static byte[] ToByteArray(this object instance)
+        #region # 序列化byte数组 —— static byte[] ToByteArray(this object instance)
         /// <summary>
-        /// object序列化为byte数组扩展方法
+        /// 序列化byte数组
         /// </summary>
-        /// <param name="instance">object及其子类</param>
+        /// <param name="instance">实例</param>
         /// <returns>byte数组</returns>
-        /// <exception cref="ArgumentNullException">源对象为空</exception>
-        /// <exception cref="SerializationException">对象类型未标记"Serializable"特性</exception>
         public static byte[] ToByteArray(this object instance)
         {
-            #region # 验证参数
+            #region # 验证
 
             if (instance == null)
             {
-                throw new ArgumentNullException("instance", @"源对象不可为空！");
+                return new byte[0];
             }
 
             #endregion
@@ -165,52 +160,25 @@ namespace SD.Common
                 }
                 catch (SerializationException)
                 {
-                    throw new SerializationException(string.Format("给定对象类型\"{0}\"未标记\"Serializable\"特性！", instance.GetType().Name));
+                    throw new SerializationException($"给定对象类型\"{instance.GetType().Name}\"未标记\"Serializable\"特性！");
                 }
             }
         }
         #endregion
 
-        #region # byte数组反序列化为对象扩展方法 —— static T ToObject<T>(this byte[] buffer)
+        #region # 序列化XML —— static string ToXml(this object instance)
         /// <summary>
-        /// byte数组反序列化为对象扩展方法
+        /// 序列化XML
         /// </summary>
-        /// <typeparam name="T">类型</typeparam>
-        /// <param name="buffer">byte数组</param>
-        /// <returns>对象</returns>
-        public static T ToObject<T>(this byte[] buffer)
-        {
-            #region # 验证参数
-
-            if (buffer == null)
-            {
-                throw new ArgumentNullException("buffer", @"byte数组不可为null！");
-            }
-
-            #endregion
-
-            using (MemoryStream stream = new MemoryStream(buffer))
-            {
-                object instance = _BinaryFormatter.Deserialize(stream);
-                return (T)instance;
-            }
-        }
-        #endregion
-
-        #region # object序列化Xml字符串扩展方法 —— static string ToXml(this object instance)
-        /// <summary>
-        /// object序列化Xml字符串扩展方法
-        /// </summary>
-        /// <param name="instance">object及其子类对象</param>
-        /// <returns>Xml字符串</returns>
-        /// <exception cref="ArgumentNullException">源对象为空</exception>
+        /// <param name="instance">实例</param>
+        /// <returns>XML文本</returns>
         public static string ToXml(this object instance)
         {
-            #region # 验证参数
+            #region # 验证
 
             if (instance == null)
             {
-                throw new ArgumentNullException("obj", @"源对象不可为空！");
+                return null;
             }
 
             #endregion
@@ -220,6 +188,31 @@ namespace SD.Common
                 XmlSerializer xmlSerializer = new XmlSerializer(instance.GetType());
                 xmlSerializer.Serialize(stringWriter, instance);
                 return stringWriter.ToString();
+            }
+        }
+        #endregion
+
+        #region # byte数组反序列化对象 —— static T AsBufferToObject<T>(this byte[] buffer)
+        /// <summary>
+        /// byte数组反序列化对象
+        /// </summary>
+        /// <param name="buffer">byte数组</param>
+        /// <returns>实例</returns>
+        public static T AsBufferToObject<T>(this byte[] buffer)
+        {
+            #region # 验证
+
+            if (buffer == null)
+            {
+                return default(T);
+            }
+
+            #endregion
+
+            using (MemoryStream stream = new MemoryStream(buffer))
+            {
+                object instance = _BinaryFormatter.Deserialize(stream);
+                return (T)instance;
             }
         }
         #endregion

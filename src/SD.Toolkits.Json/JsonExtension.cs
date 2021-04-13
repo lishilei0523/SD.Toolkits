@@ -14,10 +14,10 @@ namespace SD.Toolkits.Json
         /// </summary>
         /// <param name="instance">实例</param>
         /// <param name="timeFormat">时间格式</param>
-        /// <returns>JSON</returns>
+        /// <returns>JSON文本</returns>
         public static string ToJson(this object instance, string timeFormat = null)
         {
-            #region # 验证参数
+            #region # 验证
 
             if (instance == null)
             {
@@ -46,16 +46,15 @@ namespace SD.Toolkits.Json
         }
         #endregion
 
-        #region # JSON反序列化对象 —— static T JsonToObject<T>(this string json)
+        #region # JSON反序列化对象 —— static T AsJsonToObject<T>(this string json)
         /// <summary>
         /// JSON反序列化对象
         /// </summary>
-        /// <typeparam name="T">对象类型</typeparam>
-        /// <param name="json">JSON</param>
+        /// <param name="json">JSON文本</param>
         /// <returns>实例</returns>
-        public static T JsonToObject<T>(this string json)
+        public static T AsJsonToObject<T>(this string json)
         {
-            #region # 验证参数
+            #region # 验证
 
             if (string.IsNullOrWhiteSpace(json))
             {

@@ -87,28 +87,24 @@ namespace SD.Common
         }
         #endregion
 
-        #region # 二进制字符串反序列化为对象扩展方法 —— static T BinaryToObject<T>(this string binaryStr)
+        #region # 二进制反序列化对象 —— static T AsBinaryToObject<T>(this string binary)
         /// <summary>
-        /// 二进制字符串反序列化为对象扩展方法
+        /// 二进制反序列化对象
         /// </summary>
-        /// <typeparam name="T">对象类型</typeparam>
-        /// <param name="binaryStr">二进制字符串</param>
-        /// <returns>给定类型对象</returns>
-        /// <exception cref="ArgumentNullException">二进制字符串为空</exception>
-        /// <exception cref="SerializationException">对象类型未标记"Serializable"特性</exception>
-        /// <exception cref="InvalidCastException">反序列化为给定类型失败</exception>
-        public static T BinaryToObject<T>(this string binaryStr)
+        /// <param name="binary">二进制文本</param>
+        /// <returns>实例</returns>
+        public static T AsBinaryToObject<T>(this string binary)
         {
-            #region # 验证参数
+            #region # 验证
 
-            if (string.IsNullOrWhiteSpace(binaryStr))
+            if (string.IsNullOrWhiteSpace(binary))
             {
-                throw new ArgumentNullException("binaryStr", @"二进制字符串不可为空！");
+                return default(T);
             }
 
             #endregion
 
-            using (MemoryStream stream = new MemoryStream(Convert.FromBase64String(binaryStr)))
+            using (MemoryStream stream = new MemoryStream(Convert.FromBase64String(binary)))
             {
                 try
                 {
@@ -116,32 +112,29 @@ namespace SD.Common
                 }
                 catch (SerializationException)
                 {
-                    throw new SerializationException(string.Format("给定对象类型\"{0}\"未标记\"Serializable\"特性！",
-                        typeof(T).Name));
+                    throw new SerializationException($"给定对象类型\"{typeof(T).Name}\"未标记\"Serializable\"特性！");
                 }
                 catch (InvalidCastException)
                 {
-                    throw new InvalidCastException(string.Format("无法将源二进制字符串反序列化为给定类型\"{0}\"，请检查类型后重试！", typeof(T).Name));
+                    throw new InvalidCastException($"无法将给定二进制文本反序列化为给定类型\"{typeof(T).Name}\"，请检查类型后重试！");
                 }
             }
         }
         #endregion
 
-        #region # XML字符串反序列化为对象扩展方法 —— static T XmlToObject<T>(this string xml)
+        #region # XML反序列化对象 —— static T AsXmlToObject<T>(this string xml)
         /// <summary>
-        /// XML字符串反序列化为对象扩展方法
+        /// XML反序列化对象
         /// </summary>
-        /// <typeparam name="T">对象类型</typeparam>
-        /// <param name="xml">Xml字符串</param>
-        /// <returns>给定类型对象</returns>
-        /// <exception cref="ArgumentNullException">Xml字符串为空</exception>
-        public static T XmlToObject<T>(this string xml)
+        /// <param name="xml">XML文本</param>
+        /// <returns>实例</returns>
+        public static T AsXmlToObject<T>(this string xml)
         {
-            #region # 验证参数
+            #region # 验证
 
             if (string.IsNullOrWhiteSpace(xml))
             {
-                throw new ArgumentNullException("xml", @"Xml字符串不可为空！");
+                return default(T);
             }
 
             #endregion
@@ -155,7 +148,7 @@ namespace SD.Common
                 }
                 catch (InvalidCastException)
                 {
-                    throw new InvalidCastException(string.Format("无法将源Xml字符串反序列化为给定类型\"{0}\"，请检查类型后重试！", typeof(T).Name));
+                    throw new InvalidCastException($"无法将源XML文本反序列化为给定类型\"{typeof(T).Name}\"，请检查类型后重试！");
                 }
             }
         }
