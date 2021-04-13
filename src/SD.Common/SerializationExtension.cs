@@ -176,13 +176,13 @@ namespace SD.Common
         }
         #endregion
 
-        #region # 序列化byte数组 —— static byte[] ToByteArray(this object instance)
+        #region # 序列化byte数组 —— static byte[] ToBuffer(this object instance)
         /// <summary>
         /// 序列化byte数组
         /// </summary>
         /// <param name="instance">实例</param>
         /// <returns>byte数组</returns>
-        public static byte[] ToByteArray(this object instance)
+        public static byte[] ToBuffer(this object instance)
         {
             #region # 验证
 
