@@ -3,7 +3,7 @@
 namespace SD.Common
 {
     /// <summary>
-    /// 数值类型常用扩展方法
+    /// 数值类型扩展
     /// </summary>
     public static class NumericExtension
     {

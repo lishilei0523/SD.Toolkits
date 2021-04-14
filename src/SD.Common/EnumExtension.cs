@@ -7,7 +7,7 @@ using System.Reflection;
 namespace SD.Common
 {
     /// <summary>
-    /// 枚举扩展工具类
+    /// 枚举扩展
     /// </summary>
     public static class EnumExtension
     {

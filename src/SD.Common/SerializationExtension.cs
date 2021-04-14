@@ -110,9 +110,9 @@ namespace SD.Common
                 {
                     throw new SerializationException($"给定对象类型\"{typeof(T).Name}\"未标记\"Serializable\"特性！");
                 }
-                catch (InvalidCastException)
+                catch (InvalidCastException exception)
                 {
-                    throw new InvalidCastException($"无法将给定二进制文本反序列化为给定类型\"{typeof(T).Name}\"，请检查类型后重试！");
+                    throw new InvalidCastException($"无法将给定二进制文本反序列化为给定类型\"{typeof(T).Name}\"，请检查类型后重试！", exception);
                 }
             }
         }
@@ -168,9 +168,9 @@ namespace SD.Common
                 {
                     return (T)xmlSerializer.Deserialize(stringReader);
                 }
-                catch (InvalidCastException)
+                catch (InvalidCastException exception)
                 {
-                    throw new InvalidCastException($"无法将源XML文本反序列化为给定类型\"{typeof(T).Name}\"，请检查类型后重试！");
+                    throw new InvalidCastException($"无法将源XML文本反序列化为给定类型\"{typeof(T).Name}\"，请检查类型后重试！", exception);
                 }
             }
         }
@@ -228,9 +228,20 @@ namespace SD.Common
 
             using (MemoryStream stream = new MemoryStream(buffer))
             {
-                BinaryFormatter binaryFormatter = new BinaryFormatter();
-                object instance = binaryFormatter.Deserialize(stream);
-                return (T)instance;
+                try
+                {
+                    BinaryFormatter binaryFormatter = new BinaryFormatter();
+                    object instance = binaryFormatter.Deserialize(stream);
+                    return (T)instance;
+                }
+                catch (SerializationException)
+                {
+                    throw new SerializationException($"给定对象类型\"{typeof(T).Name}\"未标记\"Serializable\"特性！");
+                }
+                catch (InvalidCastException exception)
+                {
+                    throw new InvalidCastException($"无法将给定byte数组反序列化为给定类型\"{typeof(T).Name}\"，请检查类型后重试！", exception);
+                }
             }
         }
         #endregion

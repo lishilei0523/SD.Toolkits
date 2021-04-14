@@ -7,39 +7,45 @@ using System.Text.RegularExpressions;
 namespace SD.Common
 {
     /// <summary>
-    /// 字符串扩展方法
+    /// 字符串扩展
     /// </summary>
     public static class StringExtension
     {
-        #region # 忽略大小写比较字符串是否相等扩展方法 —— static bool EqualsTo(this string source...
+        #region # 忽略大小写比较字符串是否相等 —— static bool EqualsTo(this string sourceText...
         /// <summary>
-        /// 忽略大小写比较字符串是否相等扩展方法
+        /// 忽略大小写比较字符串是否相等
         /// </summary>
-        /// <param name="source">当前字符串</param>
-        /// <param name="target">要比较的字符串</param>
-        /// <returns>是否相同</returns>
-        public static bool EqualsTo(this string source, string target)
+        /// <param name="sourceText">源文本</param>
+        /// <param name="targetText">目标文本</param>
+        /// <returns>是否相等</returns>
+        public static bool EqualsTo(this string sourceText, string targetText)
         {
-            if (string.IsNullOrWhiteSpace(source) && string.IsNullOrWhiteSpace(target))
+            if (string.IsNullOrWhiteSpace(sourceText) && string.IsNullOrWhiteSpace(targetText))
             {
                 return true;
             }
-            return string.Equals(source, target, StringComparison.CurrentCultureIgnoreCase);
+
+            return string.Equals(sourceText, targetText, StringComparison.CurrentCultureIgnoreCase);
         }
         #endregion
 
-        #region # 字符串过滤Html标签扩展方法 —— static string FilterHtml(this string text)
+        #region # 过滤Html标签 —— static string FilterHtmlTags(this string text)
         /// <summary>
-        /// 字符串过滤Html标签扩展方法
+        /// 过滤Html标签
         /// </summary>
-        /// <param name="text">待过虑的字符串</param>
-        /// <returns>过滤后的字符串</returns>
-        public static string FilterHtml(this string text)
+        /// <param name="text">文本</param>
+        /// <returns>过滤后的文本</returns>
+        public static string FilterHtmlTags(this string text)
         {
+            #region # 验证
+
             if (string.IsNullOrWhiteSpace(text))
             {
                 return string.Empty;
             }
+
+            #endregion
+
             text = Regex.Replace(text, @"<script[^>]*?>.*?</script>", "", RegexOptions.IgnoreCase);
             text = Regex.Replace(text, @"<style[^>]*?>", "", RegexOptions.IgnoreCase);
             text = Regex.Replace(text, @"</style>", "", RegexOptions.IgnoreCase);
@@ -51,37 +57,52 @@ namespace SD.Common
             text = Regex.Replace(text, @"<!--.*", "", RegexOptions.IgnoreCase);
             text = Regex.Replace(text, "<[^>]*>", "", RegexOptions.Compiled);
             text = Regex.Replace(text, @"([\r\n])[\s]+", " ", RegexOptions.Compiled);
-            return text.Replace("&nbsp;", " ");
+            text = text.Replace("&nbsp;", " ");
+
+            return text;
         }
         #endregion
 
-        #region # 字符串过滤SQL语句关键字扩展方法 —— static string FilterSql(this string sql)
+        #region # 过滤SQL敏感字符 —— static string FilterSql(this string text)
         /// <summary>
-        /// 字符串过滤SQL语句关键字扩展方法
+        /// 过滤SQL敏感字符
         /// </summary>
-        /// <param name="sql">SQL字符串</param>
-        /// <returns>过滤后的SQL字符串</returns>
-        public static string FilterSql(this string sql)
+        /// <param name="text">文本</param>
+        /// <returns>过滤后的文本</returns>
+        public static string FilterSql(this string text)
         {
-            return sql.Replace("'", string.Empty);
+            #region # 验证
+
+            if (string.IsNullOrWhiteSpace(text))
+            {
+                return string.Empty;
+            }
+
+            #endregion
+
+            text = text.Replace("'", string.Empty);
+
+            return text;
         }
         #endregion
 
-        #region # 字符串加密扩展方法 —— static string Encrypt(this string text...
+        #region # 加密文本 —— static string Encrypt(this string plaintext...
         /// <summary>
-        /// 字符串加密扩展方法
+        /// 加密文本
         /// </summary>
-        public static string Encrypt(this string text, string key = null)
+        /// <param name="plaintext">明文</param>
+        /// <param name="key">键</param>
+        /// <returns>密文</returns>
+        public static string Encrypt(this string plaintext, string key = null)
         {
             key = string.IsNullOrWhiteSpace(key) ? "744FBCAD-3BA6-40FB-9A75-B6C81E25403E" : key;
-
             using (DESCryptoServiceProvider desCryptoService = new DESCryptoServiceProvider())
             {
                 string keyHash8 = key.ToHash16().Substring(0, 8);
                 desCryptoService.Key = Encoding.ASCII.GetBytes(keyHash8);
                 desCryptoService.IV = Encoding.ASCII.GetBytes(keyHash8);
 
-                byte[] inputByteArray = Encoding.Default.GetBytes(text);
+                byte[] inputByteArray = Encoding.Default.GetBytes(plaintext);
 
                 using (MemoryStream memoryStream = new MemoryStream())
                 {
@@ -104,20 +125,22 @@ namespace SD.Common
         }
         #endregion
 
-        #region # 字符串解密扩展方法 —— static string Decrypt(this string text...
+        #region # 解密文本 —— static string Decrypt(this string ciphertext...
         /// <summary>
-        /// 字符串解密扩展方法
+        /// 解密文本
         /// </summary>
-        public static string Decrypt(this string text, string key = null)
+        /// <param name="ciphertext">密文</param>
+        /// <param name="key">键</param>
+        /// <returns>明文</returns>
+        public static string Decrypt(this string ciphertext, string key = null)
         {
             key = string.IsNullOrWhiteSpace(key) ? "744FBCAD-3BA6-40FB-9A75-B6C81E25403E" : key;
-            int length = text.Length / 2;
+            int length = ciphertext.Length / 2;
 
             byte[] inputByteArray = new byte[length];
-
             for (int index = 0; index < length; index++)
             {
-                inputByteArray[index] = Convert.ToByte(text.Substring(index * 2, 2), 16);
+                inputByteArray[index] = Convert.ToByte(ciphertext.Substring(index * 2, 2), 16);
             }
 
             using (DESCryptoServiceProvider desCryptoService = new DESCryptoServiceProvider())

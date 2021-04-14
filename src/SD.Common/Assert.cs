@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace SD.Common
 {
     /// <summary>
-    /// 断言工具类
+    /// 断言扩展
     /// </summary>
     public static class Assert
     {

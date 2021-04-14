@@ -5,19 +5,10 @@ using System.Text;
 namespace SD.Common
 {
     /// <summary>
-    /// 反射扩展工具类
+    /// 反射扩展
     /// </summary>
     public static class ReflectionExtension
     {
-        #region # 常量
-
-        /// <summary>
-        /// 分隔符
-        /// </summary>
-        private const string Separator = "/";
-
-        #endregion
-
         #region # 获取方法路径 —— string GetMethodPath(this MethodBase method)
         /// <summary>
         /// 获取方法路径
@@ -26,26 +17,27 @@ namespace SD.Common
         /// <returns>方法路径</returns>
         public static string GetMethodPath(this MethodBase method)
         {
-            #region # 验证参数
+            #region # 验证
 
             if (method == null)
             {
-                throw new ArgumentNullException("method", @"方法信息不可为空！");
+                throw new ArgumentNullException(nameof(method), @"方法信息不可为空！");
             }
 
             #endregion
 
-            string assemblyName = method.DeclaringType.Assembly.GetName().Name;
-            string @namespace = method.DeclaringType.Namespace;
-            string className = method.DeclaringType.Name;
+            const string separator = "/";
+            string assemblyName = method.DeclaringType?.Assembly.GetName().Name;
+            string @namespace = method.DeclaringType?.Namespace;
+            string className = method.DeclaringType?.Name;
 
-            StringBuilder pathBuilder = new StringBuilder(Separator);
+            StringBuilder pathBuilder = new StringBuilder(separator);
             pathBuilder.Append(assemblyName);
-            pathBuilder.Append(Separator);
+            pathBuilder.Append(separator);
             pathBuilder.Append(@namespace);
-            pathBuilder.Append(Separator);
+            pathBuilder.Append(separator);
             pathBuilder.Append(className);
-            pathBuilder.Append(Separator);
+            pathBuilder.Append(separator);
             pathBuilder.Append(method.Name);
 
             return pathBuilder.ToString();

@@ -6,22 +6,21 @@ using System.Text;
 namespace SD.Common
 {
     /// <summary>
-    /// 文件操作扩展
+    /// 文件扩展
     /// </summary>
     public static class FileExtension
     {
         //本地操作
 
-        #region # 读取文件方法 —— static string ReadFile(string path)
+        #region # 读取文件 —— static string ReadFile(string path)
         /// <summary>
-        /// 读取文件方法
+        /// 读取文件
         /// </summary>
         /// <param name="path">路径</param>
-        /// <returns>内容字符串</returns>
-        /// <exception cref="ArgumentNullException">路径为空</exception>
+        /// <returns>文本</returns>
         public static string ReadFile(string path)
         {
-            #region # 验证参数
+            #region # 验证
 
             if (string.IsNullOrWhiteSpace(path))
             {
@@ -30,22 +29,21 @@ namespace SD.Common
 
             #endregion
 
-            StreamReader reader = null;
-
+            StreamReader streamReader = null;
             try
             {
-                reader = new StreamReader(path, Encoding.UTF8);
-                string content = reader.ReadToEnd();
+                streamReader = new StreamReader(path, Encoding.UTF8);
+                string content = streamReader.ReadToEnd();
                 return content;
             }
             finally
             {
-                reader?.Dispose();
+                streamReader?.Dispose();
             }
         }
         #endregion
 
-        #region # 写入文件方法 —— static void WriteFile(string path, string text...
+        #region # 写入文件 —— static void WriteFile(string path, string text...
         /// <summary>
         /// 写入文件方法
         /// </summary>
@@ -54,7 +52,7 @@ namespace SD.Common
         /// <param name="append">是否附加</param>
         public static void WriteFile(string path, string text, bool append = false)
         {
-            #region # 验证参数
+            #region # 验证
 
             if (string.IsNullOrWhiteSpace(path))
             {
@@ -62,7 +60,7 @@ namespace SD.Common
             }
             if (string.IsNullOrWhiteSpace(text))
             {
-                throw new ArgumentNullException(nameof(text), "文本不可为空！");
+                text = string.Empty;
             }
 
             #endregion
@@ -78,8 +76,7 @@ namespace SD.Common
             {
                 //获取文件目录并判断是否存在
                 string directory = Path.GetDirectoryName(path);
-
-                if (string.IsNullOrEmpty(directory))
+                if (string.IsNullOrWhiteSpace(directory))
                 {
                     throw new ArgumentNullException(nameof(path), "目录不可为空！");
                 }
@@ -98,47 +95,46 @@ namespace SD.Common
         }
         #endregion
 
-        #region # 复制文件夹方法 —— static void CopyFolderTo(this string sourcePath, string targetPath)
+        #region # 复制文件夹 —— static void CopyFolderTo(this string sourcePath, string targetPath)
         /// <summary>
         /// 复制文件夹方法
         /// </summary>
-        /// <param name="sourcePath">源路径</param>
-        /// <param name="targetPath">目标路径</param>
-        public static void CopyFolderTo(this string sourcePath, string targetPath)
+        /// <param name="sourceDirectory">源文件夹</param>
+        /// <param name="targetDirectory">目标文件夹</param>
+        public static void CopyFolderTo(this string sourceDirectory, string targetDirectory)
         {
-            #region # 验证参数
+            #region # 验证
 
-            if (string.IsNullOrWhiteSpace(sourcePath))
+            if (string.IsNullOrWhiteSpace(sourceDirectory))
             {
-                throw new ArgumentNullException(nameof(sourcePath), "源路径不可为空！");
+                throw new ArgumentNullException(nameof(sourceDirectory), "源文件夹不可为空！");
             }
-
-            if (string.IsNullOrWhiteSpace(targetPath))
+            if (string.IsNullOrWhiteSpace(targetDirectory))
             {
-                throw new ArgumentNullException(nameof(targetPath), "目标路径不可为空！");
+                throw new ArgumentNullException(nameof(targetDirectory), "目标文件夹不可为空！");
             }
 
             #endregion
 
-            //01.创建目标文件夹
-            if (!Directory.Exists(targetPath))
+            //创建目标文件夹
+            if (!Directory.Exists(targetDirectory))
             {
-                Directory.CreateDirectory(targetPath);
+                Directory.CreateDirectory(targetDirectory);
             }
 
-            //02.拷贝文件
-            DirectoryInfo sourceDir = new DirectoryInfo(sourcePath);
+            //拷贝文件
+            DirectoryInfo sourceDir = new DirectoryInfo(sourceDirectory);
             FileInfo[] fileArray = sourceDir.GetFiles();
             foreach (FileInfo file in fileArray)
             {
-                file.CopyTo($"{targetPath}\\{file.Name}", true);
+                file.CopyTo($"{targetDirectory}\\{file.Name}", true);
             }
 
-            //03.递归循环子文件夹
+            //递归子文件夹
             DirectoryInfo[] subDirArray = sourceDir.GetDirectories();
             foreach (DirectoryInfo subDir in subDirArray)
             {
-                CopyFolderTo(subDir.FullName, $"{targetPath}//{subDir.Name}");
+                CopyFolderTo(subDir.FullName, $"{targetDirectory}//{subDir.Name}");
             }
         }
         #endregion
@@ -171,22 +167,27 @@ namespace SD.Common
         }
         #endregion
 
-        #region # 上传文件 —— static void Upload(this FileInfo fileInfo, string hostName...
+        #region # 上传文件 —— static void Upload(string fileName, byte[] fileDatas...
         /// <summary>
         /// 上传文件
         /// </summary>
-        /// <param name="fileInfo">文件</param>
+        /// <param name="fileName">文件名</param>
+        /// <param name="fileDatas">文件数据</param>
         /// <param name="remoteDirectory">远程目录</param>
         /// <param name="hostName">主机名</param>
         /// <param name="loginId">用户名</param>
         /// <param name="password">密码</param>
-        public static void Upload(this FileInfo fileInfo, string hostName, string remoteDirectory, string loginId, string password)
+        public static void Upload(string fileName, byte[] fileDatas, string hostName, string remoteDirectory, string loginId, string password)
         {
             #region # 验证
 
-            if (fileInfo == null)
+            if (string.IsNullOrWhiteSpace(fileName))
             {
-                throw new ArgumentNullException(nameof(fileInfo), "文件不可为空！");
+                throw new ArgumentNullException(nameof(fileName), "文件名不可为空！");
+            }
+            if (fileDatas == null)
+            {
+                throw new ArgumentNullException(nameof(fileDatas), "文件数据不可为空！");
             }
             if (string.IsNullOrWhiteSpace(remoteDirectory))
             {
@@ -202,44 +203,30 @@ namespace SD.Common
             //创建目录
             CreateRemoteDirectoryIfNotExists(hostName, remoteDirectory, loginId, password);
 
-            string uri = $"ftp://{hostName}/{remoteDirectory}/{fileInfo.Name}";
-            byte[] buffer = new byte[2048];
+            string uri = $"ftp://{hostName}/{remoteDirectory}/{fileName}";
 
             FtpWebRequest request = CreateFtpRequest(uri, loginId, password);
             request.Method = WebRequestMethods.Ftp.UploadFile;
             request.UseBinary = true;
             request.UsePassive = true;
-            request.ContentLength = fileInfo.Length;
-
-            using (FileStream fileStream = fileInfo.OpenRead())
+            request.ContentLength = fileDatas.Length;
+            using (Stream stream = request.GetRequestStream())
             {
-                using (Stream stream = request.GetRequestStream())
-                {
-                    int dataRead;
-                    do
-                    {
-                        dataRead = fileStream.Read(buffer, 0, buffer.Length);
-                        stream.Write(buffer, 0, dataRead);
-                    } while (!(dataRead < buffer.Length));
-                }
+                stream.Write(fileDatas, 0, fileDatas.Length);
             }
         }
         #endregion
 
-        #region # 下载文件 —— static void DownloadFile(string uri, string localDirectory...
+        #region # 下载文件 —— static byte[] DownloadFile(string uri, string loginId...
         /// <summary>
         /// 下载文件
         /// </summary>
         /// <param name="uri">远程地址</param>
-        /// <param name="localDirectory">本地目录</param>
         /// <param name="loginId">用户名</param>
         /// <param name="password">密码</param>
-        public static void DownloadFile(string uri, string localDirectory, string loginId, string password)
+        /// <returns>文件数据</returns>
+        public static byte[] DownloadFile(string uri, string loginId, string password)
         {
-            string fileName = Path.GetFileName(uri);
-            string localPath = $@"{localDirectory}\{fileName}";
-            byte[] buffer = new byte[2048];
-
             FtpWebRequest request = CreateFtpRequest(uri, loginId, password);
             request.Method = WebRequestMethods.Ftp.DownloadFile;
             request.UseBinary = true;
@@ -249,32 +236,9 @@ namespace SD.Common
             {
                 using (Stream stream = response.GetResponseStream())
                 {
-                    using (FileStream fileStream = new FileStream(localPath, FileMode.OpenOrCreate))
-                    {
-                        try
-                        {
-
-                            int read;
-                            do
-                            {
-                                read = stream.Read(buffer, 0, buffer.Length);
-                                fileStream.Write(buffer, 0, read);
-                            } while (read != 0);
-                        }
-                        catch
-                        {
-                            if (File.Exists(localPath))
-                            {
-                                File.Delete(localPath);
-                            }
-                            throw;
-                        }
-                    }
-
-                    stream.Close();
+                    byte[] buffer = stream.ToBuffer();
+                    return buffer;
                 }
-
-                response.Close();
             }
         }
         #endregion
@@ -331,28 +295,26 @@ namespace SD.Common
             FtpWebRequest ftp = CreateFtpRequest(uri, loginId, password);
             ftp.Method = WebRequestMethods.Ftp.ListDirectory;
 
-            FtpWebResponse response = (FtpWebResponse)ftp.GetResponse();
-
-            using (Stream stream = response.GetResponseStream())
+            using (FtpWebResponse response = (FtpWebResponse)ftp.GetResponse())
             {
-                using (StreamReader reader = new StreamReader(stream, Encoding.Default))
+                using (Stream stream = response.GetResponseStream())
                 {
-                    StringBuilder builder = new StringBuilder();
-                    string line = reader.ReadLine();
-
-                    while (line != null)
+                    using (StreamReader streamReader = new StreamReader(stream, Encoding.Default))
                     {
-                        builder.Append(line);
-                        builder.Append(newLine);
-                        line = reader.ReadLine();
+                        StringBuilder builder = new StringBuilder();
+                        string line = streamReader.ReadLine();
+                        while (line != null)
+                        {
+                            builder.Append(line);
+                            builder.Append(newLine);
+                            line = streamReader.ReadLine();
+                        }
+
+                        builder.Remove(builder.ToString().LastIndexOf(newLine), 1);
+                        string[] files = builder.ToString().Split(newLine);
+
+                        return files;
                     }
-
-                    builder.Remove(builder.ToString().LastIndexOf(newLine), 1);
-                    string[] files = builder.ToString().Split(newLine);
-
-                    response.Close();
-
-                    return files;
                 }
             }
         }
