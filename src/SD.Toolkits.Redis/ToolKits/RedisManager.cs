@@ -81,9 +81,9 @@ namespace SD.Toolkits.Redis
         /// 获取数据库
         /// </summary>
         /// <returns>数据库</returns>
-        public static IDatabase GetDatabase()
+        public static IDatabase GetDatabase(int db = -1, object asyncState = null)
         {
-            return _Instance.GetDatabase();
+            return _Instance.GetDatabase(db, asyncState);
         }
     }
 }
