@@ -12,7 +12,7 @@ namespace SD.Toolkits.EntityFramework.Extensions
     /// <summary>
     /// FluentAPI配置扩展
     /// </summary>
-    public static class ConfigurationExtension
+    public static class FluentApiExtension
     {
         #region # FluentAPI配置非聚集索引扩展方法 —— static EntityTypeConfiguration<TEntity> HasIndex<TEntity>(...
         /// <summary>

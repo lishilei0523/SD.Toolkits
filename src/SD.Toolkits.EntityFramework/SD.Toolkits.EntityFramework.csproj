@@ -18,8 +18,8 @@
     <Compile Include="..\SD.Toolkits.EntityFramework.NET45\Base\BaseDbContext.cs">
       <Link>Base\BaseDbContext.cs</Link>
     </Compile>
-    <Compile Include="..\SD.Toolkits.EntityFramework.NET45\Extensions\ConfigurationExtension.cs">
-      <Link>Extensions\ConfigurationExtension.cs</Link>
+    <Compile Include="..\SD.Toolkits.EntityFramework.NET45\Extensions\FluentApiExtension.cs">
+      <Link>Extensions\FluentApiExtension.cs</Link>
     </Compile>
     <Compile Include="..\SD.Toolkits.EntityFramework.NET45\Extensions\IndexType.cs">
       <Link>Extensions\IndexType.cs</Link>

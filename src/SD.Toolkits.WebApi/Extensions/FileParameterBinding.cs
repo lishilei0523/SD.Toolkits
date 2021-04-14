@@ -193,7 +193,7 @@ namespace SD.Toolkits.WebApi.Extensions
                                 FormName = formName,
                                 FileName = fileName,
                                 ContentType = httpContent.Headers.ContentType.MediaType,
-                                ContentLength = httpContent.Headers.ContentLength,
+                                ContentLength = httpContent.Headers.ContentLength ?? 0,
                                 Datas = fileBuffer
                             };
 

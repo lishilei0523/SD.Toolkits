@@ -50,7 +50,7 @@ namespace SD.Toolkits.AsyncHttpContext
             {
                 lock (_Sync)
                 {
-                    HttpContext httpContext = HttpContext.Current ?? HttpContextReader._AsyncHttpContext.Value;
+                    HttpContext httpContext = HttpContext.Current ?? _AsyncHttpContext.Value;
 
                     return httpContext;
                 }

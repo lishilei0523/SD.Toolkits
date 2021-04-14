@@ -25,7 +25,7 @@ namespace SD.Toolkits.WebApi.Models
         /// <summary>
         /// 内容长度
         /// </summary>
-        public long? ContentLength { get; set; }
+        public long ContentLength { get; set; }
 
         /// <summary>
         /// 文件数据

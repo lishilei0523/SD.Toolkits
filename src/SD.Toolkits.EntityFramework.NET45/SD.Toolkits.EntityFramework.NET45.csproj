@@ -43,7 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Base\BaseDbContext.cs" />
-    <Compile Include="Extensions\ConfigurationExtension.cs" />
+    <Compile Include="Extensions\FluentApiExtension.cs" />
     <Compile Include="Extensions\IndexType.cs" />
     <Compile Include="Extensions\PredicateBuilder.cs" />
     <Compile Include="Extensions\QueryableExtension.cs" />

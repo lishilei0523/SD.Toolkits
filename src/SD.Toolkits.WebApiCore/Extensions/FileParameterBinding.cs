@@ -154,7 +154,7 @@ namespace SD.Toolkits.WebApiCore.Extensions
                     if (formDatas.ContainsKey(formFile.Name))
                     {
                         object formData = formDatas[formFile.Name];
-                        if (formData is FormFile prevFile)
+                        if (formData is IFormFile prevFile)
                         {
                             FormFileCollection formFiles = new FormFileCollection();
                             formFiles.Add(prevFile);
