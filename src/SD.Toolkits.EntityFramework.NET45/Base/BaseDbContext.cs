@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Common;
 using System.Data.Entity;
 using System.Linq;
 using System.Reflection;
@@ -14,7 +15,6 @@ namespace SD.Toolkits.EntityFramework.Base
     {
         #region # 构造器
 
-        #region 01.基础构造器
         /// <summary>
         /// 基础构造器
         /// </summary>
@@ -24,7 +24,17 @@ namespace SD.Toolkits.EntityFramework.Base
         {
 
         }
-        #endregion
+
+        /// <summary>
+        /// 基础构造器
+        /// </summary>
+        /// <param name="existingConnection">已存在数据库连接</param>
+        /// <param name="contextOwnsConnection">上下文拥有连接</param>
+        protected BaseDbContext(DbConnection existingConnection, bool contextOwnsConnection)
+            : base(existingConnection, contextOwnsConnection)
+        {
+
+        }
 
         #endregion
 
