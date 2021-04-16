@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace SD.Toolkits.WebApi.Models
+﻿namespace SD.Toolkits.WebApi.Models
 {
     /// <summary>
     /// Http请求文件接口
@@ -10,7 +8,7 @@ namespace SD.Toolkits.WebApi.Models
         /// <summary>
         /// 表单名称
         /// </summary>
-        string FormName { get; }
+        string Name { get; }
 
         /// <summary>
         /// 文件名称
@@ -28,13 +26,13 @@ namespace SD.Toolkits.WebApi.Models
         long ContentLength { get; }
 
         /// <summary>
-        /// 文件数据
+        /// 内容处置
         /// </summary>
-        byte[] Datas { get; set; }
+        string ContentDisposition { get; }
 
         /// <summary>
-        /// 文件地址集
+        /// 文件数据
         /// </summary>
-        Uri[] Uris { get; set; }
+        byte[] Datas { get; }
     }
 }

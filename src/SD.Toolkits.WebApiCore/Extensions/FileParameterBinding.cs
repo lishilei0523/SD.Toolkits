@@ -98,7 +98,7 @@ namespace SD.Toolkits.WebApiCore.Extensions
                     const string undefined = "undefined";
                     if (string.IsNullOrWhiteSpace(objectValue.ToString()) || objectValue.ToString() == undefined)
                     {
-                        paramValue = null;
+                        paramValue = new FormFileCollection();
                     }
                     else
                     {
@@ -115,7 +115,7 @@ namespace SD.Toolkits.WebApiCore.Extensions
                         }
                         else
                         {
-                            paramValue = null;
+                            paramValue = new FormFileCollection();
                         }
                     }
                 }

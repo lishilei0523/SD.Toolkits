@@ -128,7 +128,7 @@ namespace SD.Toolkits.WebApi.Extensions
                     const string undefined = "undefined";
                     if (string.IsNullOrWhiteSpace(objectValue.ToString()) || objectValue.ToString() == undefined)
                     {
-                        paramValue = null;
+                        paramValue = new FormFileCollection();
                     }
                     else
                     {
@@ -145,7 +145,7 @@ namespace SD.Toolkits.WebApi.Extensions
                         }
                         else
                         {
-                            paramValue = null;
+                            paramValue = new FormFileCollection();
                         }
                     }
                 }
@@ -190,10 +190,11 @@ namespace SD.Toolkits.WebApi.Extensions
                             byte[] fileBuffer = binaryReader.ReadBytes((int)fileStream.Length);
                             IFormFile currentFile = new FormFile
                             {
-                                FormName = formName,
+                                Name = formName,
                                 FileName = fileName,
                                 ContentType = httpContent.Headers.ContentType.MediaType,
                                 ContentLength = httpContent.Headers.ContentLength ?? 0,
+                                ContentDisposition = httpContent.Headers.ContentDisposition.ToString(),
                                 Datas = fileBuffer
                             };
 
