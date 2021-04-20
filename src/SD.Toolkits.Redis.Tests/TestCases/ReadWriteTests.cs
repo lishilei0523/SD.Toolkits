@@ -18,15 +18,15 @@ namespace SD.Toolkits.Redis.Tests.TestCases
         public void Init()
         {
             IDatabase db = RedisManager.Instance.GetDatabase();
-            db.StringSet(ReadWriteTests.ReadKey, ReadWriteTests.ReadValue);
+            db.StringSet(ReadKey, ReadValue);
         }
 
         [TestCleanup]
         public void Cleanup()
         {
             IDatabase db = RedisManager.Instance.GetDatabase();
-            db.KeyDelete(ReadWriteTests.ReadKey);
-            db.KeyDelete(ReadWriteTests.WriteKey);
+            db.KeyDelete(ReadKey);
+            db.KeyDelete(WriteKey);
         }
 
 
@@ -34,19 +34,19 @@ namespace SD.Toolkits.Redis.Tests.TestCases
         public void ReadTest()
         {
             IDatabase db = RedisManager.Instance.GetDatabase();
-            string value = db.StringGet(ReadWriteTests.ReadKey);
+            string value = db.StringGet(ReadKey);
 
-            Assert.AreEqual(ReadWriteTests.ReadValue, value);
+            Assert.AreEqual(ReadValue, value);
         }
 
         [TestMethod]
         public void WriteTest()
         {
             IDatabase db = RedisManager.Instance.GetDatabase();
-            db.StringSet(ReadWriteTests.WriteKey, ReadWriteTests.WriteValue);
-            string value = db.StringGet(ReadWriteTests.WriteKey);
+            db.StringSet(WriteKey, WriteValue);
+            string value = db.StringGet(WriteKey);
 
-            Assert.AreEqual(ReadWriteTests.WriteValue, value);
+            Assert.AreEqual(WriteValue, value);
         }
     }
 }

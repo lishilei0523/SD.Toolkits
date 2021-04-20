@@ -42,7 +42,7 @@ namespace SD.Toolkits.Redis
             config.KeepAlive = 180;
             config.AllowAdmin = true;
 
-            if (string.IsNullOrWhiteSpace(RedisSection.Setting.Password))
+            if (!string.IsNullOrWhiteSpace(RedisSection.Setting.Password))
             {
                 config.Password = RedisSection.Setting.Password;
                 _RedisPassword = RedisSection.Setting.Password;
