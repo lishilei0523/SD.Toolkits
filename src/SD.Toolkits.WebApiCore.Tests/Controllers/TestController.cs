@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SD.Toolkits.WebApiCore.Attributes;
 using SD.Toolkits.WebApiCore.Tests.Models;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using SD.Toolkits.WebApiCore.Attributes;
 
 namespace SD.Toolkits.WebApiCore.Tests.Controllers
 {
@@ -26,15 +26,17 @@ namespace SD.Toolkits.WebApiCore.Tests.Controllers
 
         [HttpGet]
         [ComplexGetParameters]
-        public void TestArray([FromJson] IEnumerable<string> numbers)
+        public void TestArray(string name, [FromJson] IEnumerable<string> numbers)
         {
+            Trace.WriteLine(name);
             Trace.WriteLine(numbers);
         }
 
         [HttpGet]
         [ComplexGetParameters]
-        public void TestDictionary([FromJson] IDictionary<string, string> keyValues)
+        public void TestDictionary(string name, [FromJson] IDictionary<string, string> keyValues)
         {
+            Trace.WriteLine(name);
             Trace.WriteLine(keyValues);
         }
 

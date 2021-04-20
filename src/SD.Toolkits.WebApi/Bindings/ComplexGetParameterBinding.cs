@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using SD.Toolkits.WebApi.Attributes;
+using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
@@ -61,16 +62,54 @@ namespace SD.Toolkits.WebApi.Bindings
         /// </summary>
         public override async Task ExecuteBindingAsync(ModelMetadataProvider metadataProvider, HttpActionContext actionContext, CancellationToken cancellationToken)
         {
+            NameValueCollection parameters = await this.ParseParametersFromBody(actionContext.Request);
+            string stringValue = parameters.Get(base.Descriptor.ParameterName);
+
             //JSON复杂参数
             if (base.Descriptor.GetCustomAttributes<FromJsonAttribute>().Any())
             {
-                NameValueCollection parameters = await this.ParseParametersFromBody(actionContext.Request);
-                string stringValue = parameters.Get(base.Descriptor.ParameterName);
                 stringValue = WebUtility.UrlDecode(stringValue);
-
                 if (!string.IsNullOrWhiteSpace(stringValue))
                 {
                     object paramValue = JsonConvert.DeserializeObject(stringValue, base.Descriptor.ParameterType);
+                    base.SetValue(actionContext, paramValue);
+                }
+                else
+                {
+                    base.SetValue(actionContext, null);
+                }
+            }
+            else
+            {
+                if (!string.IsNullOrWhiteSpace(stringValue))
+                {
+                    object paramValue;
+                    if (base.Descriptor.ParameterType == typeof(string))
+                    {
+                        paramValue = stringValue;
+                    }
+                    else if (base.Descriptor.ParameterType == typeof(Guid))
+                    {
+                        paramValue = Guid.Parse(stringValue);
+                    }
+                    else if (base.Descriptor.ParameterType == typeof(DateTime))
+                    {
+                        paramValue = DateTime.Parse(stringValue);
+                    }
+                    else if (base.Descriptor.ParameterType.IsEnum)
+                    {
+                        paramValue = Enum.Parse(base.Descriptor.ParameterType, stringValue);
+                    }
+                    else if (base.Descriptor.ParameterType.IsPrimitive)
+                    {
+                        paramValue = Convert.ChangeType(stringValue, base.Descriptor.ParameterType);
+                    }
+                    else
+                    {
+                        //除字符串、Guid、时间、枚举、基元类型外，都按对象反序列化
+                        paramValue = JsonConvert.DeserializeObject(stringValue, base.Descriptor.ParameterType);
+                    }
+
                     base.SetValue(actionContext, paramValue);
                 }
                 else

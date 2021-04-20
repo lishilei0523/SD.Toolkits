@@ -24,15 +24,17 @@ namespace SD.Toolkits.WebApi.Tests.Controllers
 
         [HttpGet]
         [ComplexGetParameters]
-        public void TestArray([FromJson] IEnumerable<string> numbers)
+        public void TestArray(string name, [FromJson] IEnumerable<string> numbers)
         {
+            Trace.WriteLine(name);
             Trace.WriteLine(numbers);
         }
 
         [HttpGet]
         [ComplexGetParameters]
-        public void TestDictionary([FromJson] IDictionary<string, string> keyValues)
+        public void TestDictionary(string name, [FromJson] IDictionary<string, string> keyValues)
         {
+            Trace.WriteLine(name);
             Trace.WriteLine(keyValues);
         }
 

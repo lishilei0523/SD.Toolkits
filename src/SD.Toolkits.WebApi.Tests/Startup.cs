@@ -1,7 +1,6 @@
 ﻿using Microsoft.Owin;
 using Owin;
 using SD.Toolkits.WebApi.Extensions;
-using SD.Toolkits.WebApi.Filters;
 using SD.Toolkits.WebApi.Tests;
 using System.Web.Http;
 using System.Web.Http.Cors;
@@ -33,7 +32,7 @@ namespace SD.Toolkits.WebApi.Tests
             httpConfiguration.RegisterFileParameterBindingRule();
 
             //异常过滤器
-            httpConfiguration.Filters.Add(new WebApiExceptionFilter());
+            //httpConfiguration.Filters.Add(new WebApiExceptionFilter());
 
             //配置跨域
             httpConfiguration.EnableCors(new EnableCorsAttribute("*", "*", "*"));
