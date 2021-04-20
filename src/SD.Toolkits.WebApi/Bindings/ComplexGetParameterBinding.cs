@@ -1,8 +1,6 @@
 ﻿using Newtonsoft.Json;
-using SD.Toolkits.WebApi.Attributes;
 using System.Collections.Generic;
 using System.Collections.Specialized;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading;
@@ -19,41 +17,15 @@ namespace SD.Toolkits.WebApi.Bindings
     {
         #region # 构造器
 
-        #region 00.私有构造器
         /// <summary>
-        /// 私有构造器
+        /// 基础构造器
         /// </summary>
         /// <param name="parameterDescriptor">参数描述者</param>
-        private ComplexGetParameterBinding(HttpParameterDescriptor parameterDescriptor)
+        public ComplexGetParameterBinding(HttpParameterDescriptor parameterDescriptor)
             : base(parameterDescriptor)
         {
 
         }
-        #endregion
-
-        #region 01.创建GET请求复杂参数绑定 —— static ComplexGetParameterBinding CreateBindingForMarkedAction(...
-        /// <summary>
-        /// 创建GET请求复杂参数绑定
-        /// </summary>
-        /// <param name="parameterDescriptor">参数描述者</param>
-        public static ComplexGetParameterBinding CreateBindingForMarkedAction(HttpParameterDescriptor parameterDescriptor)
-        {
-            if (!parameterDescriptor.ActionDescriptor.GetCustomAttributes<ComplexGetParametersAttribute>().Any())
-            {
-                return null;
-            }
-            if (!parameterDescriptor.GetCustomAttributes<FromJsonAttribute>().Any())
-            {
-                return null;
-            }
-            if (parameterDescriptor.ActionDescriptor.SupportedHttpMethods.Contains(HttpMethod.Get))
-            {
-                return new ComplexGetParameterBinding(parameterDescriptor);
-            }
-
-            return null;
-        }
-        #endregion
 
         #endregion
 
@@ -67,20 +39,15 @@ namespace SD.Toolkits.WebApi.Bindings
         {
             NameValueCollection parameters = await this.ParseParametersFromBody(actionContext.Request);
             string stringValue = parameters.Get(base.Descriptor.ParameterName);
-
-            //JSON复杂参数
-            if (base.Descriptor.GetCustomAttributes<FromJsonAttribute>().Any())
+            stringValue = WebUtility.UrlDecode(stringValue);
+            if (!string.IsNullOrWhiteSpace(stringValue))
             {
-                stringValue = WebUtility.UrlDecode(stringValue);
-                if (!string.IsNullOrWhiteSpace(stringValue))
-                {
-                    object paramValue = JsonConvert.DeserializeObject(stringValue, base.Descriptor.ParameterType);
-                    base.SetValue(actionContext, paramValue);
-                }
-                else
-                {
-                    base.SetValue(actionContext, null);
-                }
+                object paramValue = JsonConvert.DeserializeObject(stringValue, base.Descriptor.ParameterType);
+                base.SetValue(actionContext, paramValue);
+            }
+            else
+            {
+                base.SetValue(actionContext, null);
             }
         }
         #endregion

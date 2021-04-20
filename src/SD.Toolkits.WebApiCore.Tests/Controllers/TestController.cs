@@ -25,7 +25,6 @@ namespace SD.Toolkits.WebApiCore.Tests.Controllers
         }
 
         [HttpGet]
-        [ComplexGetParameters]
         public void TestArray(string name, [FromJson] IEnumerable<string> numbers)
         {
             Trace.WriteLine(name);
@@ -33,7 +32,6 @@ namespace SD.Toolkits.WebApiCore.Tests.Controllers
         }
 
         [HttpGet]
-        [ComplexGetParameters]
         public void TestDictionary(string name, [FromJson] IDictionary<string, string> keyValues)
         {
             Trace.WriteLine(name);

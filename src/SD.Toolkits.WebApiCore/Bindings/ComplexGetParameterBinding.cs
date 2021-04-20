@@ -1,12 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Microsoft.AspNetCore.Mvc.ModelBinding.Metadata;
 using Microsoft.Extensions.Primitives;
-using SD.Toolkits.WebApiCore.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Text.Json;
@@ -44,22 +41,15 @@ namespace SD.Toolkits.WebApiCore.Bindings
 
             NameValueCollection parameters = await this.ParseParametersFromBody(httpContext.Request);
             string stringValue = parameters.Get(bindingContext.FieldName);
-
-            DefaultModelMetadata modelMetadata = (DefaultModelMetadata)bindingContext.ModelMetadata;
-            bool hasAttribute = modelMetadata.Attributes.ParameterAttributes.Any(x => x is FromJsonAttribute);
-            //JSON复杂参数
-            if (hasAttribute)
+            stringValue = WebUtility.UrlDecode(stringValue);
+            if (!string.IsNullOrWhiteSpace(stringValue))
             {
-                stringValue = WebUtility.UrlDecode(stringValue);
-                if (!string.IsNullOrWhiteSpace(stringValue))
-                {
-                    object paramValue = JsonSerializer.Deserialize(stringValue, bindingContext.ModelType);
-                    bindingContext.Result = ModelBindingResult.Success(paramValue);
-                }
-                else
-                {
-                    bindingContext.Result = ModelBindingResult.Success(null);
-                }
+                object paramValue = JsonSerializer.Deserialize(stringValue, bindingContext.ModelType);
+                bindingContext.Result = ModelBindingResult.Success(paramValue);
+            }
+            else
+            {
+                bindingContext.Result = ModelBindingResult.Success(null);
             }
         }
         #endregion
