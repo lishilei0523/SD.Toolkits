@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SD.Toolkits.WebApi.Extensions
+namespace SD.Toolkits.WebApi.Attributes
 {
     /// <summary>
     /// 包装POST请求参数绑定特性

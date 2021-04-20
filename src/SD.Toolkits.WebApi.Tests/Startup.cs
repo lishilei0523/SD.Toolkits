@@ -1,5 +1,6 @@
 ﻿using Microsoft.Owin;
 using Owin;
+using SD.Toolkits.WebApi.Extensions;
 using SD.Toolkits.WebApi.Filters;
 using SD.Toolkits.WebApi.Tests;
 using System.Web.Http;
@@ -25,6 +26,11 @@ namespace SD.Toolkits.WebApi.Tests
                 "{controller}/{action}/{id}",
                 new { id = RouteParameter.Optional }
             );
+
+            //注册参数绑定
+            httpConfiguration.RegisterComplexGetParameterBindingRule();
+            httpConfiguration.RegisterWrapParameterBindingRule();
+            httpConfiguration.RegisterFileParameterBindingRule();
 
             //异常过滤器
             httpConfiguration.Filters.Add(new WebApiExceptionFilter());

@@ -38,11 +38,14 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Extensions\FileParameterBinding.cs" />
-    <Compile Include="Extensions\FileParametersAttribute.cs" />
+    <Compile Include="Bindings\FileParameterBinding.cs" />
+    <Compile Include="Attributes\FileParametersAttribute.cs" />
     <Compile Include="Extensions\HttpConfigurationExtension.cs" />
-    <Compile Include="Extensions\WrapPostParameterBinding.cs" />
-    <Compile Include="Extensions\WrapPostParametersAttribute.cs" />
+    <Compile Include="Bindings\ComplexGetParameterBinding.cs" />
+    <Compile Include="Bindings\WrapPostParameterBinding.cs" />
+    <Compile Include="Attributes\FromJsonAttribute.cs" />
+    <Compile Include="Attributes\ComplexGetParametersAttribute.cs" />
+    <Compile Include="Attributes\WrapPostParametersAttribute.cs" />
     <Compile Include="Filters\WebApiExceptionFilter.cs" />
     <Compile Include="Models\IFormFileCollection.cs" />
     <Compile Include="Models\IFormFile.cs" />

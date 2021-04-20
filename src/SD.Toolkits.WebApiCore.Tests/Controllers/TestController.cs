@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using SD.Toolkits.WebApiCore.Extensions;
 using SD.Toolkits.WebApiCore.Tests.Models;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using SD.Toolkits.WebApiCore.Attributes;
 
 namespace SD.Toolkits.WebApiCore.Tests.Controllers
 {
@@ -21,6 +22,20 @@ namespace SD.Toolkits.WebApiCore.Tests.Controllers
         {
             string errorMessage = "{\"ErrorMessage\":\"登录失败，密码错误！\",\"LogId\":\"09531f51-2412-4423-ae00-20f0792e5545\"}";
             throw new InvalidOperationException(errorMessage);
+        }
+
+        [HttpGet]
+        [ComplexGetParameters]
+        public void TestArray([FromJson] IEnumerable<string> numbers)
+        {
+            Trace.WriteLine(numbers);
+        }
+
+        [HttpGet]
+        [ComplexGetParameters]
+        public void TestDictionary([FromJson] IDictionary<string, string> keyValues)
+        {
+            Trace.WriteLine(keyValues);
         }
 
         [HttpPost]

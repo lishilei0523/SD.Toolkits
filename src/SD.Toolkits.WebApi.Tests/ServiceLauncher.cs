@@ -1,7 +1,7 @@
-﻿using System;
-using Microsoft.Owin.Hosting;
+﻿using Microsoft.Owin.Hosting;
 using SD.Toolkits.AspNet;
 using SD.Toolkits.AspNet.Configurations;
+using System;
 
 namespace SD.Toolkits.WebApi.Tests
 {
@@ -20,6 +20,7 @@ namespace SD.Toolkits.WebApi.Tests
             StartOptions startOptions = new StartOptions();
             foreach (HostElement host in AspNetSection.Setting.HostElement)
             {
+                Console.WriteLine($"Listening: {host.Url}");
                 startOptions.Urls.Add(host.Url);
             }
 

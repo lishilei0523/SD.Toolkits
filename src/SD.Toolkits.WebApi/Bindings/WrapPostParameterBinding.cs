@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using SD.Toolkits.WebApi.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -12,7 +13,7 @@ using System.Web.Http;
 using System.Web.Http.Controllers;
 using System.Web.Http.Metadata;
 
-namespace SD.Toolkits.WebApi.Extensions
+namespace SD.Toolkits.WebApi.Bindings
 {
     /// <summary>
     /// 包装POST请求参数绑定

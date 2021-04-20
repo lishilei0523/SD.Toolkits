@@ -8,7 +8,7 @@ using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace SD.Toolkits.WebApiCore.Extensions
+namespace SD.Toolkits.WebApiCore.Bindings
 {
     /// <summary>
     /// 文件参数模型模型绑定

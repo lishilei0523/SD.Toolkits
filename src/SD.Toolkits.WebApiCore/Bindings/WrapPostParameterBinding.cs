@@ -12,7 +12,7 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace SD.Toolkits.WebApiCore.Extensions
+namespace SD.Toolkits.WebApiCore.Bindings
 {
     /// <summary>
     /// 包装POST请求参数模型绑定

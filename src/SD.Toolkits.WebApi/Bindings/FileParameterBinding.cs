@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using SD.Toolkits.WebApi.Attributes;
 using SD.Toolkits.WebApi.Models;
 using System;
 using System.Collections.Concurrent;
@@ -13,7 +14,7 @@ using System.Web.Http;
 using System.Web.Http.Controllers;
 using System.Web.Http.Metadata;
 
-namespace SD.Toolkits.WebApi.Extensions
+namespace SD.Toolkits.WebApi.Bindings
 {
     /// <summary>
     /// 文件参数绑定

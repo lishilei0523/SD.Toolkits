@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SD.Toolkits.WebApi.Extensions
+namespace SD.Toolkits.WebApi.Attributes
 {
     /// <summary>
     /// 文件参数绑定特性
