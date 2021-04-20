@@ -1,6 +1,5 @@
 ﻿using Newtonsoft.Json;
 using SD.Toolkits.WebApi.Attributes;
-using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
@@ -43,6 +42,10 @@ namespace SD.Toolkits.WebApi.Bindings
             {
                 return null;
             }
+            if (!parameterDescriptor.GetCustomAttributes<FromJsonAttribute>().Any())
+            {
+                return null;
+            }
             if (parameterDescriptor.ActionDescriptor.SupportedHttpMethods.Contains(HttpMethod.Get))
             {
                 return new ComplexGetParameterBinding(parameterDescriptor);
@@ -72,44 +75,6 @@ namespace SD.Toolkits.WebApi.Bindings
                 if (!string.IsNullOrWhiteSpace(stringValue))
                 {
                     object paramValue = JsonConvert.DeserializeObject(stringValue, base.Descriptor.ParameterType);
-                    base.SetValue(actionContext, paramValue);
-                }
-                else
-                {
-                    base.SetValue(actionContext, null);
-                }
-            }
-            else
-            {
-                if (!string.IsNullOrWhiteSpace(stringValue))
-                {
-                    object paramValue;
-                    if (base.Descriptor.ParameterType == typeof(string))
-                    {
-                        paramValue = stringValue;
-                    }
-                    else if (base.Descriptor.ParameterType == typeof(Guid))
-                    {
-                        paramValue = Guid.Parse(stringValue);
-                    }
-                    else if (base.Descriptor.ParameterType == typeof(DateTime))
-                    {
-                        paramValue = DateTime.Parse(stringValue);
-                    }
-                    else if (base.Descriptor.ParameterType.IsEnum)
-                    {
-                        paramValue = Enum.Parse(base.Descriptor.ParameterType, stringValue);
-                    }
-                    else if (base.Descriptor.ParameterType.IsPrimitive)
-                    {
-                        paramValue = Convert.ChangeType(stringValue, base.Descriptor.ParameterType);
-                    }
-                    else
-                    {
-                        //除字符串、Guid、时间、枚举、基元类型外，都按对象反序列化
-                        paramValue = JsonConvert.DeserializeObject(stringValue, base.Descriptor.ParameterType);
-                    }
-
                     base.SetValue(actionContext, paramValue);
                 }
                 else

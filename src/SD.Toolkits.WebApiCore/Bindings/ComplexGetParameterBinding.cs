@@ -61,44 +61,6 @@ namespace SD.Toolkits.WebApiCore.Bindings
                     bindingContext.Result = ModelBindingResult.Success(null);
                 }
             }
-            else
-            {
-                if (!string.IsNullOrWhiteSpace(stringValue))
-                {
-                    object paramValue;
-                    if (bindingContext.ModelType == typeof(string))
-                    {
-                        paramValue = stringValue;
-                    }
-                    else if (bindingContext.ModelType == typeof(Guid))
-                    {
-                        paramValue = Guid.Parse(stringValue);
-                    }
-                    else if (bindingContext.ModelType == typeof(DateTime))
-                    {
-                        paramValue = DateTime.Parse(stringValue);
-                    }
-                    else if (bindingContext.ModelType.IsEnum)
-                    {
-                        paramValue = Enum.Parse(bindingContext.ModelType, stringValue);
-                    }
-                    else if (bindingContext.ModelType.IsPrimitive)
-                    {
-                        paramValue = Convert.ChangeType(stringValue, bindingContext.ModelType);
-                    }
-                    else
-                    {
-                        //除字符串、Guid、时间、枚举、基元类型外，都按对象反序列化
-                        paramValue = JsonSerializer.Deserialize(stringValue, bindingContext.ModelType);
-                    }
-
-                    bindingContext.Result = ModelBindingResult.Success(paramValue);
-                }
-                else
-                {
-                    bindingContext.Result = ModelBindingResult.Success(null);
-                }
-            }
         }
         #endregion
 

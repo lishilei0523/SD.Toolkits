@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using SD.Toolkits.WebApiCore.Bindings;
 using System;
+using System.Linq;
 
 namespace SD.Toolkits.WebApiCore.Attributes
 {
@@ -18,8 +19,11 @@ namespace SD.Toolkits.WebApiCore.Attributes
         {
             foreach (ParameterModel parameter in action.Parameters)
             {
-                parameter.BindingInfo ??= new BindingInfo();
-                parameter.BindingInfo.BinderType = typeof(ComplexGetParameterBinding);
+                if (parameter.Attributes.Any(x => x is FromJsonAttribute))
+                {
+                    parameter.BindingInfo ??= new BindingInfo();
+                    parameter.BindingInfo.BinderType = typeof(ComplexGetParameterBinding);
+                }
             }
         }
     }
