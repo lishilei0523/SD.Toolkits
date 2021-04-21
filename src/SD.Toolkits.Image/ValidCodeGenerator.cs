@@ -34,7 +34,7 @@ namespace SD.Toolkits.Image
         /// <returns>验证码字符串</returns>
         public static string GenerateCode(int length)
         {
-            #region # 验证参数
+            #region # 验证
 
             if (length > MaxLength)
             {
@@ -47,53 +47,52 @@ namespace SD.Toolkits.Image
 
             #endregion
 
-            int[] randMembers = new int[length];
-            int[] validateNums = new int[length];
+            int[] randomNumbers = new int[length];
+            int[] validNumbers = new int[length];
             int[] seeks = new int[length];
             StringBuilder validCodeBuilder = new StringBuilder();
 
             //生成起始序列值
             int seek = unchecked((int)DateTime.Now.Ticks);
             Random seekRand = new Random(seek);
-            int beginSeek = seekRand.Next(0, Int32.MaxValue - length * 10000);
-
-            for (int i = 0; i < length; i++)
+            int beginSeek = seekRand.Next(0, int.MaxValue - length * 10000);
+            for (int index = 0; index < length; index++)
             {
                 beginSeek += 10000;
-                seeks[i] = beginSeek;
+                seeks[index] = beginSeek;
             }
 
             //生成随机数字
-            for (int i = 0; i < length; i++)
+            for (int index = 0; index < length; index++)
             {
-                Random rand = new Random(seeks[i]);
+                Random random = new Random(seeks[index]);
                 int pownum = 1 * (int)Math.Pow(10, length);
-                randMembers[i] = rand.Next(pownum, int.MaxValue);
+                randomNumbers[index] = random.Next(pownum, int.MaxValue);
             }
 
             //抽取随机数字
-            for (int i = 0; i < length; i++)
+            for (int index = 0; index < length; index++)
             {
-                string numStr = randMembers[i].ToString();
-                int numLength = numStr.Length;
-                Random rand = new Random();
-                int numPosition = rand.Next(0, numLength - 1);
-                validateNums[i] = int.Parse(numStr.Substring(numPosition, 1));
+                string numberText = randomNumbers[index].ToString();
+                int numberLength = numberText.Length;
+                Random random = new Random();
+                int numberPosition = random.Next(0, numberLength - 1);
+                validNumbers[index] = int.Parse(numberText.Substring(numberPosition, 1));
             }
 
             //生成验证码
-            for (int i = 0; i < length; i++)
+            for (int index = 0; index < length; index++)
             {
-                validCodeBuilder.Append(validateNums[i].ToString());
+                validCodeBuilder.Append(validNumbers[index]);
             }
 
             return validCodeBuilder.ToString();
         }
         #endregion
 
-        #region # 生成验证码图片（返回字节数组） —— static byte[] GenerateStream(string validCode)
+        #region # 生成验证码图片 —— static byte[] GenerateStream(string validCode)
         /// <summary>
-        /// 生成验证码图片（返回字节数组）
+        /// 生成验证码图片
         /// </summary>
         /// <param name="validCode">验证码字符串</param>
         /// <returns>验证码图片序列化后的字节数组</returns>
@@ -103,11 +102,11 @@ namespace SD.Toolkits.Image
             Graphics graphic = Graphics.FromImage(image);
             try
             {
-                //绘制验证码
                 MemoryStream stream = DrawValidCode(validCode, graphic, image);
+                byte[] buffer = stream.ToArray();
+                stream.Dispose();
 
-                //输出图片流
-                return stream.ToArray();
+                return buffer;
             }
             finally
             {
@@ -117,7 +116,7 @@ namespace SD.Toolkits.Image
         }
         #endregion
 
-        #region # 绘制验证码 —— Stream DrawValidCode(string validCode...
+        #region # 绘制验证码 —— MemoryStream DrawValidCode(string validCode...
         /// <summary>
         /// 绘制验证码
         /// </summary>
@@ -140,10 +139,14 @@ namespace SD.Toolkits.Image
                 int x2 = random.Next(image.Width);
                 int y1 = random.Next(image.Height);
                 int y2 = random.Next(image.Height);
-                graphic.DrawLine(new Pen(Color.Silver), x1, y1, x2, y2);
+
+                Pen pen = new Pen(Color.Silver);
+                graphic.DrawLine(pen, x1, y1, x2, y2);
             }
+
             Font font = new Font("Arial", 12, (FontStyle.Bold | FontStyle.Italic));
-            LinearGradientBrush brush = new LinearGradientBrush(new Rectangle(0, 0, image.Width, image.Height), Color.Blue, Color.DarkRed, 1.2f, true);
+            Rectangle rectangle = new Rectangle(0, 0, image.Width, image.Height);
+            LinearGradientBrush brush = new LinearGradientBrush(rectangle, Color.Blue, Color.DarkRed, 1.2f, true);
             graphic.DrawString(validCode, font, brush, 3, 2);
 
             //画图片的前景干扰点

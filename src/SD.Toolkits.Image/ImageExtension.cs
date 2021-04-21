@@ -8,9 +8,9 @@ using System.IO;
 namespace SD.Toolkits.Image
 {
     /// <summary>
-    /// 图片处理工具类
+    /// 图像处理扩展
     /// </summary>
-    public static class ImageAssistant
+    public static class ImageExtension
     {
         #region # 缩略图 —— static void MakeThumbnail(string sourceImagePath...
         /// <summary>
@@ -112,7 +112,7 @@ namespace SD.Toolkits.Image
                 System.Drawing.Image img = Bitmap.FromFile(path);
                 System.Drawing.Image waterimg = System.Drawing.Image.FromFile(waterpath);
                 Graphics g = Graphics.FromImage(img);
-                ArrayList loca = ImageAssistant.GetLocation(location, img, waterimg);
+                ArrayList loca = ImageExtension.GetLocation(location, img, waterimg);
                 g.DrawImage(waterimg, new Rectangle(int.Parse(loca[0].ToString()), int.Parse(loca[1].ToString()), waterimg.Width, waterimg.Height));
                 waterimg.Dispose();
                 g.Dispose();
@@ -211,7 +211,7 @@ namespace SD.Toolkits.Image
                 string filename = "" + time.Year.ToString() + time.Month.ToString() + time.Day.ToString() + time.Hour.ToString() + time.Minute.ToString() + time.Second.ToString() + time.Millisecond.ToString();
                 System.Drawing.Image img = Bitmap.FromFile(path);
                 Graphics gs = Graphics.FromImage(img);
-                ArrayList loca = ImageAssistant.GetLocation(location, img, size, letter.Length);
+                ArrayList loca = ImageExtension.GetLocation(location, img, size, letter.Length);
                 Font font = new Font("宋体", size);
                 Brush br = new SolidBrush(color);
                 gs.DrawString(letter, font, br, float.Parse(loca[0].ToString()), float.Parse(loca[1].ToString()));
