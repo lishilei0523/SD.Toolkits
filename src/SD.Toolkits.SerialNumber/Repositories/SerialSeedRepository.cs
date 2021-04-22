@@ -15,9 +15,9 @@ namespace SD.Toolkits.SerialNumber.Repositories
         #region # 常量、字段及构造器
 
         /// <summary>
-        /// 连接字符串名称AppSetting键
+        /// 连接字符串名称
         /// </summary>
-        private const string ConnectionStringAppSettingKey = "SerialNumberConnection";
+        private const string ConnectionStringName = "SerialNumberConnection";
 
         /// <summary>
         /// SQL Helper
@@ -30,18 +30,7 @@ namespace SD.Toolkits.SerialNumber.Repositories
         static SerialSeedRepository()
         {
             //初始化连接字符串
-            string defaultConnectionStringName = ConfigurationManager.AppSettings[ConnectionStringAppSettingKey];
-
-            #region # 验证
-
-            if (string.IsNullOrWhiteSpace(defaultConnectionStringName))
-            {
-                throw new ApplicationException("序列号生成器连接字符串名称未设置！");
-            }
-
-            #endregion
-
-            string connectionString = ConfigurationManager.ConnectionStrings[defaultConnectionStringName].ConnectionString;
+            string connectionString = ConfigurationManager.ConnectionStrings[ConnectionStringName]?.ConnectionString;
 
             #region # 验证
 
@@ -205,24 +194,24 @@ namespace SD.Toolkits.SerialNumber.Repositories
         {
             SerialSeed serialSeed = new SerialSeed
             {
-                Id = (Guid)this.ToModelValue(reader, "Id"),
-                Name = (string)this.ToModelValue(reader, "Name"),
-                Prefix = (string)this.ToModelValue(reader, "Prefix"),
-                Timestamp = (string)this.ToModelValue(reader, "Timestamp"),
-                SerialLength = (int)this.ToModelValue(reader, "SerialLength"),
-                TodayCount = (int)this.ToModelValue(reader, "TodayCount"),
-                Description = (string)this.ToModelValue(reader, "Description")
+                Id = (Guid)this.ToClsValue(reader, "Id"),
+                Name = (string)this.ToClsValue(reader, "Name"),
+                Prefix = (string)this.ToClsValue(reader, "Prefix"),
+                Timestamp = (string)this.ToClsValue(reader, "Timestamp"),
+                SerialLength = (int)this.ToClsValue(reader, "SerialLength"),
+                TodayCount = (int)this.ToClsValue(reader, "TodayCount"),
+                Description = (string)this.ToClsValue(reader, "Description")
             };
 
             return serialSeed;
         }
         #endregion
 
-        #region # C#值转数据库值空值处理 —— object ToDbValue(object value)
+        #region # CLS值转数据库值 —— object ToDbValue(object value)
         /// <summary>
-        /// C#值转数据库值空值处理
+        /// CLS值转数据库值
         /// </summary>
-        /// <param name="value">C#值</param>
+        /// <param name="value">CLS值</param>
         /// <returns>处理后的数据库值</returns>
         private object ToDbValue(object value)
         {
@@ -231,14 +220,14 @@ namespace SD.Toolkits.SerialNumber.Repositories
 
         #endregion
 
-        #region # 数据库值转C#值空值处理 —— object ToModelValue(SqlDataReader reader, string columnName)
+        #region # 数据库值转CLS值 —— object ToClsValue(SqlDataReader reader...
         /// <summary>
-        /// 数据库值转C#值空值处理
+        /// 数据库值转CLS值
         /// </summary>
         /// <param name="reader">IDataReader对象</param>
         /// <param name="columnName">列名</param>
-        /// <returns>C#值</returns>
-        private object ToModelValue(SqlDataReader reader, string columnName)
+        /// <returns>CLS值</returns>
+        private object ToClsValue(SqlDataReader reader, string columnName)
         {
             if (reader.IsDBNull(reader.GetOrdinal(columnName)))
             {

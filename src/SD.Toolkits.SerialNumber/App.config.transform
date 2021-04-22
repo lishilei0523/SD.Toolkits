@@ -1,6 +1,7 @@
 ﻿<configuration>
-  <appSettings>
-    <!--键：约定；值：connectionString name-->
-    <add key="SerialNumberConnection" value="" />
-  </appSettings>
+  <!--连接字符串-->
+  <connectionStrings>
+    <!--编号生成器连接字符串-->
+    <add name="SerialNumberConnection" connectionString="Data Source=.;Initial Catalog=SerialNumber;User Id=sa;Password=123456;MultipleActiveResultSets=true;" providerName="System.Data.SqlClient"/>
+  </connectionStrings>
 </configuration>
