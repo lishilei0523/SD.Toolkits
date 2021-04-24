@@ -7,11 +7,13 @@
 // </自动生成>
 //------------------------------------------------------------------------------
 
-namespace SD.Toolkits.AsyncHttpContext.Tests {
-    
-    
-    public partial class Default {
-        
+namespace SD.Toolkits.WebHost.Tests
+{
+
+
+    public partial class Default
+    {
+
         /// <summary>
         /// form1 控件。
         /// </summary>
@@ -20,7 +22,7 @@ namespace SD.Toolkits.AsyncHttpContext.Tests {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
-        
+
         /// <summary>
         /// Txt_Result 控件。
         /// </summary>

@@ -1,7 +1,7 @@
 ﻿using System.Threading;
 using System.Web;
 
-namespace SD.Toolkits.AsyncHttpContext
+namespace SD.Toolkits.WebHost.Extensions
 {
     /// <summary>
     /// HttpContext读取器
@@ -23,9 +23,9 @@ namespace SD.Toolkits.AsyncHttpContext
         /// </summary>
         internal static void SetHttpContext(HttpContext httpContext)
         {
-            lock (_Sync)
+            lock (HttpContextReader._Sync)
             {
-                _AsyncHttpContext.Value = httpContext;
+                HttpContextReader._AsyncHttpContext.Value = httpContext;
             }
         }
 
@@ -34,9 +34,9 @@ namespace SD.Toolkits.AsyncHttpContext
         /// </summary>
         internal static void ClearHttpContext()
         {
-            lock (_Sync)
+            lock (HttpContextReader._Sync)
             {
-                _AsyncHttpContext.Value = null;
+                HttpContextReader._AsyncHttpContext.Value = null;
             }
         }
 
@@ -48,9 +48,9 @@ namespace SD.Toolkits.AsyncHttpContext
         {
             get
             {
-                lock (_Sync)
+                lock (HttpContextReader._Sync)
                 {
-                    HttpContext httpContext = HttpContext.Current ?? _AsyncHttpContext.Value;
+                    HttpContext httpContext = HttpContext.Current ?? HttpContextReader._AsyncHttpContext.Value;
 
                     return httpContext;
                 }

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace SD.FormatModel.EasyUI
+namespace SD.Toolkits.EasyUI
 {
     /// <summary>
     /// EasyUI TreeGrid接口
@@ -9,8 +9,8 @@ namespace SD.FormatModel.EasyUI
     {
         /// <summary>
         /// 类型
-        /// <remarks>folder/pack</remarks>
         /// </summary>
+        /// <remarks>folder/pack</remarks>
         string type { get; }
 
         /// <summary>

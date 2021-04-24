@@ -1,11 +1,12 @@
-﻿using System.Web;
+﻿using SD.Toolkits.WebHost.Extensions;
+using System.Web;
 
-namespace SD.Toolkits.AsyncHttpContext
+namespace SD.Toolkits.WebHost.Modules
 {
     /// <summary>
-    /// 缓存HttpContext HttpModule
+    /// 缓存HttpContext模块
     /// </summary>
-    internal class CacheHttpContextHttpModule : IHttpModule
+    internal class CacheHttpContextModule : IHttpModule
     {
         /// <summary>
         /// 初始化

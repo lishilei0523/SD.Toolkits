@@ -1,7 +1,8 @@
 ﻿using Microsoft.Web.Infrastructure.DynamicModuleHelper;
+using SD.Toolkits.WebHost.Modules;
 using System.ComponentModel;
 
-namespace SD.Toolkits.AsyncHttpContext
+namespace SD.Toolkits.WebHost
 {
     /// <summary>
     /// 应用程序预启动
@@ -22,7 +23,7 @@ namespace SD.Toolkits.AsyncHttpContext
             if (!PreAppStart._InitWasCalled)
             {
                 PreAppStart._InitWasCalled = true;
-                DynamicModuleUtility.RegisterModule(typeof(CacheHttpContextHttpModule));
+                DynamicModuleUtility.RegisterModule(typeof(CacheHttpContextModule));
             }
         }
     }

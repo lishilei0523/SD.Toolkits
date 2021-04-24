@@ -191,7 +191,7 @@ namespace SD.Toolkits.Image
         }
         #endregion
 
-        #region # 文字水印 —— static string LetterWatermark(string path, int size, string letter, Color color, string location)
+        #region # 文字水印 —— static string LetterWatermark(string path, int size...
         /// <summary>
         /// 文字水印
         /// </summary>
@@ -202,8 +202,6 @@ namespace SD.Toolkits.Image
         /// <param name="location">水印位置</param>
         public static string LetterWatermark(string path, int size, string letter, Color color, string location)
         {
-            #region
-
             string kz_name = Path.GetExtension(path);
             if (kz_name == ".jpg" || kz_name == ".bmp" || kz_name == ".jpeg")
             {
@@ -226,12 +224,10 @@ namespace SD.Toolkits.Image
                 }
             }
             return path;
-
-            #endregion
         }
 
         /// <summary>
-        /// 文字水印位置的方法
+        /// 文字水印位置
         /// </summary>
         /// <param name="location">位置代码</param>
         /// <param name="img">图片对象</param>
@@ -239,8 +235,6 @@ namespace SD.Toolkits.Image
         /// <param name="height">高(当水印类型为文字时,传过来的就是字符的长度)</param>
         private static ArrayList GetLocation(string location, System.Drawing.Image img, int width, int height)
         {
-            #region
-
             ArrayList loca = new ArrayList();  //定义数组存储位置
             float x = 10;
             float y = 10;
@@ -291,8 +285,6 @@ namespace SD.Toolkits.Image
             loca.Add(x);
             loca.Add(y);
             return loca;
-
-            #endregion
         }
         #endregion
 

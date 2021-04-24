@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace SD.FormatModel.EasyUI
+namespace SD.Toolkits.EasyUI
 {
     /// <summary>
     /// EasyUI Grid格式化模型
@@ -26,10 +26,9 @@ namespace SD.FormatModel.EasyUI
         public Grid(int total, IEnumerable<T> rows)
             : this()
         {
-            rows = rows == null ? new T[0] : rows.ToArray();
+            rows = rows?.ToArray() ?? new T[0];
 
             this.total = total;
-
             foreach (T row in rows)
             {
                 this.rows.Add(row);

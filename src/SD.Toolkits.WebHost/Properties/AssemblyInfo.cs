@@ -1,4 +1,4 @@
-﻿using SD.Toolkits.AsyncHttpContext;
+﻿using SD.Toolkits.WebHost;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Web;
@@ -6,12 +6,12 @@ using System.Web;
 // 有关程序集的一般信息由以下
 // 控制。更改这些特性值可修改
 // 与程序集关联的信息。
-[assembly: AssemblyTitle("SD.Toolkits.AsyncHttpContext")]
-[assembly: AssemblyDescription("HttpContext异步环境组件")]
+[assembly: AssemblyTitle("SD.Toolkits.WebHost")]
+[assembly: AssemblyDescription("WebHost扩展工具")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("SD")]
-[assembly: AssemblyProduct("SD.Toolkits.AsyncHttpContext")]
-[assembly: AssemblyCopyright("Copyright © SD 2019")]
+[assembly: AssemblyProduct("SD.Toolkits.WebHost")]
+[assembly: AssemblyCopyright("Copyright © SD 2021")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -38,4 +38,4 @@ using System.Web;
 
 
 //注册
-[assembly: PreApplicationStartMethod(typeof(PreAppStart), "Init")]
+[assembly: PreApplicationStartMethod(typeof(PreAppStart), nameof(PreAppStart.Init))]

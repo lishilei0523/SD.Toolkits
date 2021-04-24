@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace SD.FormatModel.EasyUI
+namespace SD.Toolkits.EasyUI
 {
     /// <summary>
     /// EasyUI 树节点格式化模型

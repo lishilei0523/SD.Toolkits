@@ -1,8 +1,9 @@
-﻿using System;
+﻿using SD.Toolkits.WebHost.Extensions;
+using System;
 using System.Threading.Tasks;
 using System.Web;
 
-namespace SD.Toolkits.AsyncHttpContext.Tests
+namespace SD.Toolkits.WebHost.Tests
 {
     public partial class Default : System.Web.UI.Page
     {
@@ -28,7 +29,7 @@ namespace SD.Toolkits.AsyncHttpContext.Tests
         {
             string text = Task.Run<string>(() =>
             {
-                string value = HttpContextReader.Current.Session[Default.Key].ToString();
+                string value = HttpContextReader.Current.Session[Key].ToString();
                 return value;
             }).Result;
 
