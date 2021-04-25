@@ -1,8 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <AssemblyName>System.ServiceModel.NetCore</AssemblyName>
-    <RootNamespace>System.ServiceModel.NetCore</RootNamespace>
     <Authors>Lee</Authors>
     <Company>SD</Company>
     <Description>.NET Core WCF扩展工具</Description>
