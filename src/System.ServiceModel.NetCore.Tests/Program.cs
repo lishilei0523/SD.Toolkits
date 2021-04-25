@@ -1,5 +1,4 @@
-﻿using System.Configuration;
-using System.ServiceModel.NetCore.Configurations;
+﻿using System.ServiceModel.NetCore.Configurations;
 
 namespace System.ServiceModel.NetCore.Tests
 {
@@ -7,11 +6,11 @@ namespace System.ServiceModel.NetCore.Tests
     {
         static void Main(string[] args)
         {
-            ServiceModelSection config = (ServiceModelSection)ConfigurationManager.GetSection("system.serviceModel");
+            ServiceModelSection configuration = ServiceModelSection.Setting;
 
             Console.WriteLine("终结点配置");
             Console.WriteLine("------------------------------");
-            foreach (EndpointElement endpoint in config.Endpoints)
+            foreach (EndpointElement endpoint in configuration.Endpoints)
             {
                 Console.WriteLine(endpoint.Name);
                 Console.WriteLine(endpoint.Contract);
@@ -23,17 +22,16 @@ namespace System.ServiceModel.NetCore.Tests
 
             Console.WriteLine("终结点行为配置");
             Console.WriteLine("------------------------------");
-            foreach (BehaviorConfigurationElement behaviorConfiguration in config.BehaviorConfigurations)
+            foreach (BehaviorConfigurationElement behaviorConfiguration in configuration.BehaviorConfigurations)
             {
                 Console.WriteLine(behaviorConfiguration.Name);
-                Console.WriteLine("------------------------------");
                 foreach (EndpointBehaviorElement endpointBehavior in behaviorConfiguration.EndpointBehaviors)
                 {
                     Console.WriteLine(endpointBehavior.Type);
                     Console.WriteLine(endpointBehavior.Assembly);
                 }
+                Console.WriteLine("------------------------------");
             }
-
 
             Console.ReadKey();
         }

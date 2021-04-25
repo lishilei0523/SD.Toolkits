@@ -3,7 +3,7 @@
 namespace System.ServiceModel.NetCore.Configurations
 {
     /// <summary>
-    /// 终节点行为元素
+    /// 终节点行为节点
     /// </summary>
     public class EndpointBehaviorElement : ConfigurationElement
     {

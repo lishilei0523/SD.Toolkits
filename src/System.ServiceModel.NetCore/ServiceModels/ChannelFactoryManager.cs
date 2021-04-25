@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Reflection;
 using System.ServiceModel.Channels;
+using System.ServiceModel.Description;
 using System.ServiceModel.NetCore.Configurations;
 
 // ReSharper disable once CheckNamespace
@@ -74,8 +76,16 @@ namespace System.ServiceModel.NetCore
                     {
                         Binding binding = this.GetBinding<T>();
                         EndpointAddress address = this.GetEndpointAddress<T>();
+                        ICollection<IEndpointBehavior> endpointBehaviors = this.GetEndpointBehaviors<T>();
 
                         factory = new ChannelFactory<T>(binding, address);
+
+                        //添加终结点行为
+                        foreach (IEndpointBehavior endpointBehavior in endpointBehaviors)
+                        {
+                            factory.Endpoint.EndpointBehaviors.Add(endpointBehavior);
+                        }
+
                         _Factories.Add(typeof(T), factory);
                     }
 
@@ -168,34 +178,55 @@ namespace System.ServiceModel.NetCore
 
             EndpointElement endpoint = EndpointMediator.Endpoints[endpointName];
             Uri uri = new Uri(endpoint.Address);
-            AddressHeader[] addressHeaders = null;
+            EndpointAddress endpointAddress = new EndpointAddress(uri);
 
-            #region # 消息头处理
-            //TODO 
-            //if (!string.IsNullOrWhiteSpace(endpoint.AddressHeaderProvider?.Type) &&
-            //    !string.IsNullOrWhiteSpace(endpoint.AddressHeaderProvider?.Assembly))
-            //{
-            //    Assembly assembly = Assembly.Load(endpoint.AddressHeaderProvider.Assembly);
-            //    Type type = assembly.GetType(endpoint.AddressHeaderProvider.Type);
+            return endpointAddress;
+        }
+        #endregion
 
-            //    #region # 验证
+        #region # 获取终结点行为列表 —— ICollection<IEndpointBehavior> GetEndpointBehaviors<T>()
+        /// <summary>
+        /// 获取终结点行为列表
+        /// </summary>
+        /// <returns>终结点行为列表</returns>
+        private ICollection<IEndpointBehavior> GetEndpointBehaviors<T>()
+        {
+            string endpointName = typeof(T).FullName;
 
-            //    if (!typeof(IAddressHeaderProvider).IsAssignableFrom(type))
-            //    {
-            //        throw new InvalidOperationException($"类型\"{type.FullName}\"未实现接口\"{nameof(IAddressHeaderProvider)}\"！");
-            //    }
+            #region # 验证
 
-            //    #endregion
-
-            //    IAddressHeaderProvider addressHeaderProvider = (IAddressHeaderProvider)Activator.CreateInstance(type);
-            //    addressHeaders = addressHeaderProvider.GetAddressHeaders();
-            //}
+            if (!EndpointMediator.Endpoints.ContainsKey(endpointName))
+            {
+                throw new NullReferenceException($"名称为\"{endpointName}\"的终结点未配置！");
+            }
 
             #endregion
 
-            EndpointAddress endpointAddress = new EndpointAddress(uri, addressHeaders ?? new AddressHeader[0]);
+            ICollection<IEndpointBehavior> endpointBehaviors = new HashSet<IEndpointBehavior>();
+            EndpointElement endpoint = EndpointMediator.Endpoints[endpointName];
+            if (!string.IsNullOrWhiteSpace(endpoint.BehaviorConfiguration))
+            {
+                BehaviorConfigurationElement behaviorConfiguration = EndpointMediator.BehaviorConfigurations[endpoint.BehaviorConfiguration];
+                foreach (EndpointBehaviorElement endpointBehaviorElement in behaviorConfiguration.EndpointBehaviors)
+                {
+                    Assembly assembly = Assembly.Load(endpointBehaviorElement.Assembly);
+                    Type type = assembly.GetType(endpointBehaviorElement.Type);
 
-            return endpointAddress;
+                    #region # 验证
+
+                    if (!typeof(IEndpointBehavior).IsAssignableFrom(type))
+                    {
+                        throw new InvalidOperationException($"类型\"{type.FullName}\"未实现接口\"{nameof(IEndpointBehavior)}\"！");
+                    }
+
+                    #endregion
+
+                    IEndpointBehavior endpointBehavior = (IEndpointBehavior)Activator.CreateInstance(type);
+                    endpointBehaviors.Add(endpointBehavior);
+                }
+            }
+
+            return endpointBehaviors;
         }
         #endregion
     }

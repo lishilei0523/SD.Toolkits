@@ -3,7 +3,7 @@
 namespace System.ServiceModel.NetCore.Configurations
 {
     /// <summary>
-    /// 终节点集合
+    /// 终节点配置节点集合
     /// </summary>
     public class EndpointElementCollection : ConfigurationElementCollection
     {
