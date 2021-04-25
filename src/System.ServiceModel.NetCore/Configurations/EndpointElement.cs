@@ -3,10 +3,46 @@
 namespace System.ServiceModel.NetCore.Configurations
 {
     /// <summary>
-    /// 终节点
+    /// 终节点元素
     /// </summary>
     public class EndpointElement : ConfigurationElement
     {
+        #region # 地址 —— string Address
+        /// <summary>
+        /// 地址
+        /// </summary>
+        [ConfigurationProperty("address", IsRequired = true)]
+        public string Address
+        {
+            get { return (string)this["address"]; }
+            set { this["address"] = value; }
+        }
+        #endregion
+
+        #region # 绑定 —— string Binding
+        /// <summary>
+        /// 绑定
+        /// </summary>
+        [ConfigurationProperty("binding", IsRequired = true)]
+        public string Binding
+        {
+            get { return (string)this["binding"]; }
+            set { this["binding"] = value; }
+        }
+        #endregion
+
+        #region # 契约 —— string Contract
+        /// <summary>
+        /// 契约
+        /// </summary>
+        [ConfigurationProperty("contract", IsRequired = true)]
+        public string Contract
+        {
+            get { return (string)this["contract"]; }
+            set { this["contract"] = value; }
+        }
+        #endregion
+
         #region # 名称 —— string Name
         /// <summary>
         /// 名称
@@ -19,51 +55,15 @@ namespace System.ServiceModel.NetCore.Configurations
         }
         #endregion
 
-        #region # 契约 —— string Contract
+        #region # 行为配置 —— string BehaviorConfiguration
         /// <summary>
-        /// 契约
+        /// 行为配置
         /// </summary>
-        [ConfigurationProperty("contract", IsRequired = true, IsKey = false)]
-        public string Contract
+        [ConfigurationProperty("behaviorConfiguration", IsRequired = false)]
+        public string BehaviorConfiguration
         {
-            get { return (string)this["contract"]; }
-            set { this["contract"] = value; }
-        }
-        #endregion
-
-        #region # 地址 —— string Address
-        /// <summary>
-        /// 地址
-        /// </summary>
-        [ConfigurationProperty("address", IsRequired = true, IsKey = false)]
-        public string Address
-        {
-            get { return (string)this["address"]; }
-            set { this["address"] = value; }
-        }
-        #endregion
-
-        #region # 绑定 —— string Binding
-        /// <summary>
-        /// 绑定
-        /// </summary>
-        [ConfigurationProperty("binding", IsRequired = true, IsKey = false)]
-        public string Binding
-        {
-            get { return (string)this["binding"]; }
-            set { this["binding"] = value; }
-        }
-        #endregion
-
-        #region # 消息头提供者 —— HeaderProviderElement HeaderProviderElement
-        /// <summary>
-        /// 消息头提供者
-        /// </summary>
-        [ConfigurationProperty("headerProvider", IsRequired = false, IsKey = false)]
-        public HeaderProviderElement HeaderProviderElement
-        {
-            get { return (HeaderProviderElement)this["headerProvider"]; }
-            set { this["headerProvider"] = value; }
+            get { return (string)this["behaviorConfiguration"]; }
+            set { this["behaviorConfiguration"] = value; }
         }
         #endregion
     }

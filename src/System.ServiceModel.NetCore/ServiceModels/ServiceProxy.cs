@@ -1,4 +1,5 @@
-﻿namespace System.ServiceModel.NetCore.Toolkits
+﻿// ReSharper disable once CheckNamespace
+namespace System.ServiceModel.NetCore
 {
     /// <summary>
     /// WCF服务客户端代理基类

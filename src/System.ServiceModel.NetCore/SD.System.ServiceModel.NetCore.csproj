@@ -1,11 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>System.ServiceModel.NetCore</AssemblyName>
+    <RootNamespace>System.ServiceModel.NetCore</RootNamespace>
     <Authors>Lee</Authors>
     <Company>SD</Company>
-    <Description>.NET Core与WCF相关工具封装</Description>
-    <Copyright>Copyright © SD 2019</Copyright>
-    <Version>1.0.1</Version>
+    <Description>.NET Core WCF扩展工具</Description>
+    <Copyright>Copyright © SD 2021</Copyright>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

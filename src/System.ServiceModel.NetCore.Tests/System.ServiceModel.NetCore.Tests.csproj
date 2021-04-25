@@ -5,6 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\System.ServiceModel.NetCore\System.ServiceModel.NetCore.csproj" />
+    <ProjectReference Include="..\System.ServiceModel.NetCore\SD.System.ServiceModel.NetCore.csproj" />
   </ItemGroup>
 </Project>

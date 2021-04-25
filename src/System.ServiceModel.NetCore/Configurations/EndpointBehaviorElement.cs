@@ -3,9 +3,9 @@
 namespace System.ServiceModel.NetCore.Configurations
 {
     /// <summary>
-    /// 消息头提供者节点
+    /// 终节点行为元素
     /// </summary>
-    public class HeaderProviderElement : ConfigurationElement
+    public class EndpointBehaviorElement : ConfigurationElement
     {
         #region # 类型 —— string Type
         /// <summary>

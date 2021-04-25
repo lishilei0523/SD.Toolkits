@@ -26,17 +26,17 @@ namespace System.ServiceModel.NetCore
         {
             get
             {
-                BasicHttpBinding binding = new BasicHttpBinding();
-                binding.MaxBufferPoolSize = 2147483647;
-                binding.MaxReceivedMessageSize = 2147483647;
+                BasicHttpBinding basicHttpBinding = new BasicHttpBinding();
+                basicHttpBinding.MaxBufferPoolSize = 2147483647;
+                basicHttpBinding.MaxReceivedMessageSize = 2147483647;
 
                 TimeSpan defaultSpan = new TimeSpan(0, 10, 0);
-                binding.CloseTimeout = defaultSpan;
-                binding.OpenTimeout = defaultSpan;
-                binding.ReceiveTimeout = defaultSpan;
-                binding.SendTimeout = defaultSpan;
+                basicHttpBinding.CloseTimeout = defaultSpan;
+                basicHttpBinding.OpenTimeout = defaultSpan;
+                basicHttpBinding.ReceiveTimeout = defaultSpan;
+                basicHttpBinding.SendTimeout = defaultSpan;
 
-                return binding;
+                return basicHttpBinding;
             }
         }
 
@@ -47,27 +47,27 @@ namespace System.ServiceModel.NetCore
         {
             get
             {
-                NetTcpBinding binding = new NetTcpBinding();
-                binding.MaxBufferPoolSize = 2147483647;
-                binding.MaxReceivedMessageSize = 2147483647;
+                NetTcpBinding netTcpBinding = new NetTcpBinding();
+                netTcpBinding.MaxBufferPoolSize = 2147483647;
+                netTcpBinding.MaxReceivedMessageSize = 2147483647;
 
                 TimeSpan defaultSpan = new TimeSpan(0, 10, 0);
-                binding.CloseTimeout = defaultSpan;
-                binding.OpenTimeout = defaultSpan;
-                binding.ReceiveTimeout = defaultSpan;
-                binding.SendTimeout = defaultSpan;
+                netTcpBinding.CloseTimeout = defaultSpan;
+                netTcpBinding.OpenTimeout = defaultSpan;
+                netTcpBinding.ReceiveTimeout = defaultSpan;
+                netTcpBinding.SendTimeout = defaultSpan;
 
-                return binding;
+                return netTcpBinding;
             }
         }
 
         /// <summary>
-        /// 绑定字典
+        /// 可用绑定字典
         /// </summary>
         public static readonly IDictionary<string, Binding> AvailableBindings = new Dictionary<string, Binding>
         {
-            {"basicHttpBinding", BasicHttpBinding},
-            {"netTcpBinding", NetTcpBinding}
+            {BasicHttpBindingName, BasicHttpBinding},
+            {NetTcpBindingName, NetTcpBinding}
         };
     }
 }

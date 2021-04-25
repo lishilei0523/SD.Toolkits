@@ -8,14 +8,26 @@
   <system.serviceModel>
     <!--WCF客户端配置，手动增加endpoint节点-->
     <client>
-      <!--商品服务契约配置-->
-      <endpoint address="net.tcp://localhost:8099/Hosts/ProductService.svc" binding="netTcpBinding" contract="WCF.IAppService.Interfaces.IProductService" name="WCF.IAppService.Interfaces.IProductService">
-        <headerProvider type="MyHeaderProviderType" assembly="MyAssembly"/>
-      </endpoint>
-      <!--订单服务契约配置-->
-      <endpoint address="http://localhost:8099/Hosts/OrderService.svc" binding="basicHttpBinding" contract="WCF.IAppService.Interfaces.IOrderService" name="WCF.IAppService.Interfaces.IOrderService">
-        <headerProvider type="MyHeaderProviderType" assembly="MyAssembly"/>
-      </endpoint>
+      <!--BasicHttpBinding示例契约配置-->
+      <endpoint address="http://localhost:4973/Hosts/OrderService.svc" binding="basicHttpBinding" contract="WCF.IAppService.Interfaces.IOrderService" name="WCF.IAppService.Interfaces.IOrderService" behaviorConfiguration="Behavior1" />
+      <!--NetTcpBinding示例契约配置-->
+      <endpoint address="net.tcp://localhost:49730/Hosts/OrderService.svc" binding="netTcpBinding" contract="WCF.IAppService.Interfaces.IOrderService" name="WCF.IAppService.Interfaces.IOrderService" behaviorConfiguration="Behavior2" />
     </client>
+    <!--WCF终结点行为配置-->
+    <endpointBehaviors>
+      <behavior name="Behavior1">
+        <endpointBehaviors>
+          <endpointBehavior type="type1" assembly="assembly1" />
+          <endpointBehavior type="type2" assembly="assembly2" />
+        </endpointBehaviors>
+      </behavior>
+      <behavior name="Behavior2">
+        <endpointBehaviors>
+          <endpointBehavior type="type1" assembly="assembly1" />
+          <endpointBehavior type="type2" assembly="assembly2" />
+          <endpointBehavior type="type3" assembly="assembly3" />
+        </endpointBehaviors>
+      </behavior>
+    </endpointBehaviors>
   </system.serviceModel>
 </configuration>

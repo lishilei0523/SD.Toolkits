@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
-using System.Reflection;
 using System.ServiceModel.Channels;
 using System.ServiceModel.NetCore.Configurations;
-using System.ServiceModel.NetCore.Interfaces;
 
-namespace System.ServiceModel.NetCore.Toolkits
+// ReSharper disable once CheckNamespace
+namespace System.ServiceModel.NetCore
 {
     /// <summary>
     /// ChannelFactory管理者
@@ -114,30 +113,38 @@ namespace System.ServiceModel.NetCore.Toolkits
 
         //Private
 
-        #region # 获取绑定实例 —— Binding GetBinding<T>()
+        #region # 获取绑定 —— Binding GetBinding<T>()
         /// <summary>
-        /// 获取绑定实例
+        /// 获取绑定
         /// </summary>
         /// <returns>绑定实例</returns>
         private Binding GetBinding<T>()
         {
-            string configName = typeof(T).FullName;
+            string endpointName = typeof(T).FullName;
 
-            if (!ConfigMediator.EndpointElements.ContainsKey(configName))
+            #region # 验证
+
+            if (!EndpointMediator.Endpoints.ContainsKey(endpointName))
             {
-                throw new NullReferenceException($"名称为\"{configName}\"的终结点未配置！");
+                throw new NullReferenceException($"名称为\"{endpointName}\"的终结点未配置！");
             }
 
-            EndpointElement endpointElement = ConfigMediator.EndpointElements[configName];
+            #endregion
 
-            if (!Constants.AvailableBindings.ContainsKey(endpointElement.Binding))
+            EndpointElement endpoint = EndpointMediator.Endpoints[endpointName];
+
+            #region # 验证
+
+            if (!Constants.AvailableBindings.ContainsKey(endpoint.Binding))
             {
-                throw new InvalidOperationException($"目前不支持\"{endpointElement.Binding}\"绑定！");
+                throw new InvalidOperationException($"目前不支持\"{endpoint.Binding}\"绑定！");
             }
 
-            Binding currentBinding = Constants.AvailableBindings[endpointElement.Binding];
+            #endregion
 
-            return currentBinding;
+            Binding binding = Constants.AvailableBindings[endpoint.Binding];
+
+            return binding;
         }
         #endregion
 
@@ -148,36 +155,47 @@ namespace System.ServiceModel.NetCore.Toolkits
         /// <returns>终结点地址</returns>
         private EndpointAddress GetEndpointAddress<T>()
         {
-            string configName = typeof(T).FullName;
+            string endpointName = typeof(T).FullName;
 
-            if (!ConfigMediator.EndpointElements.ContainsKey(configName))
+            #region # 验证
+
+            if (!EndpointMediator.Endpoints.ContainsKey(endpointName))
             {
-                throw new NullReferenceException($"名称为\"{configName}\"的终结点未配置！");
+                throw new NullReferenceException($"名称为\"{endpointName}\"的终结点未配置！");
             }
 
-            EndpointElement endpointElement = ConfigMediator.EndpointElements[configName];
-            Uri uri = new Uri(endpointElement.Address);
+            #endregion
+
+            EndpointElement endpoint = EndpointMediator.Endpoints[endpointName];
+            Uri uri = new Uri(endpoint.Address);
             AddressHeader[] addressHeaders = null;
 
-            if (endpointElement.HeaderProviderElement != null &&
-                !string.IsNullOrWhiteSpace(endpointElement.HeaderProviderElement.Type) &&
-                !string.IsNullOrWhiteSpace(endpointElement.HeaderProviderElement.Assembly))
-            {
-                Assembly assembly = Assembly.Load(endpointElement.HeaderProviderElement.Assembly);
-                Type type = assembly.GetType(endpointElement.HeaderProviderElement.Type);
+            #region # 消息头处理
+            //TODO 
+            //if (!string.IsNullOrWhiteSpace(endpoint.AddressHeaderProvider?.Type) &&
+            //    !string.IsNullOrWhiteSpace(endpoint.AddressHeaderProvider?.Assembly))
+            //{
+            //    Assembly assembly = Assembly.Load(endpoint.AddressHeaderProvider.Assembly);
+            //    Type type = assembly.GetType(endpoint.AddressHeaderProvider.Type);
 
-                if (!typeof(IHeaderProvider).IsAssignableFrom(type))
-                {
-                    throw new InvalidOperationException($"类型\"{type.FullName}\"未实现接口\"IHeaderProvider\"！");
-                }
+            //    #region # 验证
 
-                IHeaderProvider headerProvider = (IHeaderProvider)Activator.CreateInstance(type);
-                addressHeaders = headerProvider.GetHeaders();
-            }
+            //    if (!typeof(IAddressHeaderProvider).IsAssignableFrom(type))
+            //    {
+            //        throw new InvalidOperationException($"类型\"{type.FullName}\"未实现接口\"{nameof(IAddressHeaderProvider)}\"！");
+            //    }
 
-            EndpointAddress address = new EndpointAddress(uri, addressHeaders ?? new AddressHeader[0]);
+            //    #endregion
 
-            return address;
+            //    IAddressHeaderProvider addressHeaderProvider = (IAddressHeaderProvider)Activator.CreateInstance(type);
+            //    addressHeaders = addressHeaderProvider.GetAddressHeaders();
+            //}
+
+            #endregion
+
+            EndpointAddress endpointAddress = new EndpointAddress(uri, addressHeaders ?? new AddressHeader[0]);
+
+            return endpointAddress;
         }
         #endregion
     }

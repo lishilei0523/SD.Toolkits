@@ -1,9 +1,10 @@
-﻿namespace System.ServiceModel.NetCore.Toolkits
+﻿// ReSharper disable once CheckNamespace
+namespace System.ServiceModel.NetCore
 {
     /// <summary>
     /// WCF扩展工具类
     /// </summary>
-    public static class Extension
+    public static class ServiceModelExtension
     {
         /// <summary>
         /// 关闭信道扩展方法
