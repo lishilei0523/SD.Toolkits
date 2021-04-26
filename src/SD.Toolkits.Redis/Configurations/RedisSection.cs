@@ -36,7 +36,7 @@ namespace SD.Toolkits
 
         #endregion
 
-        #region # 访问器 —— static RedisConfiguration Setting
+        #region # 访问器 —— static RedisSection Setting
         /// <summary>
         /// 访问器
         /// </summary>

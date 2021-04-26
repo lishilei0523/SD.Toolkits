@@ -48,8 +48,8 @@
     <Compile Include="..\SD.Toolkits.Redis\Configurations\RedisSection.cs">
       <Link>Configurations\RedisSection.cs</Link>
     </Compile>
-    <Compile Include="..\SD.Toolkits.Redis\ToolKits\RedisManager.cs">
-      <Link>ToolKits\RedisManager.cs</Link>
+    <Compile Include="..\SD.Toolkits.Redis\Extensions\RedisManager.cs">
+      <Link>Extensions\RedisManager.cs</Link>
     </Compile>
     <None Include="..\SD.Toolkits.Redis\App.config.transform">
       <Link>App.config.transform</Link>
