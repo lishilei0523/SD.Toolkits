@@ -19,13 +19,13 @@ namespace System.ServiceModel.NetCore.Configurations
         }
         #endregion
 
-        #region # 终节点行为列表 —— EndpointBehaviorElementCollection EndpointBehaviors
+        #region # 终节点行为列表 —— EndpointBehaviorElementCollection EndpointBehaviorElements
         /// <summary>
         /// 终节点行为列表
         /// </summary>
         [ConfigurationProperty("endpointBehaviors")]
         [ConfigurationCollection(typeof(BehaviorConfigurationElementCollection), AddItemName = "endpointBehavior")]
-        public EndpointBehaviorElementCollection EndpointBehaviors
+        public EndpointBehaviorElementCollection EndpointBehaviorElements
         {
             get
             {

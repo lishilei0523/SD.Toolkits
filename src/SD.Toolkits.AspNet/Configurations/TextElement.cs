@@ -4,15 +4,15 @@ using System.Xml;
 namespace SD.Toolkits.AspNet.Configurations
 {
     /// <summary>
-    /// 路径节点
+    /// 文本节点
     /// </summary>
-    public class PathElement : ConfigurationElement
+    public class TextElement : ConfigurationElement
     {
         /// <summary>
-        /// 路径
+        /// 值
         /// </summary>
         [ConfigurationProperty("data", IsRequired = true)]
-        public string Path
+        public string Value
         {
             get { return (string)this["data"]; }
             set { this["data"] = value; }
@@ -23,7 +23,7 @@ namespace SD.Toolkits.AspNet.Configurations
         /// </summary>
         protected override void DeserializeElement(XmlReader reader, bool serializeCollectionKey)
         {
-            this.Path = (string)reader.ReadElementContentAs(typeof(string), null);
+            this.Value = (string)reader.ReadElementContentAs(typeof(string), null);
         }
     }
 }

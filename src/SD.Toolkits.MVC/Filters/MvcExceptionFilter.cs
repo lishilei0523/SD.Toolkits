@@ -63,7 +63,7 @@ namespace SD.Toolkits.MVC.Filters
                 StringBuilder scriptBuilder = new StringBuilder();
                 scriptBuilder.Append("<script type=\"text/javascript\">");
                 scriptBuilder.Append("window.top.location.href=");
-                scriptBuilder.AppendFormat("\"{0}?message={1}\"", AspNetSection.Setting.ErrorPage.Url, errorMessage);
+                scriptBuilder.AppendFormat("\"{0}?message={1}\"", AspNetSection.Setting.ErrorPage.Value, errorMessage);
                 scriptBuilder.Append("</script>");
 
                 //跳转至错误页

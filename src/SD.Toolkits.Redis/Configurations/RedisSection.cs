@@ -58,13 +58,13 @@ namespace SD.Toolkits
         }
         #endregion
 
-        #region # 节点地址列表 —— EndpointElementCollection EndpointElement
+        #region # 节点地址列表 —— EndpointElementCollection EndpointElements
         /// <summary>
         /// 节点地址列表
         /// </summary>
         [ConfigurationProperty("endpoints")]
         [ConfigurationCollection(typeof(EndpointElementCollection), AddItemName = "endpoint")]
-        public EndpointElementCollection EndpointElement
+        public EndpointElementCollection EndpointElements
         {
             get
             {

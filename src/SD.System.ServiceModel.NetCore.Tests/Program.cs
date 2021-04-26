@@ -10,7 +10,7 @@ namespace System.ServiceModel.NetCore.Tests
 
             Console.WriteLine("终结点配置");
             Console.WriteLine("------------------------------");
-            foreach (EndpointElement endpoint in configuration.Endpoints)
+            foreach (EndpointElement endpoint in configuration.EndpointElements)
             {
                 Console.WriteLine(endpoint.Name);
                 Console.WriteLine(endpoint.Contract);
@@ -22,10 +22,10 @@ namespace System.ServiceModel.NetCore.Tests
 
             Console.WriteLine("终结点行为配置");
             Console.WriteLine("------------------------------");
-            foreach (BehaviorConfigurationElement behaviorConfiguration in configuration.BehaviorConfigurations)
+            foreach (BehaviorConfigurationElement behaviorConfiguration in configuration.BehaviorConfigurationElements)
             {
                 Console.WriteLine(behaviorConfiguration.Name);
-                foreach (EndpointBehaviorElement endpointBehavior in behaviorConfiguration.EndpointBehaviors)
+                foreach (EndpointBehaviorElement endpointBehavior in behaviorConfiguration.EndpointBehaviorElements)
                 {
                     Console.WriteLine(endpointBehavior.Type);
                     Console.WriteLine(endpointBehavior.Assembly);

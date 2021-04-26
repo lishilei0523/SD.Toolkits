@@ -207,7 +207,7 @@ namespace System.ServiceModel.NetCore
             if (!string.IsNullOrWhiteSpace(endpoint.BehaviorConfiguration))
             {
                 BehaviorConfigurationElement behaviorConfiguration = EndpointMediator.BehaviorConfigurations[endpoint.BehaviorConfiguration];
-                foreach (EndpointBehaviorElement endpointBehaviorElement in behaviorConfiguration.EndpointBehaviors)
+                foreach (EndpointBehaviorElement endpointBehaviorElement in behaviorConfiguration.EndpointBehaviorElements)
                 {
                     Assembly assembly = Assembly.Load(endpointBehaviorElement.Assembly);
                     Type type = assembly.GetType(endpointBehaviorElement.Type);

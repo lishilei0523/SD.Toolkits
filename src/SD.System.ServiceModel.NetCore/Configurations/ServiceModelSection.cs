@@ -45,13 +45,13 @@ namespace System.ServiceModel
         }
         #endregion
 
-        #region # 终节点配置列表 —— EndpointElementCollection Endpoints
+        #region # 终节点配置列表 —— EndpointElementCollection EndpointElements
         /// <summary>
         /// 终节点配置列表
         /// </summary>
         [ConfigurationProperty("client")]
         [ConfigurationCollection(typeof(EndpointElementCollection), AddItemName = "endpoint")]
-        public EndpointElementCollection Endpoints
+        public EndpointElementCollection EndpointElements
         {
             get
             {
@@ -65,13 +65,13 @@ namespace System.ServiceModel
         }
         #endregion
 
-        #region # 终节点行为配置列表 —— BehaviorConfigurationCollection BehaviorConfigurations
+        #region # 终节点行为配置列表 —— BehaviorConfigurationCollection BehaviorConfigurationElements
         /// <summary>
         /// 终节点行为配置列表
         /// </summary>
         [ConfigurationProperty("behaviorConfigurations")]
         [ConfigurationCollection(typeof(BehaviorConfigurationElementCollection), AddItemName = "behaviorConfiguration")]
-        public BehaviorConfigurationElementCollection BehaviorConfigurations
+        public BehaviorConfigurationElementCollection BehaviorConfigurationElements
         {
             get
             {

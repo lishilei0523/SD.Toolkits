@@ -43,8 +43,7 @@
     <Compile Include="Configurations\HostElement.cs" />
     <Compile Include="Configurations\HostElementCollection.cs" />
     <Compile Include="Configurations\AspNetSection.cs" />
-    <Compile Include="Configurations\PathElement.cs" />
-    <Compile Include="Configurations\PageElement.cs" />
+    <Compile Include="Configurations\TextElement.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

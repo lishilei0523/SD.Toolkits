@@ -33,7 +33,7 @@ namespace SD.Toolkits.Redis
             _RedisEndpoints = new List<KeyValuePair<string, int>>();
             ConfigurationOptions config = new ConfigurationOptions();
 
-            foreach (EndpointElement endpoint in RedisSection.Setting.EndpointElement)
+            foreach (EndpointElement endpoint in RedisSection.Setting.EndpointElements)
             {
                 config.EndPoints.Add(endpoint.Host, endpoint.Port);
                 _RedisEndpoints.Add(new KeyValuePair<string, int>(endpoint.Host, endpoint.Port));

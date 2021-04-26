@@ -27,11 +27,11 @@ namespace System.ServiceModel.NetCore
         {
             _Endpoints = new ConcurrentDictionary<string, EndpointElement>();
             _BehaviorConfigurations = new ConcurrentDictionary<string, BehaviorConfigurationElement>();
-            foreach (EndpointElement endpoint in ServiceModelSection.Setting.Endpoints)
+            foreach (EndpointElement endpoint in ServiceModelSection.Setting.EndpointElements)
             {
                 _Endpoints.Add(endpoint.Name, endpoint);
             }
-            foreach (BehaviorConfigurationElement behaviorConfiguration in ServiceModelSection.Setting.BehaviorConfigurations)
+            foreach (BehaviorConfigurationElement behaviorConfiguration in ServiceModelSection.Setting.BehaviorConfigurationElements)
             {
                 _BehaviorConfigurations.Add(behaviorConfiguration.Name, behaviorConfiguration);
             }

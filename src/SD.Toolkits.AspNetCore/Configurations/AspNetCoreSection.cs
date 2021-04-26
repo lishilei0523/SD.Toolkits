@@ -58,13 +58,13 @@ namespace SD.Toolkits.AspNetCore
         }
         #endregion
 
-        #region # 节点地址列表 —— EndpointElementCollection EndpointElement
+        #region # 节点地址列表 —— HostElementCollection HostElements
         /// <summary>
         /// 节点地址列表
         /// </summary>
         [ConfigurationProperty("hosts")]
         [ConfigurationCollection(typeof(HostElementCollection), AddItemName = "host")]
-        public HostElementCollection HostElement
+        public HostElementCollection HostElements
         {
             get
             {
@@ -75,50 +75,50 @@ namespace SD.Toolkits.AspNetCore
         }
         #endregion
 
-        #region # 登录页节点 —— PageElement LoginPage
+        #region # 登录页节点 —— TextElement LoginPage
         /// <summary>
         /// 登录页节点
         /// </summary>
         [ConfigurationProperty("loginPage", IsRequired = false)]
-        public PageElement LoginPage
+        public TextElement LoginPage
         {
-            get { return (PageElement)this["loginPage"]; }
+            get { return (TextElement)this["loginPage"]; }
             set { this["loginPage"] = value; }
         }
         #endregion
 
-        #region # 错误页节点 —— PageElement ErrorPage
+        #region # 错误页节点 —— TextElement ErrorPage
         /// <summary>
         /// 错误页节点
         /// </summary>
         [ConfigurationProperty("errorPage", IsRequired = false)]
-        public PageElement ErrorPage
+        public TextElement ErrorPage
         {
-            get { return (PageElement)this["errorPage"]; }
+            get { return (TextElement)this["errorPage"]; }
             set { this["errorPage"] = value; }
         }
         #endregion
 
-        #region # 静态文件节点 —— PathElement StaticFiles
+        #region # 静态文件节点 —— TextElement StaticFiles
         /// <summary>
         /// 静态文件节点
         /// </summary>
         [ConfigurationProperty("staticFiles", IsRequired = false)]
-        public PathElement StaticFiles
+        public TextElement StaticFiles
         {
-            get { return (PathElement)this["staticFiles"]; }
+            get { return (TextElement)this["staticFiles"]; }
             set { this["staticFiles"] = value; }
         }
         #endregion
 
-        #region # 文件服务器节点 —— PathElement FileServer
+        #region # 文件服务器节点 —— TextElement FileServer
         /// <summary>
         /// 文件服务器节点
         /// </summary>
         [ConfigurationProperty("fileServer", IsRequired = false)]
-        public PathElement FileServer
+        public TextElement FileServer
         {
-            get { return (PathElement)this["fileServer"]; }
+            get { return (TextElement)this["fileServer"]; }
             set { this["fileServer"] = value; }
         }
         #endregion

@@ -13,7 +13,7 @@ namespace SD.Toolkits.Redis.Tests.TestCases
             string password = RedisSection.Setting.Password;
             Trace.WriteLine(password);
 
-            foreach (EndpointElement endpoint in RedisSection.Setting.EndpointElement)
+            foreach (EndpointElement endpoint in RedisSection.Setting.EndpointElements)
             {
                 Trace.WriteLine(endpoint.Name);
                 Trace.WriteLine(endpoint.Host);

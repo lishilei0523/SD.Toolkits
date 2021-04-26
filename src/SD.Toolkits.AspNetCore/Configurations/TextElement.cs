@@ -1,18 +1,18 @@
 ﻿using System.Configuration;
 using System.Xml;
 
-namespace SD.Toolkits.AspNet.Configurations
+namespace SD.Toolkits.AspNetCore.Configurations
 {
     /// <summary>
-    /// 页节点
+    /// 文本节点
     /// </summary>
-    public class PageElement : ConfigurationElement
+    public class TextElement : ConfigurationElement
     {
         /// <summary>
-        /// 链接地址
+        /// 值
         /// </summary>
         [ConfigurationProperty("data", IsRequired = true)]
-        public string Url
+        public string Value
         {
             get { return (string)this["data"]; }
             set { this["data"] = value; }
@@ -23,7 +23,7 @@ namespace SD.Toolkits.AspNet.Configurations
         /// </summary>
         protected override void DeserializeElement(XmlReader reader, bool serializeCollectionKey)
         {
-            this.Url = (string)reader.ReadElementContentAs(typeof(string), null);
+            this.Value = (string)reader.ReadElementContentAs(typeof(string), null);
         }
     }
 }
