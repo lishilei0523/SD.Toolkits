@@ -45,6 +45,7 @@
     <Compile Include="Bindings\WrapPostParameterBinding.cs" />
     <Compile Include="Attributes\FromJsonAttribute.cs" />
     <Compile Include="Attributes\WrapPostParametersAttribute.cs" />
+    <Compile Include="Extensions\ParameterExtension.cs" />
     <Compile Include="Filters\WebApiExceptionFilter.cs" />
     <Compile Include="Models\IFormFileCollection.cs" />
     <Compile Include="Models\IFormFile.cs" />

@@ -1,7 +1,6 @@
-﻿using Newtonsoft.Json;
-using SD.Toolkits.WebApi.Attributes;
+﻿using SD.Toolkits.WebApi.Attributes;
+using SD.Toolkits.WebApi.Extensions;
 using SD.Toolkits.WebApi.Models;
-using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
@@ -75,46 +74,27 @@ namespace SD.Toolkits.WebApi.Bindings
             #endregion
 
             IDictionary<string, object> parameters = await this.ParseParametersFromBody(actionContext.Request);
-            object objectValue = parameters.ContainsKey(base.Descriptor.ParameterName)
+            object parameterValue = parameters.ContainsKey(base.Descriptor.ParameterName)
                 ? parameters[base.Descriptor.ParameterName]
                 : null;
-            if (objectValue != null)
+
+            if (parameterValue != null)
             {
                 object paramValue;
-                if (base.Descriptor.ParameterType == typeof(string))
-                {
-                    paramValue = objectValue.ToString();
-                }
-                else if (base.Descriptor.ParameterType == typeof(Guid))
-                {
-                    paramValue = Guid.Parse(objectValue.ToString());
-                }
-                else if (base.Descriptor.ParameterType == typeof(DateTime))
-                {
-                    paramValue = DateTime.Parse(objectValue.ToString());
-                }
-                else if (base.Descriptor.ParameterType.IsEnum)
-                {
-                    paramValue = Enum.Parse(base.Descriptor.ParameterType, objectValue.ToString());
-                }
-                else if (base.Descriptor.ParameterType.IsPrimitive)
-                {
-                    paramValue = Convert.ChangeType(objectValue, base.Descriptor.ParameterType);
-                }
-                else if (base.Descriptor.ParameterType == typeof(IFormFile))
+                if (base.Descriptor.ParameterType == typeof(IFormFile))
                 {
                     const string undefined = "undefined";
-                    if (string.IsNullOrWhiteSpace(objectValue.ToString()) || objectValue.ToString() == undefined)
+                    if (string.IsNullOrWhiteSpace(parameterValue.ToString()) || parameterValue.ToString() == undefined)
                     {
                         paramValue = null;
                     }
                     else
                     {
-                        if (objectValue is IFormFileCollection formFiles)
+                        if (parameterValue is IFormFileCollection formFiles)
                         {
                             paramValue = formFiles[0];
                         }
-                        else if (objectValue is IFormFile formFile)
+                        else if (parameterValue is IFormFile formFile)
                         {
                             paramValue = formFile;
                         }
@@ -127,17 +107,17 @@ namespace SD.Toolkits.WebApi.Bindings
                 else if (base.Descriptor.ParameterType == typeof(IFormFileCollection))
                 {
                     const string undefined = "undefined";
-                    if (string.IsNullOrWhiteSpace(objectValue.ToString()) || objectValue.ToString() == undefined)
+                    if (string.IsNullOrWhiteSpace(parameterValue.ToString()) || parameterValue.ToString() == undefined)
                     {
                         paramValue = new FormFileCollection();
                     }
                     else
                     {
-                        if (objectValue is IFormFileCollection formFiles)
+                        if (parameterValue is IFormFileCollection formFiles)
                         {
                             paramValue = formFiles;
                         }
-                        else if (objectValue is IFormFile formFile)
+                        else if (parameterValue is IFormFile formFile)
                         {
                             FormFileCollection formFileCollection = new FormFileCollection();
                             formFileCollection.Add(formFile);
@@ -152,8 +132,8 @@ namespace SD.Toolkits.WebApi.Bindings
                 }
                 else
                 {
-                    //除字符串、Guid、时间、枚举、基元类型、文件外，都按对象反序列化
-                    paramValue = JsonConvert.DeserializeObject(objectValue.ToString(), base.Descriptor.ParameterType);
+                    //除文件外，按类型化参数处理
+                    paramValue = ParameterExtension.TypifyParameterValue(base.Descriptor.ParameterType, parameterValue);
                 }
 
                 base.SetValue(actionContext, paramValue);

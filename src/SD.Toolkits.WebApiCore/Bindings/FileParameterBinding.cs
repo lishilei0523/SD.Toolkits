@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.Primitives;
+using SD.Toolkits.WebApiCore.Extensions;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Net.Http;
-using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace SD.Toolkits.WebApiCore.Bindings
@@ -44,88 +44,68 @@ namespace SD.Toolkits.WebApiCore.Bindings
             #endregion
 
             IDictionary<string, object> parameters = this.ParseParametersFromBody(httpContext.Request);
-            object objectValue = parameters.ContainsKey(bindingContext.FieldName)
+            object parameterValue = parameters.ContainsKey(bindingContext.FieldName)
                 ? parameters[bindingContext.FieldName]
                 : null;
-            if (objectValue != null)
+            if (parameterValue != null)
             {
-                object paramValue;
-                if (bindingContext.ModelType == typeof(string))
-                {
-                    paramValue = objectValue.ToString();
-                }
-                else if (bindingContext.ModelType == typeof(Guid))
-                {
-                    paramValue = Guid.Parse(objectValue.ToString());
-                }
-                else if (bindingContext.ModelType == typeof(DateTime))
-                {
-                    paramValue = DateTime.Parse(objectValue.ToString());
-                }
-                else if (bindingContext.ModelType.IsEnum)
-                {
-                    paramValue = Enum.Parse(bindingContext.ModelType, objectValue.ToString());
-                }
-                else if (bindingContext.ModelType.IsPrimitive)
-                {
-                    paramValue = Convert.ChangeType(objectValue.ToString(), bindingContext.ModelType);
-                }
-                else if (bindingContext.ModelType == typeof(IFormFile))
+                object typicalValue;
+                if (bindingContext.ModelType == typeof(IFormFile))
                 {
                     const string undefined = "undefined";
-                    if (string.IsNullOrWhiteSpace(objectValue.ToString()) || objectValue.ToString() == undefined)
+                    if (string.IsNullOrWhiteSpace(parameterValue.ToString()) || parameterValue.ToString() == undefined)
                     {
-                        paramValue = null;
+                        typicalValue = null;
                     }
                     else
                     {
-                        if (objectValue is IFormFileCollection formFiles)
+                        if (parameterValue is IFormFileCollection formFiles)
                         {
-                            paramValue = formFiles[0];
+                            typicalValue = formFiles[0];
                         }
-                        else if (objectValue is IFormFile formFile)
+                        else if (parameterValue is IFormFile formFile)
                         {
-                            paramValue = formFile;
+                            typicalValue = formFile;
                         }
                         else
                         {
-                            paramValue = null;
+                            typicalValue = null;
                         }
                     }
                 }
                 else if (bindingContext.ModelType == typeof(IFormFileCollection))
                 {
                     const string undefined = "undefined";
-                    if (string.IsNullOrWhiteSpace(objectValue.ToString()) || objectValue.ToString() == undefined)
+                    if (string.IsNullOrWhiteSpace(parameterValue.ToString()) || parameterValue.ToString() == undefined)
                     {
-                        paramValue = new FormFileCollection();
+                        typicalValue = new FormFileCollection();
                     }
                     else
                     {
-                        if (objectValue is IFormFileCollection formFiles)
+                        if (parameterValue is IFormFileCollection formFiles)
                         {
-                            paramValue = formFiles;
+                            typicalValue = formFiles;
                         }
-                        else if (objectValue is IFormFile formFile)
+                        else if (parameterValue is IFormFile formFile)
                         {
                             FormFileCollection formFileCollection = new FormFileCollection();
                             formFileCollection.Add(formFile);
 
-                            paramValue = formFileCollection;
+                            typicalValue = formFileCollection;
                         }
                         else
                         {
-                            paramValue = new FormFileCollection();
+                            typicalValue = new FormFileCollection();
                         }
                     }
                 }
                 else
                 {
-                    //除字符串、Guid、时间、枚举、基元类型、文件外，都按对象反序列化
-                    paramValue = JsonSerializer.Deserialize(objectValue.ToString(), bindingContext.ModelType);
+                    //除文件外，按类型化参数处理
+                    typicalValue = ParameterExtension.TypifyParameterValue(bindingContext.ModelType, parameterValue);
                 }
 
-                bindingContext.Result = ModelBindingResult.Success(paramValue);
+                bindingContext.Result = ModelBindingResult.Success(typicalValue);
             }
             else
             {

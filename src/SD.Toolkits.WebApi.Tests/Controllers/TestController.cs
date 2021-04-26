@@ -48,6 +48,16 @@ namespace SD.Toolkits.WebApi.Tests.Controllers
 
         [HttpPost]
         [WrapPostParameters]
+        public void TestNullableParams(int? param1, double? param2, string param3, DateTime? param4)
+        {
+            Console.WriteLine(param1);
+            Console.WriteLine(param2);
+            Console.WriteLine(param3);
+            Console.WriteLine(param4);
+        }
+
+        [HttpPost]
+        [WrapPostParameters]
         public void TestMultipleParamsWithList(int param1, double param2, IEnumerable<string> param3)
         {
             Console.WriteLine(param1);

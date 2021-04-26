@@ -40,11 +40,11 @@ namespace SD.Toolkits.WebApiCore.Bindings
             #endregion
 
             NameValueCollection parameters = await this.ParseParametersFromBody(httpContext.Request);
-            string stringValue = parameters.Get(bindingContext.FieldName);
-            stringValue = WebUtility.UrlDecode(stringValue);
-            if (!string.IsNullOrWhiteSpace(stringValue))
+            string parameterValue = parameters.Get(bindingContext.FieldName);
+            parameterValue = WebUtility.UrlDecode(parameterValue);
+            if (!string.IsNullOrWhiteSpace(parameterValue))
             {
-                object paramValue = JsonSerializer.Deserialize(stringValue, bindingContext.ModelType);
+                object paramValue = JsonSerializer.Deserialize(parameterValue, bindingContext.ModelType);
                 bindingContext.Result = ModelBindingResult.Success(paramValue);
             }
             else

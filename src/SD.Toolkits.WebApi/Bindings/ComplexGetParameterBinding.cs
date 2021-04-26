@@ -38,12 +38,12 @@ namespace SD.Toolkits.WebApi.Bindings
         public override async Task ExecuteBindingAsync(ModelMetadataProvider metadataProvider, HttpActionContext actionContext, CancellationToken cancellationToken)
         {
             NameValueCollection parameters = await this.ParseParametersFromBody(actionContext.Request);
-            string stringValue = parameters.Get(base.Descriptor.ParameterName);
-            stringValue = WebUtility.UrlDecode(stringValue);
-            if (!string.IsNullOrWhiteSpace(stringValue))
+            string parameterValue = parameters.Get(base.Descriptor.ParameterName);
+            parameterValue = WebUtility.UrlDecode(parameterValue);
+            if (!string.IsNullOrWhiteSpace(parameterValue))
             {
-                object paramValue = JsonConvert.DeserializeObject(stringValue, base.Descriptor.ParameterType);
-                base.SetValue(actionContext, paramValue);
+                object typicalValue = JsonConvert.DeserializeObject(parameterValue, base.Descriptor.ParameterType);
+                base.SetValue(actionContext, typicalValue);
             }
             else
             {
