@@ -145,14 +145,14 @@ namespace System.ServiceModel.NetCore
 
             #region # 验证
 
-            if (!Constants.AvailableBindings.ContainsKey(endpoint.Binding))
+            if (!ServiceModelExtension.AvailableBindings.ContainsKey(endpoint.Binding))
             {
                 throw new InvalidOperationException($"目前不支持\"{endpoint.Binding}\"绑定！");
             }
 
             #endregion
 
-            Binding binding = Constants.AvailableBindings[endpoint.Binding];
+            Binding binding = ServiceModelExtension.AvailableBindings[endpoint.Binding];
 
             return binding;
         }
