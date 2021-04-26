@@ -4,7 +4,7 @@
     <Description>EntityFramework基础</Description>
     <Company>SD</Company>
     <Authors>Lee</Authors>
-    <Copyright>Copyright © SD 2020</Copyright>
+    <Copyright>Copyright © SD 2021</Copyright>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

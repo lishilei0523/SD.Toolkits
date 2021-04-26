@@ -6,7 +6,7 @@
     <Copyright>Copyright © SD 2021</Copyright>
     <Description>EntityFramework Core基础</Description>
     <Version>2.0.0</Version>
-    <AssemblyVersion>2.0.0.0</AssemblyVersion>
+    <AssemblyVersion>2.0.0</AssemblyVersion>
     <FileVersion>2.0.0.0</FileVersion>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
   </PropertyGroup>

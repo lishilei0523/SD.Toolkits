@@ -4,8 +4,8 @@
     <Authors>Lee</Authors>
     <Company>SD</Company>
     <Description>Excel读写工具</Description>
-    <Version>2.0.0</Version>
     <Copyright>Copyright © SD 2021</Copyright>
+    <Version>2.0.0</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
