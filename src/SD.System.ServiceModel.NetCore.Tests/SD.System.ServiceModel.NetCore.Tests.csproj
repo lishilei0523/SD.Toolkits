@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <AssemblyName>System.ServiceModel.NetCore.Tests</AssemblyName>
+    <RootNamespace>System.ServiceModel.NetCore.Tests</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SD.System.ServiceModel.NetCore\SD.System.ServiceModel.NetCore.csproj" />
+  </ItemGroup>
+</Project>
