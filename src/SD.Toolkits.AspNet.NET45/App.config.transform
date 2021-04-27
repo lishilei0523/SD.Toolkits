@@ -1,14 +1,14 @@
 ﻿<configuration>
   <configSections>
-    <!--ASP.NET Core服务器配置节点-->
-    <section name="aspNetCoreConfiguration" type="SD.Toolkits.AspNetCore.AspNetCoreSection, SD.Toolkits.AspNetCore" />
+    <!--SD.Toolkits.AspNet配置节点-->
+    <section name="sd.toolkits.aspNet" type="SD.Toolkits.AspNet.AspNetSection, SD.Toolkits.AspNet" />
   </configSections>
-  <!--ASP.NET Core服务器配置-->
-  <aspNetCoreConfiguration authorized="true">
+  <!--SD.Toolkits.AspNet配置-->
+  <sd.toolkits.aspNet authorized="true">
     <!--Host地址列表-->
     <hosts>
-      <host url="http://localhost:33000" />
-      <!--<host url="http://192.168.0.146:33000" />-->
+      <host url="http://localhost:33100" />
+      <!--<host url="http://192.168.0.146:33100" />-->
     </hosts>
     <!--默认登录页-->
     <loginPage>/User/Login</loginPage>
@@ -18,5 +18,5 @@
     <staticFiles>wwwroot</staticFiles>
     <!--文件服务器根目录-->
     <fileServer>files</fileServer>
-  </aspNetCoreConfiguration>
+  </sd.toolkits.aspNet>
 </configuration>

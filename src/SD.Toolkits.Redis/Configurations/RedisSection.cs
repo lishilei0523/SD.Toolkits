@@ -6,7 +6,7 @@ using System.Configuration;
 namespace SD.Toolkits
 {
     /// <summary>
-    /// Redis服务器配置
+    /// SD.Toolkits.Redis配置
     /// </summary>
     internal class RedisSection : ConfigurationSection
     {
@@ -22,13 +22,13 @@ namespace SD.Toolkits
         /// </summary>
         static RedisSection()
         {
-            _Setting = (RedisSection)ConfigurationManager.GetSection("redisConfiguration");
+            _Setting = (RedisSection)ConfigurationManager.GetSection("sd.toolkits.redis");
 
             #region # 非空验证
 
             if (_Setting == null)
             {
-                throw new ApplicationException("Redis节点未配置，请检查程序！");
+                throw new ApplicationException("SD.Toolkits.Redis节点未配置，请检查程序！");
             }
 
             #endregion

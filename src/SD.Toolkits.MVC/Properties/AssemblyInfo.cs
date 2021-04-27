@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 // 控制。更改这些特性值可修改
 // 与程序集关联的信息。
 [assembly: AssemblyTitle("SD.Toolkits.MVC")]
-[assembly: AssemblyDescription("ASP.NET MVC扩展工具")]
+[assembly: AssemblyDescription("SD.Toolkits ASP.NET MVC扩展组件")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("SD")]
 [assembly: AssemblyProduct("SD.Toolkits.MVC")]

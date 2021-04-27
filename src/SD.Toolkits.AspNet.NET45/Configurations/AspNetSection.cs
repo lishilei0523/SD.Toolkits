@@ -6,7 +6,7 @@ using System.Configuration;
 namespace SD.Toolkits.AspNet
 {
     /// <summary>
-    /// ASP.NET服务器配置
+    /// SD.Toolkits.AspNet配置
     /// </summary>
     public class AspNetSection : ConfigurationSection
     {
@@ -22,13 +22,13 @@ namespace SD.Toolkits.AspNet
         /// </summary>
         static AspNetSection()
         {
-            _Setting = (AspNetSection)ConfigurationManager.GetSection("aspNetConfiguration");
+            _Setting = (AspNetSection)ConfigurationManager.GetSection("sd.toolkits.aspNet");
 
             #region # 非空验证
 
             if (_Setting == null)
             {
-                throw new ApplicationException("ASP.NET节点未配置，请检查程序！");
+                throw new ApplicationException("SD.Toolkits.AspNet节点未配置，请检查程序！");
             }
 
             #endregion

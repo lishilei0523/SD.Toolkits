@@ -95,9 +95,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Toolkits.OwinCore", "src
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.MVC", "src\SD.Toolkits.MVC\SD.Toolkits.MVC.csproj", "{E05EF0BD-BC92-4173-8EA4-3693DC5B636D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Toolkits.AspNetCore", "src\SD.Toolkits.AspNetCore\SD.Toolkits.AspNetCore.csproj", "{C400ACF0-5E0F-49BE-A1A7-5B41298B9084}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Toolkits.AspNet", "src\SD.Toolkits.AspNet\SD.Toolkits.AspNet.csproj", "{C400ACF0-5E0F-49BE-A1A7-5B41298B9084}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.AspNet", "src\SD.Toolkits.AspNet\SD.Toolkits.AspNet.csproj", "{11C3521B-3FBC-4F98-B55D-DCE321F02AC8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.AspNet.NET45", "src\SD.Toolkits.AspNet.NET45\SD.Toolkits.AspNet.NET45.csproj", "{11C3521B-3FBC-4F98-B55D-DCE321F02AC8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.WebApi.Tests", "src\SD.Toolkits.WebApi.Tests\SD.Toolkits.WebApi.Tests.csproj", "{B640C299-0B25-4CD7-B150-813C484DB0E8}"
 EndProject

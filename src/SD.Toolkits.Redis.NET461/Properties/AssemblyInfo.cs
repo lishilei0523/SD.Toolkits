@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // 控制。更改这些特性值可修改
 // 与程序集关联的信息。
 [assembly: AssemblyTitle("SD.Toolkits.Redis")]
-[assembly: AssemblyDescription("Redis配置工具")]
+[assembly: AssemblyDescription("SD.Toolkits Redis配置组件")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("SD")]
 [assembly: AssemblyProduct("SD.Toolkits.Redis")]

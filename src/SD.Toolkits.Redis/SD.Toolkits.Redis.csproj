@@ -3,7 +3,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <Authors>Lee</Authors>
     <Company>SD</Company>
-    <Description>Redis配置工具</Description>
+    <Description>SD.Toolkits Redis配置组件</Description>
     <Copyright>Copyright © SD 2021</Copyright>
     <Version>2.0.0</Version>
     <AssemblyVersion>2.0.0</AssemblyVersion>
