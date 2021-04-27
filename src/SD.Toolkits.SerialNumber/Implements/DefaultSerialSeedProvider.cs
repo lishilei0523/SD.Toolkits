@@ -1,23 +1,19 @@
 ﻿using SD.Toolkits.SerialNumber.Commons;
 using SD.Toolkits.SerialNumber.Entities;
+using SD.Toolkits.SerialNumber.Interfaces;
 using System;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Text;
 
-namespace SD.Toolkits.SerialNumber.Repositories
+namespace SD.Toolkits.SerialNumber.Implements
 {
     /// <summary>
-    /// 序列种子仓储实现
+    /// 序列种子提供者默认实现
     /// </summary>
-    internal sealed class SerialSeedRepository
+    internal sealed class DefaultSerialSeedProvider : ISerialSeedProvider
     {
         #region # 常量、字段及构造器
-
-        /// <summary>
-        /// 连接字符串名称
-        /// </summary>
-        private const string ConnectionStringName = "SerialNumberConnection";
 
         /// <summary>
         /// SQL Helper
@@ -27,16 +23,23 @@ namespace SD.Toolkits.SerialNumber.Repositories
         /// <summary>
         /// 静态构造器
         /// </summary>
-        static SerialSeedRepository()
+        static DefaultSerialSeedProvider()
         {
-            //初始化连接字符串
-            string connectionString = ConfigurationManager.ConnectionStrings[ConnectionStringName]?.ConnectionString;
+            string connectionString = null;
 
             #region # 验证
 
+            if (!string.IsNullOrWhiteSpace(SerialNumberSection.Setting.ConnectionString.Name))
+            {
+                connectionString = ConfigurationManager.ConnectionStrings[SerialNumberSection.Setting.ConnectionString.Name]?.ConnectionString;
+            }
             if (string.IsNullOrWhiteSpace(connectionString))
             {
-                throw new ApplicationException("序列号生成器连接字符串未设置！");
+                connectionString = SerialNumberSection.Setting.ConnectionString.Value;
+            }
+            if (string.IsNullOrWhiteSpace(connectionString))
+            {
+                throw new NullReferenceException("序列号生成器连接字符串未配置！");
             }
 
             #endregion
@@ -48,7 +51,7 @@ namespace SD.Toolkits.SerialNumber.Repositories
         /// <summary>
         /// 构造器
         /// </summary>
-        public SerialSeedRepository()
+        public DefaultSerialSeedProvider()
         {
             //初始化数据表
             this.InitTable();
@@ -236,7 +239,6 @@ namespace SD.Toolkits.SerialNumber.Repositories
 
             return reader[columnName];
         }
-
         #endregion
     }
 }

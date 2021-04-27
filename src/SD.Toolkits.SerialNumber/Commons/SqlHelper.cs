@@ -39,9 +39,9 @@ namespace SD.Toolkits.SerialNumber.Commons
 
         //Public
 
-        #region # 执行SQL语句命令 —— int ExecuteNonQuery(string sql, params SqlParameter[] args)
+        #region # 执行SQL命令 —— int ExecuteNonQuery(string sql, params SqlParameter[] args)
         /// <summary>
-        /// 执行SQL语句命令
+        /// 执行SQL命令
         /// </summary>
         /// <param name="sql">SQL语句</param>
         /// <param name="args">参数</param>
@@ -52,9 +52,9 @@ namespace SD.Toolkits.SerialNumber.Commons
         }
         #endregion
 
-        #region # 执行SQL语句返回首行首列值 —— T ExecuteScalar<T>(string sql, params SqlParameter[] args)
+        #region # 执行SQL命令返回首行首列值 —— T ExecuteScalar<T>(string sql, params SqlParameter[] args)
         /// <summary>
-        /// 执行SQL语句返回首行首列值
+        /// 执行SQL命令返回首行首列值
         /// </summary>
         /// <typeparam name="T">类型</typeparam>
         /// <param name="sql">SQL语句</param>
@@ -66,9 +66,9 @@ namespace SD.Toolkits.SerialNumber.Commons
         }
         #endregion
 
-        #region # 执行SQL语句返回DataReader —— SqlDataReader ExecuteReader(string sql, params SqlParameter[] args)
+        #region # 执行SQL查询返回DataReader —— SqlDataReader ExecuteReader(string sql, params SqlParameter[] args)
         /// <summary>
-        /// 执行SQL语句返回DataReader
+        /// 执行SQL查询返回DataReader
         /// </summary>
         /// <param name="sql">SQL语句</param>
         /// <param name="args">参数</param>
@@ -93,9 +93,9 @@ namespace SD.Toolkits.SerialNumber.Commons
         }
         #endregion
 
-        #region # ExecuteNonQuery方法 —— int ExecuteNonQuery(string sql, CommandType type, params SqlParameter[] args)
+        #region # ExecuteNonQuery —— int ExecuteNonQuery(string sql, CommandType type, params SqlParameter[] args)
         /// <summary>
-        /// ExecuteNonQuery方法
+        /// ExecuteNonQuery
         /// </summary>
         /// <param name="sql">SQL语句</param>
         /// <param name="type">命令类型</param>

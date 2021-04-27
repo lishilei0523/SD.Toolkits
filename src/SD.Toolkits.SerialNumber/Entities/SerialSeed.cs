@@ -5,7 +5,7 @@ namespace SD.Toolkits.SerialNumber.Entities
     /// <summary>
     /// 序列种子
     /// </summary>
-    internal class SerialSeed
+    public class SerialSeed
     {
         #region # 构造器
 

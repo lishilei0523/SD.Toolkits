@@ -43,14 +43,26 @@
     <Compile Include="..\SD.Toolkits.SerialNumber\Commons\SqlHelper.cs">
       <Link>Commons\SqlHelper.cs</Link>
     </Compile>
+    <Compile Include="..\SD.Toolkits.SerialNumber\Configurations\ConnectionStringElement.cs">
+      <Link>Configurations\ConnectionStringElement.cs</Link>
+    </Compile>
+    <Compile Include="..\SD.Toolkits.SerialNumber\Configurations\SerialNumberSection.cs">
+      <Link>Configurations\SerialNumberSection.cs</Link>
+    </Compile>
+    <Compile Include="..\SD.Toolkits.SerialNumber\Configurations\SerialSeedProviderElement.cs">
+      <Link>Configurations\SerialSeedProviderElement.cs</Link>
+    </Compile>
     <Compile Include="..\SD.Toolkits.SerialNumber\Entities\SerialSeed.cs">
       <Link>Entities\SerialSeed.cs</Link>
     </Compile>
+    <Compile Include="..\SD.Toolkits.SerialNumber\Implements\DefaultSerialSeedProvider.cs">
+      <Link>Implements\DefaultSerialSeedProvider.cs</Link>
+    </Compile>
+    <Compile Include="..\SD.Toolkits.SerialNumber\Interfaces\ISerialSeedProvider.cs">
+      <Link>Interfaces\ISerialSeedProvider.cs</Link>
+    </Compile>
     <Compile Include="..\SD.Toolkits.SerialNumber\Mediators\NumberGenerator.cs">
       <Link>Mediators\NumberGenerator.cs</Link>
-    </Compile>
-    <Compile Include="..\SD.Toolkits.SerialNumber\Repositories\SerialSeedRepository.cs">
-      <Link>Repositories\SerialSeedRepository.cs</Link>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

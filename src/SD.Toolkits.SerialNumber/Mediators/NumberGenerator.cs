@@ -1,8 +1,9 @@
 ﻿using SD.Toolkits.SerialNumber.Entities;
-using SD.Toolkits.SerialNumber.Repositories;
+using SD.Toolkits.SerialNumber.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 
 namespace SD.Toolkits.SerialNumber.Mediators
@@ -20,9 +21,9 @@ namespace SD.Toolkits.SerialNumber.Mediators
         private static readonly object _SyncLock = new object();
 
         /// <summary>
-        /// 序列种子仓储实现
+        /// 序列种子提供者
         /// </summary>
-        private readonly SerialSeedRepository _serialSeedRepository;
+        private readonly ISerialSeedProvider _serialSeedProvider;
 
         /// <summary>
         /// 构造器
@@ -31,7 +32,11 @@ namespace SD.Toolkits.SerialNumber.Mediators
         {
             try
             {
-                this._serialSeedRepository = new SerialSeedRepository();
+                Assembly assembly = Assembly.Load(SerialNumberSection.Setting.SerialSeedProvider.Assembly);
+                Type serialSeedProviderType = assembly.GetType(SerialNumberSection.Setting.SerialSeedProvider.Type);
+                ISerialSeedProvider serialSeedProvider = (ISerialSeedProvider)Activator.CreateInstance(serialSeedProviderType);
+
+                this._serialSeedProvider = serialSeedProvider;
             }
             catch (TypeLoadException typeLoadException)
             {
@@ -69,17 +74,17 @@ namespace SD.Toolkits.SerialNumber.Mediators
                 #endregion
 
                 string timestamp = string.IsNullOrWhiteSpace(timeFormat) ? string.Empty : DateTime.Now.ToString(timeFormat);
-                SerialSeed serialSeed = this._serialSeedRepository.SingleOrDefault(seedName, prefix, timestamp, serialLength);
+                SerialSeed serialSeed = this._serialSeedProvider.SingleOrDefault(seedName, prefix, timestamp, serialLength);
 
                 if (serialSeed == null)
                 {
                     serialSeed = new SerialSeed(seedName, prefix, timestamp, serialLength, description);
-                    this._serialSeedRepository.Create(serialSeed);
+                    this._serialSeedProvider.Create(serialSeed);
                 }
                 else
                 {
                     serialSeed.UpdateInfo(serialSeed.TodayCount + 1);
-                    this._serialSeedRepository.Save(serialSeed);
+                    this._serialSeedProvider.Save(serialSeed);
                 }
 
                 int serial = serialSeed.TodayCount;
@@ -124,7 +129,7 @@ namespace SD.Toolkits.SerialNumber.Mediators
                 #endregion
 
                 string timestamp = string.IsNullOrWhiteSpace(timeFormat) ? string.Empty : DateTime.Now.ToString(timeFormat);
-                SerialSeed serialSeed = this._serialSeedRepository.SingleOrDefault(seedName, prefix, timestamp, serialLength);
+                SerialSeed serialSeed = this._serialSeedProvider.SingleOrDefault(seedName, prefix, timestamp, serialLength);
                 int initialIndex = serialSeed?.TodayCount ?? 0;
 
                 if (serialSeed == null)
@@ -132,12 +137,12 @@ namespace SD.Toolkits.SerialNumber.Mediators
                     serialSeed = new SerialSeed(seedName, prefix, timestamp, serialLength, description);
                     serialSeed.UpdateInfo(count);
 
-                    this._serialSeedRepository.Create(serialSeed);
+                    this._serialSeedProvider.Create(serialSeed);
                 }
                 else
                 {
                     serialSeed.UpdateInfo(serialSeed.TodayCount + count);
-                    this._serialSeedRepository.Save(serialSeed);
+                    this._serialSeedProvider.Save(serialSeed);
                 }
 
                 ICollection<string> keys = new HashSet<string>();
