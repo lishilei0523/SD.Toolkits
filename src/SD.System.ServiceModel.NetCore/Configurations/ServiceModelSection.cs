@@ -35,7 +35,7 @@ namespace System.ServiceModel
 
         #endregion
 
-        #region # 访问器 —— static RedisConfiguration Setting
+        #region # 访问器 —— static ServiceModelSection Setting
         /// <summary>
         /// 访问器
         /// </summary>
