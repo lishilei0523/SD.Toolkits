@@ -39,8 +39,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="..\SD.Toolkits.Excel\Constant.cs">
-      <Link>Constant.cs</Link>
+    <Compile Include="..\SD.Toolkits.Excel\ExcelVersion.cs">
+      <Link>Conductor.cs</Link>
+    </Compile>
+    <Compile Include="..\SD.Toolkits.Excel\ExcelConductor.cs">
+      <Link>Conductor.cs</Link>
     </Compile>
     <Compile Include="..\SD.Toolkits.Excel\ExcelReader.cs">
       <Link>ExcelReader.cs</Link>

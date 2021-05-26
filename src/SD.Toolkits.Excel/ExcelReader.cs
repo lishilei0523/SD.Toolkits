@@ -1,5 +1,4 @@
-﻿using NPOI.HSSF.UserModel;
-using NPOI.SS.UserModel;
+﻿using NPOI.SS.UserModel;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -32,10 +31,6 @@ namespace SD.Toolkits.Excel
             {
                 throw new ArgumentNullException(nameof(path), "文件路径不可为空！");
             }
-            if (Path.GetExtension(path) != Constant.Excel97ExtensionName)
-            {
-                throw new ArgumentOutOfRangeException(nameof(path), $"文件格式不正确，只能是\"{Constant.Excel97ExtensionName}\"格式！");
-            }
             if (sheetIndex < 0)
             {
                 sheetIndex = 0;
@@ -51,7 +46,8 @@ namespace SD.Toolkits.Excel
             using (FileStream stream = File.OpenRead(path))
             {
                 //02.创建工作薄
-                IWorkbook workbook = new HSSFWorkbook(stream);
+                string extensionName = Path.GetExtension(path);
+                IWorkbook workbook = ExcelConductor.CreateWorkbook(extensionName, stream);
 
                 #region # 验证
 
@@ -92,10 +88,6 @@ namespace SD.Toolkits.Excel
             {
                 throw new ArgumentNullException(nameof(sheetName), "工作表名称不可为空！");
             }
-            if (Path.GetExtension(path) != Constant.Excel97ExtensionName)
-            {
-                throw new ArgumentOutOfRangeException(nameof(path), $"文件格式不正确，只能是\"{Constant.Excel97ExtensionName}\"格式！");
-            }
             if (rowIndex < 0)
             {
                 rowIndex = 0;
@@ -107,7 +99,8 @@ namespace SD.Toolkits.Excel
             using (FileStream stream = File.OpenRead(path))
             {
                 //02.创建工作薄
-                IWorkbook workbook = new HSSFWorkbook(stream);
+                string extensionName = Path.GetExtension(path);
+                IWorkbook workbook = ExcelConductor.CreateWorkbook(extensionName, stream);
 
                 //03.读取给定工作表
                 ISheet sheet = workbook.GetSheet(sheetName);
@@ -140,7 +133,7 @@ namespace SD.Toolkits.Excel
 
             #endregion
 
-            ICollection<T> collection = new List<T>();
+            IList<T> collection = new List<T>();
 
             //读取给定行索引后的每一行
             for (int index = rowIndex; index <= sheet.LastRowNum; index++)
@@ -168,7 +161,7 @@ namespace SD.Toolkits.Excel
         /// <param name="instance">对象实例</param>
         private static void FillInstanceValue<T>(ISheet sheet, int index, PropertyInfo[] properties, T instance)
         {
-            HSSFFormulaEvaluator evaluator = new HSSFFormulaEvaluator(sheet.Workbook);
+            IFormulaEvaluator formulaEvaluator = ExcelConductor.CreateFormulaEvaluator(sheet.Workbook);
             IRow row = sheet.GetRow(index);
 
             #region # 验证
@@ -189,7 +182,7 @@ namespace SD.Toolkits.Excel
 
                 if (cell.CellType == CellType.Formula)
                 {
-                    CellValue formulaValue = evaluator.Evaluate(cell);
+                    CellValue formulaValue = formulaEvaluator.Evaluate(cell);
                     switch (formulaValue.CellType)
                     {
                         case CellType.Numeric:

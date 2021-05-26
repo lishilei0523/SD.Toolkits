@@ -1,5 +1,4 @@
-﻿using NPOI.HSSF.UserModel;
-using NPOI.SS.UserModel;
+﻿using NPOI.SS.UserModel;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -21,7 +20,7 @@ namespace SD.Toolkits.Excel
         /// </summary>
         /// <param name="enumerable">集合对象</param>
         /// <param name="path">写入路径</param>
-        /// <param name="titles">标题集</param>
+        /// <param name="titles">标题列表</param>
         public static void WriteFile<T>(IEnumerable<T> enumerable, string path, string[] titles = null)
         {
             T[] array = enumerable == null ? new T[0] : enumerable.ToArray();
@@ -36,15 +35,12 @@ namespace SD.Toolkits.Excel
             {
                 throw new ArgumentNullException(nameof(path), "写入路径不可为空！");
             }
-            if (Path.GetExtension(path) != Constant.Excel97ExtensionName)
-            {
-                throw new ArgumentOutOfRangeException(nameof(path), "文件格式不正确！");
-            }
 
             #endregion
 
             //创建工作簿
-            IWorkbook workbook = CreateWorkbook(array, titles);
+            string extensionName = Path.GetExtension(path);
+            IWorkbook workbook = CreateWorkbook(extensionName, array, titles);
 
             //写入文件
             using (FileStream stream = File.OpenWrite(path))
@@ -59,9 +55,10 @@ namespace SD.Toolkits.Excel
         /// 将集合写入Excel字节数组
         /// </summary>
         /// <param name="enumerable">集合对象</param>
-        /// <param name="titles">标题集</param>
+        /// <param name="excelVersion">Excel版本</param>
+        /// <param name="titles">标题列表</param>
         /// <returns>字节数组</returns>
-        public static byte[] WriteStream<T>(IEnumerable<T> enumerable, string[] titles = null)
+        public static byte[] WriteStream<T>(IEnumerable<T> enumerable, ExcelVersion excelVersion, string[] titles = null)
         {
             T[] array = enumerable == null ? new T[0] : enumerable.ToArray();
 
@@ -74,13 +71,16 @@ namespace SD.Toolkits.Excel
 
             #endregion
 
-            IWorkbook workbook = CreateWorkbook(array, titles);
+            string extensionName = ExcelConductor.ExcelVersions[excelVersion];
+            IWorkbook workbook = CreateWorkbook(extensionName, array, titles);
 
             //写入内存流
             using (MemoryStream stream = new MemoryStream())
             {
                 workbook.Write(stream);
-                return stream.ToArray();
+                byte[] buffer = stream.ToArray();
+
+                return buffer;
             }
         }
         #endregion
@@ -88,18 +88,19 @@ namespace SD.Toolkits.Excel
 
         //Private
 
-        #region # 创建工作簿 —— static IWorkbook CreateWorkbook<T>(T[] array...
+        #region # 创建工作簿 —— static IWorkbook CreateWorkbook<T>(string extensionName...
         /// <summary>
         /// 创建工作簿
         /// </summary>
         /// <typeparam name="T">类型</typeparam>
+        /// <param name="extensionName">扩展名</param>
         /// <param name="array">对象数组</param>
         /// <param name="titles">标题集</param>
         /// <returns>工作簿</returns>
-        private static IWorkbook CreateWorkbook<T>(T[] array, string[] titles = null)
+        private static IWorkbook CreateWorkbook<T>(string extensionName, T[] array, string[] titles = null)
         {
             //01.创建工作簿
-            IWorkbook workbook = new HSSFWorkbook();
+            IWorkbook workbook = ExcelConductor.CreateWorkbook(extensionName);
 
             //02.创建工作表
             ISheet sheet = workbook.CreateSheet(typeof(T).Name);
@@ -107,19 +108,21 @@ namespace SD.Toolkits.Excel
             #region //03.创建标题行
 
             IRow rowTitle = sheet.CreateRow(0);
-
             string[] defaultTitles = typeof(T).GetProperties().Select(x => x.Name).ToArray();
-
             if (titles == null)
             {
                 CreateTitleRow(defaultTitles, rowTitle);
             }
             else
             {
+                #region # 验证
+
                 if (titles.Length != defaultTitles.Length)
                 {
-                    throw new InvalidDataException("标题列数与数据列数不一致！");
+                    throw new ArgumentOutOfRangeException(nameof(titles), "标题列数与数据列数不一致！");
                 }
+
+                #endregion
 
                 CreateTitleRow(titles, rowTitle);
             }
@@ -128,6 +131,7 @@ namespace SD.Toolkits.Excel
 
             //04.创建数据行
             CreateDataRows(array, sheet);
+
             return workbook;
         }
         #endregion
@@ -198,7 +202,7 @@ namespace SD.Toolkits.Excel
                     }
                     else if (properties[j].PropertyType == typeof(DateTime))
                     {
-                        row.CreateCell(j).SetCellValue(((DateTime)properties[j].GetValue(item)).ToString("yyyy/MM/dd HH:mm:ss"));
+                        row.CreateCell(j).SetCellValue(((DateTime)properties[j].GetValue(item)).ToString("yyyy-MM-dd HH:mm:ss"));
                     }
                     else
                     {

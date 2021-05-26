@@ -13,9 +13,14 @@ namespace SD.Toolkits.Excel.Tests.TestCases
     public class ExcelWriterTests
     {
         /// <summary>
-        /// 目标路径
+        /// Excel 2003目标路径
         /// </summary>
-        private const string TargetExcelPath = "西游记.xls";
+        private const string TargetExcel03Path = "西游记.xls";
+
+        /// <summary>
+        /// Excel 2007目标路径
+        /// </summary>
+        private const string TargetExcel07Path = "西游记.xlsx";
 
         /// <summary>
         /// 人员集
@@ -28,38 +33,63 @@ namespace SD.Toolkits.Excel.Tests.TestCases
         [TestInitialize]
         public void Init()
         {
-            if (File.Exists(TargetExcelPath))
-            {
-                File.Delete(TargetExcelPath);
-            }
-
             this._persons = new List<Person>
             {
-                new Person{姓名="唐三藏", 性别 = true, 年龄 = 25, 爱好 = "取经"},
-                new Person{姓名="孙悟空", 性别 = true, 年龄 = 19, 爱好 = "取经"},
-                new Person{姓名="猪八戒", 性别 = true, 年龄 = 18, 爱好 = "取经"},
-                new Person{姓名="沙悟净", 性别 = true, 年龄 = 17, 爱好 = null}
+                new Person {姓名 = "唐三藏", 性别 = true, 年龄 = 25, 爱好 = "取经"},
+                new Person {姓名 = "孙悟空", 性别 = true, 年龄 = 19, 爱好 = "取经"},
+                new Person {姓名 = "猪八戒", 性别 = true, 年龄 = 18, 爱好 = "取经"},
+                new Person {姓名 = "沙悟净", 性别 = true, 年龄 = 17, 爱好 = null}
             };
         }
 
         /// <summary>
-        /// 写入至文件测试
+        /// Excel 2003写入至文件测试
         /// </summary>
         [TestMethod]
-        public void WriteToFileTest()
+        public void WriteToFileTest03()
         {
-            ExcelWriter.WriteFile(this._persons, TargetExcelPath);
+            if (File.Exists(TargetExcel03Path))
+            {
+                File.Delete(TargetExcel03Path);
+            }
 
-            Assert.IsTrue(File.Exists(TargetExcelPath));
+            ExcelWriter.WriteFile(this._persons, TargetExcel03Path);
+            Assert.IsTrue(File.Exists(TargetExcel03Path));
         }
 
         /// <summary>
-        /// 写入至字节数组测试
+        /// Excel 2003写入至字节数组测试
         /// </summary>
         [TestMethod]
-        public void ReadToArrayByNameTest()
+        public void ReadToArrayByNameTest03()
         {
-            byte[] buffer = ExcelWriter.WriteStream(this._persons);
+            byte[] buffer = ExcelWriter.WriteStream(this._persons, ExcelVersion.Excel03);
+
+            Assert.IsTrue(buffer.Any());
+        }
+
+        /// <summary>
+        /// Excel 2007写入至文件测试
+        /// </summary>
+        [TestMethod]
+        public void WriteToFileTest07()
+        {
+            if (File.Exists(TargetExcel07Path))
+            {
+                File.Delete(TargetExcel07Path);
+            }
+
+            ExcelWriter.WriteFile(this._persons, TargetExcel07Path);
+            Assert.IsTrue(File.Exists(TargetExcel07Path));
+        }
+
+        /// <summary>
+        /// Excel 2007写入至字节数组测试
+        /// </summary>
+        [TestMethod]
+        public void ReadToArrayByNameTest07()
+        {
+            byte[] buffer = ExcelWriter.WriteStream(this._persons, ExcelVersion.Excel07);
 
             Assert.IsTrue(buffer.Any());
         }
