@@ -57,9 +57,9 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SD.Common.NET45\SD.Common.NET45.csproj">
-      <Project>{3b1aef4b-93b2-4ae0-9199-7e2c1d54c10b}</Project>
-      <Name>SD.Common.NET45</Name>
+    <ProjectReference Include="..\SD.Common\SD.Common.csproj">
+      <Project>{b6e50065-9c06-4013-ad49-3c4901c0a6d2}</Project>
+      <Name>SD.Common</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />

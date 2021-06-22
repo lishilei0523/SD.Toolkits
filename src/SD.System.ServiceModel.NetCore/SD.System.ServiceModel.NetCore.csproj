@@ -5,7 +5,7 @@
     <RootNamespace>System.ServiceModel.NetCore</RootNamespace>
     <Authors>Lee</Authors>
     <Company>SD</Company>
-    <Description>.NET Core WCF扩展工具</Description>
+    <Description>SD.Toolkits .NET Core WCF扩展组件</Description>
     <Copyright>Copyright © SD 2021</Copyright>
   </PropertyGroup>
 

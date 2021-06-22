@@ -1,9 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFrameworks>net40;netstandard2.0</TargetFrameworks>
     <Authors>Lee</Authors>
     <Company>SD</Company>
-    <Description>递归扩展组件</Description>
+    <Description>SD.Toolkits 递归扩展组件</Description>
     <Copyright>Copyright © SD 2021</Copyright>
     <Version>2.0.0</Version>
     <FileVersion>2.0.0</FileVersion>
@@ -11,9 +11,9 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>bin\Debug\netstandard2.0\SD.Toolkits.Recursion.xml</DocumentationFile>
+    <DocumentationFile>bin\Debug\$(TargetFramework)\SD.Toolkits.Recursion.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>bin\Release\netstandard2.0\SD.Toolkits.Recursion.xml</DocumentationFile>
+    <DocumentationFile>bin\Release\$(TargetFramework)\SD.Toolkits.Recursion.xml</DocumentationFile>
   </PropertyGroup>
 </Project>

@@ -46,12 +46,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SD.Toolkits.NCalc.NET45\SD.Toolkits.NCalc.NET45.csproj">
-      <Project>{097b56e6-9746-4682-9fb4-959b3fb2b6ac}</Project>
-      <Name>SD.Toolkits.NCalc.NET45</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <PackageReference Include="CoreCLR-NCalc">
       <Version>2.2.92</Version>
     </PackageReference>
@@ -61,6 +55,12 @@
     <PackageReference Include="MSTest.TestFramework">
       <Version>2.2.3</Version>
     </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SD.Toolkits.NCalc\SD.Toolkits.NCalc.csproj">
+      <Project>{5ad2b2aa-e5aa-4a9a-99de-838186c4c97a}</Project>
+      <Name>SD.Toolkits.NCalc</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

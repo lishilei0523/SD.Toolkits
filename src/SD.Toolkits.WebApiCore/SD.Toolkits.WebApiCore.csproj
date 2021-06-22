@@ -3,7 +3,7 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <Authors>Lee</Authors>
     <Company>SD</Company>
-    <Description>ASP.NET Core WebApi扩展工具</Description>
+    <Description>SD.Toolkits ASP.NET Core WebApi扩展组件</Description>
     <Copyright>Copyright © SD 2021</Copyright>
   </PropertyGroup>
 

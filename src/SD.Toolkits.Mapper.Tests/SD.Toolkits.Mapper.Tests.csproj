@@ -56,9 +56,9 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SD.Toolkits.Mapper.NET461\SD.Toolkits.Mapper.NET461.csproj">
-      <Project>{5fc7f5c2-2c46-44a2-b0c5-115327bad190}</Project>
-      <Name>SD.Toolkits.Mapper.NET461</Name>
+    <ProjectReference Include="..\SD.Toolkits.Mapper\SD.Toolkits.Mapper.csproj">
+      <Project>{15a3b43d-fb35-43d3-8963-f4ab1f2a9cc1}</Project>
+      <Name>SD.Toolkits.Mapper</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />

@@ -73,9 +73,9 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SD.Toolkits.Excel.NET461\SD.Toolkits.Excel.NET461.csproj">
-      <Project>{ecab2ccf-d3b7-44ae-b79e-d60fde3f9f0f}</Project>
-      <Name>SD.Toolkits.Excel.NET461</Name>
+    <ProjectReference Include="..\SD.Toolkits.Excel\SD.Toolkits.Excel.csproj">
+      <Project>{868d8d86-2753-4a2c-acdc-a54509936734}</Project>
+      <Name>SD.Toolkits.Excel</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>

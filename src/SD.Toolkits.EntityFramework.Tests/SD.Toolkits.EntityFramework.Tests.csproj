@@ -72,15 +72,15 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SD.Toolkits.EntityFramework.NET45\SD.Toolkits.EntityFramework.NET45.csproj">
-      <Project>{a101fbdf-273f-477f-85df-d9ad39fdb117}</Project>
-      <Name>SD.Toolkits.EntityFramework.NET45</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <PackageReference Include="EntityFramework">
       <Version>6.2.0</Version>
     </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SD.Toolkits.EntityFramework\SD.Toolkits.EntityFramework.csproj">
+      <Project>{07165e19-a869-4f33-a906-46a8ef4e5aa2}</Project>
+      <Name>SD.Toolkits.EntityFramework</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

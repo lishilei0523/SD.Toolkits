@@ -48,18 +48,18 @@
     <Compile Include="StubEntities\Student.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SD.Toolkits.Json.NET45\SD.Toolkits.Json.NET45.csproj">
-      <Project>{1a679716-ef36-4996-84fc-52b3b7392e33}</Project>
-      <Name>SD.Toolkits.Json.NET45</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <PackageReference Include="MSTest.TestAdapter">
       <Version>2.2.3</Version>
     </PackageReference>
     <PackageReference Include="MSTest.TestFramework">
       <Version>2.2.3</Version>
     </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SD.Toolkits.Json\SD.Toolkits.Json.csproj">
+      <Project>{cdff901b-bc8a-4fb7-9c1f-be010bada9b9}</Project>
+      <Name>SD.Toolkits.Json</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

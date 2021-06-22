@@ -62,9 +62,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SD.Toolkits.SerialNumber.NET4\SD.Toolkits.SerialNumber.NET4.csproj">
-      <Project>{2b4d69ae-f997-4487-a328-cc221efd45d2}</Project>
-      <Name>SD.Toolkits.SerialNumber.NET4</Name>
+    <ProjectReference Include="..\SD.Toolkits.SerialNumber\SD.Toolkits.SerialNumber.csproj">
+      <Project>{f4ce2b91-69f2-4e82-b4b5-3925ad5d9d92}</Project>
+      <Name>SD.Toolkits.SerialNumber</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>

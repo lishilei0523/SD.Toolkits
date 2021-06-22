@@ -68,9 +68,9 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SD.Toolkits.AspNet.NET45\SD.Toolkits.AspNet.NET45.csproj">
-      <Project>{11c3521b-3fbc-4f98-b55d-dce321f02ac8}</Project>
-      <Name>SD.Toolkits.AspNet.NET45</Name>
+    <ProjectReference Include="..\SD.Toolkits.AspNet\SD.Toolkits.AspNet.csproj">
+      <Project>{c400acf0-5e0f-49be-a1a7-5b41298b9084}</Project>
+      <Name>SD.Toolkits.AspNet</Name>
     </ProjectReference>
     <ProjectReference Include="..\SD.Toolkits.WebApi\SD.Toolkits.WebApi.csproj">
       <Project>{5e9cbcf4-4b63-49b1-92d9-a5dda71455e3}</Project>

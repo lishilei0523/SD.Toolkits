@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFrameworks>net45;netstandard2.0</TargetFrameworks>
     <Authors>Lee</Authors>
     <Company>SD</Company>
     <Description>SD.Toolkits ASP.NET配置组件</Description>
@@ -8,28 +8,17 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>bin\Debug\netstandard2.0\SD.Toolkits.AspNet.xml</DocumentationFile>
+    <DocumentationFile>bin\Debug\$(TargetFramework)\SD.Toolkits.AspNet.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>bin\Release\netstandard2.0\SD.Toolkits.AspNet.xml</DocumentationFile>
+    <DocumentationFile>bin\Release\$(TargetFramework)\SD.Toolkits.AspNet.xml</DocumentationFile>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Compile Include="..\SD.Toolkits.AspNet.NET45\Configurations\AspNetSection.cs">
-      <Link>Configurations\AspNetSection.cs</Link>
-    </Compile>
-    <Compile Include="..\SD.Toolkits.AspNet.NET45\Configurations\HostElement.cs">
-      <Link>Configurations\HostElement.cs</Link>
-    </Compile>
-    <Compile Include="..\SD.Toolkits.AspNet.NET45\Configurations\HostElementCollection.cs">
-      <Link>Configurations\HostElementCollection.cs</Link>
-    </Compile>
-    <Compile Include="..\SD.Toolkits.AspNet.NET45\Configurations\TextElement.cs">
-      <Link>Configurations\TextElement.cs</Link>
-    </Compile>
+  <ItemGroup Condition="'$(TargetFramework)' == 'net45'">
+    <Reference Include="System.Configuration" />
   </ItemGroup>
 
-  <ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.7.0" />
   </ItemGroup>
 </Project>

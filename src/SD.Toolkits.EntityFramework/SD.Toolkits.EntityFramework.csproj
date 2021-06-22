@@ -1,38 +1,24 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>netstandard2.1</TargetFramework>
-    <Description>EntityFramework基础</Description>
-    <Company>SD</Company>
+    <TargetFrameworks>net45;netstandard2.1</TargetFrameworks>
     <Authors>Lee</Authors>
+    <Company>SD</Company>
+    <Description>SD.Toolkits EntityFramework基础</Description>
     <Copyright>Copyright © SD 2021</Copyright>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>bin\Debug\netstandard2.1\SD.Toolkits.EntityFramework.xml</DocumentationFile>
+    <DocumentationFile>bin\Debug\$(TargetFramework)\SD.Toolkits.EntityFramework.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>bin\Release\netstandard2.1\SD.Toolkits.EntityFramework.xml</DocumentationFile>
+    <DocumentationFile>bin\Release\$(TargetFramework)\SD.Toolkits.EntityFramework.xml</DocumentationFile>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Compile Include="..\SD.Toolkits.EntityFramework.NET45\Base\BaseDbContext.cs">
-      <Link>Base\BaseDbContext.cs</Link>
-    </Compile>
-    <Compile Include="..\SD.Toolkits.EntityFramework.NET45\Extensions\FluentApiExtension.cs">
-      <Link>Extensions\FluentApiExtension.cs</Link>
-    </Compile>
-    <Compile Include="..\SD.Toolkits.EntityFramework.NET45\Extensions\IndexType.cs">
-      <Link>Extensions\IndexType.cs</Link>
-    </Compile>
-    <Compile Include="..\SD.Toolkits.EntityFramework.NET45\Extensions\PredicateBuilder.cs">
-      <Link>Extensions\PredicateBuilder.cs</Link>
-    </Compile>
-    <Compile Include="..\SD.Toolkits.EntityFramework.NET45\Extensions\QueryableExtension.cs">
-      <Link>Extensions\QueryableExtension.cs</Link>
-    </Compile>
+  <ItemGroup Condition="'$(TargetFramework)' == 'net45'">
+    <PackageReference Include="EntityFramework" Version="6.2.0" />
   </ItemGroup>
 
-  <ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.1'">
     <PackageReference Include="EntityFramework" Version="6.4.4" />
   </ItemGroup>
 </Project>
