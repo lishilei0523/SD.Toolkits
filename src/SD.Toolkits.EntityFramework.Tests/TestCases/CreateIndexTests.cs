@@ -32,6 +32,7 @@ namespace SD.Toolkits.EntityFramework.Tests.TestCases
         {
             //初始化
             DbSession dbSession = new DbSession();
+            dbSession.Database.CreateIfNotExists();
 
             //断言数据库已创建成功
             //TODO 查看数据库Student表是否有ClassId的索引
