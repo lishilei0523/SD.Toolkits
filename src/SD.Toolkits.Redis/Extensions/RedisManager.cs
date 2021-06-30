@@ -21,6 +21,11 @@ namespace SD.Toolkits.Redis
         private static readonly IList<KeyValuePair<string, int>> _RedisEndpoints;
 
         /// <summary>
+        /// Redis配置选项
+        /// </summary>
+        private static readonly ConfigurationOptions _RedisConfigurationOptions;
+
+        /// <summary>
         /// Redis连接通道
         /// </summary>
         private static readonly ConnectionMultiplexer _Instance;
@@ -31,24 +36,21 @@ namespace SD.Toolkits.Redis
         static RedisManager()
         {
             _RedisEndpoints = new List<KeyValuePair<string, int>>();
-            ConfigurationOptions config = new ConfigurationOptions();
-
+            _RedisConfigurationOptions = new ConfigurationOptions();
+            _RedisConfigurationOptions.KeepAlive = 180;
+            _RedisConfigurationOptions.AllowAdmin = true;
             foreach (EndpointElement endpoint in RedisSection.Setting.EndpointElements)
             {
-                config.EndPoints.Add(endpoint.Host, endpoint.Port);
+                _RedisConfigurationOptions.EndPoints.Add(endpoint.Host, endpoint.Port);
                 _RedisEndpoints.Add(new KeyValuePair<string, int>(endpoint.Host, endpoint.Port));
             }
-
-            config.KeepAlive = 180;
-            config.AllowAdmin = true;
-
             if (!string.IsNullOrWhiteSpace(RedisSection.Setting.Password))
             {
-                config.Password = RedisSection.Setting.Password;
+                _RedisConfigurationOptions.Password = RedisSection.Setting.Password;
                 _RedisPassword = RedisSection.Setting.Password;
             }
 
-            _Instance = ConnectionMultiplexer.Connect(config);
+            _Instance = ConnectionMultiplexer.Connect(_RedisConfigurationOptions);
         }
 
 
@@ -66,6 +68,14 @@ namespace SD.Toolkits.Redis
         public static IList<KeyValuePair<string, int>> RedisEndpoints
         {
             get { return _RedisEndpoints; }
+        }
+
+        /// <summary>
+        /// Redis配置选项
+        /// </summary>
+        public static ConfigurationOptions RedisConfigurationOptions
+        {
+            get { return _RedisConfigurationOptions; }
         }
 
         /// <summary>

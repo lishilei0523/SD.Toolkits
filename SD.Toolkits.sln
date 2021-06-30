@@ -3,17 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30907.101
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.EntityFramework.Tests", "src\SD.Toolkits.EntityFramework.Tests\SD.Toolkits.EntityFramework.Tests.csproj", "{2123B05C-FC6A-4AC0-8223-540B00F8F30C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Toolkits.EntityFramework.Tests", "src\SD.Toolkits.EntityFramework.Tests\SD.Toolkits.EntityFramework.Tests.csproj", "{2123B05C-FC6A-4AC0-8223-540B00F8F30C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.SerialNumber.Tests", "src\SD.Toolkits.SerialNumber.Tests\SD.Toolkits.SerialNumber.Tests.csproj", "{021ED5C8-EF08-49BB-A4AE-337072E417B0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Toolkits.SerialNumber.Tests", "src\SD.Toolkits.SerialNumber.Tests\SD.Toolkits.SerialNumber.Tests.csproj", "{021ED5C8-EF08-49BB-A4AE-337072E417B0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.SessionSharing.TestSiteMain", "src\SD.Toolkits.SessionSharing.TestSiteMain\SD.Toolkits.SessionSharing.TestSiteMain.csproj", "{3002A0DC-268F-40CE-AF4D-D000ED904A58}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.SessionSharing.TestSiteSub", "src\SD.Toolkits.SessionSharing.TestSiteSub\SD.Toolkits.SessionSharing.TestSiteSub.csproj", "{FC4588F7-2FE9-4D99-8352-6F344DE6EEC0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.Recursion.Tests", "src\SD.Toolkits.Recursion.Tests\SD.Toolkits.Recursion.Tests.csproj", "{3B3136DA-F25E-49EB-B817-B841A83E99D2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Toolkits.Recursion.Tests", "src\SD.Toolkits.Recursion.Tests\SD.Toolkits.Recursion.Tests.csproj", "{3B3136DA-F25E-49EB-B817-B841A83E99D2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.Excel.Tests", "src\SD.Toolkits.Excel.Tests\SD.Toolkits.Excel.Tests.csproj", "{02740F70-7E2C-4FC1-864B-A76CE08E9962}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Toolkits.Excel.Tests", "src\SD.Toolkits.Excel.Tests\SD.Toolkits.Excel.Tests.csproj", "{02740F70-7E2C-4FC1-864B-A76CE08E9962}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03 - Tests", "03 - Tests", "{DE420171-A672-478A-99CA-62AB53D57785}"
 EndProject
@@ -21,7 +21,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Toolkits.EntityFramework
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Toolkits.Redis", "src\SD.Toolkits.Redis\SD.Toolkits.Redis.csproj", "{85CCF2CF-082A-4BFA-BAB3-719FCE5E0A4C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.Redis.Tests", "src\SD.Toolkits.Redis.Tests\SD.Toolkits.Redis.Tests.csproj", "{86B7F67E-3EED-49FD-B728-508EB75CA5E8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Toolkits.Redis.Tests", "src\SD.Toolkits.Redis.Tests\SD.Toolkits.Redis.Tests.csproj", "{86B7F67E-3EED-49FD-B728-508EB75CA5E8}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01 - .NET Framework", "01 - .NET Framework", "{341CD552-661B-49D6-934A-9CE5C11437A3}"
 EndProject
@@ -35,7 +35,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Common", "src\SD.Common\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Toolkits.Image", "src\SD.Toolkits.Image\SD.Toolkits.Image.csproj", "{93635750-E60D-4525-9997-F1D9CD386263}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Common.Tests", "src\SD.Common.Tests\SD.Common.Tests.csproj", "{CD94D63E-E7A3-46FF-ADC7-2AF9CEBB3755}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Common.Tests", "src\SD.Common.Tests\SD.Common.Tests.csproj", "{CD94D63E-E7A3-46FF-ADC7-2AF9CEBB3755}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Toolkits.Excel", "src\SD.Toolkits.Excel\SD.Toolkits.Excel.csproj", "{868D8D86-2753-4A2C-ACDC-A54509936734}"
 EndProject
@@ -45,23 +45,23 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.System.ServiceModel.NetC
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Toolkits.EntityFramework", "src\SD.Toolkits.EntityFramework\SD.Toolkits.EntityFramework.csproj", "{07165E19-A869-4F33-A906-46A8EF4E5AA2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.RabbitMQ.ServiceModel", "src\SD.RabbitMQ.ServiceModel\SD.RabbitMQ.ServiceModel.csproj", "{5117232B-EE07-46F8-8AF5-2B636F1DBF56}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.RabbitMQ.ServiceModel", "src\SD.RabbitMQ.ServiceModel\SD.RabbitMQ.ServiceModel.csproj", "{5117232B-EE07-46F8-8AF5-2B636F1DBF56}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Toolkits.NCalc", "src\SD.Toolkits.NCalc\SD.Toolkits.NCalc.csproj", "{5AD2B2AA-E5AA-4A9A-99DE-838186C4C97A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.NCalc.Tests", "src\SD.Toolkits.NCalc.Tests\SD.Toolkits.NCalc.Tests.csproj", "{7935349F-5B1C-46CC-B1B6-B3FC8A8A029B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Toolkits.NCalc.Tests", "src\SD.Toolkits.NCalc.Tests\SD.Toolkits.NCalc.Tests.csproj", "{7935349F-5B1C-46CC-B1B6-B3FC8A8A029B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Toolkits.Mapper", "src\SD.Toolkits.Mapper\SD.Toolkits.Mapper.csproj", "{15A3B43D-FB35-43D3-8963-F4AB1F2A9CC1}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Toolkits.Json", "src\SD.Toolkits.Json\SD.Toolkits.Json.csproj", "{CDFF901B-BC8A-4FB7-9C1F-BE010BADA9B9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.Mapper.Tests", "src\SD.Toolkits.Mapper.Tests\SD.Toolkits.Mapper.Tests.csproj", "{08A0349A-57FD-4547-AF53-E5B111901753}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Toolkits.Mapper.Tests", "src\SD.Toolkits.Mapper.Tests\SD.Toolkits.Mapper.Tests.csproj", "{08A0349A-57FD-4547-AF53-E5B111901753}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.Json.Tests", "src\SD.Toolkits.Json.Tests\SD.Toolkits.Json.Tests.csproj", "{C89B2B99-2ECD-4440-9334-89B2A5AD4257}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Toolkits.Json.Tests", "src\SD.Toolkits.Json.Tests\SD.Toolkits.Json.Tests.csproj", "{C89B2B99-2ECD-4440-9334-89B2A5AD4257}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.WebApi", "src\SD.Toolkits.WebApi\SD.Toolkits.WebApi.csproj", "{5E9CBCF4-4B63-49B1-92D9-A5DDA71455E3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Toolkits.WebApi", "src\SD.Toolkits.WebApi\SD.Toolkits.WebApi.csproj", "{5E9CBCF4-4B63-49B1-92D9-A5DDA71455E3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.Owin", "src\SD.Toolkits.Owin\SD.Toolkits.Owin.csproj", "{6F684A0F-557C-4743-A842-33910411DDBD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Toolkits.Owin", "src\SD.Toolkits.Owin\SD.Toolkits.Owin.csproj", "{6F684A0F-557C-4743-A842-33910411DDBD}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Toolkits.EntityFrameworkCore.Tests", "src\SD.Toolkits.EntityFrameworkCore.Tests\SD.Toolkits.EntityFrameworkCore.Tests.csproj", "{02137342-519A-4A6C-BA86-1DD0EC7A16F4}"
 EndProject
@@ -71,19 +71,23 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Toolkits.WebApiCore.Test
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Toolkits.OwinCore", "src\SD.Toolkits.OwinCore\SD.Toolkits.OwinCore.csproj", "{9D76BE5D-A734-4AAC-AF61-0DA80D0DDB8A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.MVC", "src\SD.Toolkits.MVC\SD.Toolkits.MVC.csproj", "{E05EF0BD-BC92-4173-8EA4-3693DC5B636D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Toolkits.MVC", "src\SD.Toolkits.MVC\SD.Toolkits.MVC.csproj", "{E05EF0BD-BC92-4173-8EA4-3693DC5B636D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Toolkits.AspNet", "src\SD.Toolkits.AspNet\SD.Toolkits.AspNet.csproj", "{C400ACF0-5E0F-49BE-A1A7-5B41298B9084}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.WebApi.Tests", "src\SD.Toolkits.WebApi.Tests\SD.Toolkits.WebApi.Tests.csproj", "{B640C299-0B25-4CD7-B150-813C484DB0E8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Toolkits.WebApi.Tests", "src\SD.Toolkits.WebApi.Tests\SD.Toolkits.WebApi.Tests.csproj", "{B640C299-0B25-4CD7-B150-813C484DB0E8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.WebHost", "src\SD.Toolkits.WebHost\SD.Toolkits.WebHost.csproj", "{45562BE3-1606-4A06-9AE7-AA76521E02D5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Toolkits.WebHost", "src\SD.Toolkits.WebHost\SD.Toolkits.WebHost.csproj", "{45562BE3-1606-4A06-9AE7-AA76521E02D5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.WebHost.Tests", "src\SD.Toolkits.WebHost.Tests\SD.Toolkits.WebHost.Tests.csproj", "{40ECEC52-C9E8-4DCB-805E-3F3D9B99FDD0}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Toolkits.JavaScript", "src\SD.Toolkits.JavaScript\SD.Toolkits.JavaScript.csproj", "{B832897C-3735-4DA7-A481-2CDFD5C0A279}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.EasyUI", "src\SD.Toolkits.EasyUI\SD.Toolkits.EasyUI.csproj", "{17C9C417-0A42-4AE4-9412-77460E35ED12}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Toolkits.EasyUI", "src\SD.Toolkits.EasyUI\SD.Toolkits.EasyUI.csproj", "{17C9C417-0A42-4AE4-9412-77460E35ED12}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Toolkits.SessionSharing.SiteMaster", "src\SD.Toolkits.SessionSharing.SiteMaster\SD.Toolkits.SessionSharing.SiteMaster.csproj", "{80043FB5-E19B-4C41-9B91-EFCE6E18F9B1}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Toolkits.SessionSharing.SiteSlave", "src\SD.Toolkits.SessionSharing.SiteSlave\SD.Toolkits.SessionSharing.SiteSlave.csproj", "{49A9FFE8-E279-4142-B92D-7FEE6DAF0CCD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -243,6 +247,14 @@ Global
 		{17C9C417-0A42-4AE4-9412-77460E35ED12}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{17C9C417-0A42-4AE4-9412-77460E35ED12}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{17C9C417-0A42-4AE4-9412-77460E35ED12}.Release|Any CPU.Build.0 = Release|Any CPU
+		{80043FB5-E19B-4C41-9B91-EFCE6E18F9B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{80043FB5-E19B-4C41-9B91-EFCE6E18F9B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{80043FB5-E19B-4C41-9B91-EFCE6E18F9B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{80043FB5-E19B-4C41-9B91-EFCE6E18F9B1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{49A9FFE8-E279-4142-B92D-7FEE6DAF0CCD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{49A9FFE8-E279-4142-B92D-7FEE6DAF0CCD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{49A9FFE8-E279-4142-B92D-7FEE6DAF0CCD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{49A9FFE8-E279-4142-B92D-7FEE6DAF0CCD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -286,6 +298,8 @@ Global
 		{40ECEC52-C9E8-4DCB-805E-3F3D9B99FDD0} = {DE420171-A672-478A-99CA-62AB53D57785}
 		{B832897C-3735-4DA7-A481-2CDFD5C0A279} = {84CE5E54-82B6-4B0D-AEC5-3E22BF4FD0D2}
 		{17C9C417-0A42-4AE4-9412-77460E35ED12} = {84CE5E54-82B6-4B0D-AEC5-3E22BF4FD0D2}
+		{80043FB5-E19B-4C41-9B91-EFCE6E18F9B1} = {DE420171-A672-478A-99CA-62AB53D57785}
+		{49A9FFE8-E279-4142-B92D-7FEE6DAF0CCD} = {DE420171-A672-478A-99CA-62AB53D57785}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E971DA80-FBCC-48DC-94AF-074536131022}
