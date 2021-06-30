@@ -14,11 +14,11 @@ namespace SD.Toolkits.SessionSharing.SiteMaster
             services.AddDataProtection(options => options.ApplicationDiscriminator = "MyWebSite");
         }
 
-        public void Configure(IApplicationBuilder appbBuilder)
+        public void Configure(IApplicationBuilder appBuilder)
         {
-            appbBuilder.UseRouting();
-            appbBuilder.UseSession();
-            appbBuilder.UseEndpoints(endpoints =>
+            appBuilder.UseRouting();
+            appBuilder.UseSession();
+            appBuilder.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
