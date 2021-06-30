@@ -6,10 +6,10 @@ using System.Text;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 
-namespace SD.Toolkits.MVC.Filters
+namespace SD.Toolkits.AspNetMvc.Filters
 {
     /// <summary>
-    /// MVC异常过滤器
+    /// ASP.NET MVC异常过滤器
     /// </summary>
     public class MvcExceptionFilter : IExceptionFilter
     {
