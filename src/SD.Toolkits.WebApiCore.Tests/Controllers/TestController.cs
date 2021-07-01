@@ -8,7 +8,7 @@ using System.Diagnostics;
 namespace SD.Toolkits.WebApiCore.Tests.Controllers
 {
     [ApiController]
-    [Route("[controller]/[action]")]
+    [Route("Api/[controller]/[action]")]
     public class TestController : ControllerBase
     {
         [HttpGet]

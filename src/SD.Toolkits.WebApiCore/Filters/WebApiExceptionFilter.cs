@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.AspNetCore.Mvc.Filters;
 using System;
 using System.Net;
@@ -7,7 +8,7 @@ using System.Text.Json;
 namespace SD.Toolkits.WebApiCore.Filters
 {
     /// <summary>
-    /// WebApi异常过滤器
+    /// ASP.NET Core WebApi异常过滤器
     /// </summary>
     public class WebApiExceptionFilter : IExceptionFilter
     {
@@ -19,17 +20,22 @@ namespace SD.Toolkits.WebApiCore.Filters
         /// </summary>
         public void OnException(ExceptionContext context)
         {
-            Exception innerException = GetInnerException(context.Exception);
-
-            //处理异常消息
-            string errorMessage = string.Empty;
-            errorMessage = GetErrorMessage(innerException.Message, ref errorMessage);
-
-            ObjectResult response = new ObjectResult(errorMessage)
+            //判断是否是ApiController
+            if (context.ActionDescriptor is ControllerActionDescriptor actionDescriptor &&
+                actionDescriptor.ControllerTypeInfo.IsDefined(typeof(ApiControllerAttribute), true))
             {
-                StatusCode = (int)HttpStatusCode.InternalServerError
-            };
-            context.Result = response;
+                Exception innerException = GetInnerException(context.Exception);
+
+                //处理异常消息
+                string errorMessage = string.Empty;
+                errorMessage = GetErrorMessage(innerException.Message, ref errorMessage);
+
+                ObjectResult response = new ObjectResult(errorMessage)
+                {
+                    StatusCode = (int)HttpStatusCode.InternalServerError
+                };
+                context.Result = response;
+            }
         }
         #endregion
 

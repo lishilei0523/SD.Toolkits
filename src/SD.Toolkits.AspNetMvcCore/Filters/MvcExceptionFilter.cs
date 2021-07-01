@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.AspNetCore.Mvc.Filters;
 using SD.Toolkits.AspNet;
 using System;
@@ -21,6 +23,13 @@ namespace SD.Toolkits.AspNetMvcCore.Filters
         /// </summary>
         public async void OnException(ExceptionContext context)
         {
+            //判断是否是ApiController
+            if (context.ActionDescriptor is ControllerActionDescriptor actionDescriptor &&
+                actionDescriptor.ControllerTypeInfo.IsDefined(typeof(ApiControllerAttribute), true))
+            {
+                return;
+            }
+
             Exception innerException = GetInnerException(context.Exception);
 
             //处理异常消息
