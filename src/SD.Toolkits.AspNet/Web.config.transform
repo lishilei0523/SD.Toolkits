@@ -10,6 +10,10 @@
       <host url="http://localhost:33100" />
       <!--<host url="http://192.168.0.146:33100" />-->
     </hosts>
+    <!--应用程序名称-->
+    <applicationName>SD.Website</applicationName>
+    <!--机器标识-->
+    <machineKey>121E9861-4A82-4DA4-BF2A-9A6DF40413B8</machineKey>
     <!--默认登录页-->
     <loginPage>/User/Login</loginPage>
     <!--默认错误页-->

@@ -75,6 +75,30 @@ namespace SD.Toolkits.AspNet
         }
         #endregion
 
+        #region # 应用程序名称节点 —— TextElement ApplicationName
+        /// <summary>
+        /// 应用程序名称节点
+        /// </summary>
+        [ConfigurationProperty("applicationName", IsRequired = false)]
+        public TextElement ApplicationName
+        {
+            get { return (TextElement)this["applicationName"]; }
+            set { this["applicationName"] = value; }
+        }
+        #endregion
+
+        #region # 机器标识节点 —— TextElement MachineKey
+        /// <summary>
+        /// 机器标识节点
+        /// </summary>
+        [ConfigurationProperty("machineKey", IsRequired = false)]
+        public TextElement MachineKey
+        {
+            get { return (TextElement)this["machineKey"]; }
+            set { this["machineKey"] = value; }
+        }
+        #endregion
+
         #region # 登录页节点 —— TextElement LoginPage
         /// <summary>
         /// 登录页节点
