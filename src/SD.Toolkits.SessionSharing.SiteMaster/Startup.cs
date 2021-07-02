@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.Extensions.DependencyInjection;
 using SD.Toolkits.Redis;
 
@@ -11,7 +12,11 @@ namespace SD.Toolkits.SessionSharing.SiteMaster
             services.AddControllersWithViews();
             services.AddSession();
             services.AddStackExchangeRedisCache(options => options.ConfigurationOptions = RedisManager.RedisConfigurationOptions);
-            services.AddDataProtection(options => options.ApplicationDiscriminator = "MyWebSite");
+
+            IDataProtectionBuilder dataProtectionBuilder = services.AddDataProtection(options => options.ApplicationDiscriminator = "slamdunk.com");
+            dataProtectionBuilder.SetApplicationName("slamdunk.com");
+            dataProtectionBuilder.PersistKeysToStackExchangeRedis(RedisManager.Instance, "slamdunk.com");
+
         }
 
         public void Configure(IApplicationBuilder appBuilder)

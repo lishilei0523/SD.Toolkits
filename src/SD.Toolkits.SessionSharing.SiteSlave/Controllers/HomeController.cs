@@ -8,7 +8,7 @@ namespace SD.Toolkits.SessionSharing.SiteSlave.Controllers
         public IActionResult Index()
         {
             const string sessionKey = "SessionSharing";
-            string sessionResult = HttpContext.Session.GetString(sessionKey);
+            string sessionResult = base.HttpContext.Session.GetString(sessionKey);
             base.ViewBag.Session = sessionResult;
 
             return base.View();

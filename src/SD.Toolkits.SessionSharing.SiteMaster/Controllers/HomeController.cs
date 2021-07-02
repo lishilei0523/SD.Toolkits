@@ -12,7 +12,7 @@ namespace SD.Toolkits.SessionSharing.SiteMaster.Controllers
 
             HttpContext.Session.SetString(sessionKey, sessionValue);
 
-            string sessionResult = HttpContext.Session.GetString(sessionKey);
+            string sessionResult = base.HttpContext.Session.GetString(sessionKey);
             base.ViewBag.Session = sessionResult;
 
             return base.View();
