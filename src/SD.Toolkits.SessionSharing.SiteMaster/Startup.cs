@@ -16,7 +16,6 @@ namespace SD.Toolkits.SessionSharing.SiteMaster
             IDataProtectionBuilder dataProtectionBuilder = services.AddDataProtection(options => options.ApplicationDiscriminator = "slamdunk.com");
             dataProtectionBuilder.SetApplicationName("slamdunk.com");
             dataProtectionBuilder.PersistKeysToStackExchangeRedis(RedisManager.Instance, "slamdunk.com");
-
         }
 
         public void Configure(IApplicationBuilder appBuilder)
