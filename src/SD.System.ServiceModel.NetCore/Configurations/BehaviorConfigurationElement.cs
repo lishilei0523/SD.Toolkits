@@ -24,7 +24,7 @@ namespace System.ServiceModel.NetCore.Configurations
         /// 终节点行为列表
         /// </summary>
         [ConfigurationProperty("endpointBehaviors")]
-        [ConfigurationCollection(typeof(BehaviorConfigurationElementCollection), AddItemName = "endpointBehavior")]
+        [ConfigurationCollection(typeof(EndpointBehaviorElementCollection), AddItemName = "endpointBehavior")]
         public EndpointBehaviorElementCollection EndpointBehaviorElements
         {
             get

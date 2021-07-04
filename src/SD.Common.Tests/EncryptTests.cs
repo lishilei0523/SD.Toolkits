@@ -3,10 +3,10 @@
 namespace SD.Common.Tests
 {
     /// <summary>
-    /// 字符串解密解密测试
+    /// 字符串解密/解密测试
     /// </summary>
     [TestClass]
-    public class EncryptTest
+    public class EncryptTests
     {
         /// <summary>
         /// 无Key测试
