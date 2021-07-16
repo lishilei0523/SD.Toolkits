@@ -1,0 +1,7 @@
+﻿<configuration>
+  <!--SD.Toolkits.SerialNumber配置-->
+  <sd.toolkits.serialNumber>
+    <!--SQL Server序列种子提供者-->
+    <serialSeedProvider type="SD.Toolkits.SerialNumber.SqlServerSeedProvider" assembly="SD.Toolkits.SerialNumber.SqlServer" />
+  </sd.toolkits.serialNumber>
+</configuration>

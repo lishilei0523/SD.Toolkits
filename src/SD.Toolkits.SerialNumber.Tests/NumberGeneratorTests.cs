@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace SD.Toolkits.NoGenerator.Tests
+namespace SD.Toolkits.SerialNumber.Tests
 {
     /// <summary>
     /// 序列号生成器测试

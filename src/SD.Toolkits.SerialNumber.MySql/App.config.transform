@@ -1,0 +1,7 @@
+﻿<configuration>
+  <!--SD.Toolkits.SerialNumber配置-->
+  <sd.toolkits.serialNumber>
+    <!--MySQL序列种子提供者-->
+    <serialSeedProvider type="SD.Toolkits.SerialNumber.MySqlSeedProvider" assembly="SD.Toolkits.SerialNumber.MySql" />
+  </sd.toolkits.serialNumber>
+</configuration>

@@ -39,17 +39,5 @@ namespace SD.Common
             }
         }
         #endregion
-
-        #region # CLS类型值转数据库类型值 —— static object ToDbValue(this object value)
-        /// <summary>
-        /// CLS类型值转数据库类型值
-        /// </summary>
-        /// <param name="value">CLS类型值</param>
-        /// <returns>数据库类型值</returns>
-        public static object ToDbValue(this object value)
-        {
-            return value ?? DBNull.Value;
-        }
-        #endregion
     }
 }

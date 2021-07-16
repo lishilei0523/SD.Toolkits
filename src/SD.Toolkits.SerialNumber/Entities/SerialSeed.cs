@@ -13,7 +13,7 @@ namespace SD.Toolkits.SerialNumber.Entities
         /// <summary>
         /// 无参构造器
         /// </summary>
-        internal SerialSeed()
+        public SerialSeed()
         {
             //默认值
             this.TodayCount = 1;
@@ -48,49 +48,49 @@ namespace SD.Toolkits.SerialNumber.Entities
         /// <summary>
         /// 标识Id
         /// </summary>
-        public Guid Id { get; internal set; }
+        public Guid Id { get; set; }
         #endregion
 
         #region 种子名称 —— string Name
         /// <summary>
         /// 种子名称
         /// </summary>
-        public string Name { get; internal set; }
+        public string Name { get; set; }
         #endregion
 
         #region 前缀 —— string Prefix
         /// <summary>
         /// 前缀
         /// </summary>
-        public string Prefix { get; internal set; }
+        public string Prefix { get; set; }
         #endregion
 
         #region 时间戳 —— string Timestamp
         /// <summary>
         /// 时间戳
         /// </summary>
-        public string Timestamp { get; internal set; }
+        public string Timestamp { get; set; }
         #endregion
 
         #region 流水长度 —— int SerialLength
         /// <summary>
         /// 流水长度
         /// </summary>
-        public int SerialLength { get; internal set; }
+        public int SerialLength { get; set; }
         #endregion
 
         #region 当天流水数 —— int TodayCount
         /// <summary>
         /// 当天流水数
         /// </summary>
-        public int TodayCount { get; internal set; }
+        public int TodayCount { get; set; }
         #endregion
 
         #region 描述 —— string Description
         /// <summary>
         /// 描述
         /// </summary>
-        public string Description { get; internal set; }
+        public string Description { get; set; }
         #endregion
 
         #endregion

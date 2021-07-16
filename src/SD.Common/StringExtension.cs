@@ -63,29 +63,6 @@ namespace SD.Common
         }
         #endregion
 
-        #region # 过滤SQL敏感字符 —— static string FilterSql(this string text)
-        /// <summary>
-        /// 过滤SQL敏感字符
-        /// </summary>
-        /// <param name="text">文本</param>
-        /// <returns>过滤后的文本</returns>
-        public static string FilterSql(this string text)
-        {
-            #region # 验证
-
-            if (string.IsNullOrWhiteSpace(text))
-            {
-                return string.Empty;
-            }
-
-            #endregion
-
-            text = text.Replace("'", string.Empty);
-
-            return text;
-        }
-        #endregion
-
         #region # 加密文本 —— static string Encrypt(this string plaintext...
         /// <summary>
         /// 加密文本

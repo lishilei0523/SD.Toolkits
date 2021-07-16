@@ -1,29 +1,32 @@
-﻿using SD.Toolkits.SerialNumber.Commons;
-using SD.Toolkits.SerialNumber.Entities;
+﻿using SD.Toolkits.SerialNumber.Entities;
 using SD.Toolkits.SerialNumber.Interfaces;
+using SD.Toolkits.Sql;
+using SD.Toolkits.Sql.SqlServer;
 using System;
 using System.Configuration;
+using System.Data;
 using System.Data.SqlClient;
 using System.Text;
 
-namespace SD.Toolkits.SerialNumber.Implements
+// ReSharper disable once CheckNamespace
+namespace SD.Toolkits.SerialNumber
 {
     /// <summary>
-    /// 序列种子提供者默认实现
+    /// 序列种子提供者SQL Server实现
     /// </summary>
-    internal sealed class DefaultSerialSeedProvider : ISerialSeedProvider
+    public sealed class SqlServerSeedProvider : ISerialSeedProvider
     {
         #region # 常量、字段及构造器
 
         /// <summary>
         /// SQL Helper
         /// </summary>
-        private static readonly SqlHelper _SqlHelper;
+        private static readonly SqlServerHelper _SqlHelper;
 
         /// <summary>
         /// 静态构造器
         /// </summary>
-        static DefaultSerialSeedProvider()
+        static SqlServerSeedProvider()
         {
             string connectionString = null;
 
@@ -45,13 +48,13 @@ namespace SD.Toolkits.SerialNumber.Implements
             #endregion
 
             //初始化SQL工具
-            _SqlHelper = new SqlHelper(connectionString);
+            _SqlHelper = new SqlServerHelper(connectionString);
         }
 
         /// <summary>
         /// 构造器
         /// </summary>
-        public DefaultSerialSeedProvider()
+        public SqlServerSeedProvider()
         {
             //初始化数据表
             this.InitTable();
@@ -81,15 +84,15 @@ namespace SD.Toolkits.SerialNumber.Implements
             sqlBuilder.Append("AND [Timestamp] = @Timestamp ");
             sqlBuilder.Append("AND [SerialLength] = @SerialLength ");
 
-            SqlParameter[] parameters =
+            IDbDataParameter[] parameters =
             {
-                new SqlParameter("@Name", this.ToDbValue(seedName)),
-                new SqlParameter("@Prefix", this.ToDbValue(prefix)),
-                new SqlParameter("@Timestamp", this.ToDbValue(timestamp)),
-                new SqlParameter("@SerialLength", this.ToDbValue(serialLength))
+                new SqlParameter("@Name", seedName.ToDbValue()),
+                new SqlParameter("@Prefix", prefix.ToDbValue()),
+                new SqlParameter("@Timestamp", timestamp.ToDbValue()),
+                new SqlParameter("@SerialLength", serialLength.ToDbValue())
             };
 
-            using (SqlDataReader reader = _SqlHelper.ExecuteReader(sqlBuilder.ToString(), parameters))
+            using (IDataReader reader = _SqlHelper.ExecuteReader(sqlBuilder.ToString(), parameters))
             {
                 return reader.Read() ? this.ToModel(reader) : null;
             }
@@ -110,17 +113,18 @@ namespace SD.Toolkits.SerialNumber.Implements
             sqlBuilder.Append("VALUES ");
             sqlBuilder.Append("	(NEWID(), @Name , @Prefix, @Timestamp, @SerialLength, @TodayCount, @Description) ");
 
-            SqlParameter[] parameters =
+            IDbDataParameter[] parameters =
             {
-                new SqlParameter("@Name", this.ToDbValue(serialSeed.Name)),
-                new SqlParameter("@Prefix", this.ToDbValue(serialSeed.Prefix)),
-                new SqlParameter("@Timestamp", this.ToDbValue(serialSeed.Timestamp)),
-                new SqlParameter("@SerialLength", this.ToDbValue(serialSeed.SerialLength)),
-                new SqlParameter("@TodayCount", this.ToDbValue(serialSeed.TodayCount)),
-                new SqlParameter("@Description", this.ToDbValue(serialSeed.Description))
+                new SqlParameter("@Name", serialSeed.Name.ToDbValue()),
+                new SqlParameter("@Prefix", serialSeed.Prefix.ToDbValue()),
+                new SqlParameter("@Timestamp", serialSeed.Timestamp.ToDbValue()),
+                new SqlParameter("@SerialLength", serialSeed.SerialLength.ToDbValue()),
+                new SqlParameter("@TodayCount", serialSeed.TodayCount.ToDbValue()),
+                new SqlParameter("@Description", serialSeed.Description.ToDbValue())
             };
 
-            Guid serialSeedId = _SqlHelper.ExecuteScalar<Guid>(sqlBuilder.ToString(), parameters);
+            object result = _SqlHelper.ExecuteScalar(sqlBuilder.ToString(), parameters);
+            Guid serialSeedId = Guid.Parse(result.ToString());
             serialSeed.Id = serialSeedId;
         }
         #endregion
@@ -143,15 +147,15 @@ namespace SD.Toolkits.SerialNumber.Implements
             sqlBuilder.Append("	[Description] = @Description ");
             sqlBuilder.Append("WHERE Id = @Id ");
 
-            SqlParameter[] parameters =
+            IDbDataParameter[] parameters =
             {
                 new SqlParameter("@Id", serialSeed.Id),
-                new SqlParameter("@Name", this.ToDbValue(serialSeed.Name)),
-                new SqlParameter("@Prefix", this.ToDbValue(serialSeed.Prefix)),
-                new SqlParameter("@Timestamp", this.ToDbValue(serialSeed.Timestamp)),
-                new SqlParameter("@SerialLength", this.ToDbValue(serialSeed.SerialLength)),
-                new SqlParameter("@TodayCount", this.ToDbValue(serialSeed.TodayCount)),
-                new SqlParameter("@Description", this.ToDbValue(serialSeed.Description))
+                new SqlParameter("@Name", serialSeed.Name.ToDbValue()),
+                new SqlParameter("@Prefix", serialSeed.Prefix.ToDbValue()),
+                new SqlParameter("@Timestamp", serialSeed.Timestamp.ToDbValue()),
+                new SqlParameter("@SerialLength", serialSeed.SerialLength.ToDbValue()),
+                new SqlParameter("@TodayCount", serialSeed.TodayCount.ToDbValue()),
+                new SqlParameter("@Description", serialSeed.Description.ToDbValue())
             };
 
             _SqlHelper.ExecuteNonQuery(sqlBuilder.ToString(), parameters);
@@ -193,51 +197,20 @@ namespace SD.Toolkits.SerialNumber.Implements
         /// </summary>
         /// <param name="reader">SqlDataReader对象</param>
         /// <returns>实体对象</returns>
-        private SerialSeed ToModel(SqlDataReader reader)
+        private SerialSeed ToModel(IDataReader reader)
         {
             SerialSeed serialSeed = new SerialSeed
             {
-                Id = (Guid)this.ToClsValue(reader, "Id"),
-                Name = (string)this.ToClsValue(reader, "Name"),
-                Prefix = (string)this.ToClsValue(reader, "Prefix"),
-                Timestamp = (string)this.ToClsValue(reader, "Timestamp"),
-                SerialLength = (int)this.ToClsValue(reader, "SerialLength"),
-                TodayCount = (int)this.ToClsValue(reader, "TodayCount"),
-                Description = (string)this.ToClsValue(reader, "Description")
+                Id = (Guid)reader.ToClsValue("Id"),
+                Name = (string)reader.ToClsValue("Name"),
+                Prefix = (string)reader.ToClsValue("Prefix"),
+                Timestamp = (string)reader.ToClsValue("Timestamp"),
+                SerialLength = (int)reader.ToClsValue("SerialLength"),
+                TodayCount = (int)reader.ToClsValue("TodayCount"),
+                Description = (string)reader.ToClsValue("Description")
             };
 
             return serialSeed;
-        }
-        #endregion
-
-        #region # CLS值转数据库值 —— object ToDbValue(object value)
-        /// <summary>
-        /// CLS值转数据库值
-        /// </summary>
-        /// <param name="value">CLS值</param>
-        /// <returns>处理后的数据库值</returns>
-        private object ToDbValue(object value)
-        {
-            return value ?? DBNull.Value;
-        }
-
-        #endregion
-
-        #region # 数据库值转CLS值 —— object ToClsValue(SqlDataReader reader...
-        /// <summary>
-        /// 数据库值转CLS值
-        /// </summary>
-        /// <param name="reader">IDataReader对象</param>
-        /// <param name="columnName">列名</param>
-        /// <returns>CLS值</returns>
-        private object ToClsValue(SqlDataReader reader, string columnName)
-        {
-            if (reader.IsDBNull(reader.GetOrdinal(columnName)))
-            {
-                return null;
-            }
-
-            return reader[columnName];
         }
         #endregion
     }

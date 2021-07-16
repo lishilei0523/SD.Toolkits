@@ -12,6 +12,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\SD.Toolkits.SerialNumber.MySql\SD.Toolkits.SerialNumber.MySql.csproj" />
+    <ProjectReference Include="..\SD.Toolkits.SerialNumber.SqlServer\SD.Toolkits.SerialNumber.SqlServer.csproj" />
     <ProjectReference Include="..\SD.Toolkits.SerialNumber\SD.Toolkits.SerialNumber.csproj" />
   </ItemGroup>
 </Project>
