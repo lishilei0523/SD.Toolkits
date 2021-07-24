@@ -74,7 +74,11 @@ namespace SD.Toolkits.WebApiCore.Bindings
                         using (StreamReader streamReader = new StreamReader(request.Body, Encoding.UTF8, false, 4096, true))
                         {
                             string body = await streamReader.ReadToEndAsync();
-                            IDictionary<string, JsonElement> jsonDictionary = JsonSerializer.Deserialize<Dictionary<string, JsonElement>>(body);
+                            JsonSerializerOptions options = new JsonSerializerOptions
+                            {
+                                IncludeFields = true
+                            };
+                            IDictionary<string, JsonElement> jsonDictionary = JsonSerializer.Deserialize<Dictionary<string, JsonElement>>(body, options);
                             result = jsonDictionary.Aggregate(new NameValueCollection(), (seed, current) =>
                             {
                                 seed.Add(current.Key, current.Value.ToString());

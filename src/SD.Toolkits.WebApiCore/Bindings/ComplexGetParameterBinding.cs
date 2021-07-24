@@ -44,7 +44,11 @@ namespace SD.Toolkits.WebApiCore.Bindings
             parameterValue = WebUtility.UrlDecode(parameterValue);
             if (!string.IsNullOrWhiteSpace(parameterValue))
             {
-                object paramValue = JsonSerializer.Deserialize(parameterValue, bindingContext.ModelType);
+                JsonSerializerOptions options = new JsonSerializerOptions
+                {
+                    IncludeFields = true
+                };
+                object paramValue = JsonSerializer.Deserialize(parameterValue, bindingContext.ModelType, options);
                 bindingContext.Result = ModelBindingResult.Success(paramValue);
             }
             else

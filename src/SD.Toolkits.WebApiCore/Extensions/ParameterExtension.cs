@@ -47,7 +47,11 @@ namespace SD.Toolkits.WebApiCore.Extensions
                 else
                 {
                     //除字符串、Guid、时间、枚举、基元类型外，都按对象反序列化
-                    typicalValue = JsonSerializer.Deserialize(parameterValue, parameterType);
+                    JsonSerializerOptions options = new JsonSerializerOptions
+                    {
+                        IncludeFields = true
+                    };
+                    typicalValue = JsonSerializer.Deserialize(parameterValue, parameterType, options);
                 }
 
                 return typicalValue;
@@ -95,7 +99,11 @@ namespace SD.Toolkits.WebApiCore.Extensions
                 else
                 {
                     //除字符串、Guid、时间、枚举、基元类型外，都按对象反序列化
-                    typicalValue = JsonSerializer.Deserialize(parameterValue.ToString(), parameterType);
+                    JsonSerializerOptions options = new JsonSerializerOptions
+                    {
+                        IncludeFields = true
+                    };
+                    typicalValue = JsonSerializer.Deserialize(parameterValue.ToString(), parameterType, options);
                 }
 
                 return typicalValue;
