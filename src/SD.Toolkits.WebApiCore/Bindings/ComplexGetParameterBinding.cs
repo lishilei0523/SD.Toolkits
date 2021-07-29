@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.Primitives;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Net;
 using System.Net.Http;
-using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace SD.Toolkits.WebApiCore.Bindings
@@ -44,11 +44,7 @@ namespace SD.Toolkits.WebApiCore.Bindings
             parameterValue = WebUtility.UrlDecode(parameterValue);
             if (!string.IsNullOrWhiteSpace(parameterValue))
             {
-                JsonSerializerOptions options = new JsonSerializerOptions
-                {
-                    IncludeFields = true
-                };
-                object paramValue = JsonSerializer.Deserialize(parameterValue, bindingContext.ModelType, options);
+                object paramValue = JsonConvert.DeserializeObject(parameterValue, bindingContext.ModelType);
                 bindingContext.Result = ModelBindingResult.Success(paramValue);
             }
             else

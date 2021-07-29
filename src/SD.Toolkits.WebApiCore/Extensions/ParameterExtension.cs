@@ -1,5 +1,5 @@
-﻿using System;
-using System.Text.Json;
+﻿using Newtonsoft.Json;
+using System;
 
 namespace SD.Toolkits.WebApiCore.Extensions
 {
@@ -31,6 +31,10 @@ namespace SD.Toolkits.WebApiCore.Extensions
                 {
                     typicalValue = DateTime.Parse(parameterValue);
                 }
+                else if (parameterType == typeof(TimeSpan))
+                {
+                    typicalValue = TimeSpan.Parse(parameterValue);
+                }
                 else if (parameterType.IsEnum)
                 {
                     typicalValue = Enum.Parse(parameterType, parameterValue);
@@ -47,11 +51,7 @@ namespace SD.Toolkits.WebApiCore.Extensions
                 else
                 {
                     //除字符串、Guid、时间、枚举、基元类型外，都按对象反序列化
-                    JsonSerializerOptions options = new JsonSerializerOptions
-                    {
-                        IncludeFields = true
-                    };
-                    typicalValue = JsonSerializer.Deserialize(parameterValue, parameterType, options);
+                    typicalValue = JsonConvert.DeserializeObject(parameterValue, parameterType);
                 }
 
                 return typicalValue;
@@ -83,6 +83,10 @@ namespace SD.Toolkits.WebApiCore.Extensions
                 {
                     typicalValue = DateTime.Parse(parameterValue.ToString());
                 }
+                else if (parameterType == typeof(TimeSpan))
+                {
+                    typicalValue = TimeSpan.Parse(parameterValue.ToString());
+                }
                 else if (parameterType.IsEnum)
                 {
                     typicalValue = Enum.Parse(parameterType, parameterValue.ToString());
@@ -99,11 +103,7 @@ namespace SD.Toolkits.WebApiCore.Extensions
                 else
                 {
                     //除字符串、Guid、时间、枚举、基元类型外，都按对象反序列化
-                    JsonSerializerOptions options = new JsonSerializerOptions
-                    {
-                        IncludeFields = true
-                    };
-                    typicalValue = JsonSerializer.Deserialize(parameterValue.ToString(), parameterType, options);
+                    typicalValue = JsonConvert.DeserializeObject(parameterValue.ToString(), parameterType);
                 }
 
                 return typicalValue;

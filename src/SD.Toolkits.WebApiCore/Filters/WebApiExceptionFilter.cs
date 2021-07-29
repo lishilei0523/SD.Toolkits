@@ -1,9 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.AspNetCore.Mvc.Filters;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Net;
-using System.Text.Json;
 
 namespace SD.Toolkits.WebApiCore.Filters
 {
@@ -71,10 +72,10 @@ namespace SD.Toolkits.WebApiCore.Filters
             try
             {
                 const string errorMessageKey = "ErrorMessage";
-                JsonDocument jsonDocument = JsonDocument.Parse(exceptionMessage);
-                if (jsonDocument.RootElement.TryGetProperty(errorMessageKey, out JsonElement messageElement))
+                JObject jObject = (JObject)JsonConvert.DeserializeObject(exceptionMessage);
+                if (jObject != null && jObject.ContainsKey(errorMessageKey))
                 {
-                    errorMessage = messageElement.ToString();
+                    errorMessage = jObject.GetValue(errorMessageKey)?.ToString();
                 }
                 else
                 {

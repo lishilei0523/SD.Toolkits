@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.Primitives;
+using Newtonsoft.Json;
 using SD.Toolkits.WebApiCore.Extensions;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,6 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Text;
-using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace SD.Toolkits.WebApiCore.Bindings
@@ -74,14 +74,10 @@ namespace SD.Toolkits.WebApiCore.Bindings
                         using (StreamReader streamReader = new StreamReader(request.Body, Encoding.UTF8, false, 4096, true))
                         {
                             string body = await streamReader.ReadToEndAsync();
-                            JsonSerializerOptions options = new JsonSerializerOptions
+                            IDictionary<string, object> values = JsonConvert.DeserializeObject<Dictionary<string, object>>(body);
+                            result = values.Aggregate(new NameValueCollection(), (seed, current) =>
                             {
-                                IncludeFields = true
-                            };
-                            IDictionary<string, JsonElement> jsonDictionary = JsonSerializer.Deserialize<Dictionary<string, JsonElement>>(body, options);
-                            result = jsonDictionary.Aggregate(new NameValueCollection(), (seed, current) =>
-                            {
-                                seed.Add(current.Key, current.Value.ToString());
+                                seed.Add(current.Key, current.Value?.ToString());
                                 return seed;
                             });
                         }
