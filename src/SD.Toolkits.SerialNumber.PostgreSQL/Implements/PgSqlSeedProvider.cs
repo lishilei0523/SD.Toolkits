@@ -1,7 +1,8 @@
-﻿using MySql.Data.MySqlClient;
+﻿using Npgsql;
 using SD.Toolkits.SerialNumber.Entities;
 using SD.Toolkits.SerialNumber.Interfaces;
 using SD.Toolkits.Sql;
+using SD.Toolkits.Sql.PostgreSQL;
 using System;
 using System.Configuration;
 using System.Data;
@@ -11,21 +12,21 @@ using System.Text;
 namespace SD.Toolkits.SerialNumber
 {
     /// <summary>
-    /// 序列种子提供者MySQL实现
+    /// 序列种子提供者PostgreSQL实现
     /// </summary>
-    public sealed class MySqlSeedProvider : ISerialSeedProvider
+    public sealed class PgSqlSeedProvider : ISerialSeedProvider
     {
         #region # 常量、字段及构造器
 
         /// <summary>
         /// SQL Helper
         /// </summary>
-        private static readonly Sql.MySql.MySqlHelper _SqlHelper;
+        private static readonly PgSqlHelper _SqlHelper;
 
         /// <summary>
         /// 静态构造器
         /// </summary>
-        static MySqlSeedProvider()
+        static PgSqlSeedProvider()
         {
             string connectionString = null;
 
@@ -47,13 +48,13 @@ namespace SD.Toolkits.SerialNumber
             #endregion
 
             //初始化SQL工具
-            _SqlHelper = new Sql.MySql.MySqlHelper(connectionString);
+            _SqlHelper = new PgSqlHelper(connectionString);
         }
 
         /// <summary>
         /// 构造器
         /// </summary>
-        public MySqlSeedProvider()
+        public PgSqlSeedProvider()
         {
             //初始化数据表
             this.InitTable();
@@ -78,17 +79,17 @@ namespace SD.Toolkits.SerialNumber
         {
             StringBuilder sqlBuilder = new StringBuilder();
             sqlBuilder.Append("SELECT * FROM SerialSeeds ");
-            sqlBuilder.Append("WHERE Name = @Name ");
-            sqlBuilder.Append("AND Prefix = @Prefix ");
-            sqlBuilder.Append("AND Timestamp = @Timestamp ");
-            sqlBuilder.Append("AND SerialLength = @SerialLength ");
+            sqlBuilder.Append("WHERE \"Name\" = @Name ");
+            sqlBuilder.Append("AND \"Prefix\" = @Prefix ");
+            sqlBuilder.Append("AND \"Timestamp\" = @Timestamp ");
+            sqlBuilder.Append("AND \"SerialLength\" = @SerialLength ");
 
             IDbDataParameter[] parameters =
             {
-                new MySqlParameter("@Name", seedName.ToDbValue()),
-                new MySqlParameter("@Prefix", prefix.ToDbValue()),
-                new MySqlParameter("@Timestamp", timestamp.ToDbValue()),
-                new MySqlParameter("@SerialLength", serialLength.ToDbValue())
+                new NpgsqlParameter("@Name", seedName.ToDbValue()),
+                new NpgsqlParameter("@Prefix", prefix.ToDbValue()),
+                new NpgsqlParameter("@Timestamp", timestamp.ToDbValue()),
+                new NpgsqlParameter("@SerialLength", serialLength.ToDbValue())
             };
 
             using (IDataReader reader = _SqlHelper.ExecuteReader(sqlBuilder.ToString(), parameters))
@@ -106,21 +107,20 @@ namespace SD.Toolkits.SerialNumber
         public void Create(SerialSeed serialSeed)
         {
             StringBuilder sqlBuilder = new StringBuilder();
-            sqlBuilder.Append("SET @NEWID = UUID(); ");
             sqlBuilder.Append("INSERT INTO SerialSeeds ");
-            sqlBuilder.Append("	(Id, Name, Prefix, Timestamp, SerialLength, TodayCount, Description) ");
+            sqlBuilder.Append("	(\"Id\", \"Name\", \"Prefix\", \"Timestamp\", \"SerialLength\", \"TodayCount\", \"Description\") ");
             sqlBuilder.Append("VALUES ");
-            sqlBuilder.Append("	(@NEWID, @Name, @Prefix, @Timestamp, @SerialLength, @TodayCount, @Description); ");
-            sqlBuilder.Append("SELECT @NEWID; ");
+            sqlBuilder.Append("	(uuid_generate_v4(), @Name, @Prefix, @Timestamp, @SerialLength, @TodayCount, @Description) ");
+            sqlBuilder.Append("RETURNING \"Id\"; ");
 
             IDbDataParameter[] parameters =
             {
-                new MySqlParameter("@Name", serialSeed.Name.ToDbValue()),
-                new MySqlParameter("@Prefix", serialSeed.Prefix.ToDbValue()),
-                new MySqlParameter("@Timestamp", serialSeed.Timestamp.ToDbValue()),
-                new MySqlParameter("@SerialLength", serialSeed.SerialLength.ToDbValue()),
-                new MySqlParameter("@TodayCount", serialSeed.TodayCount.ToDbValue()),
-                new MySqlParameter("@Description", serialSeed.Description.ToDbValue())
+                new NpgsqlParameter("@Name", serialSeed.Name.ToDbValue()),
+                new NpgsqlParameter("@Prefix", serialSeed.Prefix.ToDbValue()),
+                new NpgsqlParameter("@Timestamp", serialSeed.Timestamp.ToDbValue()),
+                new NpgsqlParameter("@SerialLength", serialSeed.SerialLength.ToDbValue()),
+                new NpgsqlParameter("@TodayCount", serialSeed.TodayCount.ToDbValue()),
+                new NpgsqlParameter("@Description", serialSeed.Description.ToDbValue())
             };
 
             object result = _SqlHelper.ExecuteScalar(sqlBuilder.ToString(), parameters);
@@ -139,23 +139,23 @@ namespace SD.Toolkits.SerialNumber
         {
             StringBuilder sqlBuilder = new StringBuilder();
             sqlBuilder.Append("UPDATE SerialSeeds SET ");
-            sqlBuilder.Append("	Name = @Name, ");
-            sqlBuilder.Append("	Prefix = @Prefix, ");
-            sqlBuilder.Append("	Timestamp = @Timestamp, ");
-            sqlBuilder.Append("	SerialLength = @SerialLength, ");
-            sqlBuilder.Append("	TodayCount = @TodayCount, ");
-            sqlBuilder.Append("	Description = @Description ");
-            sqlBuilder.Append("WHERE Id = @Id ");
+            sqlBuilder.Append("	\"Name\" = @Name, ");
+            sqlBuilder.Append("	\"Prefix\" = @Prefix, ");
+            sqlBuilder.Append("	\"Timestamp\" = @Timestamp, ");
+            sqlBuilder.Append("	\"SerialLength\" = @SerialLength, ");
+            sqlBuilder.Append("	\"TodayCount\" = @TodayCount, ");
+            sqlBuilder.Append("	\"Description\" = @Description ");
+            sqlBuilder.Append("WHERE \"Id\" = @Id ");
 
             IDbDataParameter[] parameters =
             {
-                new MySqlParameter("@Id", serialSeed.Id),
-                new MySqlParameter("@Name", serialSeed.Name.ToDbValue()),
-                new MySqlParameter("@Prefix", serialSeed.Prefix.ToDbValue()),
-                new MySqlParameter("@Timestamp", serialSeed.Timestamp.ToDbValue()),
-                new MySqlParameter("@SerialLength", serialSeed.SerialLength.ToDbValue()),
-                new MySqlParameter("@TodayCount", serialSeed.TodayCount.ToDbValue()),
-                new MySqlParameter("@Description", serialSeed.Description.ToDbValue())
+                new NpgsqlParameter("@Id", serialSeed.Id),
+                new NpgsqlParameter("@Name", serialSeed.Name.ToDbValue()),
+                new NpgsqlParameter("@Prefix", serialSeed.Prefix.ToDbValue()),
+                new NpgsqlParameter("@Timestamp", serialSeed.Timestamp.ToDbValue()),
+                new NpgsqlParameter("@SerialLength", serialSeed.SerialLength.ToDbValue()),
+                new NpgsqlParameter("@TodayCount", serialSeed.TodayCount.ToDbValue()),
+                new NpgsqlParameter("@Description", serialSeed.Description.ToDbValue())
             };
 
             _SqlHelper.ExecuteNonQuery(sqlBuilder.ToString(), parameters);
@@ -173,16 +173,16 @@ namespace SD.Toolkits.SerialNumber
         {
             //构造sql语句
             StringBuilder sqlBuilder = new StringBuilder();
-            sqlBuilder.Append("CREATE TABLE IF NOT EXISTS `SerialSeeds` ( ");
-            sqlBuilder.Append("	`Id` char(36) NOT NULL, ");
-            sqlBuilder.Append(" `Name` text default NULL, ");
-            sqlBuilder.Append(" `Prefix` text default NULL, ");
-            sqlBuilder.Append(" `Timestamp` text default NULL, ");
-            sqlBuilder.Append("	`SerialLength` int NOT NULL, ");
-            sqlBuilder.Append("	`TodayCount` int NOT NULL, ");
-            sqlBuilder.Append("	`Description` text default NULL, ");
-            sqlBuilder.Append("	PRIMARY KEY (`Id`) ");
+            sqlBuilder.Append("CREATE TABLE IF NOT EXISTS SerialSeeds ( ");
+            sqlBuilder.Append("  \"Id\" uuid NOT NULL PRIMARY KEY, ");
+            sqlBuilder.Append("  \"Name\" text NULL, ");
+            sqlBuilder.Append("  \"Prefix\" text NULL, ");
+            sqlBuilder.Append("  \"Timestamp\" text NULL, ");
+            sqlBuilder.Append("  \"SerialLength\" int NOT NULL, ");
+            sqlBuilder.Append("  \"TodayCount\" int NOT NULL, ");
+            sqlBuilder.Append("  \"Description\" text NULL ");
             sqlBuilder.Append("); ");
+            sqlBuilder.Append("CREATE EXTENSION IF NOT EXISTS \"uuid-ossp\"; ");
 
             //执行创建表
             _SqlHelper.ExecuteNonQuery(sqlBuilder.ToString());

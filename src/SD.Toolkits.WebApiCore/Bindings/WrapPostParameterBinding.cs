@@ -68,29 +68,30 @@ namespace SD.Toolkits.WebApiCore.Bindings
             string cacheKey = typeof(WrapPostParameterBinding).FullName;
             if (!request.HttpContext.Items.TryGetValue(cacheKey, out object result))
             {
-                switch (request.ContentType)
+                if (request.ContentType.StartsWith("application/json"))
                 {
-                    case "application/json":
-                        using (StreamReader streamReader = new StreamReader(request.Body, Encoding.UTF8, false, 4096, true))
+                    using (StreamReader streamReader = new StreamReader(request.Body, Encoding.UTF8, false, 4096, true))
+                    {
+                        string body = await streamReader.ReadToEndAsync();
+                        IDictionary<string, object> values = JsonConvert.DeserializeObject<Dictionary<string, object>>(body);
+                        result = values.Aggregate(new NameValueCollection(), (seed, current) =>
                         {
-                            string body = await streamReader.ReadToEndAsync();
-                            IDictionary<string, object> values = JsonConvert.DeserializeObject<Dictionary<string, object>>(body);
-                            result = values.Aggregate(new NameValueCollection(), (seed, current) =>
-                            {
-                                seed.Add(current.Key, current.Value?.ToString());
-                                return seed;
-                            });
-                        }
-                        break;
-                    case "application/x-www-form-urlencoded":
-                        NameValueCollection collection = new NameValueCollection();
-                        foreach (KeyValuePair<string, StringValues> kv in request.Form)
-                        {
-                            collection.Add(kv.Key, kv.Value.ToString());
-                        }
-                        break;
-                    default:
-                        throw new HttpRequestException(HttpStatusCode.UnsupportedMediaType.ToString());
+                            seed.Add(current.Key, current.Value?.ToString());
+                            return seed;
+                        });
+                    }
+                }
+                else if (request.ContentType.StartsWith("application/x-www-form-urlencoded"))
+                {
+                    NameValueCollection collection = new NameValueCollection();
+                    foreach (KeyValuePair<string, StringValues> kv in request.Form)
+                    {
+                        collection.Add(kv.Key, kv.Value.ToString());
+                    }
+                }
+                else
+                {
+                    throw new HttpRequestException(HttpStatusCode.UnsupportedMediaType.ToString());
                 }
 
                 request.HttpContext.Items.Add(cacheKey, result);

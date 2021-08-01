@@ -1,20 +1,20 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net452;netstandard2.0</TargetFrameworks>
+    <TargetFrameworks>net461;netstandard2.0</TargetFrameworks>
     <Authors>Lee</Authors>
     <Company>SD</Company>
-    <Description>SD.Toolkits 序列号生成器组件 - MySQL种子实现</Description>
+    <Description>SD.Toolkits 序列号生成器组件 - PostgreSQL种子实现</Description>
     <Copyright>Copyright © SD 2021</Copyright>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>bin\Debug\$(TargetFramework)\SD.Toolkits.SerialNumber.MySql.xml</DocumentationFile>
+    <DocumentationFile>bin\Debug\$(TargetFramework)\SD.Toolkits.SerialNumber.PostgreSQL.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>bin\Release\$(TargetFramework)\SD.Toolkits.SerialNumber.MySql.xml</DocumentationFile>
+    <DocumentationFile>bin\Release\$(TargetFramework)\SD.Toolkits.SerialNumber.PostgreSQL.xml</DocumentationFile>
   </PropertyGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' == 'net452'">
+  <ItemGroup Condition="'$(TargetFramework)' == 'net461'">
     <Reference Include="System.Configuration" />
   </ItemGroup>
 
@@ -23,12 +23,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="MySql.Data" Version="8.0.25" />
+    <PackageReference Include="Npgsql" Version="4.1.9" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\SD.Toolkits.SerialNumber\SD.Toolkits.SerialNumber.csproj" />
     <ProjectReference Include="..\SD.Toolkits.Sql\SD.Toolkits.Sql.csproj" />
-    <ProjectReference Include="..\SD.Toolkits.Sql.MySql\SD.Toolkits.Sql.MySql.csproj" />
+    <ProjectReference Include="..\SD.Toolkits.Sql.PostgreSQL\SD.Toolkits.Sql.PostgreSQL.csproj" />
   </ItemGroup>
 </Project>

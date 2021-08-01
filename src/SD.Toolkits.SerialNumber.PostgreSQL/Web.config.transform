@@ -1,0 +1,7 @@
+﻿<configuration>
+  <!--SD.Toolkits.SerialNumber配置-->
+  <sd.toolkits.serialNumber>
+    <!--PostgreSQL序列种子提供者-->
+    <serialSeedProvider type="SD.Toolkits.SerialNumber.PgSqlSeedProvider" assembly="SD.Toolkits.SerialNumber.PostgreSQL" />
+  </sd.toolkits.serialNumber>
+</configuration>

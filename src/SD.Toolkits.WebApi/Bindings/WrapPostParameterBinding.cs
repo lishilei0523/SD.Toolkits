@@ -82,22 +82,23 @@ namespace SD.Toolkits.WebApi.Bindings
             if (!request.Properties.TryGetValue(cacheKey, out object result))
             {
                 MediaTypeHeaderValue contentType = request.Content.Headers.ContentType;
-                switch (contentType.MediaType)
+                if (contentType.MediaType.StartsWith("application/json"))
                 {
-                    case "application/json":
-                        string content = await request.Content.ReadAsStringAsync();
-                        IDictionary<string, object> values = JsonConvert.DeserializeObject<Dictionary<string, object>>(content);
-                        result = values.Aggregate(new NameValueCollection(), (seed, current) =>
-                        {
-                            seed.Add(current.Key, current.Value?.ToString());
-                            return seed;
-                        });
-                        break;
-                    case "application/x-www-form-urlencoded":
-                        result = await request.Content.ReadAsFormDataAsync();
-                        break;
-                    default:
-                        throw new HttpResponseException(HttpStatusCode.UnsupportedMediaType);
+                    string content = await request.Content.ReadAsStringAsync();
+                    IDictionary<string, object> values = JsonConvert.DeserializeObject<Dictionary<string, object>>(content);
+                    result = values.Aggregate(new NameValueCollection(), (seed, current) =>
+                    {
+                        seed.Add(current.Key, current.Value?.ToString());
+                        return seed;
+                    });
+                }
+                else if (contentType.MediaType.StartsWith("application/x-www-form-urlencoded"))
+                {
+                    result = await request.Content.ReadAsFormDataAsync();
+                }
+                else
+                {
+                    throw new HttpResponseException(HttpStatusCode.UnsupportedMediaType);
                 }
 
                 request.Properties.Add(cacheKey, result);
