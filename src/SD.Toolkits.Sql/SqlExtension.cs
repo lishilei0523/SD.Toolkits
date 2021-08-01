@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using System.Text;
 
 namespace SD.Toolkits.Sql
@@ -63,18 +64,22 @@ namespace SD.Toolkits.Sql
         }
         #endregion
 
-        #region # 格式化Id列表字符串 —— static string FormatIdsString<T>(this IEnumerable<T> ids)
+        #region # 格式化Guid列表字符串 —— static string FormatGuids(this IEnumerable<Guid> guids)
         /// <summary>
-        /// 格式化Id列表字符串
+        /// 格式化Guid列表字符串
         /// </summary>
-        /// <param name="ids">Id列表</param>
-        /// <returns>Id列表字符串</returns>
-        public static string FormatIdsString<T>(this IEnumerable<T> ids)
+        /// <param name="guids">Guid列表</param>
+        /// <returns>Guid列表字符串</returns>
+        public static string FormatGuids(this IEnumerable<Guid> guids)
         {
+            guids = guids?.ToArray() ?? new Guid[0];
+
             StringBuilder builder = new StringBuilder();
-            foreach (T id in ids)
+            foreach (Guid guid in guids)
             {
-                builder.Append(id);
+                builder.Append("'");
+                builder.Append(guid);
+                builder.Append("'");
                 builder.Append(',');
             }
             if (builder.Length == 0)
