@@ -1,0 +1,7 @@
+﻿<configuration>
+  <!--SD.Toolkits.SerialNumber配置-->
+  <sd.toolkits.serialNumber>
+    <!--Firebird序列种子提供者-->
+    <serialSeedProvider type="SD.Toolkits.SerialNumber.FbSqlSeedProvider" assembly="SD.Toolkits.SerialNumber.Firebird" />
+  </sd.toolkits.serialNumber>
+</configuration>

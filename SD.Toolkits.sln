@@ -109,9 +109,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Toolkits.Sql.MySql", "sr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Toolkits.SerialNumber.MySql", "src\SD.Toolkits.SerialNumber.MySql\SD.Toolkits.SerialNumber.MySql.csproj", "{5C541AED-CCEE-4BD9-B83B-66DDBFB8FC5F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.Sql.PostgreSQL", "src\SD.Toolkits.Sql.PostgreSQL\SD.Toolkits.Sql.PostgreSQL.csproj", "{E0B85377-B5C2-4FA3-9A2D-AF7F5FBBF012}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Toolkits.Sql.PostgreSQL", "src\SD.Toolkits.Sql.PostgreSQL\SD.Toolkits.Sql.PostgreSQL.csproj", "{E0B85377-B5C2-4FA3-9A2D-AF7F5FBBF012}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.SerialNumber.PostgreSQL", "src\SD.Toolkits.SerialNumber.PostgreSQL\SD.Toolkits.SerialNumber.PostgreSQL.csproj", "{6583E55C-5904-4DD5-8866-89BAB5F60AAF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Toolkits.SerialNumber.PostgreSQL", "src\SD.Toolkits.SerialNumber.PostgreSQL\SD.Toolkits.SerialNumber.PostgreSQL.csproj", "{6583E55C-5904-4DD5-8866-89BAB5F60AAF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.Sql.Firebird", "src\SD.Toolkits.Sql.Firebird\SD.Toolkits.Sql.Firebird.csproj", "{66BC233E-F744-4E30-88C4-BF9A6CC50ED7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Toolkits.SerialNumber.Firebird", "src\SD.Toolkits.SerialNumber.Firebird\SD.Toolkits.SerialNumber.Firebird.csproj", "{8577BE61-70CF-4CF7-8D39-417ECAB051A6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -323,6 +327,14 @@ Global
 		{6583E55C-5904-4DD5-8866-89BAB5F60AAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6583E55C-5904-4DD5-8866-89BAB5F60AAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6583E55C-5904-4DD5-8866-89BAB5F60AAF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{66BC233E-F744-4E30-88C4-BF9A6CC50ED7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66BC233E-F744-4E30-88C4-BF9A6CC50ED7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66BC233E-F744-4E30-88C4-BF9A6CC50ED7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66BC233E-F744-4E30-88C4-BF9A6CC50ED7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8577BE61-70CF-4CF7-8D39-417ECAB051A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8577BE61-70CF-4CF7-8D39-417ECAB051A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8577BE61-70CF-4CF7-8D39-417ECAB051A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8577BE61-70CF-4CF7-8D39-417ECAB051A6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -379,6 +391,8 @@ Global
 		{5C541AED-CCEE-4BD9-B83B-66DDBFB8FC5F} = {84CE5E54-82B6-4B0D-AEC5-3E22BF4FD0D2}
 		{E0B85377-B5C2-4FA3-9A2D-AF7F5FBBF012} = {84CE5E54-82B6-4B0D-AEC5-3E22BF4FD0D2}
 		{6583E55C-5904-4DD5-8866-89BAB5F60AAF} = {84CE5E54-82B6-4B0D-AEC5-3E22BF4FD0D2}
+		{66BC233E-F744-4E30-88C4-BF9A6CC50ED7} = {84CE5E54-82B6-4B0D-AEC5-3E22BF4FD0D2}
+		{8577BE61-70CF-4CF7-8D39-417ECAB051A6} = {84CE5E54-82B6-4B0D-AEC5-3E22BF4FD0D2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E971DA80-FBCC-48DC-94AF-074536131022}
