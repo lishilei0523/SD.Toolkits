@@ -14,6 +14,16 @@ namespace SD.Toolkits.SerialNumber.Tests
     public class NumberGeneratorTests
     {
         /// <summary>
+        /// 测试初始化
+        /// </summary>
+        [TestInitialize]
+        public void Initialize()
+        {
+            string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            AppDomain.CurrentDomain.SetData("DataDirectory", baseDirectory);
+        }
+
+        /// <summary>
         /// 生成序列号测试
         /// </summary>
         [TestMethod]

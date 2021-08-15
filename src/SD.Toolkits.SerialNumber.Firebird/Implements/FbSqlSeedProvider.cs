@@ -106,15 +106,19 @@ namespace SD.Toolkits.SerialNumber
         /// <param name="serialSeed">序列种子</param>
         public void Create(SerialSeed serialSeed)
         {
+            string generateIdSql = "SELECT GEN_UUID() FROM rdb$database;";
+            object result = _SqlHelper.ExecuteScalar(generateIdSql);
+            Guid serialSeedId = Guid.Parse(result.ToString());
+
             StringBuilder sqlBuilder = new StringBuilder();
             sqlBuilder.Append("INSERT INTO \"SerialSeeds\" ");
             sqlBuilder.Append("	(\"Id\", \"Name\", \"Prefix\", \"Timestamp\", \"SerialLength\", \"TodayCount\", \"Description\") ");
             sqlBuilder.Append("VALUES ");
-            sqlBuilder.Append("	(SELECT GEN_UUID() FROM rdb$database, @Name, @Prefix, @Timestamp, @SerialLength, @TodayCount, @Description) ");
-            sqlBuilder.Append("RETURNING \"Id\"; ");
+            sqlBuilder.Append("	(@Id, @Name, @Prefix, @Timestamp, @SerialLength, @TodayCount, @Description); ");
 
             IDbDataParameter[] parameters =
             {
+                new FbParameter("@Id", serialSeedId.ToDbValue()),
                 new FbParameter("@Name", serialSeed.Name.ToDbValue()),
                 new FbParameter("@Prefix", serialSeed.Prefix.ToDbValue()),
                 new FbParameter("@Timestamp", serialSeed.Timestamp.ToDbValue()),
@@ -123,8 +127,7 @@ namespace SD.Toolkits.SerialNumber
                 new FbParameter("@Description", serialSeed.Description.ToDbValue())
             };
 
-            object result = _SqlHelper.ExecuteScalar(sqlBuilder.ToString(), parameters);
-            Guid serialSeedId = Guid.Parse(result.ToString());
+            _SqlHelper.ExecuteNonQuery(sqlBuilder.ToString(), parameters);
             serialSeed.Id = serialSeedId;
         }
         #endregion
@@ -172,12 +175,15 @@ namespace SD.Toolkits.SerialNumber
         private void InitTable()
         {
             //构造sql语句
+            string predicateSql = "SELECT 'true' FROM rdb$relations WHERE rdb$relation_name = 'SerialSeeds';";
+            object result = _SqlHelper.ExecuteScalar(predicateSql);
+            if (result?.ToString() == "true")
+            {
+                return;
+            }
+
             StringBuilder sqlBuilder = new StringBuilder();
-            sqlBuilder.Append("SET TERM !! ;");
-            sqlBuilder.Append("EXECUTE BLOCK AS BEGIN ");
-            sqlBuilder.Append("if (not exists(select 1 from rdb$relations where rdb$relation_name = 'SerialSeeds')) ");
-            sqlBuilder.Append("then execute statement ");
-            sqlBuilder.Append("'CREATE TABLE \"SerialSeeds\" ( ");
+            sqlBuilder.Append("CREATE TABLE \"SerialSeeds\" ( ");
             sqlBuilder.Append("  \"Id\" CHAR(16) CHARACTER SET OCTETS NOT NULL, ");
             sqlBuilder.Append("  \"Name\" BLOB SUB_TYPE TEXT, ");
             sqlBuilder.Append("  \"Prefix\" BLOB SUB_TYPE TEXT, ");
@@ -186,9 +192,7 @@ namespace SD.Toolkits.SerialNumber
             sqlBuilder.Append("  \"TodayCount\" INTEGER NOT NULL, ");
             sqlBuilder.Append("  \"Description\" BLOB SUB_TYPE TEXT, ");
             sqlBuilder.Append("  CONSTRAINT \"PK_SerialSeeds\" PRIMARY KEY (\"Id\") ");
-            sqlBuilder.Append(");'; ");
-            sqlBuilder.Append("END!! ");
-            sqlBuilder.Append("SET TERM ; !! ");
+            sqlBuilder.Append("); ");
 
             //执行创建表
             _SqlHelper.ExecuteNonQuery(sqlBuilder.ToString());
