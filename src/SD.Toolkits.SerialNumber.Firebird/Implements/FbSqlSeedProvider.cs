@@ -49,15 +49,9 @@ namespace SD.Toolkits.SerialNumber
 
             //初始化SQL工具
             _SqlHelper = new FbSqlHelper(connectionString);
-        }
 
-        /// <summary>
-        /// 构造器
-        /// </summary>
-        public FbSqlSeedProvider()
-        {
             //初始化数据表
-            this.InitTable();
+            InitTable();
         }
 
         #endregion
@@ -172,7 +166,7 @@ namespace SD.Toolkits.SerialNumber
         /// <summary>
         /// 初始化数据表
         /// </summary>
-        private void InitTable()
+        private static void InitTable()
         {
             //构造sql语句
             string predicateSql = "SELECT 'true' FROM rdb$relations WHERE rdb$relation_name = 'SerialSeeds';";

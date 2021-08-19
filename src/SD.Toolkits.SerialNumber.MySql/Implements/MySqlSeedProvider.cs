@@ -48,15 +48,9 @@ namespace SD.Toolkits.SerialNumber
 
             //初始化SQL工具
             _SqlHelper = new Sql.MySql.MySqlHelper(connectionString);
-        }
 
-        /// <summary>
-        /// 构造器
-        /// </summary>
-        public MySqlSeedProvider()
-        {
             //初始化数据表
-            this.InitTable();
+            InitTable();
         }
 
         #endregion
@@ -169,7 +163,7 @@ namespace SD.Toolkits.SerialNumber
         /// <summary>
         /// 初始化数据表
         /// </summary>
-        private void InitTable()
+        private static void InitTable()
         {
             //构造sql语句
             StringBuilder sqlBuilder = new StringBuilder();
