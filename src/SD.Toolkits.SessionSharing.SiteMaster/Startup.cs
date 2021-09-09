@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.DataProtection;
 using Microsoft.Extensions.DependencyInjection;
 using SD.Toolkits.AspNet;
 using SD.Toolkits.Redis;
@@ -17,12 +16,10 @@ namespace SD.Toolkits.SessionSharing.SiteMaster
             services.AddStackExchangeRedisCache(options => options.ConfigurationOptions = RedisManager.RedisConfigurationOptions);
 
             //Ìí¼ÓSession¹²Ïí
-            IDataProtectionBuilder dataProtectionBuilder = services.AddDataProtection(options =>
+            services.AddDataProtection(options =>
             {
                 options.ApplicationDiscriminator = AspNetSection.Setting.ApplicationName.Value;
             });
-            dataProtectionBuilder.SetApplicationName(AspNetSection.Setting.ApplicationName.Value);
-            dataProtectionBuilder.PersistKeysToStackExchangeRedis(RedisManager.Instance, AspNetSection.Setting.MachineKey.Value);
         }
 
         public void Configure(IApplicationBuilder appBuilder)
