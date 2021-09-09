@@ -2,11 +2,11 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.AspNetCore.Mvc.Filters;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using SD.Toolkits.AspNet;
 using System;
 using System.Net;
-using System.Text;
-using System.Text.Json;
 
 namespace SD.Toolkits.AspNetMvcCore.Filters
 {
@@ -36,30 +36,25 @@ namespace SD.Toolkits.AspNetMvcCore.Filters
             string errorMessage = string.Empty;
             errorMessage = GetErrorMessage(innerException.Message, ref errorMessage);
 
-            //设置状态码为500
-            context.HttpContext.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
-
-            //Ajax请求
-            if (IsAjaxRequest(context.HttpContext.Request))
-            {
-                //响应
-                await context.HttpContext.Response.WriteAsync(errorMessage);
-            }
-            else
-            {
-                //构造脚本
-                StringBuilder scriptBuilder = new StringBuilder();
-                scriptBuilder.Append("<script type=\"text/javascript\">");
-                scriptBuilder.Append("window.top.location.href=");
-                scriptBuilder.AppendFormat("\"{0}?message={1}\"", AspNetSection.Setting.ErrorPage.Value, errorMessage);
-                scriptBuilder.Append("</script>");
-
-                //跳转至错误页
-                await context.HttpContext.Response.WriteAsync(scriptBuilder.ToString());
-            }
-
             //异常已处理
             context.ExceptionHandled = true;
+
+            //是不是Ajax请求
+            if (IsAjaxRequest(context.HttpContext.Request))
+            {
+                ObjectResult response = new ObjectResult(errorMessage)
+                {
+                    StatusCode = (int)HttpStatusCode.InternalServerError
+                };
+                context.Result = response;
+                return;
+            }
+
+            //跳转至登录页
+            if (!string.IsNullOrWhiteSpace(AspNetSection.Setting.ErrorPage.Value))
+            {
+                context.HttpContext.Response.Redirect(AspNetSection.Setting.ErrorPage.Value);
+            }
         }
         #endregion
 
@@ -95,10 +90,10 @@ namespace SD.Toolkits.AspNetMvcCore.Filters
             try
             {
                 const string errorMessageKey = "ErrorMessage";
-                JsonDocument jsonDocument = JsonDocument.Parse(exceptionMessage);
-                if (jsonDocument.RootElement.TryGetProperty(errorMessageKey, out JsonElement messageElement))
+                JObject jObject = (JObject)JsonConvert.DeserializeObject(exceptionMessage);
+                if (jObject != null && jObject.ContainsKey(errorMessageKey))
                 {
-                    errorMessage = messageElement.ToString();
+                    errorMessage = jObject.GetValue(errorMessageKey)?.ToString();
                 }
                 else
                 {
