@@ -15,6 +15,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SD.Toolkits.AspNet\SD.Toolkits.AspNet.csproj" />
-    <ProjectReference Include="..\SD.Toolkits.WebApiCore\SD.Toolkits.WebApiCore.csproj" />
+    <ProjectReference Include="..\SD.Toolkits.AspNetCore\SD.Toolkits.AspNetCore.csproj" />
   </ItemGroup>
 </Project>

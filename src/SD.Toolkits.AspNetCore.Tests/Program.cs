@@ -5,7 +5,7 @@ using SD.Toolkits.AspNet.Configurations;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace SD.Toolkits.WebApiCore.Tests
+namespace SD.Toolkits.AspNetCore.Tests
 {
     public class Program
     {

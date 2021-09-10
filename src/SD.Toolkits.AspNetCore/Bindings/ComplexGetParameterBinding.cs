@@ -9,7 +9,7 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace SD.Toolkits.WebApiCore.Bindings
+namespace SD.Toolkits.AspNetCore.Bindings
 {
     /// <summary>
     /// GET请求复杂参数绑定

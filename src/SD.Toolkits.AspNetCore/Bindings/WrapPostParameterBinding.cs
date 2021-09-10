@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.Primitives;
 using Newtonsoft.Json;
-using SD.Toolkits.WebApiCore.Extensions;
+using SD.Toolkits.AspNetCore.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -13,7 +13,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SD.Toolkits.WebApiCore.Bindings
+namespace SD.Toolkits.AspNetCore.Bindings
 {
     /// <summary>
     /// 包装POST请求参数模型绑定

@@ -1,14 +1,14 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.Primitives;
-using SD.Toolkits.WebApiCore.Extensions;
+using SD.Toolkits.AspNetCore.Extensions;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace SD.Toolkits.WebApiCore.Bindings
+namespace SD.Toolkits.AspNetCore.Bindings
 {
     /// <summary>
     /// 文件参数模型模型绑定

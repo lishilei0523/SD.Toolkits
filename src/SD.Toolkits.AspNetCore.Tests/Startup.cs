@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
-using SD.Toolkits.WebApiCore.Filters;
+using SD.Toolkits.AspNetCore.Filters;
 
-namespace SD.Toolkits.WebApiCore.Tests
+namespace SD.Toolkits.AspNetCore.Tests
 {
     public class Startup
     {

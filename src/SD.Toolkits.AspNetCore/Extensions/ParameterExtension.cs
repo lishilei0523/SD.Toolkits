@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 
-namespace SD.Toolkits.WebApiCore.Extensions
+namespace SD.Toolkits.AspNetCore.Extensions
 {
     /// <summary>
     /// 参数扩展

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SD.Toolkits.WebApiCore.Tests.Models
+namespace SD.Toolkits.AspNetCore.Tests.Models
 {
     public class Person
     {

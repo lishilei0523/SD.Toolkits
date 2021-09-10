@@ -61,9 +61,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Toolkits.Owin", "src\SD.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Toolkits.EntityFrameworkCore.Tests", "src\SD.Toolkits.EntityFrameworkCore.Tests\SD.Toolkits.EntityFrameworkCore.Tests.csproj", "{02137342-519A-4A6C-BA86-1DD0EC7A16F4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Toolkits.WebApiCore", "src\SD.Toolkits.WebApiCore\SD.Toolkits.WebApiCore.csproj", "{4D38298E-4887-4E1C-87B4-D0919545668B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Toolkits.AspNetCore", "src\SD.Toolkits.AspNetCore\SD.Toolkits.AspNetCore.csproj", "{4D38298E-4887-4E1C-87B4-D0919545668B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Toolkits.WebApiCore.Tests", "src\SD.Toolkits.WebApiCore.Tests\SD.Toolkits.WebApiCore.Tests.csproj", "{7683471D-2021-4FE2-BFD5-2C5CC573ACCB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Toolkits.AspNetCore.Tests", "src\SD.Toolkits.AspNetCore.Tests\SD.Toolkits.AspNetCore.Tests.csproj", "{7683471D-2021-4FE2-BFD5-2C5CC573ACCB}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Toolkits.OwinCore", "src\SD.Toolkits.OwinCore\SD.Toolkits.OwinCore.csproj", "{9D76BE5D-A734-4AAC-AF61-0DA80D0DDB8A}"
 EndProject

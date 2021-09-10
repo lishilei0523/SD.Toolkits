@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-using SD.Toolkits.WebApiCore.Bindings;
+using SD.Toolkits.AspNetCore.Bindings;
 using System;
 
-namespace SD.Toolkits.WebApiCore.Attributes
+namespace SD.Toolkits.AspNetCore.Attributes
 {
     /// <summary>
     /// 复杂参数JSON反序列化绑定特性
