@@ -3,7 +3,7 @@ using Grpc.Core.Interceptors;
 using System;
 using System.Threading.Tasks;
 
-namespace SD.Toolkits.Grpc.Interceptors
+namespace SD.Toolkits.Grpc.Server.Interceptors
 {
     /// <summary>
     /// gRPC异常拦截器

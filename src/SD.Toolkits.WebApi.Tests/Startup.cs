@@ -1,14 +1,14 @@
-﻿using Microsoft.Owin;
-using Owin;
+﻿using Owin;
 using SD.Toolkits.WebApi.Extensions;
 using SD.Toolkits.WebApi.Filters;
-using SD.Toolkits.WebApi.Tests;
 using System.Web.Http;
 using System.Web.Http.Cors;
 
-[assembly: OwinStartup(typeof(Startup))]
 namespace SD.Toolkits.WebApi.Tests
 {
+    /// <summary>
+    /// OWIN启动器
+    /// </summary>
     public class Startup
     {
         /// <summary>
