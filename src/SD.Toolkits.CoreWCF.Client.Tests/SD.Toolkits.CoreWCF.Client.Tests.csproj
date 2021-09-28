@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <OutputType>Exe</OutputType>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="SD.IdentitySystem.IAppService" Version="4.3.1" />
+    <PackageReference Include="SD.IdentitySystem.WCF.Authentication.Windows" Version="1.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SD.Toolkits.CoreWCF.Client\SD.Toolkits.CoreWCF.Client.csproj" />
+  </ItemGroup>
+</Project>
