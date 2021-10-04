@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 using System.Collections.Generic;
@@ -180,7 +181,11 @@ namespace SD.Toolkits.EntityFrameworkCore.Base
         {
             foreach (Type entityType in entityTypes)
             {
-                modelBuilder.Model.AddEntityType(entityType);
+                IMutableEntityType mutableEntityType = modelBuilder.Model.FindEntityType(entityType);
+                if (mutableEntityType == null)
+                {
+                    modelBuilder.Model.AddEntityType(entityType);
+                }
             }
         }
         #endregion
