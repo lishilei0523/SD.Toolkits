@@ -8,9 +8,9 @@ using System.Diagnostics;
 namespace SD.Toolkits.EntityFrameworkCore.Tests.StubEntities
 {
     /// <summary>
-    /// EntityFramework上下文对象
+    /// EF Cre上下文对象
     /// </summary>
-    public class DbSession : BaseDbContext
+    public class DbSession : DbContextBase
     {
         /// <summary>
         /// 构造器

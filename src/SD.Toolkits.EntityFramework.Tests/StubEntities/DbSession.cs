@@ -5,9 +5,9 @@ using System;
 namespace SD.Toolkits.EntityFramework.Tests.StubEntities
 {
     /// <summary>
-    /// EntityFramework上下文对象
+    /// EF上下文对象
     /// </summary>
-    public class DbSession : BaseDbContext
+    public class DbSession : DbContextBase
     {
         /// <summary>
         /// 基础构造器

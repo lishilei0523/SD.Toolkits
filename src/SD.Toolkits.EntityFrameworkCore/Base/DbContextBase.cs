@@ -3,24 +3,38 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
 
 namespace SD.Toolkits.EntityFrameworkCore.Base
 {
     /// <summary>
-    /// EF上下文基类
+    /// EF Core上下文基类
     /// </summary>
-    public abstract class BaseDbContext : DbContext
+    public abstract class DbContextBase : DbContext
     {
         #region # 构造器
+
         /// <summary>
-        /// 构造器
+        /// 无参构造器
         /// </summary>
-        protected BaseDbContext()
+        protected DbContextBase()
+            : base()
         {
 
         }
+
+        /// <summary>
+        /// 基础构造器
+        /// </summary>
+        /// <param name="options">The options for this context.</param>
+        protected DbContextBase([NotNull] DbContextOptions options)
+            : base(options)
+        {
+
+        }
+
         #endregion
 
         #region # 属性

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Common;
 using System.Data.Entity;
+using System.Data.Entity.Core.Objects;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Reflection;
 
@@ -11,15 +13,23 @@ namespace SD.Toolkits.EntityFramework.Base
     /// <summary>
     /// EF上下文基类
     /// </summary>
-    public abstract class BaseDbContext : DbContext
+    public abstract class DbContextBase : DbContext
     {
         #region # 构造器
 
         /// <summary>
+        /// 无参构造器
+        /// </summary>
+        protected DbContextBase()
+        {
+
+        }
+
+        /// <summary>
         /// 基础构造器
         /// </summary>
-        /// <param name="nameOrConnectionString">连接字符串名称/连接字符串</param>
-        protected BaseDbContext(string nameOrConnectionString)
+        /// <param name="nameOrConnectionString">Either the database name or a connection string.</param>
+        protected DbContextBase(string nameOrConnectionString)
             : base(nameOrConnectionString)
         {
 
@@ -28,10 +38,54 @@ namespace SD.Toolkits.EntityFramework.Base
         /// <summary>
         /// 基础构造器
         /// </summary>
-        /// <param name="existingConnection">已存在数据库连接</param>
-        /// <param name="contextOwnsConnection">上下文拥有连接</param>
-        protected BaseDbContext(DbConnection existingConnection, bool contextOwnsConnection)
+        /// <param name="nameOrConnectionString">Either the database name or a connection string.</param>
+        /// <param name="model">The model that will back this context.</param>
+        protected DbContextBase(string nameOrConnectionString, DbCompiledModel model)
+            : base(nameOrConnectionString, model)
+        {
+
+        }
+
+        /// <summary>
+        /// 基础构造器
+        /// </summary>
+        /// <param name="existingConnection">An existing connection to use for the new context.</param>
+        /// <param name="contextOwnsConnection">If set to true the connection is disposed when the context is disposed, otherwise the caller must dispose the connection.</param>
+        protected DbContextBase(DbConnection existingConnection, bool contextOwnsConnection)
             : base(existingConnection, contextOwnsConnection)
+        {
+
+        }
+
+        /// <summary>
+        /// 基础构造器
+        /// </summary>
+        /// <param name="objectContext">An existing ObjectContext to wrap with the new context.</param>
+        /// <param name="dbContextOwnsObjectContext">If set to true the ObjectContext is disposed when the DbContext is disposed, otherwise the caller must dispose the connection.</param>
+        protected DbContextBase(ObjectContext objectContext, bool dbContextOwnsObjectContext)
+            : base(objectContext, dbContextOwnsObjectContext)
+        {
+
+        }
+
+        /// <summary>
+        /// 基础构造器
+        /// </summary>
+        /// <param name="existingConnection">An existing connection to use for the new context.</param>
+        /// <param name="model">The model that will back this context.</param>
+        /// <param name="contextOwnsConnection">If set to true the connection is disposed when the context is disposed, otherwise the caller must dispose the connection.</param>
+        protected DbContextBase(DbConnection existingConnection, DbCompiledModel model, bool contextOwnsConnection)
+            : base(existingConnection, model, contextOwnsConnection)
+        {
+
+        }
+
+        /// <summary>
+        /// 基础构造器
+        /// </summary>
+        /// <param name="model">The model that will back this context.</param>
+        protected DbContextBase(DbCompiledModel model)
+            : base(model)
         {
 
         }
