@@ -23,7 +23,7 @@ namespace SD.Toolkits.AspNet.Configurations
         /// <returns>节点键</returns>
         protected override object GetElementKey(ConfigurationElement element)
         {
-            return ((HostElement)element).Url;
+            return ((HostElement)element).Port;
         }
     }
 }

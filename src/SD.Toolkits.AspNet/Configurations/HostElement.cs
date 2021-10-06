@@ -7,15 +7,27 @@ namespace SD.Toolkits.AspNet.Configurations
     /// </summary>
     public class HostElement : ConfigurationElement
     {
-        #region # 链接地址 —— string Url
+        #region # 端口 —— int Port
         /// <summary>
-        /// 链接地址
+        /// 端口
         /// </summary>
-        [ConfigurationProperty("url", IsRequired = true, IsKey = true)]
-        public string Url
+        [ConfigurationProperty("port", IsRequired = true, IsKey = true)]
+        public int Port
         {
-            get { return (string)this["url"]; }
-            set { this["url"] = value; }
+            get { return (int)this["port"]; }
+            set { this["port"] = value; }
+        }
+        #endregion
+
+        #region # 协议 —— string Protocol
+        /// <summary>
+        /// 协议
+        /// </summary>
+        [ConfigurationProperty("protocol", IsRequired = true, IsKey = false)]
+        public string Protocol
+        {
+            get { return (string)this["protocol"]; }
+            set { this["protocol"] = value; }
         }
         #endregion
     }

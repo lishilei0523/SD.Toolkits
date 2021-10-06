@@ -58,7 +58,7 @@ namespace SD.Toolkits.AspNet
         }
         #endregion
 
-        #region # 节点地址列表 —— HostElementCollection HostElements
+        #region # 节点地址列表节点 —— HostElementCollection HostElements
         /// <summary>
         /// 节点地址列表
         /// </summary>

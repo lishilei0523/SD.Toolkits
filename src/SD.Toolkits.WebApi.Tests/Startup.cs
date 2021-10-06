@@ -23,7 +23,7 @@ namespace SD.Toolkits.WebApi.Tests
             httpConfiguration.MapHttpAttributeRoutes();
             httpConfiguration.Routes.MapHttpRoute(
                 "DefaultApi",
-                "{controller}/{action}/{id}",
+                "Api/{controller}/{action}/{id}",
                 new { id = RouteParameter.Optional }
             );
 
