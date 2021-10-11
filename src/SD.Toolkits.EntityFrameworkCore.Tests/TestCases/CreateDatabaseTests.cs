@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SD.Toolkits.EntityFrameworkCore.Tests.StubEntities;
+using SD.Toolkits.EntityFrameworkCore.Tests.StubEntities.Context;
 
 namespace SD.Toolkits.EntityFrameworkCore.Tests.TestCases
 {
@@ -14,10 +14,22 @@ namespace SD.Toolkits.EntityFrameworkCore.Tests.TestCases
     public class CreateDatabaseTests
     {
         /// <summary>
-        /// 测试初始化
+        /// 初始化测试
         /// </summary>
         [TestInitialize]
         public void Init()
+        {
+            //删除数据库
+            DbSession dbSession = new DbSession();
+            dbSession.Database.EnsureDeleted();
+            dbSession.Dispose();
+        }
+
+        /// <summary>
+        /// 清理测试
+        /// </summary>
+        [TestCleanup]
+        public void Clean()
         {
             //删除数据库
             DbSession dbSession = new DbSession();
@@ -39,18 +51,6 @@ namespace SD.Toolkits.EntityFrameworkCore.Tests.TestCases
 
             //断言数据库已创建成功
             Assert.IsFalse(alreadyExisted);
-        }
-
-        /// <summary>
-        /// 测试清理
-        /// </summary>
-        [TestCleanup]
-        public void Clean()
-        {
-            //删除数据库
-            DbSession dbSession = new DbSession();
-            dbSession.Database.EnsureDeleted();
-            dbSession.Dispose();
         }
     }
 }

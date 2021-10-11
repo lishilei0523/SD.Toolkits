@@ -1,12 +1,12 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SD.Toolkits.EntityFramework.Extensions;
-using SD.Toolkits.EntityFramework.Tests.StubEntities;
-using SD.Toolkits.EntityFramework.Tests.StubEntities.Context;
+using SD.Toolkits.EntityFrameworkCore.Extensions;
+using SD.Toolkits.EntityFrameworkCore.Tests.StubEntities;
+using SD.Toolkits.EntityFrameworkCore.Tests.StubEntities.Context;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace SD.Toolkits.EntityFramework.Tests.TestCases
+namespace SD.Toolkits.EntityFrameworkCore.Tests.TestCases
 {
     /// <summary>
     /// 动态排序测试
@@ -22,8 +22,7 @@ namespace SD.Toolkits.EntityFramework.Tests.TestCases
         {
             //删除数据库
             DbSession dbSession = new DbSession();
-            dbSession.Database.Delete();
-            dbSession.Database.CreateIfNotExists();
+            dbSession.Database.EnsureCreated();
 
             //初始化数据
             IList<Student> students = new List<Student>();
@@ -47,7 +46,7 @@ namespace SD.Toolkits.EntityFramework.Tests.TestCases
         {
             //删除数据库
             DbSession dbSession = new DbSession();
-            dbSession.Database.Delete();
+            dbSession.Database.EnsureDeleted();
 
             dbSession.Dispose();
         }

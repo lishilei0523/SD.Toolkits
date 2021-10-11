@@ -1,8 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using SD.Toolkits.EntityFrameworkCore.Tests.StubEntities;
 
-namespace SD.Toolkits.EntityFrameworkCore.Tests.EntityConfigurations
+namespace SD.Toolkits.EntityFrameworkCore.Tests.StubEntities.EntityConfigurations
 {
     /// <summary>
     /// 学生实体配置

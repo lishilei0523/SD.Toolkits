@@ -1,8 +1,7 @@
 ﻿using SD.Toolkits.EntityFramework.Extensions;
-using SD.Toolkits.EntityFramework.Tests.StubEntities;
 using System.Data.Entity.ModelConfiguration;
 
-namespace SD.Toolkits.EntityFramework.Tests.EntityConfigurations
+namespace SD.Toolkits.EntityFramework.Tests.StubEntities.EntityConfigurations
 {
     /// <summary>
     /// 学生实体配置

@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SD.Toolkits.EntityFrameworkCore.Tests.StubEntities;
+using SD.Toolkits.EntityFrameworkCore.Tests.StubEntities.Context;
 
 namespace SD.Toolkits.EntityFrameworkCore.Tests.TestCases
 {

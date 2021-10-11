@@ -2,7 +2,7 @@
 using SD.Toolkits.EntityFramework.Tests.StubEntities.Base;
 using System;
 
-namespace SD.Toolkits.EntityFramework.Tests.StubEntities
+namespace SD.Toolkits.EntityFramework.Tests.StubEntities.Context
 {
     /// <summary>
     /// EF上下文对象
@@ -38,7 +38,13 @@ namespace SD.Toolkits.EntityFramework.Tests.StubEntities
         /// </summary>
         public override Func<Type, bool> TypeQuery
         {
-            get { return x => x.IsSubclassOf(typeof(PlainEntity)); }
+            get
+            {
+                return type =>
+                    type != typeof(PlainEntity) &&
+                    type != typeof(AggregateRootEntity) &&
+                    type.IsSubclassOf(typeof(PlainEntity));
+            }
         }
 
         /// <summary>

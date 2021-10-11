@@ -2,10 +2,8 @@
 using SD.Toolkits.EntityFrameworkCore.Base;
 using SD.Toolkits.EntityFrameworkCore.Tests.StubEntities.Base;
 using System;
-using System.Configuration;
-using System.Diagnostics;
 
-namespace SD.Toolkits.EntityFrameworkCore.Tests.StubEntities
+namespace SD.Toolkits.EntityFrameworkCore.Tests.StubEntities.Context
 {
     /// <summary>
     /// EF Cre上下文对象
@@ -13,22 +11,11 @@ namespace SD.Toolkits.EntityFrameworkCore.Tests.StubEntities
     public class DbSession : DbContextBase
     {
         /// <summary>
-        /// 构造器
-        /// </summary>
-        public DbSession()
-        {
-            base.Database.EnsureCreated();
-        }
-
-        /// <summary>
         /// 配置
         /// </summary>
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            ConnectionStringSettings connectionStringSettings = ConfigurationManager.ConnectionStrings["DefaultConnection"];
-            Trace.WriteLine(connectionStringSettings);
-
-            string connectionString = "Data Source=.;Initial Catalog=EntityFrameworkCore;User Id=sa;Password=realgoal123!;MultipleActiveResultSets=true;";
+            string connectionString = "Data Source=.;Initial Catalog=SD.Toolkits.EntityFrameworkCoreTests;User Id=sa;Password=realgoal123!;MultipleActiveResultSets=true;";
             optionsBuilder.UseSqlServer(connectionString);
 
             base.OnConfiguring(optionsBuilder);
@@ -55,7 +42,13 @@ namespace SD.Toolkits.EntityFrameworkCore.Tests.StubEntities
         /// </summary>
         public override Func<Type, bool> TypeQuery
         {
-            get { return x => x.IsSubclassOf(typeof(AggregateRootEntity)); }
+            get
+            {
+                return type =>
+                    type != typeof(PlainEntity) &&
+                    type != typeof(AggregateRootEntity) &&
+                    type.IsSubclassOf(typeof(PlainEntity));
+            }
         }
 
         /// <summary>
@@ -63,7 +56,7 @@ namespace SD.Toolkits.EntityFrameworkCore.Tests.StubEntities
         /// </summary>
         public override string TablePrefix
         {
-            get { return "My"; }
+            get { return null; }
         }
     }
 }

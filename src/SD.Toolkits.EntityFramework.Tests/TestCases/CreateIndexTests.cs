@@ -1,5 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SD.Toolkits.EntityFramework.Tests.StubEntities;
+using SD.Toolkits.EntityFramework.Tests.StubEntities.Context;
 
 namespace SD.Toolkits.EntityFramework.Tests.TestCases
 {
@@ -13,7 +13,7 @@ namespace SD.Toolkits.EntityFramework.Tests.TestCases
     public class CreateIndexTests
     {
         /// <summary>
-        /// 测试初始化
+        /// 初始化测试
         /// </summary>
         [TestInitialize]
         public void Init()
