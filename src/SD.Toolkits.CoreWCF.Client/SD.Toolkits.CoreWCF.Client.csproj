@@ -3,7 +3,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <Authors>Lee</Authors>
     <Company>SD</Company>
-    <Description>SD.Toolkits CoreWCF客户端扩展组件</Description>
+    <Description>SD.Toolkits CoreWCF客户端配置组件</Description>
     <Copyright>Copyright © SD 2021</Copyright>
   </PropertyGroup>
 

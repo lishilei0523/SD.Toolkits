@@ -5,27 +5,14 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 
 // ReSharper disable once CheckNamespace
-namespace System.ServiceModel
+namespace System.ServiceModel.Extensions
 {
     /// <summary>
-    /// WCF扩展工具类
+    /// CoreWCF客户端设置
     /// </summary>
-    public static class ServiceModelExtension
+    public static class ServiceModelSetting
     {
         #region # 字段及构造器
-
-        public const string BasicHttpBinding = "basicHttpBinding";
-        public const string NetTcpBinding = "netTcpBinding";
-        public const string NetHttpBinding = "netHttpBinding";
-        public const string WSHttpBinding = "wsHttpBinding";
-
-        /// <summary>
-        /// 可用绑定列表
-        /// </summary>
-        public static readonly IList<string> AvailableBindings = new List<string>
-        {
-            BasicHttpBinding, NetTcpBinding, NetHttpBinding, WSHttpBinding
-        };
 
         /// <summary>
         /// 终结点配置字典
@@ -50,7 +37,7 @@ namespace System.ServiceModel
         /// <summary>
         /// WSHttpBinding配置字典
         /// </summary>
-        private static readonly IDictionary<string, WSHttpBindingElement> _WSHttpBindings;
+        private static readonly IDictionary<string, WSHttpBindingElement> _WsHttpBindings;
 
         /// <summary>
         /// 终结点行为配置字典
@@ -60,13 +47,13 @@ namespace System.ServiceModel
         /// <summary>
         /// 静态构造器
         /// </summary>
-        static ServiceModelExtension()
+        static ServiceModelSetting()
         {
             _Endpoints = new ConcurrentDictionary<string, ChannelEndpointElement>();
             _BasicHttpBindings = new ConcurrentDictionary<string, BasicHttpBindingElement>();
             _NetTcpBindings = new ConcurrentDictionary<string, NetTcpBindingElement>();
             _NetHttpBindings = new ConcurrentDictionary<string, NetHttpBindingElement>();
-            _WSHttpBindings = new ConcurrentDictionary<string, WSHttpBindingElement>();
+            _WsHttpBindings = new ConcurrentDictionary<string, WSHttpBindingElement>();
             _BehaviorConfigurations = new ConcurrentDictionary<string, BehaviorConfigurationElement>();
             foreach (ChannelEndpointElement endpoint in ServiceModelSectionGroup.Setting.Clients.Endpoints)
             {
@@ -86,7 +73,7 @@ namespace System.ServiceModel
             }
             foreach (WSHttpBindingElement wsHttpBinding in ServiceModelSectionGroup.Setting.Bindings.WSHttpBinding.Bindings)
             {
-                _WSHttpBindings.Add(wsHttpBinding.Name, wsHttpBinding);
+                _WsHttpBindings.Add(wsHttpBinding.Name, wsHttpBinding);
             }
             foreach (BehaviorConfigurationElement behaviorConfiguration in ServiceModelSectionGroup.Setting.Behaviors.BehaviorConfigurations)
             {
@@ -142,7 +129,7 @@ namespace System.ServiceModel
         /// </summary>
         public static IDictionary<string, WSHttpBindingElement> WSHttpBindings
         {
-            get { return _WSHttpBindings; }
+            get { return _WsHttpBindings; }
         }
         #endregion
 
@@ -153,44 +140,6 @@ namespace System.ServiceModel
         public static IDictionary<string, BehaviorConfigurationElement> BehaviorConfigurations
         {
             get { return _BehaviorConfigurations; }
-        }
-        #endregion
-
-        #region # 关闭信道 —— static void CloseChannel(this object channel)
-        /// <summary>
-        /// 关闭信道
-        /// </summary>
-        /// <param name="channel">信道实例</param>
-        public static void CloseChannel(this object channel)
-        {
-            if (!(channel is ICommunicationObject communicationObject))
-            {
-                return;
-            }
-            try
-            {
-                if (communicationObject.State == CommunicationState.Faulted)
-                {
-                    communicationObject.Abort();
-                }
-                else
-                {
-                    communicationObject.Close();
-                }
-            }
-            catch (TimeoutException)
-            {
-                communicationObject.Abort();
-            }
-            catch (CommunicationException)
-            {
-                communicationObject.Abort();
-            }
-            catch (Exception)
-            {
-                communicationObject.Abort();
-                throw;
-            }
         }
         #endregion
     }
