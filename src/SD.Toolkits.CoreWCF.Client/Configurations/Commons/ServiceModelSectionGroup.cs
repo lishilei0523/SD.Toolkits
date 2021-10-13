@@ -37,7 +37,8 @@ namespace System.ServiceModel
                 if (_Setting == null)
                 {
                     Configuration.Configuration configuration = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-                    _Setting = (ServiceModelSectionGroup)configuration.GetSectionGroup("system.serviceModel");
+                    _Setting = (ServiceModelSectionGroup)configuration.GetSectionGroup("system.serviceModel.client") ??
+                               (ServiceModelSectionGroup)configuration.GetSectionGroup("system.serviceModel");
                 }
                 if (_Setting == null)
                 {
