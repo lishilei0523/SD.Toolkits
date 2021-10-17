@@ -120,7 +120,7 @@ namespace SD.Toolkits.EntityFramework.Extensions
         }
         #endregion
 
-        #region # IQueryable集合多列动态多条件排序 —— static IQueryable<T> OrderBy<T>(this IQueryable<T> queryable...
+        #region # IQueryable集合多列动态多条件排序 —— static IQueryable<T> OrderBy<T>(this IQueryable<T>...
         /// <summary>
         /// IQueryable集合多列动态多条件排序
         /// </summary>

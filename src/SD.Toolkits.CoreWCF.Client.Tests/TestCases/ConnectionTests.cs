@@ -4,7 +4,7 @@ using SD.Infrastructure.Constants;
 using SD.Infrastructure.MemberShip;
 using System;
 using System.Collections.Generic;
-using System.ServiceModel;
+using System.ServiceModel.Extensions;
 
 namespace SD.Toolkits.CoreWCF.Client.Tests.TestCases
 {

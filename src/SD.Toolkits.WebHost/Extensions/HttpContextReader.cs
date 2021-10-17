@@ -23,9 +23,9 @@ namespace SD.Toolkits.WebHost.Extensions
         /// </summary>
         internal static void SetHttpContext(HttpContext httpContext)
         {
-            lock (HttpContextReader._Sync)
+            lock (_Sync)
             {
-                HttpContextReader._AsyncHttpContext.Value = httpContext;
+                _AsyncHttpContext.Value = httpContext;
             }
         }
 
@@ -34,9 +34,9 @@ namespace SD.Toolkits.WebHost.Extensions
         /// </summary>
         internal static void ClearHttpContext()
         {
-            lock (HttpContextReader._Sync)
+            lock (_Sync)
             {
-                HttpContextReader._AsyncHttpContext.Value = null;
+                _AsyncHttpContext.Value = null;
             }
         }
 
@@ -48,9 +48,9 @@ namespace SD.Toolkits.WebHost.Extensions
         {
             get
             {
-                lock (HttpContextReader._Sync)
+                lock (_Sync)
                 {
-                    HttpContext httpContext = HttpContext.Current ?? HttpContextReader._AsyncHttpContext.Value;
+                    HttpContext httpContext = HttpContext.Current ?? _AsyncHttpContext.Value;
 
                     return httpContext;
                 }

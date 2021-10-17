@@ -62,20 +62,20 @@ namespace SD.Toolkits.EntityFramework.Tests.TestCases
             DbSession dbSession = new DbSession();
 
             //Lambda表达式排序
-            IQueryable<Student> studens1 = dbSession.Set<Student>();
-            studens1 = studens1.OrderByDescending(x => x.Gender).ThenBy(x => x.Name).ThenBy(x => x.Number);
+            IQueryable<Student> students1 = dbSession.Set<Student>();
+            students1 = students1.OrderByDescending(x => x.Gender).ThenBy(x => x.Name).ThenBy(x => x.Number);
 
             //动态排序
             IDictionary<string, bool> sorts = new Dictionary<string, bool>();
-            sorts.Add("Gender", false); //性别降序
-            sorts.Add("Name", true);    //名称升序
-            sorts.Add("Number", true);  //变化升序
+            sorts.Add(nameof(Student.Gender), false); //性别降序
+            sorts.Add(nameof(Student.Name), true);    //名称升序
+            sorts.Add(nameof(Student.Number), true);  //编号升序
 
-            IQueryable<Student> studens2 = dbSession.Set<Student>();
-            studens2 = studens2.OrderBy(sorts);
+            IQueryable<Student> students2 = dbSession.Set<Student>();
+            students2 = students2.OrderBy(sorts);
 
-            string sql1 = studens1.ParseSql();
-            string sql2 = studens2.ParseSql();
+            string sql1 = students1.ParseSql();
+            string sql2 = students2.ParseSql();
 
             Assert.AreEqual(sql1, sql2);
         }

@@ -69,7 +69,7 @@ namespace SD.Toolkits.EntityFrameworkCore.Extensions
         }
         #endregion
 
-        #region # IQueryable集合多列动态多条件排序 —— static IQueryable<T> OrderBy<T>(this IQueryable<T> queryable...
+        #region # IQueryable集合多列动态多条件排序 —— static IQueryable<T> OrderBy<T>(this IQueryable<T>...
         /// <summary>
         /// IQueryable集合多列动态多条件排序
         /// </summary>
@@ -124,7 +124,7 @@ namespace SD.Toolkits.EntityFrameworkCore.Extensions
         /// <returns>可查询集合</returns>
         public static IQueryable<T> IncludeNavigationProperties<T>(this IQueryable<T> queryable) where T : class
         {
-            queryable = QueryableExtension.IncludeRecursively(queryable, typeof(T), null, null);
+            queryable = IncludeRecursively(queryable, typeof(T), null, null);
 
             return queryable;
         }
@@ -192,7 +192,7 @@ namespace SD.Toolkits.EntityFrameworkCore.Extensions
                     ? propertyInfo.Name
                     : $"{pathPrefix}.{propertyInfo.Name}";
 
-                QueryableExtension.IncludeRecursively(queryable, propertyType, classType, pathPrefix2);
+                IncludeRecursively(queryable, propertyType, classType, pathPrefix2);
             }
 
             return queryable;
