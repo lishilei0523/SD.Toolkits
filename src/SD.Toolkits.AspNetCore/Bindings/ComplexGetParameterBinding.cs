@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Primitives;
 using Newtonsoft.Json;
 using System;
@@ -16,6 +18,24 @@ namespace SD.Toolkits.AspNetCore.Bindings
     /// </summary>
     public class ComplexGetParameterBinding : IModelBinder
     {
+        #region # 字段及构造器
+
+        /// <summary>
+        /// JSON序列化设置
+        /// </summary>
+        private readonly JsonSerializerSettings _jsonSerializerSettings;
+
+        /// <summary>
+        /// 依赖注入构造器
+        /// </summary>
+        public ComplexGetParameterBinding(IOptions<MvcNewtonsoftJsonOptions> jsonOptions)
+        {
+            this._jsonSerializerSettings = jsonOptions.Value.SerializerSettings;
+        }
+
+        #endregion
+
+
         //Implements
 
         #region # 执行参数模型绑定 —— async Task BindModelAsync(ModelBindingContext bindingContext)
@@ -44,7 +64,7 @@ namespace SD.Toolkits.AspNetCore.Bindings
             parameterValue = WebUtility.UrlDecode(parameterValue);
             if (!string.IsNullOrWhiteSpace(parameterValue))
             {
-                object paramValue = JsonConvert.DeserializeObject(parameterValue, bindingContext.ModelType);
+                object paramValue = JsonConvert.DeserializeObject(parameterValue, bindingContext.ModelType, this._jsonSerializerSettings);
                 bindingContext.Result = ModelBindingResult.Success(paramValue);
             }
             else

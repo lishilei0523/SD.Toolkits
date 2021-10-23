@@ -42,7 +42,8 @@ namespace SD.Toolkits.WebApi.Bindings
             parameterValue = WebUtility.UrlDecode(parameterValue);
             if (!string.IsNullOrWhiteSpace(parameterValue))
             {
-                object typicalValue = JsonConvert.DeserializeObject(parameterValue, base.Descriptor.ParameterType);
+                JsonSerializerSettings jsonSerializerSettings = actionContext.ControllerContext.Configuration.Formatters.JsonFormatter.SerializerSettings;
+                object typicalValue = JsonConvert.DeserializeObject(parameterValue, base.Descriptor.ParameterType, jsonSerializerSettings);
                 base.SetValue(actionContext, typicalValue);
             }
             else

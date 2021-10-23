@@ -64,9 +64,11 @@ namespace SD.Toolkits.WebApi.Bindings
         /// </summary>
         public override async Task ExecuteBindingAsync(ModelMetadataProvider metadataProvider, HttpActionContext actionContext, CancellationToken cancellationToken)
         {
-            NameValueCollection parameters = await this.ParseParametersFromBody(actionContext.Request);
+            JsonSerializerSettings jsonSerializerSettings = actionContext.ControllerContext.Configuration.Formatters.JsonFormatter.SerializerSettings;
+
+            NameValueCollection parameters = await this.ParseParametersFromBody(actionContext.Request, jsonSerializerSettings);
             string parameterValue = parameters.Get(base.Descriptor.ParameterName);
-            object typicalValue = ParameterExtension.TypifyParameterValue(base.Descriptor.ParameterType, parameterValue);
+            object typicalValue = ParameterExtension.TypifyParameterValue(base.Descriptor.ParameterType, parameterValue, jsonSerializerSettings);
 
             base.SetValue(actionContext, typicalValue);
         }
@@ -76,7 +78,7 @@ namespace SD.Toolkits.WebApi.Bindings
         /// <summary>
         /// 读取转换参数至字典
         /// </summary>
-        private async Task<NameValueCollection> ParseParametersFromBody(HttpRequestMessage request)
+        private async Task<NameValueCollection> ParseParametersFromBody(HttpRequestMessage request, JsonSerializerSettings jsonSerializerSettings)
         {
             string cacheKey = typeof(WrapPostParameterBinding).FullName;
             if (!request.Properties.TryGetValue(cacheKey, out object result))
@@ -85,7 +87,7 @@ namespace SD.Toolkits.WebApi.Bindings
                 if (contentType.MediaType.StartsWith("application/json"))
                 {
                     string content = await request.Content.ReadAsStringAsync();
-                    IDictionary<string, object> values = JsonConvert.DeserializeObject<Dictionary<string, object>>(content);
+                    IDictionary<string, object> values = JsonConvert.DeserializeObject<Dictionary<string, object>>(content, jsonSerializerSettings);
                     result = values.Aggregate(new NameValueCollection(), (seed, current) =>
                     {
                         seed.Add(current.Key, current.Value?.ToString());

@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Primitives;
 using Newtonsoft.Json;
 using SD.Toolkits.AspNetCore.Extensions;
@@ -20,6 +22,24 @@ namespace SD.Toolkits.AspNetCore.Bindings
     /// </summary>
     public class WrapPostParameterBinding : IModelBinder
     {
+        #region # 字段及构造器
+
+        /// <summary>
+        /// JSON序列化设置
+        /// </summary>
+        private readonly JsonSerializerSettings _jsonSerializerSettings;
+
+        /// <summary>
+        /// 依赖注入构造器
+        /// </summary>
+        public WrapPostParameterBinding(IOptions<MvcNewtonsoftJsonOptions> jsonOptions)
+        {
+            this._jsonSerializerSettings = jsonOptions.Value.SerializerSettings;
+        }
+
+        #endregion
+
+
         //Implements
 
         #region # 执行参数模型绑定 —— async Task BindModelAsync(ModelBindingContext bindingContext)
@@ -51,7 +71,7 @@ namespace SD.Toolkits.AspNetCore.Bindings
 
             NameValueCollection parameters = await this.ParseParametersFromBody(httpContext.Request);
             string parameterValue = parameters.Get(bindingContext.FieldName);
-            object typicalValue = ParameterExtension.TypifyParameterValue(bindingContext.ModelType, parameterValue);
+            object typicalValue = ParameterExtension.TypifyParameterValue(bindingContext.ModelType, parameterValue, this._jsonSerializerSettings);
             bindingContext.Result = ModelBindingResult.Success(typicalValue);
         }
         #endregion
@@ -73,7 +93,7 @@ namespace SD.Toolkits.AspNetCore.Bindings
                     using (StreamReader streamReader = new StreamReader(request.Body, Encoding.UTF8, false, 4096, true))
                     {
                         string body = await streamReader.ReadToEndAsync();
-                        IDictionary<string, object> values = JsonConvert.DeserializeObject<Dictionary<string, object>>(body);
+                        IDictionary<string, object> values = JsonConvert.DeserializeObject<Dictionary<string, object>>(body, this._jsonSerializerSettings);
                         result = values.Aggregate(new NameValueCollection(), (seed, current) =>
                         {
                             seed.Add(current.Key, current.Value?.ToString());

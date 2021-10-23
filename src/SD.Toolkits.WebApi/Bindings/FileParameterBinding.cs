@@ -1,4 +1,5 @@
-﻿using SD.Toolkits.WebApi.Attributes;
+﻿using Newtonsoft.Json;
+using SD.Toolkits.WebApi.Attributes;
 using SD.Toolkits.WebApi.Extensions;
 using SD.Toolkits.WebApi.Models;
 using System.Collections.Concurrent;
@@ -133,7 +134,8 @@ namespace SD.Toolkits.WebApi.Bindings
                 else
                 {
                     //除文件外，按类型化参数处理
-                    paramValue = ParameterExtension.TypifyParameterValue(base.Descriptor.ParameterType, parameterValue);
+                    JsonSerializerSettings jsonSerializerSettings = actionContext.ControllerContext.Configuration.Formatters.JsonFormatter.SerializerSettings;
+                    paramValue = ParameterExtension.TypifyParameterValue(base.Descriptor.ParameterType, parameterValue, jsonSerializerSettings);
                 }
 
                 base.SetValue(actionContext, paramValue);

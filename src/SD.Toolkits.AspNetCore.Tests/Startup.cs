@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
+using Newtonsoft.Json.Serialization;
 using SD.Toolkits.AspNetCore.Filters;
 
 namespace SD.Toolkits.AspNetCore.Tests
@@ -22,6 +23,10 @@ namespace SD.Toolkits.AspNetCore.Tests
             services.AddControllers(options =>
             {
                 options.Filters.Add(new WebApiExceptionFilter());
+            }).AddNewtonsoftJson(options =>
+            {
+                //CamelÃüÃûÉèÖÃ
+                options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
             });
         }
 

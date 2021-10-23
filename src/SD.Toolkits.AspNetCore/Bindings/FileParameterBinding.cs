@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Primitives;
+using Newtonsoft.Json;
 using SD.Toolkits.AspNetCore.Extensions;
 using System;
 using System.Collections.Concurrent;
@@ -15,6 +18,24 @@ namespace SD.Toolkits.AspNetCore.Bindings
     /// </summary>
     public class FileParameterBinding : IModelBinder
     {
+        #region # 字段及构造器
+
+        /// <summary>
+        /// JSON序列化设置
+        /// </summary>
+        private readonly JsonSerializerSettings _jsonSerializerSettings;
+
+        /// <summary>
+        /// 依赖注入构造器
+        /// </summary>
+        public FileParameterBinding(IOptions<MvcNewtonsoftJsonOptions> jsonOptions)
+        {
+            this._jsonSerializerSettings = jsonOptions.Value.SerializerSettings;
+        }
+
+        #endregion
+
+
         //Implements
 
         #region # 执行参数模型绑定 —— Task BindModelAsync(ModelBindingContext bindingContext)
@@ -102,7 +123,7 @@ namespace SD.Toolkits.AspNetCore.Bindings
                 else
                 {
                     //除文件外，按类型化参数处理
-                    typicalValue = ParameterExtension.TypifyParameterValue(bindingContext.ModelType, parameterValue);
+                    typicalValue = ParameterExtension.TypifyParameterValue(bindingContext.ModelType, parameterValue, this._jsonSerializerSettings);
                 }
 
                 bindingContext.Result = ModelBindingResult.Success(typicalValue);

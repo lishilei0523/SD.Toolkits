@@ -13,8 +13,9 @@ namespace SD.Toolkits.AspNetCore.Extensions
         /// </summary>
         /// <param name="parameterType">参数类型</param>
         /// <param name="parameterValue">参数值</param>
+        /// <param name="jsonSerializerSettings">JSON序列化设置</param>
         /// <returns>类型化参数值</returns>
-        public static object TypifyParameterValue(Type parameterType, string parameterValue)
+        public static object TypifyParameterValue(Type parameterType, string parameterValue, JsonSerializerSettings jsonSerializerSettings)
         {
             if (!string.IsNullOrWhiteSpace(parameterValue))
             {
@@ -46,12 +47,12 @@ namespace SD.Toolkits.AspNetCore.Extensions
                 else if (parameterType.IsGenericType && parameterType.GetGenericTypeDefinition() == typeof(Nullable<>))
                 {
                     Type originalType = parameterType.GetGenericArguments()[0];
-                    return TypifyParameterValue(originalType, parameterValue);
+                    return TypifyParameterValue(originalType, parameterValue, jsonSerializerSettings);
                 }
                 else
                 {
                     //除字符串、Guid、时间、枚举、基元类型外，都按对象反序列化
-                    typicalValue = JsonConvert.DeserializeObject(parameterValue, parameterType);
+                    typicalValue = JsonConvert.DeserializeObject(parameterValue, parameterType, jsonSerializerSettings);
                 }
 
                 return typicalValue;
@@ -65,8 +66,9 @@ namespace SD.Toolkits.AspNetCore.Extensions
         /// </summary>
         /// <param name="parameterType">参数类型</param>
         /// <param name="parameterValue">参数值</param>
+        /// <param name="jsonSerializerSettings">JSON序列化设置</param>
         /// <returns>类型化参数值</returns>
-        public static object TypifyParameterValue(Type parameterType, object parameterValue)
+        public static object TypifyParameterValue(Type parameterType, object parameterValue, JsonSerializerSettings jsonSerializerSettings)
         {
             if (parameterValue != null)
             {
@@ -98,12 +100,12 @@ namespace SD.Toolkits.AspNetCore.Extensions
                 else if (parameterType.IsGenericType && parameterType.GetGenericTypeDefinition() == typeof(Nullable<>))
                 {
                     Type originalType = parameterType.GetGenericArguments()[0];
-                    return TypifyParameterValue(originalType, parameterValue);
+                    return TypifyParameterValue(originalType, parameterValue, jsonSerializerSettings);
                 }
                 else
                 {
                     //除字符串、Guid、时间、枚举、基元类型外，都按对象反序列化
-                    typicalValue = JsonConvert.DeserializeObject(parameterValue.ToString(), parameterType);
+                    typicalValue = JsonConvert.DeserializeObject(parameterValue.ToString(), parameterType, jsonSerializerSettings);
                 }
 
                 return typicalValue;
