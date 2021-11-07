@@ -439,21 +439,22 @@ namespace SD.Common
                     typeof(decimal),
                     typeof(Guid),
                     typeof(DateTime),
-                    typeof(TimeSpan)
+                    typeof(TimeSpan),
+                    typeof(Enum)
                 };
 
                 IList<PropertyInfo> primitiveProperties = new List<PropertyInfo>();
                 foreach (PropertyInfo property in properties)
                 {
                     Type propertyType = property.PropertyType;
-                    if (primitiveTypes.Contains(propertyType))
+                    if (primitiveTypes.Contains(propertyType) || primitiveTypes.Contains(propertyType.BaseType))
                     {
                         primitiveProperties.Add(property);
                     }
                     if (propertyType.IsNullable())
                     {
                         Type propertyOriginalType = propertyType.GetGenericArguments()[0];
-                        if (primitiveTypes.Contains(propertyOriginalType))
+                        if (primitiveTypes.Contains(propertyOriginalType) || primitiveTypes.Contains(propertyOriginalType.BaseType))
                         {
                             primitiveProperties.Add(property);
                         }

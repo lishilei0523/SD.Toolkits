@@ -20,9 +20,18 @@ namespace SD.Common.Tests.TestCases
         {
             IList<Student> students = new List<Student>
             {
-                new Student { Id = 3, Name = "学生3", Age = 21, BirthDay = new DateTime(1996, 2, 20) },
-                new Student { Id = 1, Name = "学生1", Age = null, BirthDay = new DateTime(1992, 4, 18) },
-                new Student { Id = 2, Name = "学生2", Age = 19, BirthDay = new DateTime(1991, 4, 20) }
+                new Student
+                {
+                    Id = 3, Name = "学生3", Gender = Gender.Male, Age = 21, BirthDay = new DateTime(1996, 2, 20)
+                },
+                new Student
+                {
+                    Id = 1, Name = "学生1", Gender = Gender.Female, Age = null, BirthDay = new DateTime(1992, 4, 18)
+                },
+                new Student
+                {
+                    Id = 2, Name = "学生2", Gender = null, Age = 19, BirthDay = new DateTime(1991, 4, 20)
+                }
             };
 
             DataTable dataTable = students.ToDataTable(true);
