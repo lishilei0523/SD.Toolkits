@@ -43,5 +43,22 @@ namespace SD.Common
             return pathBuilder.ToString();
         }
         #endregion
+
+        #region # 判断给定类型是否是Nullable —— static bool IsNullable(this Type type)
+        /// <summary>
+        /// 判断给定类型是否是Nullable
+        /// </summary>
+        /// <param name="type">类型</param>
+        /// <returns>是否是Nullable</returns>
+        public static bool IsNullable(this Type type)
+        {
+            if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Nullable<>))
+            {
+                return true;
+            }
+
+            return false;
+        }
+        #endregion
     }
 }

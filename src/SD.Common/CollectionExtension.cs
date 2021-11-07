@@ -189,18 +189,18 @@ namespace SD.Common
         }
         #endregion
 
-        #region # 根据一个字段去重 —— static IEnumerable<T> DistinctBy<T, TKey>(this IEnumerable<T> enumerable...
+        #region # 根据一个属性去重 —— static IEnumerable<T> DistinctBy<T, TKey>(this IEnumerable<T> enumerable...
         /// <summary>
-        /// 根据一个字段去重
+        /// 根据一个属性去重
         /// </summary>
-        /// <typeparam name="TKey">去重的参照字段</typeparam>
+        /// <typeparam name="T">类型</typeparam>
+        /// <typeparam name="TKey">去重的参照属性</typeparam>
         /// <param name="enumerable">源集合</param>
-        /// <param name="keySelector">字段选择委托</param>
+        /// <param name="keySelector">属性选择器</param>
         /// <returns>去重后的集合</returns>
-        /// <exception cref="ArgumentNullException">源集合对象为空、参照字段表达式为空</exception>
         public static IEnumerable<T> DistinctBy<T, TKey>(this IEnumerable<T> enumerable, Func<T, TKey> keySelector)
         {
-            #region # 验证参数
+            #region # 验证
 
             if (enumerable == null)
             {
@@ -209,7 +209,7 @@ namespace SD.Common
 
             if (keySelector == null)
             {
-                throw new ArgumentNullException(nameof(keySelector), @"参照字段表达式不可为空！");
+                throw new ArgumentNullException(nameof(keySelector), @"属性选择器不可为空！");
             }
 
             #endregion
@@ -344,49 +344,50 @@ namespace SD.Common
         }
         #endregion
 
-        #region # DataTable转换集合 —— static IList<T> ToList<T>(this DataTable...
+        #region # DataTable转换集合 —— static ICollection<T> ToCollection<T>(this DataTable...
         /// <summary>
         /// DataTable转换集合
         /// </summary>
-        public static IList<T> ToList<T>(this DataTable dataTable)
+        public static ICollection<T> ToCollection<T>(this DataTable dataTable)
         {
-            //获取类型与属性信息
-            Type currentType = typeof(T);
-            PropertyInfo[] properties = currentType.GetProperties();
-
-            //获取无参构造函数
-            ConstructorInfo[] constructors = currentType.GetConstructors(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
-            ConstructorInfo noParamCtor = constructors.Single(x => x.GetParameters().Length == 0);
-
             #region # 验证
 
-            if (dataTable == null)
+            if (dataTable == null || dataTable.Rows.Count == 0)
             {
-                throw new ArgumentNullException(nameof(dataTable), "数据表不可为null！");
+                return new List<T>();
             }
 
             #endregion
 
+            //获取类型与属性列表
+            Type type = typeof(T);
+            PropertyInfo[] properties = type.GetProperties();
+
+            //获取无参构造函数
+            ConstructorInfo[] constructors = type.GetConstructors(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
+            ConstructorInfo noParamConstructor = constructors.Single(ctor => ctor.GetParameters().Length == 0);
+
             IList<T> collection = new List<T>();
-
-            foreach (DataRow row in dataTable.Rows)
+            foreach (DataRow dataRow in dataTable.Rows)
             {
-                T instance = (T)noParamCtor.Invoke(null);
-
+                T instance = (T)noParamConstructor.Invoke(null);
                 foreach (PropertyInfo property in properties)
                 {
                     if (dataTable.Columns.Contains(property.Name))
                     {
-                        MethodInfo setter = property.GetSetMethod(true);
-                        if (setter != null)
+                        MethodInfo propertySetter = property.GetSetMethod(true);
+                        if (propertySetter != null)
                         {
-                            object value = row[property.Name] == DBNull.Value ? null : row[property.Name];
-                            setter.Invoke(instance, new[] { value });
+                            object value = dataRow[property.Name] == DBNull.Value
+                                ? null
+                                : dataRow[property.Name];
+                            propertySetter.Invoke(instance, new[] { value });
                         }
                     }
                 }
                 collection.Add(instance);
             }
+
             return collection;
         }
         #endregion
@@ -395,37 +396,99 @@ namespace SD.Common
         /// <summary>
         /// 集合转换DataTable
         /// </summary>
-        public static DataTable ToDataTable<T>(this IEnumerable<T> enumerable)
+        /// <param name="enumerable">集合</param>
+        /// <param name="onlyPrimitiveType">是否只包含基元类型</param>
+        /// <param name="propertyQuery">属性查询条件</param>
+        /// <remarks>
+        /// 基元类型：string, bool, byte, short, int, long, float, double, decimal, Guid, DateTime, TimeSpan
+        /// </remarks>
+        public static DataTable ToDataTable<T>(this IEnumerable<T> enumerable, bool onlyPrimitiveType = false, Func<PropertyInfo, bool> propertyQuery = null)
         {
-            #region # 验证
+            T[] array = enumerable?.ToArray() ?? new T[0];
+            DataTable dataTable = new DataTable();
 
-            if (enumerable == null)
+            #region 验证
+
+            if (!array.Any())
             {
-                throw new ArgumentNullException(nameof(enumerable), "集合不可为null！");
+                return dataTable;
             }
 
             #endregion
 
-            //获取类型与属性信息
-            Type currentType = typeof(T);
-            PropertyInfo[] properties = currentType.GetProperties();
+            //获取类型属性列表
+            PropertyInfo[] properties = typeof(T).GetProperties();
+            if (propertyQuery != null)
+            {
+                properties = properties.Where(propertyQuery).ToArray();
+            }
 
-            DataTable dataTable = new DataTable();
+            //过滤基元类型
+            if (onlyPrimitiveType)
+            {
+                Type[] primitiveTypes =
+                {
+                    typeof(string),
+                    typeof(bool),
+                    typeof(byte),
+                    typeof(short),
+                    typeof(int),
+                    typeof(long),
+                    typeof(float),
+                    typeof(double),
+                    typeof(decimal),
+                    typeof(Guid),
+                    typeof(DateTime),
+                    typeof(TimeSpan)
+                };
+
+                IList<PropertyInfo> primitiveProperties = new List<PropertyInfo>();
+                foreach (PropertyInfo property in properties)
+                {
+                    Type propertyType = property.PropertyType;
+                    if (primitiveTypes.Contains(propertyType))
+                    {
+                        primitiveProperties.Add(property);
+                    }
+                    if (propertyType.IsNullable())
+                    {
+                        Type propertyOriginalType = propertyType.GetGenericArguments()[0];
+                        if (primitiveTypes.Contains(propertyOriginalType))
+                        {
+                            primitiveProperties.Add(property);
+                        }
+                    }
+                }
+
+                properties = primitiveProperties.ToArray();
+            }
 
             //创建列
             foreach (PropertyInfo property in properties)
             {
-                dataTable.Columns.Add(new DataColumn(property.Name));
+                Type propertyType = property.PropertyType;
+                if (propertyType.IsNullable())
+                {
+                    Type propertyOriginalType = propertyType.GetGenericArguments()[0];
+                    DataColumn dataColumn = new DataColumn(property.Name, propertyOriginalType);
+                    dataTable.Columns.Add(dataColumn);
+                }
+                else
+                {
+                    DataColumn dataColumn = new DataColumn(property.Name, propertyType);
+                    dataTable.Columns.Add(dataColumn);
+                }
             }
 
             //创建行
-            T[] array = enumerable.ToArray();
-            for (int i = 0; i < array.Length; i++)
+            foreach (T instance in array)
             {
-                foreach (PropertyInfo property in properties)
-                {
-                    dataTable.Rows[i][property.Name] = property.GetValue(array[i]);
-                }
+                IEnumerable<object> propertyValues =
+                    from property in properties
+                    let propertyValue = property.GetValue(instance)
+                    select propertyValue;
+
+                dataTable.Rows.Add(propertyValues.ToArray());
             }
 
             return dataTable;

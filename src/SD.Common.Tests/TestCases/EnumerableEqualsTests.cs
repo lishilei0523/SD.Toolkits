@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace SD.Common.Tests
+namespace SD.Common.Tests.TestCases
 {
     /// <summary>
     /// 比较序列相等测试
@@ -45,7 +45,6 @@ namespace SD.Common.Tests
                 new Student{Id = 3,Name = "学生3",BirthDay = new DateTime(1996,2,20)},
                 new Student{Id = 1,Name = "学生1",BirthDay = new DateTime(1992,4,18)},
                 new Student{Id = 2,Name = "学生2",BirthDay = new DateTime(1991,4,20)}
-
             };
             this._targetList = new List<Student>
             {

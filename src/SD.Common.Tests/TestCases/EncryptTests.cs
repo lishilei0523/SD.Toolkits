@@ -1,6 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace SD.Common.Tests
+namespace SD.Common.Tests.TestCases
 {
     /// <summary>
     /// 字符串解密/解密测试
