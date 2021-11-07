@@ -7,7 +7,7 @@ namespace SD.Toolkits.Sql.Oracle
     /// <summary>
     /// Oracle数据库访问助手类
     /// </summary>
-    public sealed class OracleHelper : ISqlHelper
+    public sealed class OracleSqlHelper : ISqlHelper
     {
         #region # 字段及构造器
 
@@ -20,7 +20,7 @@ namespace SD.Toolkits.Sql.Oracle
         /// 构造函数
         /// </summary>
         /// <param name="connectionString">连接字符串</param>
-        public OracleHelper(string connectionString)
+        public OracleSqlHelper(string connectionString)
         {
             #region # 验证参数
 
@@ -179,6 +179,8 @@ namespace SD.Toolkits.Sql.Oracle
         {
             using (OracleConnection connection = this.CreateConnection())
             {
+                connection.Open();
+
                 //开启批量复制
                 using (OracleBulkCopy bulkCopy = new OracleBulkCopy(connection, OracleBulkCopyOptions.UseInternalTransaction))
                 {

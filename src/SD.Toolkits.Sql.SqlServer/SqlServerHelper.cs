@@ -179,6 +179,8 @@ namespace SD.Toolkits.Sql.SqlServer
         {
             using (SqlConnection connection = this.CreateConnection())
             {
+                connection.Open();
+
                 //开启事务
                 using (SqlTransaction transaction = connection.BeginTransaction())
                 {
