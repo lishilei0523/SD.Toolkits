@@ -100,15 +100,15 @@ namespace SD.Common
         }
         #endregion
 
-        #region # 断言集合不为空 —— void IsNotEmpty<T>(IEnumerable<T> enumerable, string errorMessage = null)
+        #region # 断言集合不为空 —— void IsNotEmpty<T>(ICollection<T> collection, string errorMessage = null)
         /// <summary>
         /// 断言集合不为空
         /// </summary>
-        /// <param name="enumerable">集合</param>
+        /// <param name="collection">集合</param>
         /// <param name="errorMessage">错误消息</param>
-        public static void IsNotEmpty<T>(IEnumerable<T> enumerable, string errorMessage = null)
+        public static void IsNotEmpty<T>(ICollection<T> collection, string errorMessage = null)
         {
-            if (enumerable.IsNullOrEmpty())
+            if (collection.IsNullOrEmpty())
             {
                 throw new AssertFailedException(errorMessage);
             }
@@ -179,6 +179,7 @@ namespace SD.Common
         }
         #endregion
     }
+
 
     /// <summary>
     /// 断言失败异常

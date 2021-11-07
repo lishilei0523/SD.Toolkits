@@ -50,7 +50,7 @@ namespace SD.Common
 
             if (!enumType.IsSubclassOf(typeof(Enum)))
             {
-                throw new ArgumentOutOfRangeException(string.Format("类型\"{0}\"不是枚举类型！", enumType.Name));
+                throw new ArgumentOutOfRangeException($"类型\"{enumType.Name}\"不是枚举类型！");
             }
 
             #endregion
@@ -58,48 +58,39 @@ namespace SD.Common
             FieldInfo[] fields = enumType.GetFields();
 
             IDictionary<string, string> dictionaries = new Dictionary<string, string>();
-
             foreach (FieldInfo field in fields.Where(x => x.Name != EnumValueField))
             {
                 DescriptionAttribute enumMember = field.GetCustomAttribute<DescriptionAttribute>();
 
-                dictionaries.Add(field.Name, enumMember == null ? field.Name : string.IsNullOrEmpty(enumMember.Description) ? field.Name : enumMember.Description);
+                dictionaries.Add(field.Name, enumMember == null
+                    ? field.Name
+                    : string.IsNullOrEmpty(enumMember.Description)
+                        ? field.Name
+                        : enumMember.Description);
             }
 
             return dictionaries;
         }
         #endregion
 
-        #region # 将字符串转换成可空的枚举 —— static T? GetEnum<T>(this string enumStr)
+        #region # 获取枚举值/描述字典 —— static IDictionary<int, string> GetEnumDictionary(...
         /// <summary>
-        /// 将字符串转换成可空的枚举
+        /// 获取枚举值/描述字典
         /// </summary>
-        /// <typeparam name="T">枚举类型</typeparam>
-        /// <param name="enumStr">枚举的字符串值</param>
-        /// <returns>可空的枚举值</returns>
-        public static T? GetEnum<T>(this string enumStr) where T : struct
+        /// <param name="enumType">枚举类型</param>
+        /// <returns>枚举值、描述字典</returns>
+        /// IDictionary[int, string]，[枚举int值，枚举描述]
+        public static IDictionary<int, string> GetEnumDictionary(this Type enumType)
         {
-            #region # 验证参数
+            IEnumerable<Tuple<int, string, string>> tuples = GetEnumMemberInfos(enumType);
 
-            if (string.IsNullOrWhiteSpace(enumStr))
+            IDictionary<int, string> dictionary = new Dictionary<int, string>();
+            foreach (Tuple<int, string, string> tuple in tuples)
             {
-                return null;
-            }
-            if (typeof(T).IsSubclassOf(typeof(Enum)))
-            {
-                throw new ArgumentOutOfRangeException(string.Format("类型\"{0}\"不是枚举类型！", typeof(T).Name));
+                dictionary.Add(tuple.Item1, tuple.Item3);
             }
 
-            #endregion
-
-            T @enum;
-
-            if (!Enum.TryParse(enumStr, out @enum))
-            {
-                throw new InvalidCastException(string.Format("无法将给定字符串\"{0}\"转换为枚举\"{1}\"！", enumStr, typeof(T).Name));
-            }
-
-            return @enum;
+            return dictionary;
         }
         #endregion
 
@@ -118,7 +109,7 @@ namespace SD.Common
 
             if (!enumType.IsSubclassOf(typeof(Enum)))
             {
-                throw new ArgumentOutOfRangeException(string.Format("类型\"{0}\"不是枚举类型！", enumType.Name));
+                throw new ArgumentOutOfRangeException($"类型\"{enumType.Name}\"不是枚举类型！");
             }
 
             #endregion
@@ -126,7 +117,6 @@ namespace SD.Common
             FieldInfo[] fields = enumType.GetFields();
 
             ICollection<Tuple<int, string, string>> enumInfos = new HashSet<Tuple<int, string, string>>();
-
             foreach (FieldInfo field in fields.Where(x => x.Name != EnumValueField))
             {
                 DescriptionAttribute enumMember = field.GetCustomAttribute<DescriptionAttribute>();
@@ -139,24 +129,34 @@ namespace SD.Common
         }
         #endregion
 
-        #region # 获取枚举值、描述字典 —— static IDictionary<int, string> GetEnumDictionary(...
+        #region # 字符串转换枚举值 —— static T AsEnumTo<T>(this string enumText)
         /// <summary>
-        /// 获取枚举值、描述字典
+        /// 字符串转换枚举值
         /// </summary>
-        /// <param name="enumType">枚举类型</param>
-        /// <returns>枚举值、描述字典</returns>
-        /// IDictionary[int, string]，[枚举int值，枚举描述]
-        public static IDictionary<int, string> GetEnumDictionary(this Type enumType)
+        /// <typeparam name="T">枚举类型</typeparam>
+        /// <param name="enumText">枚举字符串</param>
+        /// <returns>枚举值</returns>
+        public static T AsEnumTo<T>(this string enumText) where T : struct
         {
-            IEnumerable<Tuple<int, string, string>> tuples = GetEnumMemberInfos(enumType);
+            #region # 验证参数
 
-            IDictionary<int, string> dictionary = new Dictionary<int, string>();
-            foreach (Tuple<int, string, string> tuple in tuples)
+            if (string.IsNullOrWhiteSpace(enumText))
             {
-                dictionary.Add(tuple.Item1, tuple.Item3);
+                throw new ArgumentNullException(nameof(enumText), "枚举的字符串值不可为空！");
+            }
+            if (typeof(T).IsSubclassOf(typeof(Enum)))
+            {
+                throw new ArgumentOutOfRangeException(nameof(T), $"类型\"{typeof(T).Name}\"不是枚举类型！");
             }
 
-            return dictionary;
+            #endregion
+
+            if (!Enum.TryParse(enumText, out T @enum))
+            {
+                throw new InvalidCastException($"无法将给定字符串\"{enumText}\"转换为枚举\"{typeof(T).Name}\"！");
+            }
+
+            return @enum;
         }
         #endregion
     }

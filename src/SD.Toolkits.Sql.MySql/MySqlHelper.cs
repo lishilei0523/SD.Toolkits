@@ -169,13 +169,23 @@ namespace SD.Toolkits.Sql.MySql
         }
         #endregion
 
-        #region # 批量复制 —— void BulkCopy(DataTable dataTable, string destinationTableName)
+        #region # 批量复制 —— void BulkCopy(DataTable dataTable)
         /// <summary>
         /// 批量复制
         /// </summary>
         /// <param name="dataTable">数据表</param>
-        /// <param name="destinationTableName">目标数据库表名</param>
-        public void BulkCopy(DataTable dataTable, string destinationTableName)
+        public void BulkCopy(DataTable dataTable)
+        {
+            throw new NotImplementedException("暂时未实现");
+        }
+        #endregion
+
+        #region # 批量复制 —— void BulkCopy(DataSet dataSet)
+        /// <summary>
+        /// 批量复制
+        /// </summary>
+        /// <param name="dataSet">数据集</param>
+        public void BulkCopy(DataSet dataSet)
         {
             throw new NotImplementedException("暂时未实现");
         }

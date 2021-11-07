@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Reflection;
 
 namespace SD.Common
@@ -44,40 +43,27 @@ namespace SD.Common
         /// <summary>
         /// 判断两个集合中的元素是否相等
         /// </summary>
-        /// <param name="sourceList">源集合</param>
-        /// <param name="targetList">目标集合</param>
+        /// <param name="sourceEnumerable">源集合</param>
+        /// <param name="targetEnumerable">目标集合</param>
         /// <returns>是否相等</returns>
-        public static bool EqualsTo<T>(this IEnumerable<T> sourceList, IEnumerable<T> targetList)
+        public static bool EqualsTo<T>(this IEnumerable<T> sourceEnumerable, IEnumerable<T> targetEnumerable)
         {
-            #region # 验证
-
-            if (sourceList == null)
-            {
-                throw new ArgumentNullException(nameof(sourceList), $"源{typeof(T).Name}集合对象不可为空！");
-            }
-            if (targetList == null)
-            {
-                throw new ArgumentNullException(nameof(targetList), $"目标{typeof(T).Name}集合对象不可为空！");
-            }
-
-            #endregion
-
             //转数组
-            sourceList = sourceList.ToArray();
-            targetList = targetList.ToArray();
+            sourceEnumerable = sourceEnumerable?.ToArray() ?? new T[0];
+            targetEnumerable = targetEnumerable?.ToArray() ?? new T[0];
 
             #region 01.长度对比
 
-            //长度不相等
-            if (sourceList.Count() != targetList.Count())
-            {
-                return false;
-            }
-
             //长度都为0
-            if (!sourceList.Any() && !targetList.Any())
+            if (!sourceEnumerable.Any() && !targetEnumerable.Any())
             {
                 return true;
+            }
+
+            //长度不相等
+            if (sourceEnumerable.Count() != targetEnumerable.Count())
+            {
+                return false;
             }
 
             #endregion
@@ -85,7 +71,7 @@ namespace SD.Common
             #region 02.浅度对比
 
             //元素对比
-            if (!sourceList.Except(targetList).Any() && !targetList.Except(sourceList).Any())
+            if (!sourceEnumerable.Except(targetEnumerable).Any() && !targetEnumerable.Except(sourceEnumerable).Any())
             {
                 return true;
             }
@@ -95,8 +81,8 @@ namespace SD.Common
             #region 03.深度对比
 
             //将集合序列化为字符串
-            string sourceListStr = sourceList.ToXml().Trim();
-            string targetListStr = targetList.ToXml().Trim();
+            string sourceListStr = sourceEnumerable.ToXml().Trim();
+            string targetListStr = targetEnumerable.ToXml().Trim();
 
             //对比字符串是否相同
             if (sourceListStr == targetListStr)
@@ -119,31 +105,21 @@ namespace SD.Common
         /// <returns>是否相等</returns>
         public static bool EqualsTo<TKey, TValue>(this IDictionary<TKey, TValue> sourceDict, IDictionary<TKey, TValue> targetDict)
         {
-            #region # 验证
-
-            if (sourceDict == null)
-            {
-                throw new ArgumentNullException(nameof(sourceDict), "源字典对象不可为空！");
-            }
-            if (targetDict == null)
-            {
-                throw new ArgumentNullException(nameof(targetDict), "目标字典对象不可为空！");
-            }
-
-            #endregion
+            sourceDict = sourceDict ?? new Dictionary<TKey, TValue>();
+            targetDict = targetDict ?? new Dictionary<TKey, TValue>();
 
             #region 01.长度对比
-
-            //长度不相等
-            if (sourceDict.Count != targetDict.Count)
-            {
-                return false;
-            }
 
             //长度都为0
             if (!sourceDict.Any() && !targetDict.Any())
             {
                 return true;
+            }
+
+            //长度不相等
+            if (sourceDict.Count != targetDict.Count)
+            {
+                return false;
             }
 
             #endregion
@@ -173,19 +149,20 @@ namespace SD.Common
         }
         #endregion
 
-        #region # 判断集合是否为空或null —— static bool IsNullOrEmpty<T>(this IEnumerable<T> enumerable)
+        #region # 判断集合是否为空或null —— static bool IsNullOrEmpty<T>(this ICollection<T> collection)
         /// <summary>
         /// 判断集合是否为空或null
         /// </summary>
-        /// <param name="enumerable">集合对象</param>
+        /// <param name="collection">集合</param>
         /// <returns>是否为空或null</returns>
-        public static bool IsNullOrEmpty<T>(this IEnumerable<T> enumerable)
+        public static bool IsNullOrEmpty<T>(this ICollection<T> collection)
         {
-            if (enumerable == null)
+            if (collection == null || !collection.Any())
             {
                 return true;
             }
-            return !enumerable.Any();
+
+            return false;
         }
         #endregion
 
@@ -194,8 +171,8 @@ namespace SD.Common
         /// 根据一个属性去重
         /// </summary>
         /// <typeparam name="T">类型</typeparam>
-        /// <typeparam name="TKey">去重的参照属性</typeparam>
-        /// <param name="enumerable">源集合</param>
+        /// <typeparam name="TKey">参照属性</typeparam>
+        /// <param name="enumerable">集合</param>
         /// <param name="keySelector">属性选择器</param>
         /// <returns>去重后的集合</returns>
         public static IEnumerable<T> DistinctBy<T, TKey>(this IEnumerable<T> enumerable, Func<T, TKey> keySelector)
@@ -243,104 +220,6 @@ namespace SD.Common
             }
 
             enumerable.ForEach(collection.Add);
-        }
-        #endregion
-
-        #region # 分页 —— static IEnumerable<T> FindByPage<T, TKeyOne, TKeyTwo>...
-        /// <summary>
-        /// 分页
-        /// </summary>
-        /// <typeparam name="TKeyOne">排序键1</typeparam>
-        /// <typeparam name="TKeyTwo">排序键2</typeparam>
-        /// <param name="enumerable">集合对象</param>
-        /// <param name="predicate">查询条件</param>
-        /// <param name="keySelectorOne">排序键选择器1</param>
-        /// <param name="keySelectorTwo">排序键选择器2</param>
-        /// <param name="pageIndex">页索引</param>
-        /// <param name="pageSize">页容量</param>
-        /// <param name="rowCount">总记录条数</param>
-        /// <param name="pageCount">总页数</param>
-        /// <returns>对象集合</returns>
-        public static IEnumerable<T> FindByPage<T, TKeyOne, TKeyTwo>(this IEnumerable<T> enumerable, Func<T, bool> predicate, Func<T, TKeyOne> keySelectorOne, Func<T, TKeyTwo> keySelectorTwo, int pageIndex, int pageSize, out int rowCount, out int pageCount)
-        {
-            #region # 验证
-
-            if (enumerable == null)
-            {
-                throw new ArgumentNullException(nameof(enumerable), "源集合对象不可为空！");
-            }
-            if (predicate == null)
-            {
-                throw new ArgumentNullException(nameof(predicate), "查询条件对象不可为空！");
-            }
-            if (keySelectorOne == null || keySelectorTwo == null)
-            {
-                throw new ArgumentNullException(nameof(keySelectorOne), "参照字段表达式不可为空！");
-            }
-            if (pageIndex.IsZeroOrMinus())
-            {
-                throw new ArgumentOutOfRangeException(nameof(pageIndex), "页码不可为0或负数！");
-            }
-            if (pageSize.IsZeroOrMinus())
-            {
-                throw new ArgumentOutOfRangeException(nameof(pageSize), "页容量不可为0或负数！");
-            }
-
-            #endregion
-
-            T[] list = enumerable.Where(predicate).ToArray();
-            rowCount = list.Length;
-            pageCount = (int)Math.Ceiling(rowCount * 1.0 / pageSize);
-            return list.OrderByDescending(keySelectorOne).ThenByDescending(keySelectorTwo).Skip((pageIndex - 1) * pageSize).Take(pageSize);
-        }
-        #endregion
-
-        #region # 分页 —— static IQueryable<T> FindByPage<T, TKeyOne, TKeyTwo>...
-        /// <summary>
-        /// 分页
-        /// </summary>
-        /// <typeparam name="TKeyOne">排序键1</typeparam>
-        /// <typeparam name="TKeyTwo">排序键2</typeparam>
-        /// <param name="queryable">集合对象</param>
-        /// <param name="predicate">查询条件</param>
-        /// <param name="keySelectorOne">排序键选择器1</param>
-        /// <param name="keySelectorTwo">排序键选择器2</param>
-        /// <param name="pageIndex">页索引</param>
-        /// <param name="pageSize">页容量</param>
-        /// <param name="rowCount">总记录条数</param>
-        /// <param name="pageCount">总页数</param>
-        /// <returns>对象集合</returns>
-        public static IQueryable<T> FindByPage<T, TKeyOne, TKeyTwo>(this IQueryable<T> queryable, Expression<Func<T, bool>> predicate, Expression<Func<T, TKeyOne>> keySelectorOne, Expression<Func<T, TKeyTwo>> keySelectorTwo, int pageIndex, int pageSize, out int rowCount, out int pageCount)
-        {
-            #region # 验证
-
-            if (queryable == null)
-            {
-                throw new ArgumentNullException(nameof(queryable), "源集合对象不可为空！");
-            }
-            if (predicate == null)
-            {
-                throw new ArgumentNullException(nameof(predicate), "查询条件对象不可为空！");
-            }
-            if (keySelectorOne == null || keySelectorTwo == null)
-            {
-                throw new ArgumentNullException(nameof(keySelectorOne), "参照字段表达式不可为空！");
-            }
-            if (pageIndex.IsZeroOrMinus())
-            {
-                throw new ArgumentOutOfRangeException(nameof(pageIndex), "页码不可为0或负数！");
-            }
-            if (pageSize.IsZeroOrMinus())
-            {
-                throw new ArgumentOutOfRangeException(nameof(pageSize), "页容量不可为0或负数！");
-            }
-
-            #endregion
-
-            IQueryable<T> list = queryable.Where(predicate);
-            rowCount = list.Count();
-            pageCount = (int)Math.Ceiling(rowCount * 1.0 / pageSize);
-            return list.OrderByDescending(keySelectorOne).ThenByDescending(keySelectorTwo).Skip((pageIndex - 1) * pageSize).Take(pageSize);
         }
         #endregion
 
@@ -398,14 +277,16 @@ namespace SD.Common
         /// </summary>
         /// <param name="enumerable">集合</param>
         /// <param name="onlyPrimitiveType">是否只包含基元类型</param>
+        /// <param name="tableName">表名</param>
         /// <param name="propertyQuery">属性查询条件</param>
         /// <remarks>
         /// 基元类型：string, bool, byte, short, int, long, float, double, decimal, Guid, DateTime, TimeSpan
         /// </remarks>
-        public static DataTable ToDataTable<T>(this IEnumerable<T> enumerable, bool onlyPrimitiveType = false, Func<PropertyInfo, bool> propertyQuery = null)
+        public static DataTable ToDataTable<T>(this IEnumerable<T> enumerable, bool onlyPrimitiveType = false, string tableName = null, Func<PropertyInfo, bool> propertyQuery = null)
         {
             T[] array = enumerable?.ToArray() ?? new T[0];
-            DataTable dataTable = new DataTable();
+            tableName = string.IsNullOrWhiteSpace(tableName) ? typeof(T).Name : tableName;
+            DataTable dataTable = new DataTable(tableName);
 
             #region 验证
 

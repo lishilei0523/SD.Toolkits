@@ -169,14 +169,22 @@ namespace SD.Toolkits.Sql.Oracle
         }
         #endregion
 
-        #region # 批量复制 —— void BulkCopy(DataTable dataTable, string destinationTableName)
+        #region # 批量复制 —— void BulkCopy(DataTable dataTable)
         /// <summary>
         /// 批量复制
         /// </summary>
         /// <param name="dataTable">数据表</param>
-        /// <param name="destinationTableName">目标数据库表名</param>
-        public void BulkCopy(DataTable dataTable, string destinationTableName)
+        public void BulkCopy(DataTable dataTable)
         {
+            #region # 验证
+
+            if (dataTable == null || dataTable.Rows.Count == 0)
+            {
+                return;
+            }
+
+            #endregion
+
             using (OracleConnection connection = this.CreateConnection())
             {
                 connection.Open();
@@ -185,7 +193,7 @@ namespace SD.Toolkits.Sql.Oracle
                 using (OracleBulkCopy bulkCopy = new OracleBulkCopy(connection, OracleBulkCopyOptions.UseInternalTransaction))
                 {
                     bulkCopy.BatchSize = dataTable.Rows.Count;
-                    bulkCopy.DestinationTableName = destinationTableName;
+                    bulkCopy.DestinationTableName = dataTable.TableName;
 
                     //列映射
                     foreach (DataColumn dataColumn in dataTable.Columns)
@@ -195,6 +203,51 @@ namespace SD.Toolkits.Sql.Oracle
 
                     //执行批量插入
                     bulkCopy.WriteToServer(dataTable);
+                }
+            }
+        }
+        #endregion
+
+        #region # 批量复制 —— void BulkCopy(DataSet dataSet)
+        /// <summary>
+        /// 批量复制
+        /// </summary>
+        /// <param name="dataSet">数据集</param>
+        public void BulkCopy(DataSet dataSet)
+        {
+            #region # 验证
+
+            if (dataSet == null || dataSet.Tables.Count == 0)
+            {
+                return;
+            }
+
+            #endregion
+
+            using (OracleConnection connection = this.CreateConnection())
+            {
+                connection.Open();
+
+                foreach (DataTable dataTable in dataSet.Tables)
+                {
+                    if (dataTable.Rows.Count > 0)
+                    {
+                        //开启批量复制
+                        using (OracleBulkCopy bulkCopy = new OracleBulkCopy(connection, OracleBulkCopyOptions.UseInternalTransaction))
+                        {
+                            bulkCopy.BatchSize = dataTable.Rows.Count;
+                            bulkCopy.DestinationTableName = dataTable.TableName;
+
+                            //列映射
+                            foreach (DataColumn dataColumn in dataTable.Columns)
+                            {
+                                bulkCopy.ColumnMappings.Add(dataColumn.ColumnName, dataColumn.ColumnName.ToUpper());
+                            }
+
+                            //执行批量插入
+                            bulkCopy.WriteToServer(dataTable);
+                        }
+                    }
                 }
             }
         }

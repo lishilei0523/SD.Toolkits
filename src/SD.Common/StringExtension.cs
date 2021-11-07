@@ -25,7 +25,7 @@ namespace SD.Common
                 return true;
             }
 
-            return string.Equals(sourceText, targetText, StringComparison.CurrentCultureIgnoreCase);
+            return string.Equals(sourceText, targetText, StringComparison.OrdinalIgnoreCase);
         }
         #endregion
 

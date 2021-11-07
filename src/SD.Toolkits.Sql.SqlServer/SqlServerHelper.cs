@@ -169,14 +169,22 @@ namespace SD.Toolkits.Sql.SqlServer
         }
         #endregion
 
-        #region # 批量复制 —— void BulkCopy(DataTable dataTable, string destinationTableName)
+        #region # 批量复制 —— void BulkCopy(DataTable dataTable)
         /// <summary>
         /// 批量复制
         /// </summary>
         /// <param name="dataTable">数据表</param>
-        /// <param name="destinationTableName">目标数据库表名</param>
-        public void BulkCopy(DataTable dataTable, string destinationTableName)
+        public void BulkCopy(DataTable dataTable)
         {
+            #region # 验证
+
+            if (dataTable == null || dataTable.Rows.Count == 0)
+            {
+                return;
+            }
+
+            #endregion
+
             using (SqlConnection connection = this.CreateConnection())
             {
                 connection.Open();
@@ -184,29 +192,91 @@ namespace SD.Toolkits.Sql.SqlServer
                 //开启事务
                 using (SqlTransaction transaction = connection.BeginTransaction())
                 {
-                    //开启批量复制
-                    using (SqlBulkCopy bulkCopy = new SqlBulkCopy(connection, SqlBulkCopyOptions.Default, transaction))
+                    try
                     {
-                        bulkCopy.BatchSize = dataTable.Rows.Count;
-                        bulkCopy.DestinationTableName = destinationTableName;
-
-                        //列映射
-                        foreach (DataColumn dataColumn in dataTable.Columns)
+                        //开启批量复制
+                        using (SqlBulkCopy bulkCopy = new SqlBulkCopy(connection, SqlBulkCopyOptions.Default, transaction))
                         {
-                            bulkCopy.ColumnMappings.Add(dataColumn.ColumnName, dataColumn.ColumnName);
-                        }
+                            bulkCopy.BatchSize = dataTable.Rows.Count;
+                            bulkCopy.DestinationTableName = dataTable.TableName;
 
-                        //执行批量插入
-                        try
-                        {
+                            //列映射
+                            foreach (DataColumn dataColumn in dataTable.Columns)
+                            {
+                                bulkCopy.ColumnMappings.Add(dataColumn.ColumnName, dataColumn.ColumnName);
+                            }
+
+                            //执行批量插入
                             bulkCopy.WriteToServer(dataTable);
-                            transaction.Commit();
                         }
-                        catch
+
+                        //提交事务
+                        transaction.Commit();
+                    }
+                    catch
+                    {
+                        transaction.Rollback();
+                        throw;
+                    }
+                }
+            }
+        }
+        #endregion
+
+        #region # 批量复制 —— void BulkCopy(DataSet dataSet)
+        /// <summary>
+        /// 批量复制
+        /// </summary>
+        /// <param name="dataSet">数据集</param>
+        public void BulkCopy(DataSet dataSet)
+        {
+            #region # 验证
+
+            if (dataSet == null || dataSet.Tables.Count == 0)
+            {
+                return;
+            }
+
+            #endregion
+
+            using (SqlConnection connection = this.CreateConnection())
+            {
+                connection.Open();
+
+                //开启事务
+                using (SqlTransaction transaction = connection.BeginTransaction())
+                {
+                    try
+                    {
+                        foreach (DataTable dataTable in dataSet.Tables)
                         {
-                            transaction.Rollback();
-                            throw;
+                            if (dataTable.Rows.Count > 0)
+                            {
+                                //开启批量复制
+                                using (SqlBulkCopy bulkCopy = new SqlBulkCopy(connection, SqlBulkCopyOptions.Default, transaction))
+                                {
+                                    bulkCopy.BatchSize = dataTable.Rows.Count;
+                                    bulkCopy.DestinationTableName = dataTable.TableName;
+
+                                    //列映射
+                                    foreach (DataColumn dataColumn in dataTable.Columns)
+                                    {
+                                        bulkCopy.ColumnMappings.Add(dataColumn.ColumnName, dataColumn.ColumnName);
+                                    }
+
+                                    //执行批量插入
+                                    bulkCopy.WriteToServer(dataTable);
+                                }
+                            }
                         }
+
+                        //提交事务
+                        transaction.Commit();
+                    }
+                    catch
+                    {
+                        transaction.Rollback();
+                        throw;
                     }
                 }
             }
