@@ -169,6 +169,48 @@ namespace SD.Toolkits.Sql.SqlServer
         }
         #endregion
 
+        #region # 批量复制 —— void BulkCopy(DataTable dataTable, string destinationTableName)
+        /// <summary>
+        /// 批量复制
+        /// </summary>
+        /// <param name="dataTable">数据表</param>
+        /// <param name="destinationTableName">目标数据库表名</param>
+        public void BulkCopy(DataTable dataTable, string destinationTableName)
+        {
+            using (SqlConnection connection = this.CreateConnection())
+            {
+                //开启事务
+                using (SqlTransaction transaction = connection.BeginTransaction())
+                {
+                    //开启批量复制
+                    using (SqlBulkCopy bulkCopy = new SqlBulkCopy(connection, SqlBulkCopyOptions.Default, transaction))
+                    {
+                        bulkCopy.BatchSize = dataTable.Rows.Count;
+                        bulkCopy.DestinationTableName = destinationTableName;
+
+                        //列映射
+                        foreach (DataColumn dataColumn in dataTable.Columns)
+                        {
+                            bulkCopy.ColumnMappings.Add(dataColumn.ColumnName, dataColumn.ColumnName);
+                        }
+
+                        //执行批量插入
+                        try
+                        {
+                            bulkCopy.WriteToServer(dataTable);
+                            transaction.Commit();
+                        }
+                        catch
+                        {
+                            transaction.Rollback();
+                            throw;
+                        }
+                    }
+                }
+            }
+        }
+        #endregion
+
 
         //Private
 

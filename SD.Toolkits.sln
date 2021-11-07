@@ -105,6 +105,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Toolkits.CoreWCF.Client.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Toolkits.Grpc.Server", "src\SD.Toolkits.Grpc.Server\SD.Toolkits.Grpc.Server.csproj", "{240CA077-C0B8-475F-9EE8-C3AC0FC5CBB1}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Toolkits.Sql.Oracle", "src\SD.Toolkits.Sql.Oracle\SD.Toolkits.Sql.Oracle.csproj", "{F47EBEFD-9C36-4E5F-802D-49F7EF713ACE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -299,6 +301,10 @@ Global
 		{240CA077-C0B8-475F-9EE8-C3AC0FC5CBB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{240CA077-C0B8-475F-9EE8-C3AC0FC5CBB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{240CA077-C0B8-475F-9EE8-C3AC0FC5CBB1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F47EBEFD-9C36-4E5F-802D-49F7EF713ACE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F47EBEFD-9C36-4E5F-802D-49F7EF713ACE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F47EBEFD-9C36-4E5F-802D-49F7EF713ACE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F47EBEFD-9C36-4E5F-802D-49F7EF713ACE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -351,6 +357,7 @@ Global
 		{8577BE61-70CF-4CF7-8D39-417ECAB051A6} = {84CE5E54-82B6-4B0D-AEC5-3E22BF4FD0D2}
 		{68A291A2-A862-403C-909C-55178319F7A3} = {DE420171-A672-478A-99CA-62AB53D57785}
 		{240CA077-C0B8-475F-9EE8-C3AC0FC5CBB1} = {84CE5E54-82B6-4B0D-AEC5-3E22BF4FD0D2}
+		{F47EBEFD-9C36-4E5F-802D-49F7EF713ACE} = {84CE5E54-82B6-4B0D-AEC5-3E22BF4FD0D2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E971DA80-FBCC-48DC-94AF-074536131022}

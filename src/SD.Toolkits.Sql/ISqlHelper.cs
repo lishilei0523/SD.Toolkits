@@ -106,5 +106,14 @@ namespace SD.Toolkits.Sql
         /// <returns>DataSet对象</returns>
         DataSet GetDataSetSP(string proc, params IDbDataParameter[] args);
         #endregion
+
+        #region # 批量复制 —— void BulkCopy(DataTable dataTable, string destinationTableName)
+        /// <summary>
+        /// 批量复制
+        /// </summary>
+        /// <param name="dataTable">数据表</param>
+        /// <param name="destinationTableName">目标数据库表名</param>
+        void BulkCopy(DataTable dataTable, string destinationTableName);
+        #endregion
     }
 }

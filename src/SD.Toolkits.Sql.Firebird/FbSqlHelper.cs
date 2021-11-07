@@ -169,6 +169,18 @@ namespace SD.Toolkits.Sql.Firebird
         }
         #endregion
 
+        #region # 批量复制 —— void BulkCopy(DataTable dataTable, string destinationTableName)
+        /// <summary>
+        /// 批量复制
+        /// </summary>
+        /// <param name="dataTable">数据表</param>
+        /// <param name="destinationTableName">目标数据库表名</param>
+        public void BulkCopy(DataTable dataTable, string destinationTableName)
+        {
+            throw new NotImplementedException("暂时未实现");
+        }
+        #endregion
+
 
         //Private
 

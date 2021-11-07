@@ -1,13 +1,13 @@
-﻿using Npgsql;
+﻿using Oracle.ManagedDataAccess.Client;
 using System;
 using System.Data;
 
-namespace SD.Toolkits.Sql.PostgreSQL
+namespace SD.Toolkits.Sql.Oracle
 {
     /// <summary>
-    /// PostgreSQL数据库访问助手类
+    /// Oracle数据库访问助手类
     /// </summary>
-    public sealed class PgSqlHelper : ISqlHelper
+    public sealed class OracleHelper : ISqlHelper
     {
         #region # 字段及构造器
 
@@ -20,7 +20,7 @@ namespace SD.Toolkits.Sql.PostgreSQL
         /// 构造函数
         /// </summary>
         /// <param name="connectionString">连接字符串</param>
-        public PgSqlHelper(string connectionString)
+        public OracleHelper(string connectionString)
         {
             #region # 验证参数
 
@@ -177,21 +177,38 @@ namespace SD.Toolkits.Sql.PostgreSQL
         /// <param name="destinationTableName">目标数据库表名</param>
         public void BulkCopy(DataTable dataTable, string destinationTableName)
         {
-            throw new NotImplementedException("暂时未实现");
+            using (OracleConnection connection = this.CreateConnection())
+            {
+                //开启批量复制
+                using (OracleBulkCopy bulkCopy = new OracleBulkCopy(connection, OracleBulkCopyOptions.UseInternalTransaction))
+                {
+                    bulkCopy.BatchSize = dataTable.Rows.Count;
+                    bulkCopy.DestinationTableName = destinationTableName;
+
+                    //列映射
+                    foreach (DataColumn dataColumn in dataTable.Columns)
+                    {
+                        bulkCopy.ColumnMappings.Add(dataColumn.ColumnName, dataColumn.ColumnName.ToUpper());
+                    }
+
+                    //执行批量插入
+                    bulkCopy.WriteToServer(dataTable);
+                }
+            }
         }
         #endregion
 
 
         //Private
 
-        #region # 创建连接方法 —— NpgsqlConnection CreateConnection()
+        #region # 创建连接方法 —— OracleConnection CreateConnection()
         /// <summary>
         /// 创建连接方法
         /// </summary>
         /// <returns>连接对象</returns>
-        private NpgsqlConnection CreateConnection()
+        private OracleConnection CreateConnection()
         {
-            return new NpgsqlConnection(this._connectionString);
+            return new OracleConnection(this._connectionString);
         }
         #endregion
 
@@ -215,9 +232,9 @@ namespace SD.Toolkits.Sql.PostgreSQL
             #endregion
 
             int rowCount;
-            using (NpgsqlConnection conn = this.CreateConnection())
+            using (OracleConnection conn = this.CreateConnection())
             {
-                NpgsqlCommand cmd = new NpgsqlCommand(sql, conn) { CommandType = type };
+                OracleCommand cmd = new OracleCommand(sql, conn) { CommandType = type };
                 cmd.Parameters.AddRange(args);
                 conn.Open();
                 rowCount = cmd.ExecuteNonQuery();
@@ -247,9 +264,9 @@ namespace SD.Toolkits.Sql.PostgreSQL
             #endregion
 
             object obj;
-            using (NpgsqlConnection conn = this.CreateConnection())
+            using (OracleConnection conn = this.CreateConnection())
             {
-                NpgsqlCommand cmd = new NpgsqlCommand(sql, conn) { CommandType = type };
+                OracleCommand cmd = new OracleCommand(sql, conn) { CommandType = type };
                 cmd.Parameters.AddRange(args);
                 conn.Open();
                 obj = cmd.ExecuteScalar();
@@ -278,10 +295,10 @@ namespace SD.Toolkits.Sql.PostgreSQL
 
             #endregion
 
-            NpgsqlConnection conn = this.CreateConnection();
+            OracleConnection conn = this.CreateConnection();
             try
             {
-                NpgsqlCommand cmd = new NpgsqlCommand(sql, conn) { CommandType = type };
+                OracleCommand cmd = new OracleCommand(sql, conn) { CommandType = type };
                 cmd.Parameters.AddRange(args);
                 conn.Open();
                 return cmd.ExecuteReader(CommandBehavior.CloseConnection);
@@ -314,9 +331,9 @@ namespace SD.Toolkits.Sql.PostgreSQL
             #endregion
 
             DataTable dataTable = new DataTable();
-            using (NpgsqlConnection conn = this.CreateConnection())
+            using (OracleConnection conn = this.CreateConnection())
             {
-                NpgsqlDataAdapter adapter = new NpgsqlDataAdapter(sql, conn) { SelectCommand = { CommandType = type } };
+                OracleDataAdapter adapter = new OracleDataAdapter(sql, conn) { SelectCommand = { CommandType = type } };
                 adapter.SelectCommand.Parameters.AddRange(args);
                 conn.Open();
                 adapter.Fill(dataTable);
@@ -344,10 +361,10 @@ namespace SD.Toolkits.Sql.PostgreSQL
 
             #endregion
 
-            using (NpgsqlConnection conn = this.CreateConnection())
+            using (OracleConnection conn = this.CreateConnection())
             {
                 DataSet dataSet = new DataSet();
-                using (NpgsqlDataAdapter adapter = new NpgsqlDataAdapter(sql, conn))
+                using (OracleDataAdapter adapter = new OracleDataAdapter(sql, conn))
                 {
                     adapter.SelectCommand.Parameters.AddRange(args);
                     adapter.SelectCommand.CommandType = type;

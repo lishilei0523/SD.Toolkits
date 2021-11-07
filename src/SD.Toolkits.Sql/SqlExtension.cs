@@ -90,5 +90,32 @@ namespace SD.Toolkits.Sql
             return builder.ToString().Substring(0, builder.Length - 1);
         }
         #endregion
+
+        #region # 格式化字符串列表字符串 —— static string FormatStrings(this IEnumerable<string> strings)
+        /// <summary>
+        /// 格式化字符串列表字符串
+        /// </summary>
+        /// <param name="strings">字符串列表</param>
+        /// <returns>字符串列表字符串</returns>
+        public static string FormatStrings(this IEnumerable<string> strings)
+        {
+            strings = strings?.ToArray() ?? new string[0];
+
+            StringBuilder builder = new StringBuilder();
+            foreach (string text in strings)
+            {
+                builder.Append("'");
+                builder.Append(text);
+                builder.Append("'");
+                builder.Append(',');
+            }
+            if (builder.Length == 0)
+            {
+                return string.Empty;
+            }
+
+            return builder.ToString().Substring(0, builder.Length - 1);
+        }
+        #endregion
     }
 }
