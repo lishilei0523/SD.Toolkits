@@ -1,6 +1,11 @@
 ﻿using System;
 using System.Data;
+#if NET40_OR_GREATER
 using System.Data.SqlClient;
+#endif
+#if NETSTANDARD2_0_OR_GREATER
+using Microsoft.Data.SqlClient;
+#endif
 
 namespace SD.Toolkits.Sql.SqlServer
 {
