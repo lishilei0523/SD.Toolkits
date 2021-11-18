@@ -15,12 +15,12 @@ namespace SD.Common.Tests.TestCases
         #region # 字段与初始化器
 
         /// <summary>
-        /// 源学生集
+        /// 源集合
         /// </summary>
         private IList<Student> _sourceList;
 
         /// <summary>
-        /// 目标学生集
+        /// 目标集合
         /// </summary>
         private IList<Student> _targetList;
 

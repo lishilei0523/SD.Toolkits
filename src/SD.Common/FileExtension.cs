@@ -236,7 +236,7 @@ namespace SD.Common
             {
                 using (Stream stream = response.GetResponseStream())
                 {
-                    byte[] buffer = stream.ToBuffer();
+                    byte[] buffer = stream.ToByteArray();
                     return buffer;
                 }
             }
