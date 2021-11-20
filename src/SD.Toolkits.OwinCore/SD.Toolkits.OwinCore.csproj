@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp3.1;net50</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;netcoreapp3.1;net50</TargetFrameworks>
     <Authors>Lee</Authors>
     <Company>SD</Company>
     <Description>SD.Toolkits OWIN Core扩展组件</Description>
@@ -14,7 +14,15 @@
     <DocumentationFile>bin\Release\$(TargetFramework)\SD.Toolkits.OwinCore.xml</DocumentationFile>
   </PropertyGroup>
 
-  <ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp3.1'">
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net50'">
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
 </Project>
