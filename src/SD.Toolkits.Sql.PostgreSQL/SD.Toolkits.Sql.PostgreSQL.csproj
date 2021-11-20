@@ -14,8 +14,12 @@
     <DocumentationFile>bin\Release\$(TargetFramework)\SD.Toolkits.Sql.PostgreSQL.xml</DocumentationFile>
   </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Npgsql" Version="4.1.9" />
+  <ItemGroup Condition="'$(TargetFramework)' == 'net461'">
+    <PackageReference Include="Npgsql" Version="4.1.10" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
+    <PackageReference Include="Npgsql" Version="5.0.11" />
   </ItemGroup>
 
   <ItemGroup>

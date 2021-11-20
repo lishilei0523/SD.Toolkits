@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net461;netstandard2.0</TargetFrameworks>
+    <TargetFrameworks>net40;net45;net461;netstandard2.0</TargetFrameworks>
     <Authors>Lee</Authors>
     <Company>SD</Company>
     <Description>SD.Toolkits Redis配置扩展组件</Description>
@@ -21,11 +21,20 @@
     <Reference Include="System.Configuration" />
   </ItemGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
-    <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.7.0" />
+  <ItemGroup Condition="'$(TargetFramework)' == 'net40'">
+    <PackageReference Include="StackExchange.Redis" Version="1.2.1" />
   </ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="StackExchange.Redis" Version="2.1.58" />
+  <ItemGroup Condition="'$(TargetFramework)' == 'net45'">
+    <PackageReference Include="StackExchange.Redis" Version="1.2.6" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net461'">
+    <PackageReference Include="StackExchange.Redis" Version="2.2.88" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.7.0" />
+    <PackageReference Include="StackExchange.Redis" Version="2.2.88" />
   </ItemGroup>
 </Project>

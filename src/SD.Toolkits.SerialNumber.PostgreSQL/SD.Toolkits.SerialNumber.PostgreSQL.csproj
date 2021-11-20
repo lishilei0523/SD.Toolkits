@@ -23,10 +23,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Npgsql" Version="4.1.9" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\SD.Toolkits.SerialNumber\SD.Toolkits.SerialNumber.csproj" />
     <ProjectReference Include="..\SD.Toolkits.Sql\SD.Toolkits.Sql.csproj" />
     <ProjectReference Include="..\SD.Toolkits.Sql.PostgreSQL\SD.Toolkits.Sql.PostgreSQL.csproj" />

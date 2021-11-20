@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net45;net461</TargetFrameworks>
+    <TargetFramework>net45</TargetFramework>
     <Authors>Lee</Authors>
     <Company>SD</Company>
     <Description>SD.Toolkits ASP.NET MVC扩展组件</Description>

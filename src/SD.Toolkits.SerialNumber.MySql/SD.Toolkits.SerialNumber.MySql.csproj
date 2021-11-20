@@ -23,10 +23,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="MySql.Data" Version="8.0.25" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\SD.Toolkits.SerialNumber\SD.Toolkits.SerialNumber.csproj" />
     <ProjectReference Include="..\SD.Toolkits.Sql\SD.Toolkits.Sql.csproj" />
     <ProjectReference Include="..\SD.Toolkits.Sql.MySql\SD.Toolkits.Sql.MySql.csproj" />

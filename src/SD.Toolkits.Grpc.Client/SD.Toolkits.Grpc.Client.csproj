@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net461;net48;netstandard2.0</TargetFrameworks>
+    <TargetFrameworks>net461;netstandard2.0</TargetFrameworks>
     <Authors>Lee</Authors>
     <Company>SD</Company>
     <Description>SD.Toolkits gRPC客户端扩展组件</Description>
@@ -14,7 +14,7 @@
     <DocumentationFile>bin\Release\$(TargetFramework)\SD.Toolkits.Grpc.Client.xml</DocumentationFile>
   </PropertyGroup>
 
-  <ItemGroup Condition=" $(TargetFramework.StartsWith('net4')) ">
+  <ItemGroup Condition="'$(TargetFramework)' == 'net461'">
     <Reference Include="System.Configuration" />
   </ItemGroup>
 
@@ -23,7 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Grpc.Net.Client" Version="2.39.0" />
+    <PackageReference Include="Grpc.Net.Client" Version="2.40.0" />
     <PackageReference Include="protobuf-net.Grpc" Version="1.0.152" />
   </ItemGroup>
 </Project>
