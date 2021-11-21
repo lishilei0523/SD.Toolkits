@@ -170,43 +170,43 @@ namespace SD.Toolkits.Excel
                     //在行中创建单元格
                     if (properties[j].PropertyType == typeof(double))
                     {
-                        row.CreateCell(j).SetCellValue((double)properties[j].GetValue(item));
+                        row.CreateCell(j).SetCellValue((double)properties[j].GetValueInternal(item));
                     }
                     else if (properties[j].PropertyType == typeof(float))
                     {
-                        row.CreateCell(j).SetCellValue((float)properties[j].GetValue(item));
+                        row.CreateCell(j).SetCellValue((float)properties[j].GetValueInternal(item));
                     }
                     else if (properties[j].PropertyType == typeof(decimal))
                     {
-                        row.CreateCell(j).SetCellValue(Convert.ToDouble(properties[j].GetValue(item)));
+                        row.CreateCell(j).SetCellValue(Convert.ToDouble(properties[j].GetValueInternal(item)));
                     }
                     else if (properties[j].PropertyType == typeof(byte))
                     {
-                        row.CreateCell(j).SetCellValue((byte)properties[j].GetValue(item));
+                        row.CreateCell(j).SetCellValue((byte)properties[j].GetValueInternal(item));
                     }
                     else if (properties[j].PropertyType == typeof(short))
                     {
-                        row.CreateCell(j).SetCellValue((short)properties[j].GetValue(item));
+                        row.CreateCell(j).SetCellValue((short)properties[j].GetValueInternal(item));
                     }
                     else if (properties[j].PropertyType == typeof(int))
                     {
-                        row.CreateCell(j).SetCellValue((int)properties[j].GetValue(item));
+                        row.CreateCell(j).SetCellValue((int)properties[j].GetValueInternal(item));
                     }
                     else if (properties[j].PropertyType == typeof(long))
                     {
-                        row.CreateCell(j).SetCellValue((long)properties[j].GetValue(item));
+                        row.CreateCell(j).SetCellValue((long)properties[j].GetValueInternal(item));
                     }
                     else if (properties[j].PropertyType == typeof(bool))
                     {
-                        row.CreateCell(j).SetCellValue((bool)properties[j].GetValue(item));
+                        row.CreateCell(j).SetCellValue((bool)properties[j].GetValueInternal(item));
                     }
                     else if (properties[j].PropertyType == typeof(DateTime))
                     {
-                        row.CreateCell(j).SetCellValue(((DateTime)properties[j].GetValue(item)).ToString("yyyy-MM-dd HH:mm:ss"));
+                        row.CreateCell(j).SetCellValue(((DateTime)properties[j].GetValueInternal(item)).ToString("yyyy-MM-dd HH:mm:ss"));
                     }
                     else
                     {
-                        row.CreateCell(j).SetCellValue(properties[j].GetValue(item) == null ? string.Empty : properties[j].GetValue(item).ToString());
+                        row.CreateCell(j).SetCellValue(properties[j].GetValueInternal(item) == null ? string.Empty : properties[j].GetValueInternal(item).ToString());
                     }
                 }
             }

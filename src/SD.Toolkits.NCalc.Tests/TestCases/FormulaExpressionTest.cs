@@ -1,6 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace SD.Toolkits.NCalc.Tests
+namespace SD.Toolkits.NCalc.Tests.TestCases
 {
     /// <summary>
     /// 公式表达式测试

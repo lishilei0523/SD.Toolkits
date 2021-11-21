@@ -204,43 +204,43 @@ namespace SD.Toolkits.Excel
 
                 if (properties[i].PropertyType == typeof(double))
                 {
-                    properties[i].SetValue(instance, Convert.ToDouble(cellValue));
+                    properties[i].SetValueInternal(instance, Convert.ToDouble(cellValue));
                 }
                 else if (properties[i].PropertyType == typeof(float))
                 {
-                    properties[i].SetValue(instance, Convert.ToSingle(cellValue));
+                    properties[i].SetValueInternal(instance, Convert.ToSingle(cellValue));
                 }
                 else if (properties[i].PropertyType == typeof(decimal))
                 {
-                    properties[i].SetValue(instance, Convert.ToDecimal(cellValue));
+                    properties[i].SetValueInternal(instance, Convert.ToDecimal(cellValue));
                 }
                 else if (properties[i].PropertyType == typeof(byte))
                 {
-                    properties[i].SetValue(instance, Convert.ToByte(cellValue));
+                    properties[i].SetValueInternal(instance, Convert.ToByte(cellValue));
                 }
                 else if (properties[i].PropertyType == typeof(short))
                 {
-                    properties[i].SetValue(instance, Convert.ToInt16(cellValue));
+                    properties[i].SetValueInternal(instance, Convert.ToInt16(cellValue));
                 }
                 else if (properties[i].PropertyType == typeof(int))
                 {
-                    properties[i].SetValue(instance, Convert.ToInt32(cellValue));
+                    properties[i].SetValueInternal(instance, Convert.ToInt32(cellValue));
                 }
                 else if (properties[i].PropertyType == typeof(long))
                 {
-                    properties[i].SetValue(instance, Convert.ToInt64(cellValue));
+                    properties[i].SetValueInternal(instance, Convert.ToInt64(cellValue));
                 }
                 else if (properties[i].PropertyType == typeof(bool))
                 {
-                    properties[i].SetValue(instance, Convert.ToBoolean(cellValue));
+                    properties[i].SetValueInternal(instance, Convert.ToBoolean(cellValue));
                 }
                 else if (properties[i].PropertyType == typeof(DateTime))
                 {
-                    properties[i].SetValue(instance, Convert.ToDateTime(cellValue));
+                    properties[i].SetValueInternal(instance, Convert.ToDateTime(cellValue));
                 }
                 else
                 {
-                    properties[i].SetValue(instance, cellValue);
+                    properties[i].SetValueInternal(instance, cellValue);
                 }
             }
         }

@@ -5,9 +5,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="SD.IOC.Extension.NetCore.ServiceModel" Version="1.0.7" />
     <PackageReference Include="SD.IdentitySystem.IAppService" Version="4.3.1" />
     <PackageReference Include="SD.IdentitySystem.WCF.Authentication.Windows" Version="1.0.2" />
-    <PackageReference Include="SD.IOC.Extension.NetCore.ServiceModel" Version="1.0.7" />
   </ItemGroup>
 
   <ItemGroup>

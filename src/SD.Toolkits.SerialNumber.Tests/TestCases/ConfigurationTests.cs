@@ -1,7 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Diagnostics;
 
-namespace SD.Toolkits.SerialNumber.Tests
+namespace SD.Toolkits.SerialNumber.Tests.TestCases
 {
     [TestClass]
     public class ConfigurationTests

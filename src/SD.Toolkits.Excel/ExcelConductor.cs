@@ -4,6 +4,7 @@ using NPOI.XSSF.UserModel;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 
 namespace SD.Toolkits.Excel
 {
@@ -129,6 +130,43 @@ namespace SD.Toolkits.Excel
             }
 
             return formulaEvaluator;
+        }
+        #endregion
+
+
+        //Internal
+
+        #region # 设置属性值 —— static void SetValueInternal(this PropertyInfo propertyInfo...
+        /// <summary>
+        /// 设置属性值
+        /// </summary>
+        /// <param name="propertyInfo">属性信息</param>
+        /// <param name="instance">实例</param>
+        /// <param name="value">属性值</param>
+        internal static void SetValueInternal(this PropertyInfo propertyInfo, object instance, object value)
+        {
+#if NET40
+            propertyInfo.SetValue(instance, value, null);
+#else
+            propertyInfo.SetValue(instance, value);
+#endif
+        }
+        #endregion
+
+        #region # 获取属性值 —— static object GetValueInternal(this PropertyInfo propertyInfo...
+        /// <summary>
+        /// 获取属性值
+        /// </summary>
+        /// <param name="propertyInfo">属性信息</param>
+        /// <param name="instance">实例</param>
+        /// <returns>属性值</returns>
+        internal static object GetValueInternal(this PropertyInfo propertyInfo, object instance)
+        {
+#if NET40
+            return propertyInfo.GetValue(instance, null);
+#else
+            return propertyInfo.GetValue(instance);
+#endif
         }
         #endregion
     }

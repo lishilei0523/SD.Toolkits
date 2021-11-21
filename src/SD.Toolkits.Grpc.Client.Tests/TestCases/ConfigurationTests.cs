@@ -2,7 +2,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SD.Toolkits.Grpc.Client.Configurations;
 using System;
 
-namespace SD.Toolkits.Grpc.Client.Tests
+namespace SD.Toolkits.Grpc.Client.Tests.TestCases
 {
     [TestClass]
     public class ConfigurationTests
