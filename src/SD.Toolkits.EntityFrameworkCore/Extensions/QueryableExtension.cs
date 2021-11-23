@@ -158,8 +158,17 @@ namespace SD.Toolkits.EntityFrameworkCore.Extensions
                 {
                     return false;
                 }
+                if (getMethod.IsVirtual && (setMethod.IsPrivate || setMethod.IsVirtual))
+                {
+                    if (getMethod.IsVirtual && getMethod.IsFinal)
+                    {
+                        return false;
+                    }
 
-                return getMethod.IsVirtual && (setMethod.IsPrivate || setMethod.IsVirtual);
+                    return true;
+                }
+
+                return false;
             };
 
             IEnumerable<PropertyInfo> navProperties = classType.GetProperties().Where(navPropertySelector);
