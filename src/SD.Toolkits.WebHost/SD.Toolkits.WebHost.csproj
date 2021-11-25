@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'net46'">
-    <Compile Remove="Extensions\AsyncLocal.cs" />
+    <Compile Remove="Compatibilities\AsyncLocal.cs" />
   </ItemGroup>
 
   <ItemGroup>
