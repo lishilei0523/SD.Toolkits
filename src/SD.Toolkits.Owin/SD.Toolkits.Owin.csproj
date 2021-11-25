@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net46</TargetFramework>
+    <TargetFrameworks>net45;net46</TargetFrameworks>
     <Authors>Lee</Authors>
     <Company>SD</Company>
     <Description>SD.Toolkits OWIN扩展组件</Description>
@@ -14,7 +14,11 @@
     <DocumentationFile>bin\Release\$(TargetFramework)\SD.Toolkits.Owin.xml</DocumentationFile>
   </PropertyGroup>
 
+  <ItemGroup Condition="'$(TargetFramework)' == 'net46'">
+    <Compile Remove="Extensions\AsyncLocal.cs" />
+  </ItemGroup>
+
   <ItemGroup>
-    <PackageReference Include="Microsoft.Owin" Version="4.0.0" />
+    <PackageReference Include="Microsoft.Owin" Version="4.0.1" />
   </ItemGroup>
 </Project>

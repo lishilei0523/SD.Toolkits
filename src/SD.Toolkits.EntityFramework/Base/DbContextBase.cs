@@ -143,13 +143,19 @@ namespace SD.Toolkits.EntityFramework.Base
                 const string internalContextPropertyName = "InternalContext";
                 Type dbContextType = typeof(DbContext);
                 PropertyInfo internalContextPropertyInfo = dbContextType.GetProperty(internalContextPropertyName, BindingFlags.NonPublic | BindingFlags.Instance);
+#if NET40
+                object internalContext = internalContextPropertyInfo.GetValue(this, null);
+#else
                 object internalContext = internalContextPropertyInfo.GetValue(this);
-
+#endif
                 const string disposedPropertyName = "IsDisposed";
                 Type internalContextType = internalContext.GetType();
                 PropertyInfo disposedPropertyInfo = internalContextType.GetProperty(disposedPropertyName, BindingFlags.Public | BindingFlags.Instance);
+#if NET40
+                object value = disposedPropertyInfo.GetValue(internalContext, null);
+#else
                 object value = disposedPropertyInfo.GetValue(internalContext);
-
+#endif
                 bool disposed = (bool)value;
 
                 return disposed;
@@ -178,7 +184,12 @@ namespace SD.Toolkits.EntityFramework.Base
             #endregion
 
             //加载模型所在程序集查询出所有符合条件的实体类型
+#if NET40
+            IEnumerable<Type> types = Assembly.Load(this.EntityAssembly).GetTypes().Where(x => !x.IsInterface && !x.IsDefined(typeof(NotMappedAttribute), false));
+#else
             IEnumerable<Type> types = Assembly.Load(this.EntityAssembly).GetTypes().Where(x => !x.IsInterface && !x.IsDefined(typeof(NotMappedAttribute)));
+#endif
+
 
             #region # 验证类型查询条件
 

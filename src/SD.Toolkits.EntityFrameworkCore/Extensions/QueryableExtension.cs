@@ -23,7 +23,12 @@ namespace SD.Toolkits.EntityFrameworkCore.Extensions
         /// <returns>SQL语句</returns>
         public static string ParseSql(this IQueryable queryable)
         {
+#if NETSTANDARD2_0
+            throw new NotSupportedException();
+#endif
+#if NETSTANDARD2_1
             return queryable.ToQueryString();
+#endif
         }
         #endregion
 
