@@ -23,20 +23,56 @@ namespace SD.Common
             Type targetType = targetInstance.GetType();
 
             //获取源对象与目标对象的所有属性
-            PropertyInfo[] sourceProps = sourceType.GetProperties();
-            PropertyInfo[] targetProps = targetType.GetProperties();
+            PropertyInfo[] sourceProperties = sourceType.GetProperties();
+            PropertyInfo[] targetProperties = targetType.GetProperties();
 
             //双重遍历，判断属性名称是否相同，如果相同则赋值
-            foreach (PropertyInfo tgtProp in targetProps)
+            foreach (PropertyInfo targetProperty in targetProperties)
             {
-                foreach (PropertyInfo srcProp in sourceProps)
+                foreach (PropertyInfo sourceProperty in sourceProperties)
                 {
-                    if (tgtProp.Name == srcProp.Name)
+                    if (targetProperty.Name == sourceProperty.Name)
                     {
-                        tgtProp.SetValue(targetInstance, srcProp.GetValue(sourceInstance, null), null);
+                        targetProperty.SetValue(targetInstance, sourceProperty.GetValue(sourceInstance, null), null);
                     }
                 }
             }
+        }
+        #endregion
+
+        #region # 设置应用程序域属性分配值 —— static void SetData<T>(this AppDomain...
+        /// <summary>
+        /// 为应用程序域属性分配指定值
+        /// </summary>
+        /// <param name="appDomain">应用程序域</param>
+        /// <param name="name">要创建或更改的用户定义应用程序域属性的名称</param>
+        /// <param name="data">属性的值</param>
+        public static void SetData<T>(this AppDomain appDomain, string name, T data)
+        {
+            appDomain.SetData(name, data);
+        }
+        #endregion
+
+        #region # 获取应用程序域属性分配值 —— static T GetData<T>(this AppDomain...
+        /// <summary>
+        /// 获取应用程序域属性分配值
+        /// </summary>
+        /// <param name="appDomain">应用程序域</param>
+        /// <param name="name">要创建或更改的用户定义应用程序域属性的名称</param>
+        /// <returns>属性的值</returns>
+        public static T GetData<T>(this AppDomain appDomain, string name)
+        {
+            object data = appDomain.GetData(name);
+            if (data == null)
+            {
+                return default(T);
+            }
+            if (data is T value)
+            {
+                return value;
+            }
+
+            return default(T);
         }
         #endregion
     }
