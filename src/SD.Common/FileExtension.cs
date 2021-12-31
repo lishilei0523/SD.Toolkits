@@ -328,11 +328,6 @@ namespace SD.Common
     public class TemporaryFileStream : IDisposable
     {
         /// <summary>
-        /// 路径
-        /// </summary>
-        private readonly string _path;
-
-        /// <summary>
         /// 文件流
         /// </summary>
         private readonly FileStream _fileStream;
@@ -343,7 +338,6 @@ namespace SD.Common
         /// <param name="path">路径</param>
         public TemporaryFileStream(string path)
         {
-            this._path = path;
             this._fileStream = new FileStream(path, FileMode.Open, FileAccess.Read);
         }
 
@@ -374,7 +368,6 @@ namespace SD.Common
         public void Dispose()
         {
             this._fileStream.Dispose();
-            File.Delete(this._path);
         }
     }
 }
