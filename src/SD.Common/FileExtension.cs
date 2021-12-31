@@ -320,4 +320,61 @@ namespace SD.Common
         }
         #endregion
     }
+
+
+    /// <summary>
+    /// 临时文件流
+    /// </summary>
+    public class TemporaryFileStream : IDisposable
+    {
+        /// <summary>
+        /// 路径
+        /// </summary>
+        private readonly string _path;
+
+        /// <summary>
+        /// 文件流
+        /// </summary>
+        private readonly FileStream _fileStream;
+
+        /// <summary>
+        /// 创建临时文件流构造器
+        /// </summary>
+        /// <param name="path">路径</param>
+        public TemporaryFileStream(string path)
+        {
+            this._path = path;
+            this._fileStream = new FileStream(path, FileMode.Open, FileAccess.Read);
+        }
+
+        /// <summary>
+        /// 创建临时文件流
+        /// </summary>
+        /// <param name="content">内容</param>
+        /// <returns>临时文件流</returns>
+        public static TemporaryFileStream Create(string content)
+        {
+            string path = Path.GetTempFileName();
+            File.WriteAllText(path, content);
+
+            return new TemporaryFileStream(path);
+        }
+
+        /// <summary>
+        /// 名称
+        /// </summary>
+        public string Name
+        {
+            get { return this._fileStream.Name; }
+        }
+
+        /// <summary>
+        /// 释放资源
+        /// </summary>
+        public void Dispose()
+        {
+            this._fileStream.Dispose();
+            File.Delete(this._path);
+        }
+    }
 }

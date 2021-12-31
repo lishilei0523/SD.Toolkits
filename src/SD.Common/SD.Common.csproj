@@ -5,9 +5,9 @@
     <Company>SD</Company>
     <Description>SD.Toolkits 公共基础类库</Description>
     <Copyright>Copyright © SD 2021</Copyright>
-    <Version>3.1.0</Version>
-    <AssemblyVersion>3.1.0</AssemblyVersion>
-    <FileVersion>3.1.0.0</FileVersion>
+    <Version>3.1.1</Version>
+    <AssemblyVersion>3.1.1</AssemblyVersion>
+    <FileVersion>3.1.1.0</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -16,4 +16,12 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DocumentationFile>bin\Release\$(TargetFramework)\SD.Common.xml</DocumentationFile>
   </PropertyGroup>
+
+  <ItemGroup Condition=" $(TargetFramework.StartsWith('net4')) ">
+    <Reference Include="System.Configuration" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.7.0" />
+  </ItemGroup>
 </Project>
