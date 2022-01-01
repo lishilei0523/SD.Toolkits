@@ -2,7 +2,7 @@
 using SD.Toolkits.Json.Tests.StubDTOs;
 using System;
 
-namespace SD.Toolkits.Json.Tests
+namespace SD.Toolkits.Json.Tests.TestCases
 {
     /// <summary>
     /// JSON序列化测试

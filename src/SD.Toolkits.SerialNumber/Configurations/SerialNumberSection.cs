@@ -15,25 +15,36 @@ namespace SD.Toolkits.SerialNumber
         /// <summary>
         /// 单例
         /// </summary>
-        private static readonly SerialNumberSection _Setting;
+        private static SerialNumberSection _Setting;
 
         /// <summary>
         /// 静态构造器
         /// </summary>
         static SerialNumberSection()
         {
-            _Setting = (SerialNumberSection)ConfigurationManager.GetSection("sd.toolkits.serialNumber");
+            _Setting = null;
+        }
 
-            #region # 非空验证
+        #endregion
 
-            if (_Setting == null)
+        #region # 初始化 —— static void Initialize(Configuration configuration)
+        /// <summary>
+        /// 初始化
+        /// </summary>
+        /// <param name="configuration">配置</param>
+        public static void Initialize(Configuration configuration)
+        {
+            #region # 验证
+
+            if (configuration == null)
             {
-                throw new ApplicationException("SD.Toolkits.SerialNumber节点未配置，请检查程序！");
+                throw new ArgumentNullException(nameof(configuration), "配置不可为空！");
             }
 
             #endregion
-        }
 
+            _Setting = (SerialNumberSection)configuration.GetSection("sd.toolkits.serialNumber");
+        }
         #endregion
 
         #region # 访问器 —— static SerialNumberSection Setting
@@ -42,7 +53,19 @@ namespace SD.Toolkits.SerialNumber
         /// </summary>
         public static SerialNumberSection Setting
         {
-            get { return _Setting; }
+            get
+            {
+                if (_Setting == null)
+                {
+                    _Setting = (SerialNumberSection)ConfigurationManager.GetSection("sd.toolkits.serialNumber");
+                }
+                if (_Setting == null)
+                {
+                    throw new ApplicationException("SD.Toolkits.SerialNumber节点未配置，请检查程序！");
+                }
+
+                return _Setting;
+            }
         }
         #endregion
 

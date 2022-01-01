@@ -107,6 +107,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Toolkits.Grpc.Server", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Toolkits.Sql.Oracle", "src\SD.Toolkits.Sql.Oracle\SD.Toolkits.Sql.Oracle.csproj", "{F47EBEFD-9C36-4E5F-802D-49F7EF713ACE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.AspNet.Tests", "src\SD.Toolkits.AspNet.Tests\SD.Toolkits.AspNet.Tests.csproj", "{C5B65DE7-0DAD-4FB0-A5EA-96AF57B03F5C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -305,6 +307,10 @@ Global
 		{F47EBEFD-9C36-4E5F-802D-49F7EF713ACE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F47EBEFD-9C36-4E5F-802D-49F7EF713ACE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F47EBEFD-9C36-4E5F-802D-49F7EF713ACE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C5B65DE7-0DAD-4FB0-A5EA-96AF57B03F5C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C5B65DE7-0DAD-4FB0-A5EA-96AF57B03F5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C5B65DE7-0DAD-4FB0-A5EA-96AF57B03F5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C5B65DE7-0DAD-4FB0-A5EA-96AF57B03F5C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -358,6 +364,7 @@ Global
 		{68A291A2-A862-403C-909C-55178319F7A3} = {DE420171-A672-478A-99CA-62AB53D57785}
 		{240CA077-C0B8-475F-9EE8-C3AC0FC5CBB1} = {84CE5E54-82B6-4B0D-AEC5-3E22BF4FD0D2}
 		{F47EBEFD-9C36-4E5F-802D-49F7EF713ACE} = {84CE5E54-82B6-4B0D-AEC5-3E22BF4FD0D2}
+		{C5B65DE7-0DAD-4FB0-A5EA-96AF57B03F5C} = {DE420171-A672-478A-99CA-62AB53D57785}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E971DA80-FBCC-48DC-94AF-074536131022}

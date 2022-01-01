@@ -26,6 +26,27 @@ namespace System.ServiceModel
 
         #endregion
 
+        #region # 初始化 —— static void Initialize(Configuration configuration)
+        /// <summary>
+        /// 初始化
+        /// </summary>
+        /// <param name="configuration">配置</param>
+        public static void Initialize(Configuration.Configuration configuration)
+        {
+            #region # 验证
+
+            if (configuration == null)
+            {
+                throw new ArgumentNullException(nameof(configuration), "配置不可为空！");
+            }
+
+            #endregion
+
+            _Setting = (ServiceModelSectionGroup)configuration.GetSectionGroup("system.serviceModel.client") ??
+                       (ServiceModelSectionGroup)configuration.GetSectionGroup("system.serviceModel");
+        }
+        #endregion
+
         #region # 访问器 —— static ServiceModelSectionGroup Setting
         /// <summary>
         /// 访问器

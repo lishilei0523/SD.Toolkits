@@ -15,25 +15,36 @@ namespace SD.Toolkits.AspNet
         /// <summary>
         /// 单例
         /// </summary>
-        private static readonly AspNetSection _Setting;
+        private static AspNetSection _Setting;
 
         /// <summary>
         /// 静态构造器
         /// </summary>
         static AspNetSection()
         {
-            _Setting = (AspNetSection)ConfigurationManager.GetSection("sd.toolkits.aspNet");
+            _Setting = null;
+        }
 
-            #region # 非空验证
+        #endregion
 
-            if (_Setting == null)
+        #region # 初始化 —— static void Initialize(Configuration configuration)
+        /// <summary>
+        /// 初始化
+        /// </summary>
+        /// <param name="configuration">配置</param>
+        public static void Initialize(Configuration configuration)
+        {
+            #region # 验证
+
+            if (configuration == null)
             {
-                throw new ApplicationException("SD.Toolkits.AspNet节点未配置，请检查程序！");
+                throw new ArgumentNullException(nameof(configuration), "配置不可为空！");
             }
 
             #endregion
-        }
 
+            _Setting = (AspNetSection)configuration.GetSection("sd.toolkits.aspNet");
+        }
         #endregion
 
         #region # 访问器 —— static AspNetSection Setting
@@ -42,7 +53,19 @@ namespace SD.Toolkits.AspNet
         /// </summary>
         public static AspNetSection Setting
         {
-            get { return _Setting; }
+            get
+            {
+                if (_Setting == null)
+                {
+                    _Setting = (AspNetSection)ConfigurationManager.GetSection("sd.toolkits.aspNet");
+                }
+                if (_Setting == null)
+                {
+                    throw new ApplicationException("SD.Toolkits.AspNet节点未配置，请检查程序！");
+                }
+
+                return _Setting;
+            }
         }
         #endregion
 

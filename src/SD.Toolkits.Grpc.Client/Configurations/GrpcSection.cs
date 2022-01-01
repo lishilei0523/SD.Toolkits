@@ -15,25 +15,36 @@ namespace SD.Toolkits.Grpc
         /// <summary>
         /// 单例
         /// </summary>
-        private static readonly GrpcSection _Setting;
+        private static GrpcSection _Setting;
 
         /// <summary>
         /// 静态构造器
         /// </summary>
         static GrpcSection()
         {
-            _Setting = (GrpcSection)ConfigurationManager.GetSection("sd.grpc");
+            _Setting = null;
+        }
 
-            #region # 非空验证
+        #endregion
 
-            if (_Setting == null)
+        #region # 初始化 —— static void Initialize(Configuration configuration)
+        /// <summary>
+        /// 初始化
+        /// </summary>
+        /// <param name="configuration">配置</param>
+        public static void Initialize(Configuration configuration)
+        {
+            #region # 验证
+
+            if (configuration == null)
             {
-                throw new ApplicationException("gRPC节点未配置，请检查程序！");
+                throw new ArgumentNullException(nameof(configuration), "配置不可为空！");
             }
 
             #endregion
-        }
 
+            _Setting = (GrpcSection)configuration.GetSection("sd.grpc");
+        }
         #endregion
 
         #region # 访问器 —— static GrpcSection Setting
@@ -42,7 +53,19 @@ namespace SD.Toolkits.Grpc
         /// </summary>
         public static GrpcSection Setting
         {
-            get { return _Setting; }
+            get
+            {
+                if (_Setting == null)
+                {
+                    _Setting = (GrpcSection)ConfigurationManager.GetSection("sd.grpc");
+                }
+                if (_Setting == null)
+                {
+                    throw new ApplicationException("gRPC节点未配置，请检查程序！");
+                }
+
+                return _Setting;
+            }
         }
         #endregion
 

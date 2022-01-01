@@ -4,7 +4,7 @@ using SD.Toolkits.Mapper.Tests.StubEntities;
 using System;
 using System.Diagnostics;
 
-namespace SD.Toolkits.Mapper.Tests
+namespace SD.Toolkits.Mapper.Tests.TestCases
 {
     /// <summary>
     /// 映射工具测试类
