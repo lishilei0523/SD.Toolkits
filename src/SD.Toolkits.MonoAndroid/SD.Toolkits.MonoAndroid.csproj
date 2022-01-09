@@ -1,0 +1,38 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>monoandroid9.0</TargetFramework>
+    <TargetFrameworkVersion>v9.0</TargetFrameworkVersion>
+    <Authors>Lee</Authors>
+    <Company>SD</Company>
+    <Description>SD.Toolkits Xamarin.Android扩展组件</Description>
+    <Copyright>Copyright © SD 2021</Copyright>
+    <Version>0.1.0</Version>
+    <AssemblyVersion>0.1.0</AssemblyVersion>
+    <FileVersion>0.1.0.0</FileVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <OutputPath>bin\Debug\$(TargetFramework)</OutputPath>
+    <DocumentationFile>bin\Debug\$(TargetFramework)\SD.Toolkits.MonoAndroid.xml</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <OutputPath>bin\Release\$(TargetFramework)</OutputPath>
+    <DocumentationFile>bin\Release\$(TargetFramework)\SD.Toolkits.MonoAndroid.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="Mono.Android" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Xamarin.AndroidX.Core" Version="1.6.0.3" />
+    <PackageReference Include="Xamarin.Essentials" Version="1.7.0" />
+    <PackageReference Include="Acr.UserDialogs" Version="7.2.0.562" />
+  </ItemGroup>
+
+  <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
+</Project>

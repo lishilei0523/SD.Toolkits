@@ -111,6 +111,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Toolkits.AspNet.Tests", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Toolkits.CoreWCF.Xamarin", "src\SD.Toolkits.CoreWCF.Xamarin\SD.Toolkits.CoreWCF.Xamarin.csproj", "{976A2CE6-FA0D-4EA8-881A-47FF6F78CE05}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.MonoAndroid", "src\SD.Toolkits.MonoAndroid\SD.Toolkits.MonoAndroid.csproj", "{8265E009-A7BE-4F21-BDC3-4A8379F1B6B2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -317,6 +319,10 @@ Global
 		{976A2CE6-FA0D-4EA8-881A-47FF6F78CE05}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{976A2CE6-FA0D-4EA8-881A-47FF6F78CE05}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{976A2CE6-FA0D-4EA8-881A-47FF6F78CE05}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8265E009-A7BE-4F21-BDC3-4A8379F1B6B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8265E009-A7BE-4F21-BDC3-4A8379F1B6B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8265E009-A7BE-4F21-BDC3-4A8379F1B6B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8265E009-A7BE-4F21-BDC3-4A8379F1B6B2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -372,6 +378,7 @@ Global
 		{F47EBEFD-9C36-4E5F-802D-49F7EF713ACE} = {84CE5E54-82B6-4B0D-AEC5-3E22BF4FD0D2}
 		{C5B65DE7-0DAD-4FB0-A5EA-96AF57B03F5C} = {DE420171-A672-478A-99CA-62AB53D57785}
 		{976A2CE6-FA0D-4EA8-881A-47FF6F78CE05} = {7ED55242-EB5C-44AF-ABCB-E567E5447952}
+		{8265E009-A7BE-4F21-BDC3-4A8379F1B6B2} = {7ED55242-EB5C-44AF-ABCB-E567E5447952}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E971DA80-FBCC-48DC-94AF-074536131022}
