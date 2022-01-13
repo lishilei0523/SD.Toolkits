@@ -2,7 +2,7 @@
 using Android.Content;
 using System;
 
-namespace SD.Toolkits.MonoAndroid.Receivers
+namespace SD.Toolkits.Xamarin.Android.Receivers
 {
     /// <summary>
     /// 条码扫描广播接收器

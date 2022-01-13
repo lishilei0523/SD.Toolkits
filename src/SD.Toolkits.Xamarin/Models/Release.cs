@@ -1,12 +1,12 @@
 ﻿using System.Xml.Serialization;
 
-namespace SD.Toolkits.MonoAndroid.Models
+namespace SD.Toolkits.Xamarin.Models
 {
     /// <summary>
     /// 发布
     /// </summary>
     [XmlRoot("item")]
-    internal class Release
+    public class Release
     {
         /// <summary>
         /// 版本号

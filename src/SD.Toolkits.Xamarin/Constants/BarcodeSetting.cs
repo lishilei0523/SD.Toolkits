@@ -1,7 +1,7 @@
 ﻿using Xamarin.Essentials;
 
 // ReSharper disable once CheckNamespace
-namespace SD.Toolkits.MonoAndroid
+namespace SD.Toolkits.Xamarin
 {
     /// <summary>
     /// 条码扫描设置
@@ -13,8 +13,8 @@ namespace SD.Toolkits.MonoAndroid
         /// </summary>
         public static string BarcodeActionName
         {
-            get => SecureStorage.GetAsync(AndroidConstants.BarcodeActionName).Result;
-            set => SecureStorage.SetAsync(AndroidConstants.BarcodeActionName, value).Wait();
+            get => Preferences.Get(AndroidConstants.BarcodeActionName, null);
+            set => Preferences.Set(AndroidConstants.BarcodeActionName, value);
         }
 
         /// <summary>
@@ -22,8 +22,8 @@ namespace SD.Toolkits.MonoAndroid
         /// </summary>
         public static string BarcodeExtraName
         {
-            get => SecureStorage.GetAsync(AndroidConstants.BarcodeExtraName).Result;
-            set => SecureStorage.SetAsync(AndroidConstants.BarcodeExtraName, value).Wait();
+            get => Preferences.Get(AndroidConstants.BarcodeExtraName, null);
+            set => Preferences.Set(AndroidConstants.BarcodeExtraName, value);
         }
     }
 }

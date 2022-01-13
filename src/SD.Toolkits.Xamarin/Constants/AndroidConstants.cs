@@ -1,5 +1,5 @@
 ﻿// ReSharper disable once CheckNamespace
-namespace SD.Toolkits.MonoAndroid
+namespace SD.Toolkits.Xamarin
 {
     /// <summary>
     /// Android常量

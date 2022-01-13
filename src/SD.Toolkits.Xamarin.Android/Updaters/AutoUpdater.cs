@@ -2,7 +2,7 @@
 using Android.Content;
 using Android.OS;
 using Java.IO;
-using SD.Toolkits.MonoAndroid.Models;
+using SD.Toolkits.Xamarin.Models;
 using System;
 using System.IO;
 using System.Net;
@@ -11,8 +11,9 @@ using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Serialization;
 using Xamarin.Essentials;
+using Uri = Android.Net.Uri;
 
-namespace SD.Toolkits.MonoAndroid.Extensions
+namespace SD.Toolkits.Xamarin.Android.Updaters
 {
     /// <summary>
     /// Xamarin.Android自动更新器
@@ -156,7 +157,7 @@ namespace SD.Toolkits.MonoAndroid.Extensions
             Intent intent = new Intent(Intent.ActionView);
             intent.AddFlags(ActivityFlags.NewTask);
 
-            Android.Net.Uri fileUri;
+            Uri fileUri;
             if (Build.VERSION.SdkInt > BuildVersionCodes.M)
             {
                 fileUri = AndroidX.Core.Content.FileProvider.GetUriForFile(context, $"{AppInfo.PackageName}.fileProvider", apkFile);
@@ -164,7 +165,7 @@ namespace SD.Toolkits.MonoAndroid.Extensions
             }
             else
             {
-                fileUri = Android.Net.Uri.FromFile(apkFile);
+                fileUri = Uri.FromFile(apkFile);
             }
 
             intent.SetDataAndType(fileUri, apkMime);
