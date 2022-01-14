@@ -1,18 +1,19 @@
 ﻿using Oracle.ManagedDataAccess.Client;
 using System;
 using System.Data;
+using System.Data.Common;
 
 namespace SD.Toolkits.Sql.Oracle
 {
     /// <summary>
-    /// Oracle数据库访问助手类
+    /// Oracle数据库访问助手
     /// </summary>
     public sealed class OracleSqlHelper : ISqlHelper
     {
         #region # 字段及构造器
 
         /// <summary>
-        /// 连接字符串字段
+        /// 连接字符串
         /// </summary>
         private readonly string _connectionString;
 
@@ -22,11 +23,11 @@ namespace SD.Toolkits.Sql.Oracle
         /// <param name="connectionString">连接字符串</param>
         public OracleSqlHelper(string connectionString)
         {
-            #region # 验证参数
+            #region # 验证
 
             if (string.IsNullOrWhiteSpace(connectionString))
             {
-                throw new ArgumentNullException(nameof(connectionString), @"连接字符串不可为空！");
+                throw new ArgumentNullException(nameof(connectionString), "连接字符串不可为空！");
             }
 
             #endregion
@@ -208,6 +209,55 @@ namespace SD.Toolkits.Sql.Oracle
         }
         #endregion
 
+        #region # 批量复制 —— void BulkCopy(DataTable dataTable, DbConnection dbConnection)
+        /// <summary>
+        /// 批量复制
+        /// </summary>
+        /// <param name="dataTable">数据表</param>
+        /// <param name="dbConnection">数据库连接</param>
+        public void BulkCopy(DataTable dataTable, DbConnection dbConnection)
+        {
+            #region # 验证
+
+            if (dataTable == null || dataTable.Rows.Count == 0)
+            {
+                return;
+            }
+
+            #endregion
+
+            //开启批量复制
+            OracleConnection oracleConnection = (OracleConnection)dbConnection;
+            using (OracleBulkCopy bulkCopy = new OracleBulkCopy(oracleConnection, OracleBulkCopyOptions.UseInternalTransaction))
+            {
+                bulkCopy.BatchSize = dataTable.Rows.Count;
+                bulkCopy.DestinationTableName = dataTable.TableName;
+
+                //列映射
+                foreach (DataColumn dataColumn in dataTable.Columns)
+                {
+                    bulkCopy.ColumnMappings.Add(dataColumn.ColumnName, dataColumn.ColumnName.ToUpper());
+                }
+
+                //执行批量插入
+                bulkCopy.WriteToServer(dataTable);
+            }
+        }
+        #endregion
+
+        #region # 批量复制 —— void BulkCopy(DataTable dataTable, DbConnection dbConnection, DbTransaction dbTransaction)
+        /// <summary>
+        /// 批量复制
+        /// </summary>
+        /// <param name="dataTable">数据表</param>
+        /// <param name="dbConnection">数据库连接</param>
+        /// <param name="dbTransaction">数据库事务</param>
+        public void BulkCopy(DataTable dataTable, DbConnection dbConnection, DbTransaction dbTransaction)
+        {
+            throw new NotImplementedException("暂时未实现");
+        }
+        #endregion
+
         #region # 批量复制 —— void BulkCopy(DataSet dataSet)
         /// <summary>
         /// 批量复制
@@ -250,6 +300,61 @@ namespace SD.Toolkits.Sql.Oracle
                     }
                 }
             }
+        }
+        #endregion
+
+        #region # 批量复制 —— void BulkCopy(DataSet dataSet, DbConnection dbConnection)
+        /// <summary>
+        /// 批量复制
+        /// </summary>
+        /// <param name="dataSet">数据集</param>
+        /// <param name="dbConnection">数据库连接</param>
+        public void BulkCopy(DataSet dataSet, DbConnection dbConnection)
+        {
+            #region # 验证
+
+            if (dataSet == null || dataSet.Tables.Count == 0)
+            {
+                return;
+            }
+
+            #endregion
+
+            OracleConnection oracleConnection = (OracleConnection)dbConnection;
+            foreach (DataTable dataTable in dataSet.Tables)
+            {
+                if (dataTable.Rows.Count > 0)
+                {
+                    //开启批量复制
+                    using (OracleBulkCopy bulkCopy = new OracleBulkCopy(oracleConnection, OracleBulkCopyOptions.UseInternalTransaction))
+                    {
+                        bulkCopy.BatchSize = dataTable.Rows.Count;
+                        bulkCopy.DestinationTableName = dataTable.TableName;
+
+                        //列映射
+                        foreach (DataColumn dataColumn in dataTable.Columns)
+                        {
+                            bulkCopy.ColumnMappings.Add(dataColumn.ColumnName, dataColumn.ColumnName.ToUpper());
+                        }
+
+                        //执行批量插入
+                        bulkCopy.WriteToServer(dataTable);
+                    }
+                }
+            }
+        }
+        #endregion
+
+        #region # 批量复制 —— void BulkCopy(DataSet dataSet, DbConnection dbConnection, DbTransaction dbTransaction)
+        /// <summary>
+        /// 批量复制
+        /// </summary>
+        /// <param name="dataSet">数据集</param>
+        /// <param name="dbConnection">数据库连接</param>
+        /// <param name="dbTransaction">数据库事务</param>
+        public void BulkCopy(DataSet dataSet, DbConnection dbConnection, DbTransaction dbTransaction)
+        {
+            throw new NotImplementedException("暂时未实现");
         }
         #endregion
 

@@ -1,18 +1,19 @@
 ﻿using Npgsql;
 using System;
 using System.Data;
+using System.Data.Common;
 
 namespace SD.Toolkits.Sql.PostgreSQL
 {
     /// <summary>
-    /// PostgreSQL数据库访问助手类
+    /// PostgreSQL数据库访问助手
     /// </summary>
     public sealed class PgSqlHelper : ISqlHelper
     {
         #region # 字段及构造器
 
         /// <summary>
-        /// 连接字符串字段
+        /// 连接字符串
         /// </summary>
         private readonly string _connectionString;
 
@@ -22,11 +23,11 @@ namespace SD.Toolkits.Sql.PostgreSQL
         /// <param name="connectionString">连接字符串</param>
         public PgSqlHelper(string connectionString)
         {
-            #region # 验证参数
+            #region # 验证
 
             if (string.IsNullOrWhiteSpace(connectionString))
             {
-                throw new ArgumentNullException(nameof(connectionString), @"连接字符串不可为空！");
+                throw new ArgumentNullException(nameof(connectionString), "连接字符串不可为空！");
             }
 
             #endregion
@@ -180,12 +181,62 @@ namespace SD.Toolkits.Sql.PostgreSQL
         }
         #endregion
 
+        #region # 批量复制 —— void BulkCopy(DataTable dataTable, DbConnection dbConnection)
+        /// <summary>
+        /// 批量复制
+        /// </summary>
+        /// <param name="dataTable">数据表</param>
+        /// <param name="dbConnection">数据库连接</param>
+        public void BulkCopy(DataTable dataTable, DbConnection dbConnection)
+        {
+            throw new NotImplementedException("暂时未实现");
+        }
+        #endregion
+
+        #region # 批量复制 —— void BulkCopy(DataTable dataTable, DbConnection dbConnection, DbTransaction dbTransaction)
+        /// <summary>
+        /// 批量复制
+        /// </summary>
+        /// <param name="dataTable">数据表</param>
+        /// <param name="dbConnection">数据库连接</param>
+        /// <param name="dbTransaction">数据库事务</param>
+        public void BulkCopy(DataTable dataTable, DbConnection dbConnection, DbTransaction dbTransaction)
+        {
+            throw new NotImplementedException("暂时未实现");
+        }
+        #endregion
+
         #region # 批量复制 —— void BulkCopy(DataSet dataSet)
         /// <summary>
         /// 批量复制
         /// </summary>
         /// <param name="dataSet">数据集</param>
         public void BulkCopy(DataSet dataSet)
+        {
+            throw new NotImplementedException("暂时未实现");
+        }
+        #endregion
+
+        #region # 批量复制 —— void BulkCopy(DataSet dataSet, DbConnection dbConnection)
+        /// <summary>
+        /// 批量复制
+        /// </summary>
+        /// <param name="dataSet">数据集</param>
+        /// <param name="dbConnection">数据库连接</param>
+        public void BulkCopy(DataSet dataSet, DbConnection dbConnection)
+        {
+            throw new NotImplementedException("暂时未实现");
+        }
+        #endregion
+
+        #region # 批量复制 —— void BulkCopy(DataSet dataSet, DbConnection dbConnection, DbTransaction dbTransaction)
+        /// <summary>
+        /// 批量复制
+        /// </summary>
+        /// <param name="dataSet">数据集</param>
+        /// <param name="dbConnection">数据库连接</param>
+        /// <param name="dbTransaction">数据库事务</param>
+        public void BulkCopy(DataSet dataSet, DbConnection dbConnection, DbTransaction dbTransaction)
         {
             throw new NotImplementedException("暂时未实现");
         }

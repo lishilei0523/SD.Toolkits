@@ -1,9 +1,10 @@
 ﻿using System.Data;
+using System.Data.Common;
 
 namespace SD.Toolkits.Sql
 {
     /// <summary>
-    /// SQL数据库访问器接口
+    /// SQL数据库访问助手接口
     /// </summary>
     public interface ISqlHelper
     {
@@ -115,12 +116,50 @@ namespace SD.Toolkits.Sql
         void BulkCopy(DataTable dataTable);
         #endregion
 
+        #region # 批量复制 —— void BulkCopy(DataTable dataTable, DbConnection dbConnection)
+        /// <summary>
+        /// 批量复制
+        /// </summary>
+        /// <param name="dataTable">数据表</param>
+        /// <param name="dbConnection">数据库连接</param>
+        void BulkCopy(DataTable dataTable, DbConnection dbConnection);
+        #endregion
+
+        #region # 批量复制 —— void BulkCopy(DataTable dataTable, DbConnection dbConnection, DbTransaction dbTransaction)
+        /// <summary>
+        /// 批量复制
+        /// </summary>
+        /// <param name="dataTable">数据表</param>
+        /// <param name="dbConnection">数据库连接</param>
+        /// <param name="dbTransaction">数据库事务</param>
+        void BulkCopy(DataTable dataTable, DbConnection dbConnection, DbTransaction dbTransaction);
+        #endregion
+
         #region # 批量复制 —— void BulkCopy(DataSet dataSet)
         /// <summary>
         /// 批量复制
         /// </summary>
         /// <param name="dataSet">数据集</param>
         void BulkCopy(DataSet dataSet);
+        #endregion
+
+        #region # 批量复制 —— void BulkCopy(DataSet dataSet, DbConnection dbConnection)
+        /// <summary>
+        /// 批量复制
+        /// </summary>
+        /// <param name="dataSet">数据集</param>
+        /// <param name="dbConnection">数据库连接</param>
+        void BulkCopy(DataSet dataSet, DbConnection dbConnection);
+        #endregion
+
+        #region # 批量复制 —— void BulkCopy(DataSet dataSet, DbConnection dbConnection, DbTransaction dbTransaction)
+        /// <summary>
+        /// 批量复制
+        /// </summary>
+        /// <param name="dataSet">数据集</param>
+        /// <param name="dbConnection">数据库连接</param>
+        /// <param name="dbTransaction">数据库事务</param>
+        void BulkCopy(DataSet dataSet, DbConnection dbConnection, DbTransaction dbTransaction);
         #endregion
     }
 }
