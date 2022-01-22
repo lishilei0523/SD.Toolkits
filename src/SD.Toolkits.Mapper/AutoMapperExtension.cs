@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using AutoMapper.Configuration;
 using System;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Linq.Expressions;
 
 namespace SD.Toolkits.Mapper
@@ -10,6 +12,24 @@ namespace SD.Toolkits.Mapper
     /// </summary>
     public static class AutoMapperExtension
     {
+        #region # 字段及构造器
+
+        /// <summary>
+        /// 映射配置字典
+        /// </summary>
+
+        private static readonly IDictionary<string, MapperConfiguration> _MapperConfigurations;
+
+        /// <summary>
+        /// 静态构造器
+        /// </summary>
+        static AutoMapperExtension()
+        {
+            _MapperConfigurations = new ConcurrentDictionary<string, MapperConfiguration>();
+        }
+
+        #endregion
+
         #region # 映射 —— static TTarget Map<TSource, TTarget>(this TSource...
         /// <summary>
         /// 映射
@@ -23,7 +43,7 @@ namespace SD.Toolkits.Mapper
         /// <returns>目标实例</returns>
         public static TTarget Map<TSource, TTarget>(this TSource sourceInstance, Action<TSource, TTarget> beforeMapEventHandler = null, Action<TSource, TTarget> afterMapEventHandler = null, params Expression<Func<TTarget, object>>[] ignoreMembers)
         {
-            #region # 验证参数
+            #region # 验证
 
             if (sourceInstance == null)
             {
@@ -32,32 +52,39 @@ namespace SD.Toolkits.Mapper
 
             #endregion
 
-            MapperConfigurationExpression config = new MapperConfigurationExpression();
-            IMappingExpression<TSource, TTarget> mapConfig = config.CreateMap<TSource, TTarget>();
-
-            #region # 忽略映射成员处理
-
-            foreach (Expression<Func<TTarget, object>> ignoreMember in ignoreMembers)
+            string key = $"{typeof(TSource).FullName},{typeof(TTarget).FullName}";
+            if (!_MapperConfigurations.TryGetValue(key, out MapperConfiguration mapperConfiguration))
             {
-                mapConfig.ForMember(ignoreMember, source => source.Ignore());
+                MapperConfigurationExpression configExpression = new MapperConfigurationExpression();
+                IMappingExpression<TSource, TTarget> mappingExpression = configExpression.CreateMap<TSource, TTarget>();
+
+                #region # 忽略映射成员处理
+
+                foreach (Expression<Func<TTarget, object>> ignoreMember in ignoreMembers)
+                {
+                    mappingExpression.ForMember(ignoreMember, source => source.Ignore());
+                }
+
+                #endregion
+
+                #region # 映射前后事件处理
+
+                if (beforeMapEventHandler != null)
+                {
+                    mappingExpression.BeforeMap(beforeMapEventHandler);
+                }
+                if (afterMapEventHandler != null)
+                {
+                    mappingExpression.AfterMap(afterMapEventHandler);
+                }
+
+                #endregion
+
+                mapperConfiguration = new MapperConfiguration(configExpression);
+                _MapperConfigurations.Add(key, mapperConfiguration);
             }
 
-            #endregion
-
-            #region # 映射前后事件处理
-
-            if (beforeMapEventHandler != null)
-            {
-                mapConfig.BeforeMap(beforeMapEventHandler);
-            }
-            if (afterMapEventHandler != null)
-            {
-                mapConfig.AfterMap(afterMapEventHandler);
-            }
-
-            #endregion
-
-            IMapper mapper = new AutoMapper.Mapper(new MapperConfiguration(config));
+            IMapper mapper = new AutoMapper.Mapper(mapperConfiguration);
             return mapper.Map<TTarget>(sourceInstance);
         }
         #endregion

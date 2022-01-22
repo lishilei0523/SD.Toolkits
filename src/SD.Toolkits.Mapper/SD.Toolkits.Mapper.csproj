@@ -1,13 +1,13 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net40;net45;net461;netstandard2.0</TargetFrameworks>
+    <TargetFrameworks>net40;net45;net461;netstandard2.0;netstandard2.1</TargetFrameworks>
     <Authors>Lee</Authors>
     <Company>SD</Company>
     <Description>SD.Toolkits Mapper扩展组件</Description>
     <Copyright>Copyright © SD 2021</Copyright>
-    <Version>1.0.1</Version>
-    <AssemblyVersion>1.0.1</AssemblyVersion>
-    <FileVersion>1.0.1.0</FileVersion>
+    <Version>1.1.0</Version>
+    <AssemblyVersion>1.1.0</AssemblyVersion>
+    <FileVersion>1.1.0.0</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -31,5 +31,9 @@
 
   <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
     <PackageReference Include="AutoMapper" Version="10.1.1" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.1'">
+    <PackageReference Include="AutoMapper" Version="11.0.0" />
   </ItemGroup>
 </Project>
