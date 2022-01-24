@@ -3,9 +3,7 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <IsPackable>false</IsPackable>
   </PropertyGroup>
-  <ItemGroup>
-    <None Remove="App.config" />
-  </ItemGroup>
+
   <ItemGroup>
     <EmbeddedResource Include="App.config" />
   </ItemGroup>
