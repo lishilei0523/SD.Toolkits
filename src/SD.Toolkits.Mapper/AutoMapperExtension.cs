@@ -15,6 +15,11 @@ namespace SD.Toolkits.Mapper
         #region # 字段及构造器
 
         /// <summary>
+        /// 同步锁
+        /// </summary>
+        private static readonly object _Sync = new object();
+
+        /// <summary>
         /// 映射配置字典
         /// </summary>
 
@@ -52,40 +57,43 @@ namespace SD.Toolkits.Mapper
 
             #endregion
 
-            string key = $"{typeof(TSource).FullName},{typeof(TTarget).FullName}";
-            if (!_MapperConfigurations.TryGetValue(key, out MapperConfiguration mapperConfiguration))
+            lock (_Sync)
             {
-                MapperConfigurationExpression configExpression = new MapperConfigurationExpression();
-                IMappingExpression<TSource, TTarget> mappingExpression = configExpression.CreateMap<TSource, TTarget>();
-
-                #region # 忽略映射成员处理
-
-                foreach (Expression<Func<TTarget, object>> ignoreMember in ignoreMembers)
+                string key = $"{typeof(TSource).FullName},{typeof(TTarget).FullName}";
+                if (!_MapperConfigurations.TryGetValue(key, out MapperConfiguration mapperConfiguration))
                 {
-                    mappingExpression.ForMember(ignoreMember, source => source.Ignore());
+                    MapperConfigurationExpression configExpression = new MapperConfigurationExpression();
+                    IMappingExpression<TSource, TTarget> mappingExpression = configExpression.CreateMap<TSource, TTarget>();
+
+                    #region # 忽略映射成员处理
+
+                    foreach (Expression<Func<TTarget, object>> ignoreMember in ignoreMembers)
+                    {
+                        mappingExpression.ForMember(ignoreMember, source => source.Ignore());
+                    }
+
+                    #endregion
+
+                    #region # 映射前后事件处理
+
+                    if (beforeMapEventHandler != null)
+                    {
+                        mappingExpression.BeforeMap(beforeMapEventHandler);
+                    }
+                    if (afterMapEventHandler != null)
+                    {
+                        mappingExpression.AfterMap(afterMapEventHandler);
+                    }
+
+                    #endregion
+
+                    mapperConfiguration = new MapperConfiguration(configExpression);
+                    _MapperConfigurations.Add(key, mapperConfiguration);
                 }
 
-                #endregion
-
-                #region # 映射前后事件处理
-
-                if (beforeMapEventHandler != null)
-                {
-                    mappingExpression.BeforeMap(beforeMapEventHandler);
-                }
-                if (afterMapEventHandler != null)
-                {
-                    mappingExpression.AfterMap(afterMapEventHandler);
-                }
-
-                #endregion
-
-                mapperConfiguration = new MapperConfiguration(configExpression);
-                _MapperConfigurations.Add(key, mapperConfiguration);
+                IMapper mapper = new AutoMapper.Mapper(mapperConfiguration);
+                return mapper.Map<TTarget>(sourceInstance);
             }
-
-            IMapper mapper = new AutoMapper.Mapper(mapperConfiguration);
-            return mapper.Map<TTarget>(sourceInstance);
         }
         #endregion
     }
