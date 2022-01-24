@@ -5,7 +5,7 @@ namespace SD.Toolkits.Redis.Configurations
     /// <summary>
     /// 节点集合
     /// </summary>
-    internal class EndpointElementCollection : ConfigurationElementCollection
+    public class EndpointElementCollection : ConfigurationElementCollection
     {
         /// <summary>
         /// 创建新配置节点

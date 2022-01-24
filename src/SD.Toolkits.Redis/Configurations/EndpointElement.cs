@@ -5,7 +5,7 @@ namespace SD.Toolkits.Redis.Configurations
     /// <summary>
     /// 节点
     /// </summary>
-    internal class EndpointElement : ConfigurationElement
+    public class EndpointElement : ConfigurationElement
     {
         #region # 名称 —— string Name
         /// <summary>

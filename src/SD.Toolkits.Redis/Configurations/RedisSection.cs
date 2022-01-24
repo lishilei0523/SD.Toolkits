@@ -8,7 +8,7 @@ namespace SD.Toolkits
     /// <summary>
     /// SD.Toolkits.Redis配置
     /// </summary>
-    internal class RedisSection : ConfigurationSection
+    public class RedisSection : ConfigurationSection
     {
         #region # 字段及构造器
 
