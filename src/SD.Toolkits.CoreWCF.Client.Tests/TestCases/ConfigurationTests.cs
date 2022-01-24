@@ -1,8 +1,11 @@
-﻿using SD.Toolkits.CoreWCF.Client.Configurations.Behaviors;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using SD.Common;
+using SD.Toolkits.CoreWCF.Client.Configurations.Behaviors;
 using SD.Toolkits.CoreWCF.Client.Configurations.Bindings;
 using SD.Toolkits.CoreWCF.Client.Configurations.Clients;
-using System;
 using System.Configuration;
+using System.Diagnostics;
+using System.Reflection;
 using System.ServiceModel;
 using System.ServiceModel.Channels;
 
@@ -11,150 +14,162 @@ namespace SD.Toolkits.CoreWCF.Client.Tests.TestCases
     /// <summary>
     /// 配置文件测试
     /// </summary>
+    [TestClass]
     public class ConfigurationTests
     {
         /// <summary>
-        /// WCF配置节点组
+        /// 测试初始化
         /// </summary>
-        private readonly ServiceModelSectionGroup _sectionGroup = ServiceModelSectionGroup.Setting;
+        [TestInitialize]
+        public void Init()
+        {
+            //初始化配置文件
+            Assembly entryAssembly = Assembly.GetExecutingAssembly();
+            Configuration configuration = ConfigurationExtension.GetConfigurationFromAssembly(entryAssembly);
+            ServiceModelSectionGroup.Initialize(configuration);
+        }
 
         /// <summary>
         /// 测试配置节点
         /// </summary>
+        [TestMethod]
         public void TestSections()
         {
-            foreach (ConfigurationSection configurationSection in this._sectionGroup.Sections)
+            foreach (ConfigurationSection configurationSection in ServiceModelSectionGroup.Setting.Sections)
             {
-                Console.WriteLine(configurationSection);
+                Trace.WriteLine(configurationSection);
             }
-            Console.WriteLine("------------------------------");
+            Trace.WriteLine("------------------------------");
         }
 
         /// <summary>
         /// 测试终结点
         /// </summary>
+        [TestMethod]
         public void TestEndpoints()
         {
-            foreach (ChannelEndpointElement endpoint in this._sectionGroup.Clients.Endpoints)
+            foreach (ChannelEndpointElement endpoint in ServiceModelSectionGroup.Setting.Clients.Endpoints)
             {
-                Console.WriteLine(endpoint.Address);
-                Console.WriteLine(endpoint.Binding);
-                Console.WriteLine(endpoint.BindingConfiguration);
-                Console.WriteLine(endpoint.Contract);
-                Console.WriteLine(endpoint.Name);
-                Console.WriteLine(endpoint.BehaviorConfiguration);
-                Console.WriteLine("------------------------------");
+                Trace.WriteLine(endpoint.Address);
+                Trace.WriteLine(endpoint.Binding);
+                Trace.WriteLine(endpoint.BindingConfiguration);
+                Trace.WriteLine(endpoint.Contract);
+                Trace.WriteLine(endpoint.Name);
+                Trace.WriteLine(endpoint.BehaviorConfiguration);
+                Trace.WriteLine("------------------------------");
             }
         }
 
         /// <summary>
         /// 测试绑定
         /// </summary>
+        [TestMethod]
         public void TestBindings()
         {
-            Console.WriteLine("BasicHttpBinding配置");
-            foreach (BasicHttpBindingElement basicHttpBindingElement in this._sectionGroup.Bindings.BasicHttpBinding.Bindings)
+            Trace.WriteLine("BasicHttpBinding配置");
+            foreach (BasicHttpBindingElement basicHttpBindingElement in ServiceModelSectionGroup.Setting.Bindings.BasicHttpBinding.Bindings)
             {
-                Console.WriteLine("---------------绑定节点配置---------------");
+                Trace.WriteLine("---------------绑定节点配置---------------");
 
-                Console.WriteLine(basicHttpBindingElement.Name);
-                Console.WriteLine(basicHttpBindingElement.MaxBufferPoolSize);
-                Console.WriteLine(basicHttpBindingElement.MaxBufferSize);
-                Console.WriteLine(basicHttpBindingElement.MaxReceivedMessageSize);
-                Console.WriteLine(basicHttpBindingElement.CloseTimeout);
-                Console.WriteLine(basicHttpBindingElement.OpenTimeout);
-                Console.WriteLine(basicHttpBindingElement.ReceiveTimeout);
-                Console.WriteLine(basicHttpBindingElement.SendTimeout);
-                Console.WriteLine(basicHttpBindingElement.Security.Mode);
-                Console.WriteLine(basicHttpBindingElement.Security.Message.ClientCredentialType);
-                Console.WriteLine(basicHttpBindingElement.Security.Transport.ClientCredentialType);
+                Trace.WriteLine(basicHttpBindingElement.Name);
+                Trace.WriteLine(basicHttpBindingElement.MaxBufferPoolSize);
+                Trace.WriteLine(basicHttpBindingElement.MaxBufferSize);
+                Trace.WriteLine(basicHttpBindingElement.MaxReceivedMessageSize);
+                Trace.WriteLine(basicHttpBindingElement.CloseTimeout);
+                Trace.WriteLine(basicHttpBindingElement.OpenTimeout);
+                Trace.WriteLine(basicHttpBindingElement.ReceiveTimeout);
+                Trace.WriteLine(basicHttpBindingElement.SendTimeout);
+                Trace.WriteLine(basicHttpBindingElement.Security.Mode);
+                Trace.WriteLine(basicHttpBindingElement.Security.Message.ClientCredentialType);
+                Trace.WriteLine(basicHttpBindingElement.Security.Transport.ClientCredentialType);
 
-                Console.WriteLine("---------------绑定配置---------------");
+                Trace.WriteLine("---------------绑定配置---------------");
 
                 Binding binding = basicHttpBindingElement.CreateBinding();
-                Console.WriteLine(binding.Name);
-                Console.WriteLine(binding.CloseTimeout);
-                Console.WriteLine(binding.OpenTimeout);
-                Console.WriteLine(binding.ReceiveTimeout);
-                Console.WriteLine(binding.SendTimeout);
+                Trace.WriteLine(binding.Name);
+                Trace.WriteLine(binding.CloseTimeout);
+                Trace.WriteLine(binding.OpenTimeout);
+                Trace.WriteLine(binding.ReceiveTimeout);
+                Trace.WriteLine(binding.SendTimeout);
 
-                Console.WriteLine("------------------------------");
+                Trace.WriteLine("------------------------------");
             }
 
-            Console.WriteLine("NetTcpBinding配置");
-            foreach (NetTcpBindingElement netTcpBindingElement in this._sectionGroup.Bindings.NetTcpBinding.Bindings)
+            Trace.WriteLine("NetTcpBinding配置");
+            foreach (NetTcpBindingElement netTcpBindingElement in ServiceModelSectionGroup.Setting.Bindings.NetTcpBinding.Bindings)
             {
-                Console.WriteLine("---------------绑定节点配置---------------");
+                Trace.WriteLine("---------------绑定节点配置---------------");
 
-                Console.WriteLine(netTcpBindingElement.Name);
-                Console.WriteLine(netTcpBindingElement.MaxBufferPoolSize);
-                Console.WriteLine(netTcpBindingElement.MaxBufferSize);
-                Console.WriteLine(netTcpBindingElement.MaxReceivedMessageSize);
-                Console.WriteLine(netTcpBindingElement.CloseTimeout);
-                Console.WriteLine(netTcpBindingElement.OpenTimeout);
-                Console.WriteLine(netTcpBindingElement.ReceiveTimeout);
-                Console.WriteLine(netTcpBindingElement.SendTimeout);
-                Console.WriteLine(netTcpBindingElement.Security.Mode);
-                Console.WriteLine(netTcpBindingElement.Security.Message.ClientCredentialType);
-                Console.WriteLine(netTcpBindingElement.Security.Transport.ClientCredentialType);
+                Trace.WriteLine(netTcpBindingElement.Name);
+                Trace.WriteLine(netTcpBindingElement.MaxBufferPoolSize);
+                Trace.WriteLine(netTcpBindingElement.MaxBufferSize);
+                Trace.WriteLine(netTcpBindingElement.MaxReceivedMessageSize);
+                Trace.WriteLine(netTcpBindingElement.CloseTimeout);
+                Trace.WriteLine(netTcpBindingElement.OpenTimeout);
+                Trace.WriteLine(netTcpBindingElement.ReceiveTimeout);
+                Trace.WriteLine(netTcpBindingElement.SendTimeout);
+                Trace.WriteLine(netTcpBindingElement.Security.Mode);
+                Trace.WriteLine(netTcpBindingElement.Security.Message.ClientCredentialType);
+                Trace.WriteLine(netTcpBindingElement.Security.Transport.ClientCredentialType);
 
-                Console.WriteLine("---------------绑定配置---------------");
+                Trace.WriteLine("---------------绑定配置---------------");
 
                 Binding binding = netTcpBindingElement.CreateBinding();
-                Console.WriteLine(binding.Name);
-                Console.WriteLine(binding.CloseTimeout);
-                Console.WriteLine(binding.OpenTimeout);
-                Console.WriteLine(binding.ReceiveTimeout);
-                Console.WriteLine(binding.SendTimeout);
+                Trace.WriteLine(binding.Name);
+                Trace.WriteLine(binding.CloseTimeout);
+                Trace.WriteLine(binding.OpenTimeout);
+                Trace.WriteLine(binding.ReceiveTimeout);
+                Trace.WriteLine(binding.SendTimeout);
 
-                Console.WriteLine("------------------------------");
+                Trace.WriteLine("------------------------------");
             }
 
-            Console.WriteLine("BasicHttpBinding配置");
-            foreach (WSHttpBindingElement wsHttpBindingElement in this._sectionGroup.Bindings.WSHttpBinding.Bindings)
+            Trace.WriteLine("BasicHttpBinding配置");
+            foreach (WSHttpBindingElement wsHttpBindingElement in ServiceModelSectionGroup.Setting.Bindings.WSHttpBinding.Bindings)
             {
-                Console.WriteLine("---------------绑定节点配置---------------");
+                Trace.WriteLine("---------------绑定节点配置---------------");
 
-                Console.WriteLine(wsHttpBindingElement.Name);
-                Console.WriteLine(wsHttpBindingElement.MaxBufferPoolSize);
-                Console.WriteLine(wsHttpBindingElement.MaxReceivedMessageSize);
-                Console.WriteLine(wsHttpBindingElement.CloseTimeout);
-                Console.WriteLine(wsHttpBindingElement.OpenTimeout);
-                Console.WriteLine(wsHttpBindingElement.ReceiveTimeout);
-                Console.WriteLine(wsHttpBindingElement.SendTimeout);
-                Console.WriteLine(wsHttpBindingElement.Security.Mode);
-                Console.WriteLine(wsHttpBindingElement.Security.Message.ClientCredentialType);
-                Console.WriteLine(wsHttpBindingElement.Security.Transport.ClientCredentialType);
+                Trace.WriteLine(wsHttpBindingElement.Name);
+                Trace.WriteLine(wsHttpBindingElement.MaxBufferPoolSize);
+                Trace.WriteLine(wsHttpBindingElement.MaxReceivedMessageSize);
+                Trace.WriteLine(wsHttpBindingElement.CloseTimeout);
+                Trace.WriteLine(wsHttpBindingElement.OpenTimeout);
+                Trace.WriteLine(wsHttpBindingElement.ReceiveTimeout);
+                Trace.WriteLine(wsHttpBindingElement.SendTimeout);
+                Trace.WriteLine(wsHttpBindingElement.Security.Mode);
+                Trace.WriteLine(wsHttpBindingElement.Security.Message.ClientCredentialType);
+                Trace.WriteLine(wsHttpBindingElement.Security.Transport.ClientCredentialType);
 
-                Console.WriteLine("---------------绑定配置---------------");
+                Trace.WriteLine("---------------绑定配置---------------");
 
                 Binding binding = wsHttpBindingElement.CreateBinding();
-                Console.WriteLine(binding.Name);
-                Console.WriteLine(binding.CloseTimeout);
-                Console.WriteLine(binding.OpenTimeout);
-                Console.WriteLine(binding.ReceiveTimeout);
-                Console.WriteLine(binding.SendTimeout);
+                Trace.WriteLine(binding.Name);
+                Trace.WriteLine(binding.CloseTimeout);
+                Trace.WriteLine(binding.OpenTimeout);
+                Trace.WriteLine(binding.ReceiveTimeout);
+                Trace.WriteLine(binding.SendTimeout);
 
-                Console.WriteLine("------------------------------");
+                Trace.WriteLine("------------------------------");
             }
         }
 
         /// <summary>
         /// 测试行为
         /// </summary>
+        [TestMethod]
         public void TestBehaviors()
         {
-            Console.WriteLine("终结点行为配置");
-            Console.WriteLine("------------------------------");
-            foreach (BehaviorConfigurationElement behaviorConfigurationElement in this._sectionGroup.Behaviors.BehaviorConfigurations)
+            Trace.WriteLine("终结点行为配置");
+            Trace.WriteLine("------------------------------");
+            foreach (BehaviorConfigurationElement behaviorConfigurationElement in ServiceModelSectionGroup.Setting.Behaviors.BehaviorConfigurations)
             {
-                Console.WriteLine(behaviorConfigurationElement.Name);
+                Trace.WriteLine(behaviorConfigurationElement.Name);
                 foreach (EndpointBehaviorElement endpointBehavior in behaviorConfigurationElement.EndpointBehaviors)
                 {
-                    Console.WriteLine(endpointBehavior.Assembly);
-                    Console.WriteLine(endpointBehavior.Type);
+                    Trace.WriteLine(endpointBehavior.Assembly);
+                    Trace.WriteLine(endpointBehavior.Type);
                 }
-                Console.WriteLine("------------------------------");
+                Trace.WriteLine("------------------------------");
             }
         }
     }
