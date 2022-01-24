@@ -6,8 +6,14 @@ using SD.Toolkits.AspNetCore.Filters;
 
 namespace SD.Toolkits.AspNetCore.Tests
 {
+    /// <summary>
+    /// 应用程序启动器
+    /// </summary>
     public class Startup
     {
+        /// <summary>
+        /// 配置服务
+        /// </summary>
         public void ConfigureServices(IServiceCollection services)
         {
             //添加Swagger
@@ -30,6 +36,9 @@ namespace SD.Toolkits.AspNetCore.Tests
             });
         }
 
+        /// <summary>
+        /// 配置应用程序
+        /// </summary>
         public void Configure(IApplicationBuilder appBuilder)
         {
             //配置Swagger中间件
