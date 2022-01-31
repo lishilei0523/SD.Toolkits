@@ -4,7 +4,7 @@ using System.Linq;
 namespace SD.Toolkits.Recursion.Diagram
 {
     /// <summary>
-    /// 图形结构递归扩展方法工具类
+    /// 图形结构递归扩展
     /// </summary>
     public static class DiagramRecursionExtension
     {
@@ -56,7 +56,7 @@ namespace SD.Toolkits.Recursion.Diagram
         /// <param name="collection">目标集合容器</param>
         private static void RecurseParentNodes<T>(T vertex, ICollection<T> collection) where T : IDiagram<T>
         {
-            #region # 验证参数
+            #region # 验证
 
             if (collection == null)
             {
@@ -90,7 +90,7 @@ namespace SD.Toolkits.Recursion.Diagram
         /// <param name="collection">目标集合容器</param>
         private static void RecurseSubNodes<T>(T vertex, ICollection<T> collection) where T : IDiagram<T>
         {
-            #region # 验证参数
+            #region # 验证
 
             if (collection == null)
             {

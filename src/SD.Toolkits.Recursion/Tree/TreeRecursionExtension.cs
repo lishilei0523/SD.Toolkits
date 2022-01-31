@@ -5,7 +5,7 @@ using System.Text;
 namespace SD.Toolkits.Recursion.Tree
 {
     /// <summary>
-    /// 树形结构递归扩展方法工具类
+    /// 树形结构递归扩展
     /// </summary>
     public static class TreeRecursionExtension
     {
@@ -57,7 +57,6 @@ namespace SD.Toolkits.Recursion.Tree
             T[] nodeArray = nodes?.ToArray() ?? new T[0];
 
             HashSet<T> collection = new HashSet<T>();
-
             foreach (T node in nodeArray)
             {
                 foreach (T parentNode in node.GetDeepParentNodes())
@@ -99,7 +98,7 @@ namespace SD.Toolkits.Recursion.Tree
         /// <param name="collection">目标集合容器</param>
         private static void RecurseParentNodes<T>(T vertex, ICollection<T> collection) where T : ITree<T>
         {
-            #region # 验证参数
+            #region # 验证
 
             if (collection == null)
             {
@@ -129,7 +128,7 @@ namespace SD.Toolkits.Recursion.Tree
         /// <param name="collection">目标集合容器</param>
         private static void RecurseSubNodes<T>(T vertex, ICollection<T> collection) where T : ITree<T>
         {
-            #region # 验证参数
+            #region # 验证
 
             if (collection == null)
             {
@@ -167,6 +166,7 @@ namespace SD.Toolkits.Recursion.Tree
             {
                 RecurseTreePath(vertex.ParentNode, pathBuilder);
             }
+
             pathBuilder.Append("/");
             pathBuilder.Append(vertex);
         }
