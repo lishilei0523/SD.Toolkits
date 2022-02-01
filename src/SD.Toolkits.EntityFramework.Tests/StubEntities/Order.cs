@@ -1,5 +1,4 @@
 ﻿using SD.Toolkits.EntityFramework.Tests.StubEntities.Base;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -68,7 +67,7 @@ namespace SD.Toolkits.EntityFramework.Tests.StubEntities
         /// <param name="details">单据明细集</param>
         public void SetDetails(IEnumerable<OrderDetail> details)
         {
-            details = details?.ToArray() ?? Array.Empty<OrderDetail>();
+            details = details?.ToArray() ?? new OrderDetail[0];
 
             this.ClearDetails();
             if (details.Any())

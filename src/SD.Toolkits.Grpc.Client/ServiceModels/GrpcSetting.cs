@@ -6,10 +6,12 @@ using System.Collections.Generic;
 namespace SD.Toolkits.Grpc
 {
     /// <summary>
-    /// 终结点配置中介者
+    /// gRPC客户端设置
     /// </summary>
-    public static class EndpointMediator
+    public static class GrpcSetting
     {
+        #region # 字段及构造器
+
         /// <summary>
         /// 终结点字典
         /// </summary>
@@ -28,7 +30,7 @@ namespace SD.Toolkits.Grpc
         /// <summary>
         /// 静态构造器
         /// </summary>
-        static EndpointMediator()
+        static GrpcSetting()
         {
             _Endpoints = new ConcurrentDictionary<string, EndpointElement>();
             _EndpointConfigurations = new ConcurrentDictionary<string, EndpointConfigurationElement>();
@@ -47,6 +49,9 @@ namespace SD.Toolkits.Grpc
             }
         }
 
+        #endregion
+
+        #region # 终结点字典 —— static IDictionary<string, EndpointElement> Endpoints
         /// <summary>
         /// 终结点字典
         /// </summary>
@@ -54,7 +59,9 @@ namespace SD.Toolkits.Grpc
         {
             get { return _Endpoints; }
         }
+        #endregion
 
+        #region # 终结点配置字典 —— static IDictionary<string, EndpointConfigurationElement> EndpointConfigurations
         /// <summary>
         /// 终结点配置字典
         /// </summary>
@@ -62,7 +69,9 @@ namespace SD.Toolkits.Grpc
         {
             get { return _EndpointConfigurations; }
         }
+        #endregion
 
+        #region # 授权拦截器配置字典 —— static IDictionary<string, AuthInterceptorElement> AuthInterceptors
         /// <summary>
         /// 授权拦截器配置字典
         /// </summary>
@@ -70,5 +79,6 @@ namespace SD.Toolkits.Grpc
         {
             get { return _AuthInterceptors; }
         }
+        #endregion
     }
 }

@@ -5,7 +5,8 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Text;
 
-namespace SD.Toolkits.Image
+// ReSharper disable once CheckNamespace
+namespace SD.Toolkits
 {
     /// <summary>
     /// 验证码生成器

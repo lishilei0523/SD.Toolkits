@@ -12,29 +12,29 @@ namespace SD.Common.Tests.TestCases
         /// 无Key测试
         /// </summary>
         [TestMethod]
-        public void TestNoKey()
+        public void TestWithoutKey()
         {
             const string text = "Hello World";
 
-            string password = text.Encrypt();
-            string source = password.Decrypt();
+            string ciphertext = text.Encrypt();
+            string plaintext = ciphertext.Decrypt();
 
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(text, source);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(text, plaintext);
         }
 
         /// <summary>
         /// 含Key测试
         /// </summary>
         [TestMethod]
-        public void TestContainsKey()
+        public void TestWithKey()
         {
             const string text = "Hello World";
             const string key = "123456";
 
-            string password = text.Encrypt(key);
-            string source = password.Decrypt(key);
+            string ciphertext = text.Encrypt(key);
+            string plaintext = ciphertext.Decrypt(key);
 
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(text, source);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(text, plaintext);
         }
     }
 }

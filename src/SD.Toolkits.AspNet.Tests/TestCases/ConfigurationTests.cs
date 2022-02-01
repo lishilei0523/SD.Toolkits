@@ -13,9 +13,11 @@ namespace SD.Toolkits.AspNet.Tests.TestCases
         [TestInitialize]
         public void Initialize()
         {
-            //Assembly assembly = Assembly.GetExecutingAssembly();
-            //Configuration configuration = ConfigurationExtension.GetConfigurationFromAssembly(assembly);
-            //AspNetSection.Initialize(configuration);
+#if NETCOREAPP3_1_OR_GREATER
+            Assembly assembly = Assembly.GetExecutingAssembly();
+            Configuration configuration = ConfigurationExtension.GetConfigurationFromAssembly(assembly);
+            AspNetSection.Initialize(configuration);
+#endif
         }
 
         [TestMethod]

@@ -69,12 +69,12 @@ namespace SD.Toolkits.Grpc.Client.ServiceModels
             IList<AuthInterceptorElement> authInterceptorElements = new List<AuthInterceptorElement>();
             if (!string.IsNullOrWhiteSpace(endpoint.EndpointConfiguration))
             {
-                endpointConfiguration = EndpointMediator.EndpointConfigurations[endpoint.EndpointConfiguration];
+                endpointConfiguration = GrpcSetting.EndpointConfigurations[endpoint.EndpointConfiguration];
             }
             if (!string.IsNullOrWhiteSpace(endpoint.AuthInterceptors))
             {
                 string[] authInterceptorNames = endpoint.AuthInterceptors.Split(',');
-                authInterceptorElements = EndpointMediator.AuthInterceptors.Where<KeyValuePair<string, AuthInterceptorElement>>(x => authInterceptorNames.Contains(x.Key)).Select(x => x.Value).ToList();
+                authInterceptorElements = GrpcSetting.AuthInterceptors.Where<KeyValuePair<string, AuthInterceptorElement>>(x => authInterceptorNames.Contains(x.Key)).Select(x => x.Value).ToList();
             }
 
             //构造身份凭据

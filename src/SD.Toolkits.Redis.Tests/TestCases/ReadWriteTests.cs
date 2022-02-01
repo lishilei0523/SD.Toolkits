@@ -1,5 +1,9 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using SD.Common;
 using StackExchange.Redis;
+using System.Configuration;
+using System.Reflection;
+using Assert = Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
 
 namespace SD.Toolkits.Redis.Tests.TestCases
 {
@@ -17,24 +21,31 @@ namespace SD.Toolkits.Redis.Tests.TestCases
         [TestInitialize]
         public void Init()
         {
-            IDatabase db = RedisManager.Instance.GetDatabase();
-            db.StringSet(ReadKey, ReadValue);
+#if NETCOREAPP3_1_OR_GREATER
+            //初始化配置文件
+            Assembly entryAssembly = Assembly.GetExecutingAssembly();
+            Configuration configuration = ConfigurationExtension.GetConfigurationFromAssembly(entryAssembly);
+            RedisSection.Initialize(configuration);
+#endif
+
+            IDatabase database = RedisManager.Instance.GetDatabase();
+            database.StringSet(ReadKey, ReadValue);
         }
 
         [TestCleanup]
         public void Cleanup()
         {
-            IDatabase db = RedisManager.Instance.GetDatabase();
-            db.KeyDelete(ReadKey);
-            db.KeyDelete(WriteKey);
+            IDatabase database = RedisManager.Instance.GetDatabase();
+            database.KeyDelete(ReadKey);
+            database.KeyDelete(WriteKey);
         }
 
 
         [TestMethod]
         public void ReadTest()
         {
-            IDatabase db = RedisManager.Instance.GetDatabase();
-            string value = db.StringGet(ReadKey);
+            IDatabase database = RedisManager.Instance.GetDatabase();
+            string value = database.StringGet(ReadKey);
 
             Assert.AreEqual(ReadValue, value);
         }
@@ -42,9 +53,9 @@ namespace SD.Toolkits.Redis.Tests.TestCases
         [TestMethod]
         public void WriteTest()
         {
-            IDatabase db = RedisManager.Instance.GetDatabase();
-            db.StringSet(WriteKey, WriteValue);
-            string value = db.StringGet(WriteKey);
+            IDatabase database = RedisManager.Instance.GetDatabase();
+            database.StringSet(WriteKey, WriteValue);
+            string value = database.StringGet(WriteKey);
 
             Assert.AreEqual(WriteValue, value);
         }
