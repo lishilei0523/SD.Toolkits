@@ -21,10 +21,6 @@
     <Reference Include="System.Web" />
   </ItemGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' == 'net46'">
-    <Compile Remove="Compatibilities\AsyncLocal.cs" />
-  </ItemGroup>
-
   <ItemGroup>
     <PackageReference Include="Microsoft.Web.Infrastructure" Version="1.0.0" />
   </ItemGroup>

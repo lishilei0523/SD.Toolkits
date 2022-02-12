@@ -17,10 +17,6 @@
     <DocumentationFile>bin\Release\$(TargetFramework)\SD.Toolkits.Owin.xml</DocumentationFile>
   </PropertyGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' == 'net46'">
-    <Compile Remove="Compatibilities\AsyncLocal.cs" />
-  </ItemGroup>
-
   <ItemGroup>
     <PackageReference Include="Microsoft.Owin" Version="4.0.1" />
   </ItemGroup>
