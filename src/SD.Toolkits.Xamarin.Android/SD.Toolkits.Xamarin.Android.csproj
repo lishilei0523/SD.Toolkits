@@ -5,7 +5,7 @@
     <Authors>Lee</Authors>
     <Company>SD</Company>
     <Description>SD.Toolkits Xamarin.Android扩展组件</Description>
-    <Copyright>Copyright © SD 2021</Copyright>
+    <Copyright>Copyright © SD 2022</Copyright>
     <Version>0.1.0</Version>
     <AssemblyVersion>0.1.0</AssemblyVersion>
     <FileVersion>0.1.0.0</FileVersion>
@@ -25,11 +25,12 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Xamarin.Essentials" Version="1.7.0" />
-    <PackageReference Include="Xamarin.AndroidX.Core" Version="1.6.0.3" />
+    <PackageReference Include="Xamarin.AndroidX.Core" Version="1.6.0" />
     <PackageReference Include="Acr.UserDialogs" Version="7.2.0.562" />
   </ItemGroup>
 

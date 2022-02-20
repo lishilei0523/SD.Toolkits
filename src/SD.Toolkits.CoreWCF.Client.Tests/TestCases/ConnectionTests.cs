@@ -72,7 +72,7 @@ namespace SD.Toolkits.CoreWCF.Client.Tests.TestCases
             LoginInfo loginInfo = this._authenticationContract.Login(CommonConstants.AdminLoginId, CommonConstants.InitialPassword);
             AppDomain.CurrentDomain.SetData(SessionKey.CurrentUser, loginInfo);
 
-            IEnumerable<UserInfo> users = this._userContract.GetUsers(null);
+            IEnumerable<UserInfo> users = this._userContract.GetUsers(null, null, null);
 
             Trace.WriteLine("用户列表：");
             Trace.WriteLine("----------------------------------");

@@ -4,7 +4,7 @@
     <Authors>Lee</Authors>
     <Company>SD</Company>
     <Description>SD.Toolkits SQL扩展组件 - MySQL实现</Description>
-    <Copyright>Copyright © SD 2021</Copyright>
+    <Copyright>Copyright © SD 2022</Copyright>
     <Version>1.0.3</Version>
     <AssemblyVersion>1.0.3</AssemblyVersion>
     <FileVersion>1.0.3.0</FileVersion>
@@ -18,7 +18,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="MySql.Data" Version="8.0.27" />
+    <PackageReference Include="MySql.Data" Version="8.0.28" />
   </ItemGroup>
 
   <ItemGroup>

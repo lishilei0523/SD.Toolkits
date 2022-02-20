@@ -14,7 +14,6 @@ namespace SD.Toolkits.WebApi.Tests
         /// <summary>
         /// 配置应用程序
         /// </summary>
-        /// <param name="appBuilder">应用程序建造者</param>
         public void Configuration(IAppBuilder appBuilder)
         {
             HttpConfiguration httpConfiguration = new HttpConfiguration();

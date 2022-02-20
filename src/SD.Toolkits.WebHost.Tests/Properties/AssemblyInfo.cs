@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("SD.Toolkits.WebHost.Tests")]
-[assembly: AssemblyCopyright("Copyright © SD 2021")]
+[assembly: AssemblyCopyright("Copyright © SD 2022")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

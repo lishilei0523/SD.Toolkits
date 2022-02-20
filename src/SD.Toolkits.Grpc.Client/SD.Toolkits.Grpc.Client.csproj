@@ -4,7 +4,7 @@
     <Authors>Lee</Authors>
     <Company>SD</Company>
     <Description>SD.Toolkits gRPC客户端扩展组件</Description>
-    <Copyright>Copyright © SD 2021</Copyright>
+    <Copyright>Copyright © SD 2022</Copyright>
     <Version>1.0.2-Preview</Version>
     <AssemblyVersion>1.0.2</AssemblyVersion>
     <FileVersion>1.0.2.0</FileVersion>
@@ -17,15 +17,11 @@
     <DocumentationFile>bin\Release\$(TargetFramework)\SD.Toolkits.Grpc.Client.xml</DocumentationFile>
   </PropertyGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' == 'net461'">
+  <ItemGroup Condition=" $(TargetFramework.StartsWith('net4')) ">
     <Reference Include="System.Configuration" />
   </ItemGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
-    <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.7.0" />
-  </ItemGroup>
-
-  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.1'">
+  <ItemGroup Condition=" $(TargetFramework.StartsWith('netstandard2')) ">
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.7.0" />
   </ItemGroup>
 
