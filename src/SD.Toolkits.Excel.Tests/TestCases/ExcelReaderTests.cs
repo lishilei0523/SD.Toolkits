@@ -17,7 +17,7 @@ namespace SD.Toolkits.Excel.Tests.TestCases
         {
             Person[] persons = ExcelReader.ReadFile<Person>("StubExcel.xls", 0, 1);
 
-            Assert.IsTrue(persons.Length == 3);
+            Assert.IsTrue(persons.Length == 4);
         }
 
         /// <summary>
@@ -28,7 +28,7 @@ namespace SD.Toolkits.Excel.Tests.TestCases
         {
             Person[] persons = ExcelReader.ReadFile<Person>("StubExcel.xls", "default", 1);
 
-            Assert.IsTrue(persons.Length == 3);
+            Assert.IsTrue(persons.Length == 4);
         }
 
         /// <summary>
@@ -39,7 +39,7 @@ namespace SD.Toolkits.Excel.Tests.TestCases
         {
             Person[] persons = ExcelReader.ReadFile<Person>("StubExcel.xlsx", 0, 1);
 
-            Assert.IsTrue(persons.Length == 3);
+            Assert.IsTrue(persons.Length == 4);
         }
 
         /// <summary>
@@ -50,7 +50,7 @@ namespace SD.Toolkits.Excel.Tests.TestCases
         {
             Person[] persons = ExcelReader.ReadFile<Person>("StubExcel.xlsx", "default", 1);
 
-            Assert.IsTrue(persons.Length == 3);
+            Assert.IsTrue(persons.Length == 4);
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using NPOI.SS.UserModel;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -178,8 +179,9 @@ namespace SD.Toolkits.Excel
                 ICell cell = row.GetCell(i);
                 string cellValue = cell.ToString().Trim();
 
-                #region # 公式处理
+                #region # 公式与日期时间处理
 
+                //公式
                 if (cell.CellType == CellType.Formula)
                 {
                     CellValue formulaValue = formulaEvaluator.Evaluate(cell);
@@ -198,6 +200,11 @@ namespace SD.Toolkits.Excel
                             cellValue = formulaValue.StringValue;
                             break;
                     }
+                }
+                //日期时间
+                if (cell.CellType == CellType.Numeric && DateUtil.IsCellDateFormatted(cell))
+                {
+                    cellValue = cell.DateCellValue.ToString(CultureInfo.CurrentCulture);
                 }
 
                 #endregion

@@ -1,4 +1,6 @@
-﻿namespace SD.Toolkits.Excel.Tests.StubEntities
+﻿using System;
+
+namespace SD.Toolkits.Excel.Tests.StubEntities
 {
     public class Person
     {
@@ -8,5 +10,6 @@
         public string 爱好 { get; set; }
         public float 数值公式 { get; set; }
         public string 字符串公式 { get; set; }
+        public DateTime 日期 { get; set; }
     }
 }
