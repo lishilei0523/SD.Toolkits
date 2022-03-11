@@ -16,7 +16,7 @@ namespace SD.Common
         /// 遍历操作
         /// </summary>
         /// <param name="enumerable">集合</param>
-        /// <param name="action">委托</param>
+        /// <param name="action">操作委托</param>
         public static void ForEach<T>(this IEnumerable<T> enumerable, Action<T> action)
         {
             #region # 验证
@@ -34,8 +34,105 @@ namespace SD.Common
 
             foreach (T item in enumerable)
             {
-                action(item);
+                action.Invoke(item);
             }
+        }
+        #endregion
+
+        #region # 添加元素集 —— static void AddRange<T>(this ICollection<T> collection...
+        /// <summary>
+        /// 添加元素集
+        /// </summary>
+        /// <param name="collection">集合</param>
+        /// <param name="enumerable">元素集</param>
+        public static void AddRange<T>(this ICollection<T> collection, IEnumerable<T> enumerable)
+        {
+            #region # 验证
+
+            if (collection == null)
+            {
+                throw new ArgumentNullException(nameof(collection), "源集合不可为空！");
+            }
+
+            #endregion
+
+            enumerable = enumerable?.ToArray() ?? new T[0];
+            foreach (T item in enumerable)
+            {
+                collection.Add(item);
+            }
+        }
+        #endregion
+
+        #region # 获取集合页数 —— static int GetPageCount<T>(this IEnumerable<T>...
+        /// <summary>
+        /// 获取集合页数
+        /// </summary>
+        /// <param name="enumerable">集合</param>
+        /// <param name="pageSize">页容量</param>
+        /// <returns>页数</returns>
+        public static int GetPageCount<T>(this IEnumerable<T> enumerable, int pageSize)
+        {
+            #region # 验证
+
+            enumerable = enumerable?.ToArray() ?? new T[0];
+            if (!enumerable.Any())
+            {
+                return 0;
+            }
+
+            #endregion
+
+            int pageCount = (int)Math.Ceiling(enumerable.Count() * 1.0 / pageSize);
+
+            return pageCount;
+        }
+        #endregion
+
+        #region # 根据属性去重 —— static IEnumerable<T> DistinctBy<T, TKey>(this IEnumerable<T>...
+        /// <summary>
+        /// 根据属性去重
+        /// </summary>
+        /// <typeparam name="T">类型</typeparam>
+        /// <typeparam name="TKey">参照属性</typeparam>
+        /// <param name="enumerable">集合</param>
+        /// <param name="keySelector">属性选择器</param>
+        /// <returns>去重后的集合</returns>
+        public static IEnumerable<T> DistinctBy<T, TKey>(this IEnumerable<T> enumerable, Func<T, TKey> keySelector)
+        {
+            #region # 验证
+
+            if (enumerable == null)
+            {
+                throw new ArgumentNullException(nameof(enumerable), "源集合对象不可为空！");
+            }
+
+            if (keySelector == null)
+            {
+                throw new ArgumentNullException(nameof(keySelector), "属性选择器不可为空！");
+            }
+
+            #endregion
+
+            HashSet<TKey> seenKeys = new HashSet<TKey>();
+            return enumerable.Where(item => seenKeys.Add(keySelector(item)));
+        }
+        #endregion
+
+        #region # 判断集合是否为空或null —— static bool IsNullOrEmpty<T>(this ICollection<T> collection)
+        /// <summary>
+        /// 判断集合是否为空或null
+        /// </summary>
+        /// <param name="collection">集合</param>
+        /// <returns>是否为空或null</returns>
+        public static bool IsNullOrEmpty<T>(this ICollection<T> collection)
+        {
+            if (collection == null || !collection.Any())
+            {
+                return true;
+            }
+
+            return false;
         }
         #endregion
 
@@ -146,80 +243,6 @@ namespace SD.Common
             #endregion
 
             return false;
-        }
-        #endregion
-
-        #region # 判断集合是否为空或null —— static bool IsNullOrEmpty<T>(this ICollection<T> collection)
-        /// <summary>
-        /// 判断集合是否为空或null
-        /// </summary>
-        /// <param name="collection">集合</param>
-        /// <returns>是否为空或null</returns>
-        public static bool IsNullOrEmpty<T>(this ICollection<T> collection)
-        {
-            if (collection == null || !collection.Any())
-            {
-                return true;
-            }
-
-            return false;
-        }
-        #endregion
-
-        #region # 根据一个属性去重 —— static IEnumerable<T> DistinctBy<T, TKey>(this IEnumerable<T> enumerable...
-        /// <summary>
-        /// 根据一个属性去重
-        /// </summary>
-        /// <typeparam name="T">类型</typeparam>
-        /// <typeparam name="TKey">参照属性</typeparam>
-        /// <param name="enumerable">集合</param>
-        /// <param name="keySelector">属性选择器</param>
-        /// <returns>去重后的集合</returns>
-        public static IEnumerable<T> DistinctBy<T, TKey>(this IEnumerable<T> enumerable, Func<T, TKey> keySelector)
-        {
-            #region # 验证
-
-            if (enumerable == null)
-            {
-                throw new ArgumentNullException(nameof(enumerable), $"源{typeof(T).Name}集合对象不可为空！");
-            }
-
-            if (keySelector == null)
-            {
-                throw new ArgumentNullException(nameof(keySelector), @"属性选择器不可为空！");
-            }
-
-            #endregion
-
-            HashSet<TKey> seenKeys = new HashSet<TKey>();
-            return enumerable.Where(item => seenKeys.Add(keySelector(item)));
-        }
-        #endregion
-
-        #region # 添加元素集 —— static void AddRange<T>(this ICollection<T> collection...
-        /// <summary>
-        /// 添加元素集
-        /// </summary>
-        /// <param name="collection">集合</param>
-        /// <param name="enumerable">元素集</param>
-        public static void AddRange<T>(this ICollection<T> collection, IEnumerable<T> enumerable)
-        {
-            #region # 验证
-
-            if (collection == null)
-            {
-                throw new ArgumentNullException(nameof(collection), $"源{typeof(T).Name}集合对象不可为空！");
-            }
-
-            #endregion
-
-            enumerable = enumerable?.ToArray() ?? new T[0];
-            if (!enumerable.Any())
-            {
-                return;
-            }
-
-            enumerable.ForEach(collection.Add);
         }
         #endregion
 
