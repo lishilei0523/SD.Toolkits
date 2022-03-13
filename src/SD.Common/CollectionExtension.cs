@@ -311,7 +311,7 @@ namespace SD.Common
             tableName = string.IsNullOrWhiteSpace(tableName) ? typeof(T).Name : tableName;
             DataTable dataTable = new DataTable(tableName);
 
-            #region 验证
+            #region # 验证
 
             if (!array.Any())
             {
@@ -395,7 +395,6 @@ namespace SD.Common
 #else
                     let propertyValue = property.GetValue(instance)
 #endif
-
                     select propertyValue;
 
                 dataTable.Rows.Add(propertyValues.ToArray());
