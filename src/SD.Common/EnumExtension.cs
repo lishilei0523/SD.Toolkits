@@ -153,15 +153,15 @@ namespace SD.Common
         /// <returns>枚举值</returns>
         public static T AsEnumTo<T>(this string enumText) where T : struct
         {
-            #region # 验证参数
+            #region # 验证
 
             if (string.IsNullOrWhiteSpace(enumText))
             {
-                throw new ArgumentNullException(nameof(enumText), "枚举的字符串值不可为空！");
+                throw new ArgumentNullException(nameof(enumText), "枚举字符串不可为空！");
             }
             if (typeof(T).IsSubclassOf(typeof(Enum)))
             {
-                throw new ArgumentOutOfRangeException(nameof(T), $"类型\"{typeof(T).Name}\"不是枚举类型！");
+                throw new ArgumentOutOfRangeException(nameof(T), $"类型\"{typeof(T).Name}\"不是枚举！");
             }
 
             #endregion
