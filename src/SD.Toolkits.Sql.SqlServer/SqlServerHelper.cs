@@ -533,7 +533,12 @@ namespace SD.Toolkits.Sql.SqlServer
             int rowCount;
             using (SqlConnection conn = this.CreateConnection())
             {
-                SqlCommand cmd = new SqlCommand(sql, conn) { CommandType = type };
+                SqlCommand cmd = new SqlCommand(sql, conn)
+                {
+                    CommandType = type,
+                    CommandTimeout = 600
+                };
+
                 cmd.Parameters.AddRange(args);
                 conn.Open();
                 rowCount = cmd.ExecuteNonQuery();
@@ -565,7 +570,11 @@ namespace SD.Toolkits.Sql.SqlServer
             object obj;
             using (SqlConnection conn = this.CreateConnection())
             {
-                SqlCommand cmd = new SqlCommand(sql, conn) { CommandType = type };
+                SqlCommand cmd = new SqlCommand(sql, conn)
+                {
+                    CommandType = type,
+                    CommandTimeout = 600
+                };
                 cmd.Parameters.AddRange(args);
                 conn.Open();
                 obj = cmd.ExecuteScalar();
@@ -597,7 +606,11 @@ namespace SD.Toolkits.Sql.SqlServer
             SqlConnection conn = this.CreateConnection();
             try
             {
-                SqlCommand cmd = new SqlCommand(sql, conn) { CommandType = type };
+                SqlCommand cmd = new SqlCommand(sql, conn)
+                {
+                    CommandType = type,
+                    CommandTimeout = 600
+                };
                 cmd.Parameters.AddRange(args);
                 conn.Open();
                 return cmd.ExecuteReader(CommandBehavior.CloseConnection);
@@ -632,10 +645,18 @@ namespace SD.Toolkits.Sql.SqlServer
             DataTable dataTable = new DataTable();
             using (SqlConnection conn = this.CreateConnection())
             {
-                SqlDataAdapter adapter = new SqlDataAdapter(sql, conn) { SelectCommand = { CommandType = type } };
+                SqlDataAdapter adapter = new SqlDataAdapter(sql, conn)
+                {
+                    SelectCommand =
+                    {
+                        CommandType = type,
+                        CommandTimeout = 600
+                    }
+                };
                 adapter.SelectCommand.Parameters.AddRange(args);
                 conn.Open();
                 adapter.Fill(dataTable);
+                adapter.Dispose();
             }
             return dataTable;
         }
@@ -660,18 +681,25 @@ namespace SD.Toolkits.Sql.SqlServer
 
             #endregion
 
+            DataSet dataSet = new DataSet();
             using (SqlConnection conn = this.CreateConnection())
             {
-                DataSet dataSet = new DataSet();
-                using (SqlDataAdapter adapter = new SqlDataAdapter(sql, conn))
+                SqlDataAdapter adapter = new SqlDataAdapter(sql, conn)
                 {
-                    adapter.SelectCommand.Parameters.AddRange(args);
-                    adapter.SelectCommand.CommandType = type;
-                    conn.Open();
-                    adapter.Fill(dataSet);
-                }
-                return dataSet;
+                    SelectCommand =
+                    {
+                        CommandType = type,
+                        CommandTimeout = 600
+                    }
+                };
+
+                adapter.SelectCommand.Parameters.AddRange(args);
+                conn.Open();
+                adapter.Fill(dataSet);
+                adapter.Dispose();
             }
+
+            return dataSet;
         }
         #endregion
     }
