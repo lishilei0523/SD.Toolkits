@@ -2,6 +2,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.Common;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
@@ -132,6 +134,121 @@ namespace SD.Toolkits.EntityFrameworkCore.Extensions
             queryable = IncludeRecursively(queryable, typeof(T), null, null);
 
             return queryable;
+        }
+        #endregion
+
+        #region # 执行SQL查询 —— static T ExecuteScalar<T>(this DbContext dbContext...
+        /// <summary>
+        /// 执行SQL查询
+        /// </summary>
+        /// <param name="dbContext">EF上下文</param>
+        /// <param name="sql">SQL语句</param>
+        /// <param name="parameters">参数集</param>
+        /// <returns>实体对象列表</returns>
+        public static T ExecuteScalar<T>(this DbContext dbContext, string sql, params object[] parameters)
+        {
+            #region # 验证
+
+            if (string.IsNullOrWhiteSpace(sql))
+            {
+                throw new ArgumentNullException(nameof(sql), "SQL语句不可为空！");
+            }
+
+            #endregion
+
+            DbConnection dbConnection = dbContext.Database.GetDbConnection();
+            if (dbConnection.State != ConnectionState.Open)
+            {
+                dbConnection.Open();
+            }
+            DbCommand dbCommand = dbConnection.CreateCommand();
+            dbCommand.CommandText = sql;
+            if (parameters != null && parameters.Any())
+            {
+                dbCommand.Parameters.AddRange(parameters);
+            }
+
+            DbDataReader dataReader = dbCommand.ExecuteReader();
+            DataTable dataTable = new DataTable();
+            dataTable.Load(dataReader);
+            dataReader.Close();
+
+            if (dataTable.Rows.Count > 0)
+            {
+                object result = dataTable.Rows[0][0];
+                return (T)result;
+            }
+
+            return default(T);
+        }
+        #endregion
+
+        #region # 执行SQL查询 —— static ICollection<T> ExecuteSqlQuery<T>(this DbContext...
+        /// <summary>
+        /// 执行SQL查询
+        /// </summary>
+        /// <param name="dbContext">EF上下文</param>
+        /// <param name="sql">SQL语句</param>
+        /// <param name="parameters">参数集</param>
+        /// <returns>实体对象列表</returns>
+        public static ICollection<T> ExecuteSqlQuery<T>(this DbContext dbContext, string sql, params object[] parameters)
+        {
+            #region # 验证
+
+            if (string.IsNullOrWhiteSpace(sql))
+            {
+                throw new ArgumentNullException(nameof(sql), "SQL语句不可为空！");
+            }
+
+            #endregion
+
+            DbConnection dbConnection = dbContext.Database.GetDbConnection();
+            if (dbConnection.State != ConnectionState.Open)
+            {
+                dbConnection.Open();
+            }
+            DbCommand dbCommand = dbConnection.CreateCommand();
+            dbCommand.CommandText = sql;
+            if (parameters != null && parameters.Any())
+            {
+                dbCommand.Parameters.AddRange(parameters);
+            }
+
+            DbDataReader dataReader = dbCommand.ExecuteReader();
+            DataTable dataTable = new DataTable();
+            dataTable.Load(dataReader);
+            dataReader.Close();
+
+            //获取类型与属性列表
+            Type type = typeof(T);
+            PropertyInfo[] propertyInfos = type.GetProperties();
+
+            //获取无参构造函数
+            ConstructorInfo[] constructors = type.GetConstructors(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
+            ConstructorInfo noParamConstructor = constructors.Single(ctor => ctor.GetParameters().Length == 0);
+
+            IList<T> entities = new List<T>();
+            foreach (DataRow dataRow in dataTable.Rows)
+            {
+                T entity = (T)noParamConstructor.Invoke(null);
+                foreach (PropertyInfo property in propertyInfos)
+                {
+                    if (dataTable.Columns.Contains(property.Name))
+                    {
+                        MethodInfo propertySetter = property.GetSetMethod(true);
+                        if (propertySetter != null)
+                        {
+                            object value = dataRow[property.Name] == DBNull.Value
+                                ? null
+                                : dataRow[property.Name];
+                            propertySetter.Invoke(entity, new[] { value });
+                        }
+                    }
+                }
+                entities.Add(entity);
+            }
+
+            return entities;
         }
         #endregion
 

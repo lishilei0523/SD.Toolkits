@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.Common;
 using System.Data.Entity;
 using System.Data.Entity.Core.Objects;
 using System.Data.Entity.Infrastructure;
@@ -178,6 +180,77 @@ namespace SD.Toolkits.EntityFramework.Extensions
             queryable = (IQueryable<T>)IncludeRecursively(queryable, typeof(T), null, null);
 
             return queryable;
+        }
+        #endregion
+
+        #region # 执行SQL查询 —— static T ExecuteScalar<T>(this DbContext dbContext...
+        /// <summary>
+        /// 执行SQL查询
+        /// </summary>
+        /// <param name="dbContext">EF上下文</param>
+        /// <param name="sql">SQL语句</param>
+        /// <param name="parameters">参数集</param>
+        /// <returns>实体对象列表</returns>
+        public static T ExecuteScalar<T>(this DbContext dbContext, string sql, params object[] parameters)
+        {
+            #region # 验证
+
+            if (string.IsNullOrWhiteSpace(sql))
+            {
+                throw new ArgumentNullException(nameof(sql), "SQL语句不可为空！");
+            }
+
+            #endregion
+
+            DbConnection dbConnection = dbContext.Database.Connection;
+            if (dbConnection.State != ConnectionState.Open)
+            {
+                dbConnection.Open();
+            }
+            DbCommand dbCommand = dbConnection.CreateCommand();
+            dbCommand.CommandText = sql;
+            if (parameters != null && parameters.Any())
+            {
+                dbCommand.Parameters.AddRange(parameters);
+            }
+
+            DbDataReader dataReader = dbCommand.ExecuteReader();
+            DataTable dataTable = new DataTable();
+            dataTable.Load(dataReader);
+            dataReader.Close();
+
+            if (dataTable.Rows.Count > 0)
+            {
+                object result = dataTable.Rows[0][0];
+                return (T)result;
+            }
+
+            return default(T);
+        }
+        #endregion
+
+        #region # 执行SQL查询 —— static ICollection<T> ExecuteSqlQuery<T>(this DbContext...
+        /// <summary>
+        /// 执行SQL查询
+        /// </summary>
+        /// <param name="dbContext">EF上下文</param>
+        /// <param name="sql">SQL语句</param>
+        /// <param name="parameters">参数集</param>
+        /// <returns>实体对象列表</returns>
+        public static ICollection<T> ExecuteSqlQuery<T>(this DbContext dbContext, string sql, params object[] parameters)
+        {
+            #region # 验证
+
+            if (string.IsNullOrWhiteSpace(sql))
+            {
+                throw new ArgumentNullException(nameof(sql), "SQL语句不可为空！");
+            }
+
+            #endregion
+
+            DbRawSqlQuery<T> result = dbContext.Database.SqlQuery<T>(sql, parameters);
+
+            return result.ToList();
         }
         #endregion
 
