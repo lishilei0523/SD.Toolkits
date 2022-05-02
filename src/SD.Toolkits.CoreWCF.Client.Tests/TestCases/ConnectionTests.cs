@@ -60,7 +60,7 @@ namespace SD.Toolkits.CoreWCF.Client.Tests.TestCases
             Trace.WriteLine("----------------------------------");
 
             //存储登录信息
-            AppDomain.CurrentDomain.SetData(SessionKey.CurrentUser, loginInfo);
+            AppDomain.CurrentDomain.SetData(GlobalSetting.ApplicationId, loginInfo);
         }
 
         /// <summary>
@@ -70,7 +70,7 @@ namespace SD.Toolkits.CoreWCF.Client.Tests.TestCases
         public void TestGetUsers()
         {
             LoginInfo loginInfo = this._authenticationContract.Login(CommonConstants.AdminLoginId, CommonConstants.InitialPassword);
-            AppDomain.CurrentDomain.SetData(SessionKey.CurrentUser, loginInfo);
+            AppDomain.CurrentDomain.SetData(GlobalSetting.ApplicationId, loginInfo);
 
             IEnumerable<UserInfo> users = this._userContract.GetUsers(null, null, null);
 
