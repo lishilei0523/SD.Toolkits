@@ -50,7 +50,7 @@ namespace SD.Toolkits.AspNetCore.Filters
                 return;
             }
 
-            //跳转至登录页
+            //跳转至错误页
             if (!string.IsNullOrWhiteSpace(AspNetSection.Setting.ErrorPage.Value))
             {
                 context.HttpContext.Response.Redirect(AspNetSection.Setting.ErrorPage.Value);

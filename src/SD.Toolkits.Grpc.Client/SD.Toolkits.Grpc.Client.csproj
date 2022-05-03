@@ -5,9 +5,9 @@
     <Company>SD</Company>
     <Description>SD.Toolkits gRPC客户端扩展组件</Description>
     <Copyright>Copyright © SD 2022</Copyright>
-    <Version>1.0.2-Preview</Version>
-    <AssemblyVersion>1.0.2</AssemblyVersion>
-    <FileVersion>1.0.2.0</FileVersion>
+    <Version>1.0.0-Preview2</Version>
+    <AssemblyVersion>1.0.0</AssemblyVersion>
+    <FileVersion>1.0.0.0</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -27,6 +27,5 @@
 
   <ItemGroup>
     <PackageReference Include="Grpc.Net.Client" Version="2.45.0" />
-    <PackageReference Include="protobuf-net.Grpc" Version="1.0.152" />
   </ItemGroup>
 </Project>
