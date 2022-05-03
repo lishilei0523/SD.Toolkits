@@ -5,7 +5,7 @@
     <Company>SD</Company>
     <Description>SD.Toolkits gRPC服务端扩展组件</Description>
     <Copyright>Copyright © SD 2022</Copyright>
-    <Version>1.0.0</Version>
+    <Version>1.0.0-Preview</Version>
     <AssemblyVersion>1.0.0</AssemblyVersion>
     <FileVersion>1.0.0.0</FileVersion>
   </PropertyGroup>
