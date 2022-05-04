@@ -17,7 +17,11 @@ namespace SD.Toolkits.Grpc.Server.Interceptors
         {
             try
             {
-                return await base.UnaryServerHandler(request, context, continuation);
+                return await continuation.Invoke(request, context);
+            }
+            catch (RpcException)
+            {
+                throw;
             }
             catch (Exception exception)
             {
