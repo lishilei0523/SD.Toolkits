@@ -169,5 +169,17 @@ namespace SD.Toolkits.AspNet
             set { this["fileServer"] = value; }
         }
         #endregion
+
+        #region # X509证书节点 —— X509Element X509
+        /// <summary>
+        /// 文件服务器节点
+        /// </summary>
+        [ConfigurationProperty("x509", IsRequired = false)]
+        public X509Element X509
+        {
+            get { return (X509Element)this["x509"]; }
+            set { this["x509"] = value; }
+        }
+        #endregion
     }
 }

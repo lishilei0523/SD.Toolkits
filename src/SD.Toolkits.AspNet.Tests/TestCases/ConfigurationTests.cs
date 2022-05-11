@@ -35,6 +35,8 @@ namespace SD.Toolkits.AspNet.Tests.TestCases
             Trace.WriteLine(AspNetSection.Setting.ErrorPage.Value);
             Trace.WriteLine(AspNetSection.Setting.StaticFiles.Value);
             Trace.WriteLine(AspNetSection.Setting.FileServer.Value);
+            Trace.WriteLine(AspNetSection.Setting.X509.Path);
+            Trace.WriteLine(AspNetSection.Setting.X509.Password);
         }
     }
 }

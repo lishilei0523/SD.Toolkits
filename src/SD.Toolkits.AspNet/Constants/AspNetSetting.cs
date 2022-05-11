@@ -1,5 +1,6 @@
 ﻿using SD.Toolkits.AspNet.Configurations;
 using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
 
 // ReSharper disable once CheckNamespace
 namespace SD.Toolkits.AspNet
@@ -172,6 +173,23 @@ namespace SD.Toolkits.AspNet
                 }
 
                 return owinUrls;
+            }
+        }
+        #endregion
+
+        #region # X509证书 —— static X509Certificate2 X509
+        /// <summary>
+        /// X509证书
+        /// </summary>
+        public static X509Certificate2 X509
+        {
+            get
+            {
+                string path = AspNetSection.Setting.X509.Path;
+                string password = AspNetSection.Setting.X509.Password;
+                X509Certificate2 x509 = new X509Certificate2(path, password);
+
+                return x509;
             }
         }
         #endregion
