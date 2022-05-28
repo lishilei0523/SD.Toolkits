@@ -22,7 +22,7 @@
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
-    <PackageReference Include="Npgsql" Version="5.0.12" />
+    <PackageReference Include="Npgsql" Version="5.0.10" />
   </ItemGroup>
 
   <ItemGroup>
