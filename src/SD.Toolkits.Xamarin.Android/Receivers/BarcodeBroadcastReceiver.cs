@@ -14,7 +14,7 @@ namespace SD.Toolkits.Xamarin.Android.Receivers
         /// <summary>
         /// 接收条码事件
         /// </summary>
-        public static event Action<string> OnReceiveBarcode;
+        public static Action<string> OnReceiveBarcode;
 
         /// <summary>
         /// 条码广播字段名称
