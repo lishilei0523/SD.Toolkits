@@ -107,7 +107,6 @@ namespace SD.Toolkits.AspNetMvc.Filters
             try
             {
                 IDictionary json = _JsonSerializer.DeserializeObject(exceptionMessage) as IDictionary;
-
                 if (json != null && json.Contains("ErrorMessage"))
                 {
                     errorMessage = json["ErrorMessage"].ToString();

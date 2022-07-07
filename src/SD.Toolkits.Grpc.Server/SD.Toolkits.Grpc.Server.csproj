@@ -17,7 +17,11 @@
     <DocumentationFile>bin\Release\$(TargetFramework)\SD.Toolkits.Grpc.Server.xml</DocumentationFile>
   </PropertyGroup>
 
-  <ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)' == 'net45'">
     <PackageReference Include="Grpc.Core.Api" Version="2.46.3" />
+  </ItemGroup>
+
+  <ItemGroup Condition="$(TargetFramework.StartsWith('netstandard2'))">
+    <PackageReference Include="Grpc.Core.Api" Version="2.47.0" />
   </ItemGroup>
 </Project>
