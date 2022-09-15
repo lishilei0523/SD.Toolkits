@@ -1,0 +1,7 @@
+﻿<configuration>
+  <!--SD.Toolkits.SerialNumber配置-->
+  <sd.toolkits.serialNumber>
+    <!--SQLite序列种子提供者-->
+    <serialSeedProvider type="SD.Toolkits.SerialNumber.SqliteSeedProvider" assembly="SD.Toolkits.SerialNumber.Sqlite" />
+  </sd.toolkits.serialNumber>
+</configuration>

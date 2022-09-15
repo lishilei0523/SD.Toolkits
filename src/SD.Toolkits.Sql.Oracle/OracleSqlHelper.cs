@@ -144,32 +144,6 @@ namespace SD.Toolkits.Sql.Oracle
         }
         #endregion
 
-        #region # 执行SQL语句返回DataSet —— DataSet GetDataSet(string sql, params IDbDataParameter[] args)
-        /// <summary>
-        /// GetDataSet —— Sql语句
-        /// </summary>
-        /// <param name="sql">Sql语句</param>
-        /// <param name="args">参数</param>
-        /// <returns>DataSet对象</returns>
-        public DataSet GetDataSet(string sql, params IDbDataParameter[] args)
-        {
-            return this.GetDataSet(sql, CommandType.Text, args);
-        }
-        #endregion
-
-        #region # 执行存储过程返回DataSet —— DataSet GetDataSetSP(string proc, params IDbDataParameter[] args)
-        /// <summary>
-        /// GetDataSet —— 存储过程
-        /// </summary>
-        /// <param name="proc">存储过程名称</param>
-        /// <param name="args">参数</param>
-        /// <returns>DataSet对象</returns>
-        public DataSet GetDataSetSP(string proc, params IDbDataParameter[] args)
-        {
-            return this.GetDataSet(proc, CommandType.StoredProcedure, args);
-        }
-        #endregion
-
         #region # 批量复制 —— void BulkCopy(DataTable dataTable)
         /// <summary>
         /// 批量复制
@@ -493,46 +467,15 @@ namespace SD.Toolkits.Sql.Oracle
             DataTable dataTable = new DataTable();
             using (OracleConnection conn = this.CreateConnection())
             {
-                OracleDataAdapter adapter = new OracleDataAdapter(sql, conn) { SelectCommand = { CommandType = type } };
-                adapter.SelectCommand.Parameters.AddRange(args);
-                conn.Open();
-                adapter.Fill(dataTable);
-            }
-            return dataTable;
-        }
-        #endregion
-
-        #region # 返回DataSet方法 —— DataSet GetDataSet(string sql, CommandType type, params IDbDataParameter[] args)
-        /// <summary>
-        /// 返回DataSet方法
-        /// </summary>
-        /// <param name="sql">Sql语句</param>
-        /// <param name="type">命令类型</param>
-        /// <param name="args">参数</param>
-        /// <returns>DataSet对象</returns>
-        private DataSet GetDataSet(string sql, CommandType type, params IDbDataParameter[] args)
-        {
-            #region # 验证参数
-
-            if (string.IsNullOrWhiteSpace(sql))
-            {
-                throw new ArgumentNullException(nameof(sql), @"SQL语句不可为空！");
-            }
-
-            #endregion
-
-            using (OracleConnection conn = this.CreateConnection())
-            {
-                DataSet dataSet = new DataSet();
-                using (OracleDataAdapter adapter = new OracleDataAdapter(sql, conn))
+                using (OracleDataAdapter adapter = new OracleDataAdapter(sql, conn) { SelectCommand = { CommandType = type } })
                 {
                     adapter.SelectCommand.Parameters.AddRange(args);
-                    adapter.SelectCommand.CommandType = type;
                     conn.Open();
-                    adapter.Fill(dataSet);
+                    adapter.Fill(dataTable);
                 }
-                return dataSet;
             }
+
+            return dataTable;
         }
         #endregion
     }

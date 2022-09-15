@@ -8,6 +8,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Update="App_Data\SerialNumber.db3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.3.1" />
     <PackageReference Include="MSTest.TestAdapter" Version="2.2.10" />
     <PackageReference Include="MSTest.TestFramework" Version="2.2.10" />
@@ -15,6 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\SD.Toolkits.SerialNumber.Sqlite\SD.Toolkits.SerialNumber.Sqlite.csproj" />
     <ProjectReference Include="..\SD.Toolkits.SerialNumber\SD.Toolkits.SerialNumber.csproj" />
     <ProjectReference Include="..\SD.Toolkits.SerialNumber.Firebird\SD.Toolkits.SerialNumber.Firebird.csproj" />
     <ProjectReference Include="..\SD.Toolkits.SerialNumber.MySql\SD.Toolkits.SerialNumber.MySql.csproj" />

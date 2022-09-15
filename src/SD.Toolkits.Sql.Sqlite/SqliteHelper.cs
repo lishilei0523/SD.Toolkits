@@ -1,19 +1,20 @@
 ﻿using System;
 using System.Data;
 using System.Data.Common;
-#if NET40_OR_GREATER
-using System.Data.SqlClient;
+using System.Linq;
+#if NET40 || NET45
+using System.Data.SQLite;
 #endif
-#if NETSTANDARD2_0_OR_GREATER
-using Microsoft.Data.SqlClient;
+#if NET461_OR_GREATER || NETSTANDARD2_0_OR_GREATER
+using Microsoft.Data.Sqlite;
 #endif
 
-namespace SD.Toolkits.Sql.SqlServer
+namespace SD.Toolkits.Sql.SQLite
 {
     /// <summary>
-    /// SQL Server数据库访问助手
+    /// SQLite数据库访问助手
     /// </summary>
-    public sealed class SqlServerHelper : ISqlHelper
+    public class SqliteHelper : ISqlHelper
     {
         #region # 字段及构造器
 
@@ -26,7 +27,7 @@ namespace SD.Toolkits.Sql.SqlServer
         /// 构造函数
         /// </summary>
         /// <param name="connectionString">连接字符串</param>
-        public SqlServerHelper(string connectionString)
+        public SqliteHelper(string connectionString)
         {
             #region # 验证
 
@@ -156,50 +157,7 @@ namespace SD.Toolkits.Sql.SqlServer
         /// <param name="dataTable">数据表</param>
         public void BulkCopy(DataTable dataTable)
         {
-            #region # 验证
-
-            if (dataTable == null || dataTable.Rows.Count == 0)
-            {
-                return;
-            }
-
-            #endregion
-
-            using (SqlConnection connection = this.CreateConnection())
-            {
-                connection.Open();
-
-                //开启事务
-                using (SqlTransaction transaction = connection.BeginTransaction())
-                {
-                    try
-                    {
-                        //开启批量复制
-                        using (SqlBulkCopy bulkCopy = new SqlBulkCopy(connection, SqlBulkCopyOptions.Default, transaction))
-                        {
-                            bulkCopy.BatchSize = dataTable.Rows.Count;
-                            bulkCopy.DestinationTableName = dataTable.TableName;
-
-                            //列映射
-                            foreach (DataColumn dataColumn in dataTable.Columns)
-                            {
-                                bulkCopy.ColumnMappings.Add(dataColumn.ColumnName, dataColumn.ColumnName);
-                            }
-
-                            //执行批量插入
-                            bulkCopy.WriteToServer(dataTable);
-                        }
-
-                        //提交事务
-                        transaction.Commit();
-                    }
-                    catch
-                    {
-                        transaction.Rollback();
-                        throw;
-                    }
-                }
-            }
+            throw new NotImplementedException("暂时未实现");
         }
         #endregion
 
@@ -211,47 +169,7 @@ namespace SD.Toolkits.Sql.SqlServer
         /// <param name="dbConnection">数据库连接</param>
         public void BulkCopy(DataTable dataTable, DbConnection dbConnection)
         {
-            #region # 验证
-
-            if (dataTable == null || dataTable.Rows.Count == 0)
-            {
-                return;
-            }
-
-            #endregion
-
-            //开启事务
-            using (DbTransaction dbTransaction = dbConnection.BeginTransaction())
-            {
-                try
-                {
-                    //开启批量复制
-                    SqlConnection sqlConnection = (SqlConnection)dbConnection;
-                    SqlTransaction sqlTransaction = (SqlTransaction)dbTransaction;
-                    using (SqlBulkCopy bulkCopy = new SqlBulkCopy(sqlConnection, SqlBulkCopyOptions.Default, sqlTransaction))
-                    {
-                        bulkCopy.BatchSize = dataTable.Rows.Count;
-                        bulkCopy.DestinationTableName = dataTable.TableName;
-
-                        //列映射
-                        foreach (DataColumn dataColumn in dataTable.Columns)
-                        {
-                            bulkCopy.ColumnMappings.Add(dataColumn.ColumnName, dataColumn.ColumnName);
-                        }
-
-                        //执行批量插入
-                        bulkCopy.WriteToServer(dataTable);
-                    }
-
-                    //提交事务
-                    dbTransaction.Commit();
-                }
-                catch
-                {
-                    dbTransaction.Rollback();
-                    throw;
-                }
-            }
+            throw new NotImplementedException("暂时未实现");
         }
         #endregion
 
@@ -264,40 +182,7 @@ namespace SD.Toolkits.Sql.SqlServer
         /// <param name="dbTransaction">数据库事务</param>
         public void BulkCopy(DataTable dataTable, DbConnection dbConnection, DbTransaction dbTransaction)
         {
-            #region # 验证
-
-            if (dataTable == null || dataTable.Rows.Count == 0)
-            {
-                return;
-            }
-
-            #endregion
-
-            try
-            {
-                //开启批量复制
-                SqlConnection sqlConnection = (SqlConnection)dbConnection;
-                SqlTransaction sqlTransaction = (SqlTransaction)dbTransaction;
-                using (SqlBulkCopy bulkCopy = new SqlBulkCopy(sqlConnection, SqlBulkCopyOptions.Default, sqlTransaction))
-                {
-                    bulkCopy.BatchSize = dataTable.Rows.Count;
-                    bulkCopy.DestinationTableName = dataTable.TableName;
-
-                    //列映射
-                    foreach (DataColumn dataColumn in dataTable.Columns)
-                    {
-                        bulkCopy.ColumnMappings.Add(dataColumn.ColumnName, dataColumn.ColumnName);
-                    }
-
-                    //执行批量插入
-                    bulkCopy.WriteToServer(dataTable);
-                }
-            }
-            catch
-            {
-                dbTransaction.Rollback();
-                throw;
-            }
+            throw new NotImplementedException("暂时未实现");
         }
         #endregion
 
@@ -308,56 +193,7 @@ namespace SD.Toolkits.Sql.SqlServer
         /// <param name="dataSet">数据集</param>
         public void BulkCopy(DataSet dataSet)
         {
-            #region # 验证
-
-            if (dataSet == null || dataSet.Tables.Count == 0)
-            {
-                return;
-            }
-
-            #endregion
-
-            using (SqlConnection connection = this.CreateConnection())
-            {
-                connection.Open();
-
-                //开启事务
-                using (SqlTransaction transaction = connection.BeginTransaction())
-                {
-                    try
-                    {
-                        foreach (DataTable dataTable in dataSet.Tables)
-                        {
-                            if (dataTable.Rows.Count > 0)
-                            {
-                                //开启批量复制
-                                using (SqlBulkCopy bulkCopy = new SqlBulkCopy(connection, SqlBulkCopyOptions.Default, transaction))
-                                {
-                                    bulkCopy.BatchSize = dataTable.Rows.Count;
-                                    bulkCopy.DestinationTableName = dataTable.TableName;
-
-                                    //列映射
-                                    foreach (DataColumn dataColumn in dataTable.Columns)
-                                    {
-                                        bulkCopy.ColumnMappings.Add(dataColumn.ColumnName, dataColumn.ColumnName);
-                                    }
-
-                                    //执行批量插入
-                                    bulkCopy.WriteToServer(dataTable);
-                                }
-                            }
-                        }
-
-                        //提交事务
-                        transaction.Commit();
-                    }
-                    catch
-                    {
-                        transaction.Rollback();
-                        throw;
-                    }
-                }
-            }
+            throw new NotImplementedException("暂时未实现");
         }
         #endregion
 
@@ -369,53 +205,7 @@ namespace SD.Toolkits.Sql.SqlServer
         /// <param name="dbConnection">数据库连接</param>
         public void BulkCopy(DataSet dataSet, DbConnection dbConnection)
         {
-            #region # 验证
-
-            if (dataSet == null || dataSet.Tables.Count == 0)
-            {
-                return;
-            }
-
-            #endregion
-
-            //开启事务
-            using (DbTransaction dbTransaction = dbConnection.BeginTransaction())
-            {
-                try
-                {
-                    SqlConnection sqlConnection = (SqlConnection)dbConnection;
-                    SqlTransaction sqlTransaction = (SqlTransaction)dbTransaction;
-                    foreach (DataTable dataTable in dataSet.Tables)
-                    {
-                        if (dataTable.Rows.Count > 0)
-                        {
-                            //开启批量复制
-                            using (SqlBulkCopy bulkCopy = new SqlBulkCopy(sqlConnection, SqlBulkCopyOptions.Default, sqlTransaction))
-                            {
-                                bulkCopy.BatchSize = dataTable.Rows.Count;
-                                bulkCopy.DestinationTableName = dataTable.TableName;
-
-                                //列映射
-                                foreach (DataColumn dataColumn in dataTable.Columns)
-                                {
-                                    bulkCopy.ColumnMappings.Add(dataColumn.ColumnName, dataColumn.ColumnName);
-                                }
-
-                                //执行批量插入
-                                bulkCopy.WriteToServer(dataTable);
-                            }
-                        }
-                    }
-
-                    //提交事务
-                    dbTransaction.Commit();
-                }
-                catch
-                {
-                    dbTransaction.Rollback();
-                    throw;
-                }
-            }
+            throw new NotImplementedException("暂时未实现");
         }
         #endregion
 
@@ -428,61 +218,30 @@ namespace SD.Toolkits.Sql.SqlServer
         /// <param name="dbTransaction">数据库事务</param>
         public void BulkCopy(DataSet dataSet, DbConnection dbConnection, DbTransaction dbTransaction)
         {
-            #region # 验证
-
-            if (dataSet == null || dataSet.Tables.Count == 0)
-            {
-                return;
-            }
-
-            #endregion
-
-            try
-            {
-                SqlConnection sqlConnection = (SqlConnection)dbConnection;
-                SqlTransaction sqlTransaction = (SqlTransaction)dbTransaction;
-                foreach (DataTable dataTable in dataSet.Tables)
-                {
-                    if (dataTable.Rows.Count > 0)
-                    {
-                        //开启批量复制
-                        using (SqlBulkCopy bulkCopy = new SqlBulkCopy(sqlConnection, SqlBulkCopyOptions.Default, sqlTransaction))
-                        {
-                            bulkCopy.BatchSize = dataTable.Rows.Count;
-                            bulkCopy.DestinationTableName = dataTable.TableName;
-
-                            //列映射
-                            foreach (DataColumn dataColumn in dataTable.Columns)
-                            {
-                                bulkCopy.ColumnMappings.Add(dataColumn.ColumnName, dataColumn.ColumnName);
-                            }
-
-                            //执行批量插入
-                            bulkCopy.WriteToServer(dataTable);
-                        }
-                    }
-                }
-            }
-            catch
-            {
-                dbTransaction.Rollback();
-                throw;
-            }
+            throw new NotImplementedException("暂时未实现");
         }
         #endregion
 
 
         //Private
 
-        #region # 创建连接方法 —— SqlConnection CreateConnection()
+        #region # 创建连接方法 —— SQLiteConnection CreateConnection()
         /// <summary>
         /// 创建连接方法
         /// </summary>
         /// <returns>连接对象</returns>
-        private SqlConnection CreateConnection()
+#if NET40 || NET45
+        private SQLiteConnection CreateConnection()
         {
-            return new SqlConnection(this._connectionString);
+            return new SQLiteConnection(this._connectionString);
         }
+#endif
+#if NET461_OR_GREATER || NETSTANDARD2_0_OR_GREATER
+        private SqliteConnection CreateConnection()
+        {
+            return new SqliteConnection(this._connectionString);
+        }
+#endif
         #endregion
 
         #region # ExecuteNonQuery方法 —— int ExecuteNonQuery(string sql, CommandType type, params IDbDataParameter[] args)
@@ -505,14 +264,19 @@ namespace SD.Toolkits.Sql.SqlServer
             #endregion
 
             int rowCount;
-            using (SqlConnection conn = this.CreateConnection())
+#if NET40 || NET45
+            using (SQLiteConnection conn = this.CreateConnection())
+#endif
+#if NET461_OR_GREATER || NETSTANDARD2_0_OR_GREATER
+            using (SqliteConnection conn = this.CreateConnection())
+#endif
             {
-                SqlCommand cmd = new SqlCommand(sql, conn)
-                {
-                    CommandType = type,
-                    CommandTimeout = 600
-                };
-
+#if NET40 || NET45
+                SQLiteCommand cmd = new SQLiteCommand(sql, conn) { CommandType = type };
+#endif
+#if NET461_OR_GREATER || NETSTANDARD2_0_OR_GREATER
+                SqliteCommand cmd = new SqliteCommand(sql, conn) { CommandType = type };
+#endif
                 cmd.Parameters.AddRange(args);
                 conn.Open();
                 rowCount = cmd.ExecuteNonQuery();
@@ -542,13 +306,19 @@ namespace SD.Toolkits.Sql.SqlServer
             #endregion
 
             object obj;
-            using (SqlConnection conn = this.CreateConnection())
+#if NET40 || NET45
+            using (SQLiteConnection conn = this.CreateConnection())
+#endif
+#if NET461_OR_GREATER || NETSTANDARD2_0_OR_GREATER
+            using (SqliteConnection conn = this.CreateConnection())
+#endif
             {
-                SqlCommand cmd = new SqlCommand(sql, conn)
-                {
-                    CommandType = type,
-                    CommandTimeout = 600
-                };
+#if NET40 || NET45
+                SQLiteCommand cmd = new SQLiteCommand(sql, conn) { CommandType = type };
+#endif
+#if NET461_OR_GREATER || NETSTANDARD2_0_OR_GREATER
+                SqliteCommand cmd = new SqliteCommand(sql, conn) { CommandType = type };
+#endif
                 cmd.Parameters.AddRange(args);
                 conn.Open();
                 obj = cmd.ExecuteScalar();
@@ -577,14 +347,20 @@ namespace SD.Toolkits.Sql.SqlServer
 
             #endregion
 
-            SqlConnection conn = this.CreateConnection();
+#if NET40 || NET45
+            SQLiteConnection conn = this.CreateConnection();
+#endif
+#if NET461_OR_GREATER || NETSTANDARD2_0_OR_GREATER
+            SqliteConnection conn = this.CreateConnection();
+#endif
             try
             {
-                SqlCommand cmd = new SqlCommand(sql, conn)
-                {
-                    CommandType = type,
-                    CommandTimeout = 600
-                };
+#if NET40 || NET45
+                SQLiteCommand cmd = new SQLiteCommand(sql, conn) { CommandType = type };
+#endif
+#if NET461_OR_GREATER || NETSTANDARD2_0_OR_GREATER
+                SqliteCommand cmd = new SqliteCommand(sql, conn) { CommandType = type };
+#endif
                 cmd.Parameters.AddRange(args);
                 conn.Open();
                 return cmd.ExecuteReader(CommandBehavior.CloseConnection);
@@ -616,17 +392,36 @@ namespace SD.Toolkits.Sql.SqlServer
 
             #endregion
 
+#if NET40 || NET45
             DataTable dataTable = new DataTable();
-            using (SqlConnection conn = this.CreateConnection())
+            using (SQLiteConnection conn = this.CreateConnection())
             {
-                using (SqlDataAdapter adapter = new SqlDataAdapter(sql, conn) { SelectCommand = { CommandType = type } })
+                using (SQLiteDataAdapter adapter = new SQLiteDataAdapter(sql, conn) { SelectCommand = { CommandType = type } })
                 {
                     adapter.SelectCommand.Parameters.AddRange(args);
                     conn.Open();
                     adapter.Fill(dataTable);
                 }
             }
+#endif
+#if NET461_OR_GREATER || NETSTANDARD2_0_OR_GREATER
+            SqliteConnection dbConnection = this.CreateConnection();
+            if (dbConnection.State != ConnectionState.Open)
+            {
+                dbConnection.Open();
+            }
+            DbCommand dbCommand = dbConnection.CreateCommand();
+            dbCommand.CommandText = sql;
+            if (args != null && args.Any())
+            {
+                dbCommand.Parameters.AddRange(args);
+            }
 
+            DbDataReader dataReader = dbCommand.ExecuteReader();
+            DataTable dataTable = new DataTable();
+            dataTable.Load(dataReader);
+            dataReader.Close();
+#endif
             return dataTable;
         }
         #endregion

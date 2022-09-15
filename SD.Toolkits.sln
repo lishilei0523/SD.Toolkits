@@ -117,6 +117,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "04 - Xamarin", "04 - Xamari
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Toolkits.Xamarin", "src\SD.Toolkits.Xamarin\SD.Toolkits.Xamarin.csproj", "{A1BF3B3E-39C9-4DB5-A7C3-7415CE6F0F20}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Toolkits.Sql.Sqlite", "src\SD.Toolkits.Sql.Sqlite\SD.Toolkits.Sql.Sqlite.csproj", "{BB8C2CDB-0148-4154-BE92-0B4BC9C9A4F5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Toolkits.SerialNumber.Sqlite", "src\SD.Toolkits.SerialNumber.Sqlite\SD.Toolkits.SerialNumber.Sqlite.csproj", "{D80C6272-84D1-40CA-8FBE-FCFF98072AE6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -331,6 +335,14 @@ Global
 		{A1BF3B3E-39C9-4DB5-A7C3-7415CE6F0F20}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A1BF3B3E-39C9-4DB5-A7C3-7415CE6F0F20}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A1BF3B3E-39C9-4DB5-A7C3-7415CE6F0F20}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BB8C2CDB-0148-4154-BE92-0B4BC9C9A4F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB8C2CDB-0148-4154-BE92-0B4BC9C9A4F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB8C2CDB-0148-4154-BE92-0B4BC9C9A4F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB8C2CDB-0148-4154-BE92-0B4BC9C9A4F5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D80C6272-84D1-40CA-8FBE-FCFF98072AE6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D80C6272-84D1-40CA-8FBE-FCFF98072AE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D80C6272-84D1-40CA-8FBE-FCFF98072AE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D80C6272-84D1-40CA-8FBE-FCFF98072AE6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -388,6 +400,8 @@ Global
 		{976A2CE6-FA0D-4EA8-881A-47FF6F78CE05} = {49181676-8A49-493D-8A07-D449370AE017}
 		{8265E009-A7BE-4F21-BDC3-4A8379F1B6B2} = {49181676-8A49-493D-8A07-D449370AE017}
 		{A1BF3B3E-39C9-4DB5-A7C3-7415CE6F0F20} = {49181676-8A49-493D-8A07-D449370AE017}
+		{BB8C2CDB-0148-4154-BE92-0B4BC9C9A4F5} = {84CE5E54-82B6-4B0D-AEC5-3E22BF4FD0D2}
+		{D80C6272-84D1-40CA-8FBE-FCFF98072AE6} = {84CE5E54-82B6-4B0D-AEC5-3E22BF4FD0D2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E971DA80-FBCC-48DC-94AF-074536131022}

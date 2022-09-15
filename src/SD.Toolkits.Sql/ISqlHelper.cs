@@ -88,26 +88,6 @@ namespace SD.Toolkits.Sql
         DataTable GetDataTableSP(string proc, params IDbDataParameter[] args);
         #endregion
 
-        #region # 执行SQL语句返回DataSet —— DataSet GetDataSet(string sql, params IDbDataParameter[] args)
-        /// <summary>
-        /// GetDataSet —— Sql语句
-        /// </summary>
-        /// <param name="sql">Sql语句</param>
-        /// <param name="args">参数</param>
-        /// <returns>DataSet对象</returns>
-        DataSet GetDataSet(string sql, params IDbDataParameter[] args);
-        #endregion
-
-        #region # 执行存储过程返回DataSet —— DataSet GetDataSetSP(string proc, params IDbDataParameter[] args)
-        /// <summary>
-        /// GetDataSet —— 存储过程
-        /// </summary>
-        /// <param name="proc">存储过程名称</param>
-        /// <param name="args">参数</param>
-        /// <returns>DataSet对象</returns>
-        DataSet GetDataSetSP(string proc, params IDbDataParameter[] args);
-        #endregion
-
         #region # 批量复制 —— void BulkCopy(DataTable dataTable)
         /// <summary>
         /// 批量复制
