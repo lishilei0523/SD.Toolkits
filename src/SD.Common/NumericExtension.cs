@@ -436,35 +436,5 @@ namespace SD.Common
             return false;
         }
         #endregion
-
-        #region # 拆分高低字节 —— static void Split2Bytes(int number, out byte highByte, out byte lowByte)
-        /// <summary>
-        /// 拆分高低字节
-        /// </summary>
-        /// <param name="number">数值</param>
-        /// <param name="highByte">高字节</param>
-        /// <param name="lowByte">低字节</param>
-        /// <returns>高低字节</returns>
-        public static void Split2Bytes(int number, out byte highByte, out byte lowByte)
-        {
-            highByte = (byte)(number >> 8);
-            lowByte = (byte)number;
-        }
-        #endregion
-
-        #region # 合并高低字节 —— static int Merge2Bytes(byte highByte, byte lowByte)
-        /// <summary>
-        /// 合并高低字节
-        /// </summary>
-        /// <param name="highByte">高字节</param>
-        /// <param name="lowByte">低字节</param>
-        /// <returns>数值</returns>
-        public static int Merge2Bytes(byte highByte, byte lowByte)
-        {
-            int number = (highByte << 8) + lowByte;
-
-            return number;
-        }
-        #endregion
     }
 }

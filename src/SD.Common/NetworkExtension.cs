@@ -21,7 +21,7 @@ namespace SD.Common
         public static string GetLocalMacAddress()
         {
             IList<string> macs = GetMacs();
-            string macsText = macs.ToSplicString();
+            string macsText = macs.ToSpliceString();
 
             return macsText;
         }
@@ -58,7 +58,7 @@ namespace SD.Common
         public static string GetLocalIPAddress()
         {
             ICollection<string> ips = GetIPs();
-            string ipsStr = ips.ToSplicString();
+            string ipsStr = ips.ToSpliceString();
 
             return ipsStr;
         }

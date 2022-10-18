@@ -404,14 +404,14 @@ namespace SD.Common
         }
         #endregion
 
-        #region # 集合转换为分割字符串 —— static string ToSplicString<T>(this IEnumerable<T>...
+        #region # 集合拼接为字符串 —— static string ToSpliceString<T>(this IEnumerable<T>...
         /// <summary>
-        /// 集合转换为分割字符串
+        /// 集合拼接为字符串
         /// </summary>
         /// <param name="enumerable">集合</param>
-        /// <returns>分割字符串</returns>
+        /// <returns>拼接字符串</returns>
         /// <remarks>以“,”分隔</remarks>
-        public static string ToSplicString<T>(this IEnumerable<T> enumerable)
+        public static string ToSpliceString<T>(this IEnumerable<T> enumerable)
         {
             #region # 验证
 

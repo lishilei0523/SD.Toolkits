@@ -327,6 +327,8 @@ namespace SD.Common
     /// </summary>
     public class TemporaryFileStream : IDisposable
     {
+        #region # 字段及构造器
+
         /// <summary>
         /// 文件流
         /// </summary>
@@ -341,6 +343,25 @@ namespace SD.Common
             this._fileStream = new FileStream(path, FileMode.Open, FileAccess.Read);
         }
 
+        #endregion
+
+        #region # 属性
+
+        #region 名称 —— string Name
+        /// <summary>
+        /// 名称
+        /// </summary>
+        public string Name
+        {
+            get => this._fileStream.Name;
+        }
+        #endregion
+
+        #endregion
+
+        #region # 方法
+
+        #region 创建临时文件流 —— static TemporaryFileStream Create(string content)
         /// <summary>
         /// 创建临时文件流
         /// </summary>
@@ -353,21 +374,18 @@ namespace SD.Common
 
             return new TemporaryFileStream(path);
         }
+        #endregion
 
-        /// <summary>
-        /// 名称
-        /// </summary>
-        public string Name
-        {
-            get { return this._fileStream.Name; }
-        }
-
+        #region 释放资源 —— void Dispose()
         /// <summary>
         /// 释放资源
         /// </summary>
         public void Dispose()
         {
-            this._fileStream.Dispose();
+            this._fileStream?.Dispose();
         }
+        #endregion 
+
+        #endregion
     }
 }

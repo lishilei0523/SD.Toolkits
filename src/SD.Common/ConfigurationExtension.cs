@@ -10,6 +10,7 @@ namespace SD.Common
     /// </summary>
     public static class ConfigurationExtension
     {
+        #region # 从程序集获取嵌入配置 —— static Configuration GetConfigurationFromAssembly(...
         /// <summary>
         /// 从程序集获取嵌入配置
         /// </summary>
@@ -50,5 +51,6 @@ namespace SD.Common
                 }
             }
         }
+        #endregion
     }
 }
