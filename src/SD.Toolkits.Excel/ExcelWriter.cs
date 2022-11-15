@@ -99,19 +99,44 @@ namespace SD.Toolkits.Excel
         /// <returns>工作簿</returns>
         private static IWorkbook CreateWorkbook<T>(string extensionName, T[] array, string[] titles = null)
         {
-            //01.创建工作簿
+            //创建工作簿
             IWorkbook workbook = ExcelConductor.CreateWorkbook(extensionName);
 
-            //02.创建工作表
+            //默认字体
+            IFont font = workbook.CreateFont();
+            font.FontName = "宋体";
+            font.FontHeightInPoints = 11;
+
+            //标题样式
+            ICellStyle titleStyle = workbook.CreateCellStyle();
+            titleStyle.Alignment = HorizontalAlignment.Center;
+            titleStyle.VerticalAlignment = VerticalAlignment.Center;
+            titleStyle.BorderLeft = BorderStyle.Thin;
+            titleStyle.BorderTop = BorderStyle.Thin;
+            titleStyle.BorderRight = BorderStyle.Thin;
+            titleStyle.BorderBottom = BorderStyle.Thin;
+            titleStyle.SetFont(font);
+
+            //内容样式
+            ICellStyle contentStyle = workbook.CreateCellStyle();
+            contentStyle.Alignment = HorizontalAlignment.Left;
+            contentStyle.VerticalAlignment = VerticalAlignment.Center;
+            contentStyle.BorderLeft = BorderStyle.Thin;
+            contentStyle.BorderTop = BorderStyle.Thin;
+            contentStyle.BorderRight = BorderStyle.Thin;
+            contentStyle.BorderBottom = BorderStyle.Thin;
+            contentStyle.SetFont(font);
+
+            //创建工作表
             ISheet sheet = workbook.CreateSheet(typeof(T).Name);
 
-            #region //03.创建标题行
-
+            //创建标题行
             IRow rowTitle = sheet.CreateRow(0);
+            rowTitle.Height = 15 * 20;
             string[] defaultTitles = typeof(T).GetProperties().Select(x => x.Name).ToArray();
             if (titles == null)
             {
-                CreateTitleRow(defaultTitles, rowTitle);
+                CreateTitleRow(defaultTitles, rowTitle, titleStyle);
             }
             else
             {
@@ -124,89 +149,109 @@ namespace SD.Toolkits.Excel
 
                 #endregion
 
-                CreateTitleRow(titles, rowTitle);
+                CreateTitleRow(titles, rowTitle, titleStyle);
             }
 
-            #endregion
+            //创建数据行
+            CreateDataRows(array, sheet, contentStyle);
 
-            //04.创建数据行
-            CreateDataRows(array, sheet);
+            //自适应列宽
+            for (int index = 0; index < rowTitle.LastCellNum; index++)
+            {
+                sheet.AutoSizeColumn(index);
+                int columnWidth = sheet.GetColumnWidth(index);
+                sheet.SetColumnWidth(index, columnWidth + 2 * 256);
+            }
+
+            //首行冻结
+            sheet.CreateFreezePane(rowTitle.LastCellNum, 1);
 
             return workbook;
         }
         #endregion
 
-        #region # 创建标题行 —— static void CreateTitleRow(string[] titles, IRow rowTitle)
+        #region # 创建标题行 —— static void CreateTitleRow(string[] titles, IRow rowTitle, ICellStyle cellStyle)
         /// <summary>
         /// 创建标题行
         /// </summary>
         /// <param name="titles">标题数组</param>
         /// <param name="rowTitle">标题行</param>
-        private static void CreateTitleRow(string[] titles, IRow rowTitle)
+        /// <param name="cellStyle">单元格样式</param>
+        private static void CreateTitleRow(string[] titles, IRow rowTitle, ICellStyle cellStyle)
         {
-            for (int i = 0; i < titles.Length; i++)
+            for (int index = 0; index < titles.Length; index++)
             {
-                rowTitle.CreateCell(i).SetCellValue(titles[i]);
+                ICell cell = rowTitle.CreateCell(index);
+                cell.CellStyle = cellStyle;
+                cell.SetCellValue(titles[index]);
             }
         }
         #endregion
 
-        #region # 创建数据行 —— static void CreateDataRows<T>(T[] array, ISheet sheet)
+        #region # 创建数据行 —— static void CreateDataRows<T>(T[] array, ISheet sheet, ICellStyle cellStyle)
         /// <summary>
         /// 创建数据行
         /// </summary>
         /// <param name="array">集合对象</param>
         /// <param name="sheet">工作表对象</param>
-        private static void CreateDataRows<T>(T[] array, ISheet sheet)
+        /// <param name="cellStyle">单元格样式</param>
+        private static void CreateDataRows<T>(T[] array, ISheet sheet, ICellStyle cellStyle)
         {
-            for (int i = 0; i < array.Length; i++)
+            for (int index = 0; index < array.Length; index++)
             {
-                T item = array[i];
+                T item = array[index];
                 PropertyInfo[] properties = typeof(T).GetProperties();
-                IRow row = sheet.CreateRow(i + 1);
+                IRow row = sheet.CreateRow(index + 1);
+                row.Height = 15 * 20;
 
                 for (int j = 0; j < properties.Length; j++)
                 {
-                    //在行中创建单元格
+                    //创建单元格
+                    ICell cell = row.CreateCell(j);
+                    cell.CellStyle = cellStyle;
+
+                    //单元格赋值
                     if (properties[j].PropertyType == typeof(double))
                     {
-                        row.CreateCell(j).SetCellValue((double)properties[j].GetValueInternal(item));
+                        cell.SetCellValue((double)properties[j].GetValueInternal(item));
                     }
                     else if (properties[j].PropertyType == typeof(float))
                     {
-                        row.CreateCell(j).SetCellValue((float)properties[j].GetValueInternal(item));
+                        cell.SetCellValue((float)properties[j].GetValueInternal(item));
                     }
                     else if (properties[j].PropertyType == typeof(decimal))
                     {
-                        row.CreateCell(j).SetCellValue(Convert.ToDouble(properties[j].GetValueInternal(item)));
+                        cell.SetCellValue(Convert.ToDouble(properties[j].GetValueInternal(item)));
                     }
                     else if (properties[j].PropertyType == typeof(byte))
                     {
-                        row.CreateCell(j).SetCellValue((byte)properties[j].GetValueInternal(item));
+                        cell.SetCellValue((byte)properties[j].GetValueInternal(item));
                     }
                     else if (properties[j].PropertyType == typeof(short))
                     {
-                        row.CreateCell(j).SetCellValue((short)properties[j].GetValueInternal(item));
+                        cell.SetCellValue((short)properties[j].GetValueInternal(item));
                     }
                     else if (properties[j].PropertyType == typeof(int))
                     {
-                        row.CreateCell(j).SetCellValue((int)properties[j].GetValueInternal(item));
+                        cell.SetCellValue((int)properties[j].GetValueInternal(item));
                     }
                     else if (properties[j].PropertyType == typeof(long))
                     {
-                        row.CreateCell(j).SetCellValue((long)properties[j].GetValueInternal(item));
+                        cell.SetCellValue((long)properties[j].GetValueInternal(item));
                     }
                     else if (properties[j].PropertyType == typeof(bool))
                     {
-                        row.CreateCell(j).SetCellValue((bool)properties[j].GetValueInternal(item));
+                        cell.SetCellValue((bool)properties[j].GetValueInternal(item));
                     }
                     else if (properties[j].PropertyType == typeof(DateTime))
                     {
-                        row.CreateCell(j).SetCellValue(((DateTime)properties[j].GetValueInternal(item)).ToString("yyyy-MM-dd HH:mm:ss"));
+                        cell.SetCellValue(((DateTime)properties[j].GetValueInternal(item)).ToString("yyyy-MM-dd HH:mm:ss"));
                     }
                     else
                     {
-                        row.CreateCell(j).SetCellValue(properties[j].GetValueInternal(item) == null ? string.Empty : properties[j].GetValueInternal(item).ToString());
+                        cell.SetCellValue(properties[j].GetValueInternal(item) == null
+                            ? string.Empty
+                            : properties[j].GetValueInternal(item).ToString());
                     }
                 }
             }

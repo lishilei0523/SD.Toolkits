@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SD.Toolkits.Excel.Tests.StubEntities;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -35,10 +36,11 @@ namespace SD.Toolkits.Excel.Tests.TestCases
         {
             this._persons = new List<Person>
             {
-                new Person {姓名 = "唐三藏", 性别 = true, 年龄 = 25, 爱好 = "取经"},
-                new Person {姓名 = "孙悟空", 性别 = true, 年龄 = 19, 爱好 = "取经"},
-                new Person {姓名 = "猪八戒", 性别 = true, 年龄 = 18, 爱好 = "取经"},
-                new Person {姓名 = "沙悟净", 性别 = true, 年龄 = 17, 爱好 = null}
+                new Person {姓名 = "唐三藏", 性别 = true, 年龄 = 25, 爱好 = "取经", 日期 = DateTime.Now},
+                new Person {姓名 = "孙悟空", 性别 = true, 年龄 = 19, 爱好 = "取经", 日期 = DateTime.Now},
+                new Person {姓名 = "猪八戒", 性别 = true, 年龄 = 18, 爱好 = "取经", 日期 = DateTime.Now},
+                new Person {姓名 = "沙悟净", 性别 = true, 年龄 = 17, 爱好 = null, 日期 = DateTime.Now},
+                new Person {姓名 = "费奥多尔·米哈伊洛维奇·陀思妥耶夫斯基", 性别 = true, 年龄 = 80, 爱好 = "文学", 日期 = DateTime.Now}
             };
         }
 
@@ -61,7 +63,7 @@ namespace SD.Toolkits.Excel.Tests.TestCases
         /// Excel 2003写入至字节数组测试
         /// </summary>
         [TestMethod]
-        public void ReadToArrayByNameTest03()
+        public void WriteToArrayTest03()
         {
             byte[] buffer = ExcelWriter.WriteStream(this._persons, ExcelVersion.Excel03);
 
@@ -87,7 +89,7 @@ namespace SD.Toolkits.Excel.Tests.TestCases
         /// Excel 2007写入至字节数组测试
         /// </summary>
         [TestMethod]
-        public void ReadToArrayByNameTest07()
+        public void WriteToArrayTest07()
         {
             byte[] buffer = ExcelWriter.WriteStream(this._persons, ExcelVersion.Excel07);
 
