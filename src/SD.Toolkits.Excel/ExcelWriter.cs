@@ -160,11 +160,8 @@ namespace SD.Toolkits.Excel
             {
                 sheet.AutoSizeColumn(index);
                 int columnWidth = sheet.GetColumnWidth(index);
-                sheet.SetColumnWidth(index, columnWidth + 2 * 256);
+                sheet.SetColumnWidth(index, columnWidth + 3 * 256);
             }
-
-            //首行冻结
-            sheet.CreateFreezePane(rowTitle.LastCellNum, 1);
 
             return workbook;
         }
