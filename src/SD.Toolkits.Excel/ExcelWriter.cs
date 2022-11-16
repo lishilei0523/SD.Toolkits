@@ -43,9 +43,10 @@ namespace SD.Toolkits.Excel
             IWorkbook workbook = CreateWorkbook(extensionName, array, titles);
 
             //写入文件
-            using (FileStream stream = File.OpenWrite(path))
+            using (FileStream fileStream = File.OpenWrite(path))
             {
-                workbook.Write(stream);
+                workbook.Write(fileStream);
+                workbook.Close();
             }
         }
         #endregion
@@ -78,6 +79,7 @@ namespace SD.Toolkits.Excel
             using (MemoryStream stream = new MemoryStream())
             {
                 workbook.Write(stream);
+                workbook.Close();
                 byte[] buffer = stream.ToArray();
 
                 return buffer;
@@ -128,7 +130,7 @@ namespace SD.Toolkits.Excel
             contentStyle.SetFont(font);
 
             //创建工作表
-            ISheet sheet = workbook.CreateSheet(typeof(T).Name);
+            ISheet sheet = workbook.CreateSheet();
 
             //创建标题行
             IRow rowTitle = sheet.CreateRow(0);
@@ -201,54 +203,73 @@ namespace SD.Toolkits.Excel
                 IRow row = sheet.CreateRow(index + 1);
                 row.Height = 15 * 20;
 
-                for (int j = 0; j < properties.Length; j++)
+                for (int propertyIndex = 0; propertyIndex < properties.Length; propertyIndex++)
                 {
+                    //获取属性信息
+                    PropertyInfo property = properties[propertyIndex];
+                    Type propertyType = property.PropertyType;
+                    object propertyValue = property.GetValueInternal(item);
+
                     //创建单元格
-                    ICell cell = row.CreateCell(j);
+                    ICell cell = row.CreateCell(propertyIndex);
                     cell.CellStyle = cellStyle;
 
                     //单元格赋值
-                    if (properties[j].PropertyType == typeof(double))
+                    if (propertyType == typeof(bool))
                     {
-                        cell.SetCellValue((double)properties[j].GetValueInternal(item));
+                        cell.SetCellValue((bool)propertyValue);
                     }
-                    else if (properties[j].PropertyType == typeof(float))
+                    else if (propertyType == typeof(byte))
                     {
-                        cell.SetCellValue((float)properties[j].GetValueInternal(item));
+                        cell.SetCellValue((byte)propertyValue);
                     }
-                    else if (properties[j].PropertyType == typeof(decimal))
+                    else if (propertyType == typeof(sbyte))
                     {
-                        cell.SetCellValue(Convert.ToDouble(properties[j].GetValueInternal(item)));
+                        cell.SetCellValue((sbyte)propertyValue);
                     }
-                    else if (properties[j].PropertyType == typeof(byte))
+                    else if (propertyType == typeof(short))
                     {
-                        cell.SetCellValue((byte)properties[j].GetValueInternal(item));
+                        cell.SetCellValue((short)propertyValue);
                     }
-                    else if (properties[j].PropertyType == typeof(short))
+                    else if (propertyType == typeof(ushort))
                     {
-                        cell.SetCellValue((short)properties[j].GetValueInternal(item));
+                        cell.SetCellValue((ushort)propertyValue);
                     }
-                    else if (properties[j].PropertyType == typeof(int))
+                    else if (propertyType == typeof(int))
                     {
-                        cell.SetCellValue((int)properties[j].GetValueInternal(item));
+                        cell.SetCellValue((int)propertyValue);
                     }
-                    else if (properties[j].PropertyType == typeof(long))
+                    else if (propertyType == typeof(uint))
                     {
-                        cell.SetCellValue((long)properties[j].GetValueInternal(item));
+                        cell.SetCellValue((uint)propertyValue);
                     }
-                    else if (properties[j].PropertyType == typeof(bool))
+                    else if (propertyType == typeof(long))
                     {
-                        cell.SetCellValue((bool)properties[j].GetValueInternal(item));
+                        cell.SetCellValue((long)propertyValue);
                     }
-                    else if (properties[j].PropertyType == typeof(DateTime))
+                    else if (propertyType == typeof(ulong))
                     {
-                        cell.SetCellValue(((DateTime)properties[j].GetValueInternal(item)).ToString("yyyy-MM-dd HH:mm:ss"));
+                        cell.SetCellValue((ulong)propertyValue);
+                    }
+                    else if (propertyType == typeof(float))
+                    {
+                        cell.SetCellValue((float)propertyValue);
+                    }
+                    else if (propertyType == typeof(double))
+                    {
+                        cell.SetCellValue((double)propertyValue);
+                    }
+                    else if (propertyType == typeof(decimal))
+                    {
+                        cell.SetCellValue(Convert.ToDouble(propertyValue));
+                    }
+                    else if (propertyType == typeof(DateTime))
+                    {
+                        cell.SetCellValue(((DateTime)propertyValue).ToString("yyyy-MM-dd HH:mm:ss"));
                     }
                     else
                     {
-                        cell.SetCellValue(properties[j].GetValueInternal(item) == null
-                            ? string.Empty
-                            : properties[j].GetValueInternal(item).ToString());
+                        cell.SetCellValue(propertyValue == null ? string.Empty : propertyValue.ToString());
                     }
                 }
             }

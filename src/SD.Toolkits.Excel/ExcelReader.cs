@@ -19,11 +19,11 @@ namespace SD.Toolkits.Excel
         /// <summary>
         /// 读取Excel并转换为给定类型数组
         /// </summary>
-        /// <param name="path">读取路径</param>
+        /// <param name="path">文件路径</param>
         /// <param name="sheetIndex">工作表索引</param>
-        /// <param name="rowIndex">行索引</param>
+        /// <param name="rowIndex">起始行索引</param>
         /// <returns>给定类型数组</returns>
-        /// <remarks>默认读取第一张工作表，第二行</remarks>
+        /// <remarks>默认读取第1张工作表，第2行</remarks>
         public static T[] ReadFile<T>(string path, int sheetIndex = 0, int rowIndex = 1)
         {
             #region # 验证
@@ -43,10 +43,9 @@ namespace SD.Toolkits.Excel
 
             #endregion
 
-            //01.创建文件流
             using (FileStream stream = File.OpenRead(path))
             {
-                //02.创建工作薄
+                //读取工作薄
                 string extensionName = Path.GetExtension(path);
                 IWorkbook workbook = ExcelConductor.CreateWorkbook(extensionName, stream);
 
@@ -54,29 +53,31 @@ namespace SD.Toolkits.Excel
 
                 if (sheetIndex + 1 > workbook.NumberOfSheets)
                 {
-                    throw new InvalidOperationException("给定工作表索引超出了Excel有效工作表数！");
+                    throw new ArgumentOutOfRangeException(nameof(sheetIndex), "给定工作表索引超出了Excel有效工作表数！");
                 }
 
                 #endregion
 
-                //03.读取给定工作表
                 ISheet sheet = workbook.GetSheetAt(sheetIndex);
+                T[] array = SheetToArray<T>(sheet, rowIndex);
 
-                //04.返回集合
-                return SheetToArray<T>(sheet, rowIndex);
+                //关闭工作薄
+                workbook.Close();
+
+                return array;
             }
         }
         #endregion
 
-        #region # 读取Excel并转换为给定类型数组 —— static T[] ReadFile<T>(string path, string...
+        #region # 读取Excel并转换为给定类型数组 —— static T[] ReadFile<T>(string path, string sheetName...
         /// <summary>
         /// 读取Excel并转换为给定类型数组
         /// </summary>
-        /// <param name="path">读取路径</param>
+        /// <param name="path">文件路径</param>
         /// <param name="sheetName">工作表名称</param>
-        /// <param name="rowIndex">行索引</param>
+        /// <param name="rowIndex">起始行索引</param>
         /// <returns>给定类型数组</returns>
-        /// <remarks>默认读取第二行</remarks>
+        /// <remarks>默认读取第2行</remarks>
         public static T[] ReadFile<T>(string path, string sheetName, int rowIndex = 1)
         {
             #region # 验证
@@ -96,18 +97,19 @@ namespace SD.Toolkits.Excel
 
             #endregion
 
-            //01.创建文件流
             using (FileStream stream = File.OpenRead(path))
             {
-                //02.创建工作薄
+                //读取工作薄
                 string extensionName = Path.GetExtension(path);
                 IWorkbook workbook = ExcelConductor.CreateWorkbook(extensionName, stream);
 
-                //03.读取给定工作表
                 ISheet sheet = workbook.GetSheet(sheetName);
+                T[] array = SheetToArray<T>(sheet, rowIndex);
 
-                //04.返回集合
-                return SheetToArray<T>(sheet, rowIndex);
+                //关闭工作薄
+                workbook.Close();
+
+                return array;
             }
         }
         #endregion
@@ -121,8 +123,8 @@ namespace SD.Toolkits.Excel
         /// </summary>
         /// <typeparam name="T">类型</typeparam>
         /// <param name="sheet">工作表</param>
-        /// <param name="rowIndex">行索引</param>
-        /// <returns>泛型集合</returns>
+        /// <param name="rowIndex">起始行索引</param>
+        /// <returns>实例数组</returns>
         private static T[] SheetToArray<T>(ISheet sheet, int rowIndex)
         {
             #region # 验证
@@ -134,49 +136,50 @@ namespace SD.Toolkits.Excel
 
             #endregion
 
-            IList<T> collection = new List<T>();
+            Type instanceType = typeof(T);
+            PropertyInfo[] properties = instanceType.GetProperties();
 
-            //读取给定行索引后的每一行
+            //读取起始行索引后的每一行为实例赋值
+            IList<T> instances = new List<T>();
             for (int index = rowIndex; index <= sheet.LastRowNum; index++)
             {
-                Type sourceType = typeof(T);
-                T sourceObj = (T)Activator.CreateInstance(sourceType);
-                PropertyInfo[] properties = sourceType.GetProperties();
-
-                //读取每行并为对象赋值
-                FillInstanceValue(sheet, index, properties, sourceObj);
-                collection.Add(sourceObj);
+                T instance = (T)Activator.CreateInstance(instanceType);
+                FillInstanceValue(sheet, index, properties, instance);
+                instances.Add(instance);
             }
 
-            return collection.ToArray();
+            return instances.ToArray();
         }
         #endregion
 
-        #region # 读取每一行，并填充对象属性值 —— static void FillInstanceValue<T>(ISheet sheet, int index...
+        #region # 读取行填充实例属性值 —— static void FillInstanceValue<T>(ISheet sheet, int rowIndex...
         /// <summary>
-        /// 读取每一行，并填充对象属性值
+        /// 读取行填充实例属性值
         /// </summary>
-        /// <param name="sheet">工作表对象</param>
-        /// <param name="index">行索引</param>
-        /// <param name="properties">对象属性集合</param>
-        /// <param name="instance">对象实例</param>
-        private static void FillInstanceValue<T>(ISheet sheet, int index, PropertyInfo[] properties, T instance)
+        /// <param name="sheet">工作表</param>
+        /// <param name="rowIndex">行索引</param>
+        /// <param name="properties">属性集</param>
+        /// <param name="instance">实例</param>
+        private static void FillInstanceValue<T>(ISheet sheet, int rowIndex, PropertyInfo[] properties, T instance)
         {
             IFormulaEvaluator formulaEvaluator = ExcelConductor.CreateFormulaEvaluator(sheet.Workbook);
-            IRow row = sheet.GetRow(index);
+            IRow row = sheet.GetRow(rowIndex);
 
             #region # 验证
 
             if (properties.Length != row.Cells.Count)
             {
-                throw new InvalidOperationException($"模型与Excel表格不兼容：第{(index + 1)}行 列数不一致！");
+                throw new InvalidOperationException($"模型与Excel表格不兼容：第{rowIndex + 1}行 列数不一致！");
             }
 
             #endregion
 
-            for (int i = 0; i < properties.Length; i++)
+            for (int propertyIndex = 0; propertyIndex < properties.Length; propertyIndex++)
             {
-                ICell cell = row.GetCell(i);
+                PropertyInfo property = properties[propertyIndex];
+                Type propertyType = property.PropertyType;
+
+                ICell cell = row.GetCell(propertyIndex);
                 string cellValue = cell.ToString().Trim();
 
                 #region # 公式与日期时间处理
@@ -201,6 +204,7 @@ namespace SD.Toolkits.Excel
                             break;
                     }
                 }
+
                 //日期时间
                 if (cell.CellType == CellType.Numeric && DateUtil.IsCellDateFormatted(cell))
                 {
@@ -209,45 +213,69 @@ namespace SD.Toolkits.Excel
 
                 #endregion
 
-                if (properties[i].PropertyType == typeof(double))
+                if (propertyType == typeof(bool))
                 {
-                    properties[i].SetValueInternal(instance, Convert.ToDouble(cellValue));
+                    property.SetValueInternal(instance, Convert.ToBoolean(cellValue));
                 }
-                else if (properties[i].PropertyType == typeof(float))
+                else if (propertyType == typeof(byte))
                 {
-                    properties[i].SetValueInternal(instance, Convert.ToSingle(cellValue));
+                    property.SetValueInternal(instance, Convert.ToByte(cellValue));
                 }
-                else if (properties[i].PropertyType == typeof(decimal))
+                else if (propertyType == typeof(sbyte))
                 {
-                    properties[i].SetValueInternal(instance, Convert.ToDecimal(cellValue));
+                    property.SetValueInternal(instance, Convert.ToSByte(cellValue));
                 }
-                else if (properties[i].PropertyType == typeof(byte))
+                else if (propertyType == typeof(short))
                 {
-                    properties[i].SetValueInternal(instance, Convert.ToByte(cellValue));
+                    property.SetValueInternal(instance, Convert.ToInt16(cellValue));
                 }
-                else if (properties[i].PropertyType == typeof(short))
+                else if (propertyType == typeof(ushort))
                 {
-                    properties[i].SetValueInternal(instance, Convert.ToInt16(cellValue));
+                    property.SetValueInternal(instance, Convert.ToUInt16(cellValue));
                 }
-                else if (properties[i].PropertyType == typeof(int))
+                else if (propertyType == typeof(int))
                 {
-                    properties[i].SetValueInternal(instance, Convert.ToInt32(cellValue));
+                    property.SetValueInternal(instance, Convert.ToInt32(cellValue));
                 }
-                else if (properties[i].PropertyType == typeof(long))
+                else if (propertyType == typeof(uint))
                 {
-                    properties[i].SetValueInternal(instance, Convert.ToInt64(cellValue));
+                    property.SetValueInternal(instance, Convert.ToUInt32(cellValue));
                 }
-                else if (properties[i].PropertyType == typeof(bool))
+                else if (propertyType == typeof(long))
                 {
-                    properties[i].SetValueInternal(instance, Convert.ToBoolean(cellValue));
+                    property.SetValueInternal(instance, Convert.ToInt64(cellValue));
                 }
-                else if (properties[i].PropertyType == typeof(DateTime))
+                else if (propertyType == typeof(ulong))
                 {
-                    properties[i].SetValueInternal(instance, Convert.ToDateTime(cellValue));
+                    property.SetValueInternal(instance, Convert.ToUInt64(cellValue));
+                }
+                else if (propertyType == typeof(float))
+                {
+                    property.SetValueInternal(instance, Convert.ToSingle(cellValue));
+                }
+                else if (propertyType == typeof(double))
+                {
+                    property.SetValueInternal(instance, Convert.ToDouble(cellValue));
+                }
+                else if (propertyType == typeof(decimal))
+                {
+                    property.SetValueInternal(instance, Convert.ToDecimal(cellValue));
+                }
+                else if (propertyType == typeof(Guid))
+                {
+                    property.SetValueInternal(instance, Guid.Parse(cellValue));
+                }
+                else if (propertyType == typeof(DateTime))
+                {
+                    property.SetValueInternal(instance, Convert.ToDateTime(cellValue));
+                }
+                else if (propertyType == typeof(TimeSpan))
+                {
+                    property.SetValueInternal(instance, TimeSpan.Parse(cellValue));
                 }
                 else
                 {
-                    properties[i].SetValueInternal(instance, cellValue);
+                    property.SetValueInternal(instance, cellValue);
                 }
             }
         }
