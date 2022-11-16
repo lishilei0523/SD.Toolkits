@@ -9,7 +9,7 @@ using System.Reflection;
 namespace SD.Toolkits.Excel
 {
     /// <summary>
-    /// 构建器
+    /// Excel构建器
     /// </summary>
     public static class ExcelConductor
     {
