@@ -4,7 +4,7 @@
     <Authors>Lee</Authors>
     <Company>SD</Company>
     <Description>SD.Toolkits Mapper扩展组件</Description>
-    <Copyright>Copyright © SD 2022</Copyright>
+    <Copyright>Copyright © SD 2023</Copyright>
     <Version>1.1.1</Version>
     <AssemblyVersion>1.1.1</AssemblyVersion>
     <FileVersion>1.1.1.0</FileVersion>
@@ -34,6 +34,6 @@
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.1'">
-    <PackageReference Include="AutoMapper" Version="11.0.1" />
+    <PackageReference Include="AutoMapper" Version="12.0.1" />
   </ItemGroup>
 </Project>

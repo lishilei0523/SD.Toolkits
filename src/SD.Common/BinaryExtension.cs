@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Text;
 
 namespace SD.Common
@@ -180,6 +181,49 @@ namespace SD.Common
             }
 
             return bytes;
+        }
+        #endregion
+
+        #region # 计算Modbus CRC16校验码 —— static byte[] GetModbusCRC16(this byte[] bytes...
+        /// <summary>
+        /// 计算Modbus CRC16校验码
+        /// </summary>
+        /// <param name="bytes">校验数据</param>
+        /// <param name="poly">多项式码</param>
+        /// <param name="crcInit">校验码初始值</param>
+        /// <returns>Modbus CRC16校验码</returns>
+        public static byte[] GetModbusCRC16(this byte[] bytes, ushort poly = 0xA001, ushort crcInit = 0xFFFF)
+        {
+            #region # 验证
+
+            if (bytes == null || !bytes.Any())
+            {
+                throw new ArgumentException("校验数据不可为空！");
+            }
+
+            #endregion
+
+            foreach (byte @byte in bytes)
+            {
+                crcInit ^= @byte;
+                for (int j = 0; j < 8; j++)
+                {
+                    if ((crcInit & 0x0001) == 1)
+                    {
+                        crcInit >>= 1;
+                        crcInit ^= poly;//异或多项式
+                    }
+                    else
+                    {
+                        crcInit >>= 1;
+                    }
+                }
+            }
+
+            byte lowByte = (byte)(crcInit & 0x00FF);
+            byte highByte = (byte)((crcInit & 0xFF00) >> 8);
+
+            return new[] { lowByte, highByte };
         }
         #endregion
     }
