@@ -28,7 +28,7 @@ namespace SD.Toolkits.EntityFrameworkCore.Extensions
 #if NETSTANDARD2_0
             throw new NotSupportedException();
 #endif
-#if NETSTANDARD2_1
+#if NETSTANDARD2_1 || NET6_0
             return queryable.ToQueryString();
 #endif
         }
