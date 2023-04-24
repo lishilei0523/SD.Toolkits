@@ -1,4 +1,4 @@
-# 通用扩展工具
+# 通用扩展组件
 
 ##### 2019.03 项目近期调整说明
 
@@ -20,19 +20,19 @@
 
 	通用基础类库；
 	
-	EntityFramework 类表映射工具、索引生成工具、IQueryable 扩展工具；
+	EntityFramework 类表映射扩展、索引生成扩展、IQueryable 扩展；
 	
-	EntityFramework Core 类表映射工具；
+	EntityFramework Core 类表映射扩展；
 
-	Excel 读写工具，基于 NPOI ；
+	Excel 读写组件，基于 NPOI ；
 
-	图像处理、验证码工具，基于 ZKWeb.System.Drawing ；
+	图像处理、验证码组件，基于 ZKWeb.System.Drawing ；
 
-	递归扩展工具；
+	递归扩展组件；
 
-	Redis 管理工具，基于 StackExchange.Redis ；
+	Redis 管理组件，基于 StackExchange.Redis ；
 
-	编号生成器工具，基于 ADO.NET + SQL Server ；
+	编号生成器组件，基于 ADO.NET + SQL Server ；
 
 	实体验证工具，基于 FluentValidation ；
 
