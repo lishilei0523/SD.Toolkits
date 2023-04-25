@@ -5,7 +5,7 @@
     <Company>SD</Company>
     <Description>SD.Toolkits gRPC客户端扩展组件</Description>
     <Copyright>Copyright © SD 2023</Copyright>
-    <Version>1.0.0-Preview2</Version>
+    <Version>1.0.0</Version>
     <AssemblyVersion>1.0.0</AssemblyVersion>
     <FileVersion>1.0.0.0</FileVersion>
   </PropertyGroup>
@@ -26,6 +26,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Grpc.Net.Client" Version="2.47.0" />
+    <PackageReference Include="Grpc.Net.Client" Version="2.52.0" />
   </ItemGroup>
 </Project>

@@ -1,11 +1,11 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net45;netstandard2.0;netstandard2.1</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
     <Authors>Lee</Authors>
     <Company>SD</Company>
     <Description>SD.Toolkits gRPC服务端扩展组件</Description>
     <Copyright>Copyright © SD 2023</Copyright>
-    <Version>1.0.0-Preview2</Version>
+    <Version>1.0.0</Version>
     <AssemblyVersion>1.0.0</AssemblyVersion>
     <FileVersion>1.0.0.0</FileVersion>
   </PropertyGroup>
@@ -17,11 +17,7 @@
     <DocumentationFile>bin\Release\$(TargetFramework)\SD.Toolkits.Grpc.Server.xml</DocumentationFile>
   </PropertyGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' == 'net45'">
-    <PackageReference Include="Grpc.Core.Api" Version="2.46.3" />
-  </ItemGroup>
-
-  <ItemGroup Condition="$(TargetFramework.StartsWith('netstandard2'))">
-    <PackageReference Include="Grpc.Core.Api" Version="2.47.0" />
+  <ItemGroup>
+    <PackageReference Include="Grpc.Core.Api" Version="2.52.0" />
   </ItemGroup>
 </Project>

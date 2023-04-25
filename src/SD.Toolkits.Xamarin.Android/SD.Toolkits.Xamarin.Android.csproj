@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>monoandroid9.0</TargetFramework>
-    <TargetFrameworkVersion>v9.0</TargetFrameworkVersion>
+    <TargetFramework>monoandroid12.0</TargetFramework>
+    <TargetFrameworkVersion>v12.0</TargetFrameworkVersion>
     <Authors>Lee</Authors>
     <Company>SD</Company>
     <Description>SD.Toolkits Xamarin.Android扩展组件</Description>
@@ -30,7 +30,7 @@
 
   <ItemGroup>
     <PackageReference Include="Xamarin.Essentials" Version="1.7.5" />
-    <PackageReference Include="Xamarin.AndroidX.Core" Version="1.6.0" />
+    <PackageReference Include="Xamarin.AndroidX.Core" Version="1.9.0" />
     <PackageReference Include="Acr.UserDialogs" Version="8.0.0" />
   </ItemGroup>
 

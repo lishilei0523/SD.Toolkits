@@ -45,7 +45,12 @@ namespace SD.Toolkits.Excel
             //写入文件
             using (FileStream fileStream = File.OpenWrite(path))
             {
+#if NET40 || NET45
                 workbook.Write(fileStream);
+#endif
+#if NET472 || NETSTANDARD2_0_OR_GREATER
+                workbook.Write(fileStream, false);
+#endif
                 workbook.Close();
             }
         }
@@ -78,7 +83,12 @@ namespace SD.Toolkits.Excel
             //写入内存流
             using (MemoryStream stream = new MemoryStream())
             {
+#if NET40 || NET45
                 workbook.Write(stream);
+#endif
+#if NET472 || NETSTANDARD2_0_OR_GREATER
+                workbook.Write(stream, false);
+#endif
                 workbook.Close();
                 byte[] buffer = stream.ToArray();
 
