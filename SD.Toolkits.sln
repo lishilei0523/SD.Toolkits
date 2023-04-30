@@ -19,7 +19,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Toolkits.Redis", "src\SD
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Toolkits.Redis.Tests", "src\SD.Toolkits.Redis.Tests\SD.Toolkits.Redis.Tests.csproj", "{86B7F67E-3EED-49FD-B728-508EB75CA5E8}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02 - .NET Framework Only", "02 - .NET Framework Only", "{341CD552-661B-49D6-934A-9CE5C11437A3}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02 - .NET Framework", "02 - .NET Framework", "{341CD552-661B-49D6-934A-9CE5C11437A3}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01 - .NET Standard", "01 - .NET Standard", "{84CE5E54-82B6-4B0D-AEC5-3E22BF4FD0D2}"
 EndProject
@@ -65,7 +65,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Toolkits.AspNet", "src\S
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Toolkits.WebApi.Tests", "src\SD.Toolkits.WebApi.Tests\SD.Toolkits.WebApi.Tests.csproj", "{B640C299-0B25-4CD7-B150-813C484DB0E8}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03 - .NET Core Only", "03 - .NET Core Only", "{7ED55242-EB5C-44AF-ABCB-E567E5447952}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03 - .NET Core", "03 - .NET Core", "{7ED55242-EB5C-44AF-ABCB-E567E5447952}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Toolkits.Grpc.Client", "src\SD.Toolkits.Grpc.Client\SD.Toolkits.Grpc.Client.csproj", "{D12CDFFE-AE5E-49AA-9EBF-D33C1259AB38}"
 EndProject
