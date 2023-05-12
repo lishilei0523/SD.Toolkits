@@ -32,7 +32,7 @@ namespace SD.Toolkits.Excel.Tests.TestCases
         /// 测试初始化
         /// </summary>
         [TestInitialize]
-        public void Init()
+        public void Initialize()
         {
             this._persons = new List<Person>
             {

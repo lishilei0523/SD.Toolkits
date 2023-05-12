@@ -21,7 +21,7 @@ namespace SD.Toolkits.Recursion.Tests.TestCases
         /// 测试初始化
         /// </summary>
         [TestInitialize]
-        public void Init()
+        public void Initialize()
         {
             this._categories = new HashSet<Category>();
 

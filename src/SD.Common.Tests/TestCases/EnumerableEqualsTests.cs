@@ -38,7 +38,7 @@ namespace SD.Common.Tests.TestCases
         /// 测试初始化
         /// </summary>
         [TestInitialize]
-        public void TestInit()
+        public void Initialize()
         {
             this._sourceList = new List<Student>
             {

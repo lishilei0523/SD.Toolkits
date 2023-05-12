@@ -17,7 +17,7 @@ namespace SD.Toolkits.EntityFrameworkCore.Tests.TestCases
         /// 初始化测试
         /// </summary>
         [TestInitialize]
-        public void Init()
+        public void Initialize()
         {
             //删除数据库
             DbSession dbSession = new DbSession();

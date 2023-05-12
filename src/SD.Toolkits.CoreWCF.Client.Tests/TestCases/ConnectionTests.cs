@@ -34,7 +34,7 @@ namespace SD.Toolkits.CoreWCF.Client.Tests.TestCases
         /// 测试初始化
         /// </summary>
         [TestInitialize]
-        public void Init()
+        public void Initialize()
         {
             //初始化配置文件
             Assembly entryAssembly = Assembly.GetExecutingAssembly();
