@@ -19,15 +19,13 @@ namespace SD.Toolkits.Redis.Tests.TestCases
         private const string WriteValue = "WriteValue";
 
         [TestInitialize]
-        public void Init()
+        public void Initialize()
         {
 #if NETCOREAPP3_1_OR_GREATER
-            //初始化配置文件
             Assembly entryAssembly = Assembly.GetExecutingAssembly();
             Configuration configuration = ConfigurationExtension.GetConfigurationFromAssembly(entryAssembly);
             RedisSection.Initialize(configuration);
 #endif
-
             IDatabase database = RedisManager.Instance.GetDatabase();
             database.StringSet(ReadKey, ReadValue);
         }
@@ -39,7 +37,6 @@ namespace SD.Toolkits.Redis.Tests.TestCases
             database.KeyDelete(ReadKey);
             database.KeyDelete(WriteKey);
         }
-
 
         [TestMethod]
         public void ReadTest()

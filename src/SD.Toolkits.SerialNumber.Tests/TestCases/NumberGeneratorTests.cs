@@ -1,9 +1,13 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using SD.Common;
 using SD.Toolkits.SerialNumber.Mediators;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
+using System.Reflection;
 using System.Text;
+using Assert = Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
 
 namespace SD.Toolkits.SerialNumber.Tests.TestCases
 {
@@ -19,6 +23,11 @@ namespace SD.Toolkits.SerialNumber.Tests.TestCases
         [TestInitialize]
         public void Initialize()
         {
+#if NETCOREAPP3_1_OR_GREATER
+            Assembly entryAssembly = Assembly.GetExecutingAssembly();
+            Configuration configuration = ConfigurationExtension.GetConfigurationFromAssembly(entryAssembly);
+            SerialNumberSection.Initialize(configuration);
+#endif
             string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
             AppDomain.CurrentDomain.SetData("DataDirectory", baseDirectory);
         }

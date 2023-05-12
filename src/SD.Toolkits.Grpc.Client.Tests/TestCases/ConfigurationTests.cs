@@ -1,12 +1,23 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using SD.Common;
 using SD.Toolkits.Grpc.Client.Configurations;
 using System;
+using System.Configuration;
+using System.Reflection;
 
 namespace SD.Toolkits.Grpc.Client.Tests.TestCases
 {
     [TestClass]
     public class ConfigurationTests
     {
+        [TestInitialize]
+        public void Initialize()
+        {
+            Assembly assembly = Assembly.GetExecutingAssembly();
+            Configuration configuration = ConfigurationExtension.GetConfigurationFromAssembly(assembly);
+            GrpcSection.Initialize(configuration);
+        }
+
         [TestMethod]
         public void TestConfiguration()
         {

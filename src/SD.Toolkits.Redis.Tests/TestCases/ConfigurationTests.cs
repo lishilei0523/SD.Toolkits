@@ -11,10 +11,9 @@ namespace SD.Toolkits.Redis.Tests.TestCases
     public class ConfigurationTests
     {
         [TestInitialize]
-        public void Init()
+        public void Initialize()
         {
 #if NETCOREAPP3_1_OR_GREATER
-            //初始化配置文件
             Assembly entryAssembly = Assembly.GetExecutingAssembly();
             Configuration configuration = ConfigurationExtension.GetConfigurationFromAssembly(entryAssembly);
             RedisSection.Initialize(configuration);

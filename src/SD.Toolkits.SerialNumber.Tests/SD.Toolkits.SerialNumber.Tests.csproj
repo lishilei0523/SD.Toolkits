@@ -13,6 +13,15 @@
     </None>
   </ItemGroup>
 
+  <ItemGroup Condition="$(TargetFramework.StartsWith('net4'))">
+    <Reference Include="System.Configuration" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp3.1' Or '$(TargetFramework)' == 'net6.0'">
+    <EmbeddedResource Include="App.config" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="6.0.1" />
+  </ItemGroup>
+
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.5.0" />
     <PackageReference Include="MSTest.TestAdapter" Version="3.0.2" />
@@ -21,6 +30,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\SD.Common\SD.Common.csproj" />
     <ProjectReference Include="..\SD.Toolkits.SerialNumber\SD.Toolkits.SerialNumber.csproj" />
     <ProjectReference Include="..\SD.Toolkits.SerialNumber.Firebird\SD.Toolkits.SerialNumber.Firebird.csproj" />
     <ProjectReference Include="..\SD.Toolkits.SerialNumber.MySql\SD.Toolkits.SerialNumber.MySql.csproj" />
