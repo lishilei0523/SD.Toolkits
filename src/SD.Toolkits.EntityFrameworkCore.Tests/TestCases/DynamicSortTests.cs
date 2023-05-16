@@ -14,8 +14,9 @@ namespace SD.Toolkits.EntityFrameworkCore.Tests.TestCases
     [TestClass]
     public class DynamicSortTests
     {
+        #region # 测试初始化 —— void Initialize()
         /// <summary>
-        /// 初始化测试
+        /// 测试初始化
         /// </summary>
         [TestInitialize]
         public void Initialize()
@@ -37,12 +38,14 @@ namespace SD.Toolkits.EntityFrameworkCore.Tests.TestCases
             dbSession.SaveChanges();
             dbSession.Dispose();
         }
+        #endregion
 
+        #region # 测试清理 —— void Cleanup()
         /// <summary>
-        /// 清理测试
+        /// 测试清理
         /// </summary>
         [TestCleanup]
-        public void Clean()
+        public void Cleanup()
         {
             //删除数据库
             DbSession dbSession = new DbSession();
@@ -50,7 +53,9 @@ namespace SD.Toolkits.EntityFrameworkCore.Tests.TestCases
 
             dbSession.Dispose();
         }
+        #endregion
 
+        #region # 测试动态排序 —— void TestDynamicSort()
         /// <summary>
         /// 测试动态排序
         /// </summary>
@@ -78,5 +83,6 @@ namespace SD.Toolkits.EntityFrameworkCore.Tests.TestCases
 
             Assert.AreEqual(sql1, sql2);
         }
+        #endregion
     }
 }

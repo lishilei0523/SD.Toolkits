@@ -10,6 +10,7 @@ namespace SD.Toolkits.Json.Tests.TestCases
     [TestClass]
     public class JsonSerializationTests
     {
+        #region # 测试序列化 —— void TestSerialize()
         /// <summary>
         /// 测试序列化
         /// </summary>
@@ -28,7 +29,9 @@ namespace SD.Toolkits.Json.Tests.TestCases
 
             Assert.IsTrue(json.Contains(dateStr));
         }
+        #endregion
 
+        #region # 测试反序列化 —— void TestDeserialize()
         /// <summary>
         /// 测试反序列化
         /// </summary>
@@ -50,5 +53,6 @@ namespace SD.Toolkits.Json.Tests.TestCases
             Assert.IsTrue(studentInfo.Name == student.Name);
             Assert.IsTrue(studentInfo.BirthDay == student.BirthDay);
         }
+        #endregion
     }
 }

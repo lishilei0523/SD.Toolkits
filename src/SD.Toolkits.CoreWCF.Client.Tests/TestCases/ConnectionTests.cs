@@ -20,6 +20,8 @@ namespace SD.Toolkits.CoreWCF.Client.Tests.TestCases
     [TestClass]
     public class ConnectionTests
     {
+        #region # 测试初始化
+
         /// <summary>
         /// 身份认证服务契约接口
         /// </summary>
@@ -47,6 +49,9 @@ namespace SD.Toolkits.CoreWCF.Client.Tests.TestCases
             this._userContract = userContractProxy.Channel;
         }
 
+        #endregion
+
+        #region # 测试登录 —— void TestLogin()
         /// <summary>
         /// 测试登录
         /// </summary>
@@ -62,7 +67,9 @@ namespace SD.Toolkits.CoreWCF.Client.Tests.TestCases
             //存储登录信息
             AppDomain.CurrentDomain.SetData(GlobalSetting.ApplicationId, loginInfo);
         }
+        #endregion
 
+        #region # 测试获取用户列表 —— void TestGetUsers()
         /// <summary>
         /// 测试获取用户列表
         /// </summary>
@@ -83,5 +90,6 @@ namespace SD.Toolkits.CoreWCF.Client.Tests.TestCases
                 Trace.WriteLine("----");
             }
         }
+        #endregion
     }
 }

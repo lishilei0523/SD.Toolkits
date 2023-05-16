@@ -17,6 +17,7 @@ namespace SD.Toolkits.SerialNumber.Tests.TestCases
     [TestClass]
     public class NumberGeneratorTests
     {
+        #region # 测试初始化 —— void Initialize()
         /// <summary>
         /// 测试初始化
         /// </summary>
@@ -31,12 +32,14 @@ namespace SD.Toolkits.SerialNumber.Tests.TestCases
             string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
             AppDomain.CurrentDomain.SetData("DataDirectory", baseDirectory);
         }
+        #endregion
 
+        #region # 测试生成序列号 —— void TestGenerate()
         /// <summary>
-        /// 生成序列号测试
+        /// 测试生成序列号
         /// </summary>
         [TestMethod]
-        public void GenerateTest()
+        public void TestGenerate()
         {
             string seedName = nameof(NumberGeneratorTests);
             string prefix = "PRE";
@@ -58,12 +61,14 @@ namespace SD.Toolkits.SerialNumber.Tests.TestCases
             Assert.IsTrue(serialNo.Contains(patialKey));
             Assert.AreEqual(serialNo.Length, patialKey.Length + length);
         }
+        #endregion
 
+        #region # 测试批量生成序列号 —— void TestGenerateRange()
         /// <summary>
-        /// 批量生成序列号测试
+        /// 测试批量生成序列号
         /// </summary>
         [TestMethod]
-        public void GenerateRangeTest()
+        public void TestGenerateRange()
         {
             string seedName = nameof(NumberGeneratorTests);
             string prefix = "PRE";
@@ -86,12 +91,14 @@ namespace SD.Toolkits.SerialNumber.Tests.TestCases
             Assert.IsTrue(serialNos.All(serialNo => serialNo.Contains(patialKey)));
             Assert.AreEqual(serialNos.Length, count);
         }
+        #endregion
 
+        #region # 测试Null —— void TestNull()
         /// <summary>
-        /// Null测试
+        /// 测试Null
         /// </summary>
         [TestMethod]
-        public void NullTest()
+        public void TestNull()
         {
             string seedName = nameof(NumberGeneratorTests);
             string prefix = null;
@@ -115,5 +122,6 @@ namespace SD.Toolkits.SerialNumber.Tests.TestCases
 
             Assert.AreEqual(count, keys.Count);
         }
+        #endregion
     }
 }

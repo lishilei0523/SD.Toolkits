@@ -7,16 +7,17 @@ using System.Diagnostics;
 namespace SD.Toolkits.Mapper.Tests.TestCases
 {
     /// <summary>
-    /// 映射工具测试类
+    /// 映射测试
     /// </summary>
     [TestClass]
     public class MapperTests
     {
+        #region # 测试正常映射 —— void TestMapNormally()
         /// <summary>
         /// 测试正常映射
         /// </summary>
         [TestMethod]
-        public void TestMap_Normal()
+        public void TestMapNormally()
         {
             for (int index = 0; index < 100000; index++)
             {
@@ -26,32 +27,24 @@ namespace SD.Toolkits.Mapper.Tests.TestCases
                 Assert.IsTrue(studentInfo.Name == student.Name);
             }
         }
+        #endregion
 
+        #region # 测试映射后事件执行次数 —— void TestMapAfterMap()
         /// <summary>
         /// 测试映射后事件执行次数
         /// </summary>
         [TestMethod]
-        public void TestMap_AfterMap()
+        public void TestMapAfterMap()
         {
             Student student = new Student { Id = 1, Name = "张三", BirthDay = DateTime.Now };
-
             StudentInfo studentInfo = null;
             for (int i = 0; i < 10; i++)
             {
-                studentInfo = student.Map<Student, StudentInfo>(null, this.AfterMap);
+                studentInfo = student.Map<Student, StudentInfo>(null, (source, target) => Trace.WriteLine(DateTime.Now));
             }
 
             Assert.IsTrue(studentInfo.Name == student.Name);
         }
-
-        /// <summary>
-        /// 映射后事件方法
-        /// </summary>
-        /// <param name="source">源实例</param>
-        /// <param name="target">目标实例</param>
-        private void AfterMap(Student source, StudentInfo target)
-        {
-            Trace.WriteLine(DateTime.Now);
-        }
+        #endregion
     }
 }

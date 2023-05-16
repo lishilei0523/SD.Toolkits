@@ -18,8 +18,9 @@ namespace SD.Toolkits.EntityFrameworkCore.Tests.TestCases
     [TestClass]
     public class QueryBuilderTests
     {
+        #region # 测试初始化 —— void Initialize()
         /// <summary>
-        /// 初始化测试
+        /// 测试初始化
         /// </summary>
         [TestInitialize]
         public void Initialize()
@@ -43,12 +44,14 @@ namespace SD.Toolkits.EntityFrameworkCore.Tests.TestCases
             dbSession.SaveChanges();
             dbSession.Dispose();
         }
+        #endregion
 
+        #region # 测试清理 —— void Cleanup()
         /// <summary>
-        /// 清理测试
+        /// 测试清理
         /// </summary>
         [TestCleanup]
-        public void Clean()
+        public void Cleanup()
         {
             //清理数据库
             DbSession dbSession = new DbSession();
@@ -64,7 +67,9 @@ namespace SD.Toolkits.EntityFrameworkCore.Tests.TestCases
             dbSession.SaveChanges();
             dbSession.Dispose();
         }
+        #endregion
 
+        #region # 测试逻辑与 —— void TestBuildAnd()
         /// <summary>
         /// 测试逻辑与
         /// </summary>
@@ -87,7 +92,9 @@ namespace SD.Toolkits.EntityFrameworkCore.Tests.TestCases
 
             Assert.IsNotNull(sql);
         }
+        #endregion
 
+        #region # 测试逻辑或 —— void TestBuildOr()
         /// <summary>
         /// 测试逻辑或
         /// </summary>
@@ -108,7 +115,9 @@ namespace SD.Toolkits.EntityFrameworkCore.Tests.TestCases
 
             Assert.IsNotNull(sql);
         }
+        #endregion
 
+        #region # 测试导航属性 —— void TestBuildWithNavigationProperty()
         /// <summary>
         /// 测试导航属性
         /// </summary>
@@ -129,5 +138,6 @@ namespace SD.Toolkits.EntityFrameworkCore.Tests.TestCases
 
             Assert.IsNotNull(sql);
         }
+        #endregion
     }
 }

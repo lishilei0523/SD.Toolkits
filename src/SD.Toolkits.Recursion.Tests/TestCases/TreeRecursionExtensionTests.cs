@@ -12,6 +12,8 @@ namespace SD.Toolkits.Recursion.Tests.TestCases
     [TestClass]
     public class TreeRecursionExtensionTests
     {
+        #region # 测试初始化
+
         /// <summary>
         /// 品类集
         /// </summary>
@@ -58,11 +60,14 @@ namespace SD.Toolkits.Recursion.Tests.TestCases
             this._categories.Add(category8);
         }
 
+        #endregion
+
+        #region # 测试深度获取上级节点集 —— void TestGetDeepParentNodes()
         /// <summary>
-        /// 深度获取上级节点集测试
+        /// 测试深度获取上级节点集
         /// </summary>
         [TestMethod]
-        public void GetDeepParentNodesTest()
+        public void TestGetDeepParentNodes()
         {
             Category category = this._categories.Single(x => x.Name == "品类8");
 
@@ -70,12 +75,14 @@ namespace SD.Toolkits.Recursion.Tests.TestCases
 
             Assert.IsTrue(parentCategories.Count() == 2);
         }
+        #endregion
 
+        #region # 测试深度获取下级节点集 —— void TestGetDeepSubNodes()
         /// <summary>
-        /// 深度获取下级节点集测试
+        /// 测试深度获取下级节点集
         /// </summary>
         [TestMethod]
-        public void GetDeepSubNodesTest()
+        public void TestGetDeepSubNodes()
         {
             Category area1 = this._categories.Single(x => x.Name == "一级类目1");
 
@@ -83,25 +90,28 @@ namespace SD.Toolkits.Recursion.Tests.TestCases
 
             Assert.IsTrue(collection.Count() == 6);
         }
+        #endregion
 
+        #region # 测试尾递归上级扩展方法 —— void TestTailRecursionParentNodes()
         /// <summary>
-        /// 尾递归上级扩展方法测试
+        /// 测试尾递归上级扩展方法
         /// </summary>
         [TestMethod]
-        public void TailRecursionParentNodesTest()
+        public void TestTailRecursionParentNodes()
         {
             IEnumerable<Category> categories = this._categories.Where(x => x.IsLeaf);
-
             IEnumerable<Category> collection = categories.TailRecurseParentNodes();
 
             Assert.IsTrue(collection.Count() == 14);
         }
+        #endregion
 
+        #region # 测试获取树路径扩展方法 —— void TestGetTreePath()
         /// <summary>
-        ///获取树路径扩展方法测试
+        /// 测试获取树路径扩展方法
         /// </summary>
         [TestMethod]
-        public void GetTreePathTest()
+        public void TestGetTreePath()
         {
             string expectedPath = "/一级类目2/二级类目4/品类8";
 
@@ -111,5 +121,6 @@ namespace SD.Toolkits.Recursion.Tests.TestCases
 
             Assert.IsTrue(treePath == expectedPath);
         }
+        #endregion
     }
 }

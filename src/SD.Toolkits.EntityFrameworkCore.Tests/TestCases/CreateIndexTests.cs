@@ -13,6 +13,7 @@ namespace SD.Toolkits.EntityFrameworkCore.Tests.TestCases
     [TestClass]
     public class CreateIndexTests
     {
+        #region # 测试初始化 —— void Initialize()
         /// <summary>
         /// 测试初始化
         /// </summary>
@@ -24,19 +25,35 @@ namespace SD.Toolkits.EntityFrameworkCore.Tests.TestCases
             dbSession.Database.EnsureDeleted();
             dbSession.Dispose();
         }
+        #endregion
 
+        #region # 测试清理 —— void Cleanup()
         /// <summary>
-        /// 创建数据库
+        /// 测试清理
         /// </summary>
+        [TestCleanup]
+        public void Cleanup()
+        {
+            //删除数据库
+            DbSession dbSession = new DbSession();
+            dbSession.Database.EnsureDeleted();
+            dbSession.Dispose();
+        }
+        #endregion
+
+        #region # 测试创建数据库 —— void TestCreateDatabase()
+        /// <summary>
+        /// 测试创建数据库
+        /// </summary>
+        /// <remarks>查看数据库Student表是否有ClassId的索引</remarks>
         [TestMethod]
-        public void CreateDataBase()
+        public void TestCreateDatabase()
         {
             //初始化
             DbSession dbSession = new DbSession();
             dbSession.Database.EnsureCreated();
             dbSession.Database.Migrate();
-
-            //TODO 查看数据库Student表是否有ClassId的索引
         }
+        #endregion
     }
 }

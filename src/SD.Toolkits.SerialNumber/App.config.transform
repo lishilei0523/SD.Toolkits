@@ -8,6 +8,6 @@
     <!--序列种子提供者-->
     <serialSeedProvider type="SD.Toolkits.SerialNumber.Implements.SqlServerSeedProvider" assembly="SD.Toolkits.SerialNumber.SqlServer" />
     <!--连接字符串，Name/Value二选一，Name优先-->
-    <connectionString name="SerialNumberConnection" value="Data Source=.;Initial Catalog=SerialNumber;User Id=sa;Password=123456;MultipleActiveResultSets=true;" />
+    <connectionString name="SerialNumberConnection" value="Data Source=.;Initial Catalog=SerialNumber;User Id=sa;Password=123456;MultipleActiveResultSets=true;TrustServerCertificate=true;" />
   </sd.toolkits.serialNumber>
 </configuration>

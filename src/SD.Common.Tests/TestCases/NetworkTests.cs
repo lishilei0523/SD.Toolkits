@@ -10,16 +10,7 @@ namespace SD.Common.Tests.TestCases
     [TestClass]
     public class NetworkTests
     {
-        /// <summary>
-        /// 获取MAC测试
-        /// </summary>
-        [TestMethod]
-        public void TestGetMacs()
-        {
-            IList<string> macs = NetworkExtension.GetMacs();
-            Trace.WriteLine(macs);
-        }
-
+        #region # 获取IP测试 —— void TestGetIps()
         /// <summary>
         /// 获取IP测试
         /// </summary>
@@ -29,5 +20,18 @@ namespace SD.Common.Tests.TestCases
             IList<string> ips = NetworkExtension.GetIPs();
             Trace.WriteLine(ips);
         }
+        #endregion
+
+        #region # 获取MAC测试 —— void TestGetMacs()
+        /// <summary>
+        /// 获取MAC测试
+        /// </summary>
+        [TestMethod]
+        public void TestGetMacs()
+        {
+            IList<string> macs = NetworkExtension.GetMacs();
+            Trace.WriteLine(macs);
+        }
+        #endregion
     }
 }

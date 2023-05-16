@@ -7,9 +7,16 @@ using System.Reflection;
 
 namespace SD.Toolkits.Grpc.Client.Tests.TestCases
 {
+    /// <summary>
+    /// 配置文件测试
+    /// </summary>
     [TestClass]
     public class ConfigurationTests
     {
+        #region # 测试初始化 —— void Initialize()
+        /// <summary>
+        /// 测试初始化
+        /// </summary>
         [TestInitialize]
         public void Initialize()
         {
@@ -17,7 +24,12 @@ namespace SD.Toolkits.Grpc.Client.Tests.TestCases
             Configuration configuration = ConfigurationExtension.GetConfigurationFromAssembly(assembly);
             GrpcSection.Initialize(configuration);
         }
+        #endregion
 
+        #region # 测试配置文件 —— void TestConfiguration()
+        /// <summary>
+        /// 测试配置文件
+        /// </summary>
         [TestMethod]
         public void TestConfiguration()
         {
@@ -46,5 +58,6 @@ namespace SD.Toolkits.Grpc.Client.Tests.TestCases
                 Console.WriteLine(endpointConfiguration.ThrowOperationCanceledOnCancellation);
             }
         }
+        #endregion
     }
 }

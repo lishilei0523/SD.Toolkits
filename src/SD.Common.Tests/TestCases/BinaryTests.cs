@@ -8,6 +8,7 @@ namespace SD.Common.Tests.TestCases
     [TestClass]
     public class BinaryTests
     {
+        #region # Modbus CRC16校验码测试 —— void TestModbusCRC16()
         /// <summary>
         /// Modbus CRC16校验码测试
         /// </summary>
@@ -25,5 +26,6 @@ namespace SD.Common.Tests.TestCases
             Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(crc2[0], 0x06);
             Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(crc2[1], 0xC6);
         }
+        #endregion
     }
 }

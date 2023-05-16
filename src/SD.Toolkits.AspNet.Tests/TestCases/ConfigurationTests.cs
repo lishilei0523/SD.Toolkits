@@ -7,9 +7,16 @@ using System.Reflection;
 
 namespace SD.Toolkits.AspNet.Tests.TestCases
 {
+    /// <summary>
+    /// 配置文件测试
+    /// </summary>
     [TestClass]
     public class ConfigurationTests
     {
+        #region # 测试初始化 —— void Initialize()
+        /// <summary>
+        /// 测试初始化
+        /// </summary>
         [TestInitialize]
         public void Initialize()
         {
@@ -19,7 +26,12 @@ namespace SD.Toolkits.AspNet.Tests.TestCases
             AspNetSection.Initialize(configuration);
 #endif
         }
+        #endregion
 
+        #region # 测试配置文件 —— void TestConfiguration()
+        /// <summary>
+        /// 测试配置文件
+        /// </summary>
         [TestMethod]
         public void TestConfiguration()
         {
@@ -38,5 +50,6 @@ namespace SD.Toolkits.AspNet.Tests.TestCases
             Trace.WriteLine(AspNetSection.Setting.X509.Path);
             Trace.WriteLine(AspNetSection.Setting.X509.Password);
         }
+        #endregion
     }
 }

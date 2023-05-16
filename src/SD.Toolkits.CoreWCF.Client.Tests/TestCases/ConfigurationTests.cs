@@ -17,6 +17,7 @@ namespace SD.Toolkits.CoreWCF.Client.Tests.TestCases
     [TestClass]
     public class ConfigurationTests
     {
+        #region # 测试初始化 —— void Initialize()
         /// <summary>
         /// 测试初始化
         /// </summary>
@@ -28,7 +29,9 @@ namespace SD.Toolkits.CoreWCF.Client.Tests.TestCases
             Configuration configuration = ConfigurationExtension.GetConfigurationFromAssembly(entryAssembly);
             ServiceModelSectionGroup.Initialize(configuration);
         }
+        #endregion
 
+        #region # 测试配置节点 —— void TestSections()
         /// <summary>
         /// 测试配置节点
         /// </summary>
@@ -41,7 +44,9 @@ namespace SD.Toolkits.CoreWCF.Client.Tests.TestCases
             }
             Trace.WriteLine("------------------------------");
         }
+        #endregion
 
+        #region # 测试终结点 —— void TestEndpoints()
         /// <summary>
         /// 测试终结点
         /// </summary>
@@ -59,7 +64,9 @@ namespace SD.Toolkits.CoreWCF.Client.Tests.TestCases
                 Trace.WriteLine("------------------------------");
             }
         }
+        #endregion
 
+        #region # 测试绑定 —— void TestBindings()
         /// <summary>
         /// 测试绑定
         /// </summary>
@@ -152,7 +159,9 @@ namespace SD.Toolkits.CoreWCF.Client.Tests.TestCases
                 Trace.WriteLine("------------------------------");
             }
         }
+        #endregion
 
+        #region # 测试行为 —— void TestBehaviors()
         /// <summary>
         /// 测试行为
         /// </summary>
@@ -172,5 +181,6 @@ namespace SD.Toolkits.CoreWCF.Client.Tests.TestCases
                 Trace.WriteLine("------------------------------");
             }
         }
+        #endregion
     }
 }

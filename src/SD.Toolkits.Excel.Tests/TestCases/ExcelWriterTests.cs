@@ -13,6 +13,8 @@ namespace SD.Toolkits.Excel.Tests.TestCases
     [TestClass]
     public class ExcelWriterTests
     {
+        #region # 测试初始化
+
         /// <summary>
         /// Excel 2003目标路径
         /// </summary>
@@ -44,11 +46,14 @@ namespace SD.Toolkits.Excel.Tests.TestCases
             };
         }
 
+        #endregion
+
+        #region # 测试Excel 2003写入至文件 —— void TestWriteToFile03()
         /// <summary>
-        /// Excel 2003写入至文件测试
+        /// 测试Excel 2003写入至文件
         /// </summary>
         [TestMethod]
-        public void WriteToFileTest03()
+        public void TestWriteToFile03()
         {
             if (File.Exists(TargetExcel03Path))
             {
@@ -58,23 +63,27 @@ namespace SD.Toolkits.Excel.Tests.TestCases
             ExcelWriter.WriteFile(this._persons, TargetExcel03Path);
             Assert.IsTrue(File.Exists(TargetExcel03Path));
         }
+        #endregion
 
+        #region # 测试Excel 2003写入至字节数组 —— void TestWriteToArray03()
         /// <summary>
-        /// Excel 2003写入至字节数组测试
+        /// 测试Excel 2003写入至字节数组
         /// </summary>
         [TestMethod]
-        public void WriteToArrayTest03()
+        public void TestWriteToArray03()
         {
             byte[] buffer = ExcelWriter.WriteStream(this._persons, ExcelVersion.Excel03);
 
             Assert.IsTrue(buffer.Any());
         }
+        #endregion
 
+        #region # 测试Excel 2007写入至文件 —— void TestWriteToFile07()
         /// <summary>
-        /// Excel 2007写入至文件测试
+        /// 测试Excel 2007写入至文件
         /// </summary>
         [TestMethod]
-        public void WriteToFileTest07()
+        public void TestWriteToFile07()
         {
             if (File.Exists(TargetExcel07Path))
             {
@@ -84,16 +93,19 @@ namespace SD.Toolkits.Excel.Tests.TestCases
             ExcelWriter.WriteFile(this._persons, TargetExcel07Path);
             Assert.IsTrue(File.Exists(TargetExcel07Path));
         }
+        #endregion
 
+        #region # 测试Excel 2007写入至字节数组 —— void TestWriteToArray07()
         /// <summary>
-        /// Excel 2007写入至字节数组测试
+        /// 测试Excel 2007写入至字节数组
         /// </summary>
         [TestMethod]
-        public void WriteToArrayTest07()
+        public void TestWriteToArray07()
         {
             byte[] buffer = ExcelWriter.WriteStream(this._persons, ExcelVersion.Excel07);
 
             Assert.IsTrue(buffer.Any());
         }
+        #endregion
     }
 }

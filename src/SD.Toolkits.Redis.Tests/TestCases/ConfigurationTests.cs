@@ -7,9 +7,16 @@ using System.Reflection;
 
 namespace SD.Toolkits.Redis.Tests.TestCases
 {
+    /// <summary>
+    /// 配置文件测试
+    /// </summary>
     [TestClass]
     public class ConfigurationTests
     {
+        #region # 测试初始化 —— void Initialize()
+        /// <summary>
+        /// 测试初始化
+        /// </summary>
         [TestInitialize]
         public void Initialize()
         {
@@ -19,7 +26,12 @@ namespace SD.Toolkits.Redis.Tests.TestCases
             RedisSection.Initialize(configuration);
 #endif
         }
+        #endregion
 
+        #region # 测试配置文件 —— void TestConfigurations()
+        /// <summary>
+        /// 测试配置文件
+        /// </summary>
         [TestMethod]
         public void TestConfigurations()
         {
@@ -33,5 +45,6 @@ namespace SD.Toolkits.Redis.Tests.TestCases
                 Trace.WriteLine(endpoint.Port);
             }
         }
+        #endregion
     }
 }

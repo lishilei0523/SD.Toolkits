@@ -19,8 +19,9 @@ namespace SD.Toolkits.EntityFrameworkCore.Tests.TestCases
     [TestClass]
     public class ParseSqlTests
     {
+        #region # 测试初始化 —— void Initialize()
         /// <summary>
-        /// 初始化测试
+        /// 测试初始化
         /// </summary>
         [TestInitialize]
         public void Initialize()
@@ -42,12 +43,14 @@ namespace SD.Toolkits.EntityFrameworkCore.Tests.TestCases
             dbSession.SaveChanges();
             dbSession.Dispose();
         }
+        #endregion
 
+        #region # 测试清理 —— void Cleanup()
         /// <summary>
-        /// 清理测试
+        /// 测试清理
         /// </summary>
         [TestCleanup]
-        public void Clean()
+        public void Cleanup()
         {
             //删除数据库
             DbSession dbSession = new DbSession();
@@ -55,7 +58,9 @@ namespace SD.Toolkits.EntityFrameworkCore.Tests.TestCases
 
             dbSession.Dispose();
         }
+        #endregion
 
+        #region # 测试IQueryable集合转换SQL语句 —— void TestParseSql()
         /// <summary>
         /// 测试IQueryable集合转换SQL语句
         /// </summary>
@@ -68,7 +73,9 @@ namespace SD.Toolkits.EntityFrameworkCore.Tests.TestCases
             string sql = specStudents.ParseSql();
             Assert.IsNotNull(sql);
         }
+        #endregion
 
+        #region # 测试IQueryable集合能转换SQL语句 —— void TestCanParseSql()
         /// <summary>
         /// 测试IQueryable集合能转换SQL语句
         /// </summary>
@@ -80,7 +87,9 @@ namespace SD.Toolkits.EntityFrameworkCore.Tests.TestCases
 
             Assert.IsTrue(specStudents.CanParseSQl());
         }
+        #endregion
 
+        #region # 测试IQueryable集合不能转换SQL语句 —— void TestCannotParseSql()
         /// <summary>
         /// 测试IQueryable集合不能转换SQL语句
         /// </summary>
@@ -92,5 +101,6 @@ namespace SD.Toolkits.EntityFrameworkCore.Tests.TestCases
 
             Assert.IsFalse(specStudents.CanParseSQl());
         }
+        #endregion
     }
 }

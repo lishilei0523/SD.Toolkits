@@ -8,6 +8,7 @@ namespace SD.Toolkits.NCalc.Tests.TestCases
     [TestClass]
     public class FormulaExpressionTest
     {
+        #region # 测试原始表达式 —— void TestRawExpression()
         /// <summary>
         /// 测试原始表达式
         /// </summary>
@@ -19,7 +20,9 @@ namespace SD.Toolkits.NCalc.Tests.TestCases
 
             Assert.AreEqual(formula, expression.RawExpression);
         }
+        #endregion
 
+        #region # 测试格式化表达式 —— void TestFormativeExpression()
         /// <summary>
         /// 测试格式化表达式
         /// </summary>
@@ -35,7 +38,9 @@ namespace SD.Toolkits.NCalc.Tests.TestCases
 
             Assert.AreEqual(expression.FormativeExpression, "10+190+0.25");
         }
+        #endregion
 
+        #region # 测试原始参数列表 —— void TestRawParameters()
         /// <summary>
         /// 测试原始参数列表
         /// </summary>
@@ -49,7 +54,9 @@ namespace SD.Toolkits.NCalc.Tests.TestCases
             Assert.IsTrue(expression.RawParameters.Contains("B"));
             Assert.IsTrue(expression.RawParameters.Contains("C"));
         }
+        #endregion
 
+        #region # 测试格式化参数列表 —— void TestFormativeParameters()
         /// <summary>
         /// 测试格式化参数列表
         /// </summary>
@@ -66,7 +73,9 @@ namespace SD.Toolkits.NCalc.Tests.TestCases
             Assert.IsTrue(expression.FormativeParameters.Values.Contains("[B]"));
             Assert.IsTrue(expression.FormativeParameters.Values.Contains("[C]"));
         }
+        #endregion
 
+        #region # 测试求值 —— void TestEvaluate()
         /// <summary>
         /// 测试求值
         /// </summary>
@@ -84,5 +93,6 @@ namespace SD.Toolkits.NCalc.Tests.TestCases
 
             Assert.AreEqual(result, 200.25);
         }
+        #endregion
     }
 }

@@ -8,6 +8,7 @@ namespace SD.Common.Tests.TestCases
     [TestClass]
     public class EncryptTests
     {
+        #region # 无Key测试 —— void TestWithoutKey()
         /// <summary>
         /// 无Key测试
         /// </summary>
@@ -21,7 +22,9 @@ namespace SD.Common.Tests.TestCases
 
             Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(text, plaintext);
         }
+        #endregion
 
+        #region # 含Key测试 —— void TestWithKey()
         /// <summary>
         /// 含Key测试
         /// </summary>
@@ -36,5 +39,6 @@ namespace SD.Common.Tests.TestCases
 
             Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(text, plaintext);
         }
+        #endregion
     }
 }

@@ -8,6 +8,7 @@ namespace SD.Toolkits.AspNetCore.Extensions
     /// </summary>
     public static class ParameterExtension
     {
+        #region # 类型化参数 —— static object TypifyParameterValue(Type parameterType, string parameterValue...
         /// <summary>
         /// 类型化参数
         /// </summary>
@@ -60,7 +61,9 @@ namespace SD.Toolkits.AspNetCore.Extensions
 
             return null;
         }
+        #endregion
 
+        #region # 类型化参数 —— static object TypifyParameterValue(Type parameterType, object parameterValue...
         /// <summary>
         /// 类型化参数
         /// </summary>
@@ -113,5 +116,6 @@ namespace SD.Toolkits.AspNetCore.Extensions
 
             return null;
         }
+        #endregion
     }
 }

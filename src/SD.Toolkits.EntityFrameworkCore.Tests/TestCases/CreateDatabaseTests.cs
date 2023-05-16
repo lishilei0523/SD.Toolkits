@@ -13,8 +13,9 @@ namespace SD.Toolkits.EntityFrameworkCore.Tests.TestCases
     [TestClass]
     public class CreateDatabaseTests
     {
+        #region # 测试初始化 —— void Initialize()
         /// <summary>
-        /// 初始化测试
+        /// 测试初始化
         /// </summary>
         [TestInitialize]
         public void Initialize()
@@ -24,24 +25,28 @@ namespace SD.Toolkits.EntityFrameworkCore.Tests.TestCases
             dbSession.Database.EnsureDeleted();
             dbSession.Dispose();
         }
+        #endregion
 
+        #region # 测试清理 —— void Cleanup()
         /// <summary>
-        /// 清理测试
+        /// 测试清理
         /// </summary>
         [TestCleanup]
-        public void Clean()
+        public void Cleanup()
         {
             //删除数据库
             DbSession dbSession = new DbSession();
             dbSession.Database.EnsureDeleted();
             dbSession.Dispose();
         }
+        #endregion
 
+        #region # 测试创建数据库 —— void TestCreateDatabase()
         /// <summary>
-        /// 创建数据库
+        /// 测试创建数据库
         /// </summary>
         [TestMethod]
-        public void CreateDataBase()
+        public void TestCreateDatabase()
         {
             //初始化
             DbSession dbSession = new DbSession();
@@ -52,5 +57,6 @@ namespace SD.Toolkits.EntityFrameworkCore.Tests.TestCases
             //断言数据库已创建成功
             Assert.IsFalse(alreadyExisted);
         }
+        #endregion
     }
 }
