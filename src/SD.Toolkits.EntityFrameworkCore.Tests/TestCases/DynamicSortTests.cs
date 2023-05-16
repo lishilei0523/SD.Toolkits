@@ -1,10 +1,15 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using SD.Common;
+using SD.Infrastructure;
 using SD.Toolkits.EntityFrameworkCore.Extensions;
 using SD.Toolkits.EntityFrameworkCore.Tests.StubEntities;
-using SD.Toolkits.EntityFrameworkCore.Tests.StubEntities.Context;
+using SD.Toolkits.EntityFrameworkCore.Tests.StubEntities.Base;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
+using System.Reflection;
+using Assert = Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
 
 namespace SD.Toolkits.EntityFrameworkCore.Tests.TestCases
 {
@@ -21,6 +26,11 @@ namespace SD.Toolkits.EntityFrameworkCore.Tests.TestCases
         [TestInitialize]
         public void Initialize()
         {
+            //初始化配置文件
+            Assembly assembly = Assembly.GetExecutingAssembly();
+            Configuration configuration = ConfigurationExtension.GetConfigurationFromAssembly(assembly);
+            FrameworkSection.Initialize(configuration);
+
             //删除数据库
             DbSession dbSession = new DbSession();
             dbSession.Database.EnsureCreated();

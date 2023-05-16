@@ -1,6 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SD.Toolkits.EntityFrameworkCore.Tests.StubEntities.Context;
+using SD.Common;
+using SD.Infrastructure;
+using SD.Toolkits.EntityFrameworkCore.Tests.StubEntities.Base;
+using System.Configuration;
+using System.Reflection;
 
 namespace SD.Toolkits.EntityFrameworkCore.Tests.TestCases
 {
@@ -20,6 +24,11 @@ namespace SD.Toolkits.EntityFrameworkCore.Tests.TestCases
         [TestInitialize]
         public void Initialize()
         {
+            //初始化配置文件
+            Assembly assembly = Assembly.GetExecutingAssembly();
+            Configuration configuration = ConfigurationExtension.GetConfigurationFromAssembly(assembly);
+            FrameworkSection.Initialize(configuration);
+
             //删除数据库
             DbSession dbSession = new DbSession();
             dbSession.Database.EnsureDeleted();

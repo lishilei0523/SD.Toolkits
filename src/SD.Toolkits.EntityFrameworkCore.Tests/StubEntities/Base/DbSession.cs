@@ -1,22 +1,22 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using SD.Infrastructure;
+using SD.Infrastructure.Constants;
 using SD.Toolkits.EntityFrameworkCore.Base;
-using SD.Toolkits.EntityFrameworkCore.Tests.StubEntities.Base;
 using System;
 
-namespace SD.Toolkits.EntityFrameworkCore.Tests.StubEntities.Context
+namespace SD.Toolkits.EntityFrameworkCore.Tests.StubEntities.Base
 {
     /// <summary>
-    /// EF Cre上下文对象
+    /// EF Core上下文
     /// </summary>
-    public class DbSession : DbContextBase
+    internal class DbSession : DbContextBase
     {
         /// <summary>
         /// 配置
         /// </summary>
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            string connectionString = "Data Source=.;Initial Catalog=SD.Toolkits.EntityFrameworkCoreTests;User Id=sa;Password=realgoal123!;MultipleActiveResultSets=true;";
-            optionsBuilder.UseSqlServer(connectionString);
+            optionsBuilder.UseSqlServer(GlobalSetting.WriteConnectionString);
 
             base.OnConfiguring(optionsBuilder);
         }
@@ -26,7 +26,7 @@ namespace SD.Toolkits.EntityFrameworkCore.Tests.StubEntities.Context
         /// </summary>
         public override string EntityAssembly
         {
-            get { return "SD.Toolkits.EntityFrameworkCore.Tests"; }
+            get { return FrameworkSection.Setting.EntityAssembly.Value; }
         }
 
         /// <summary>
@@ -34,7 +34,7 @@ namespace SD.Toolkits.EntityFrameworkCore.Tests.StubEntities.Context
         /// </summary>
         public override string EntityConfigAssembly
         {
-            get { return "SD.Toolkits.EntityFrameworkCore.Tests"; }
+            get { return FrameworkSection.Setting.EntityConfigAssembly.Value; }
         }
 
         /// <summary>
@@ -56,7 +56,7 @@ namespace SD.Toolkits.EntityFrameworkCore.Tests.StubEntities.Context
         /// </summary>
         public override string TablePrefix
         {
-            get { return null; }
+            get { return FrameworkSection.Setting.EntityTablePrefix.Value; }
         }
     }
 }
