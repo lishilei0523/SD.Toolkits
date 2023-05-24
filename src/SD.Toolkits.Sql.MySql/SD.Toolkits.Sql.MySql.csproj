@@ -17,15 +17,15 @@
     <DocumentationFile>bin\Release\$(TargetFramework)\SD.Toolkits.Sql.MySql.xml</DocumentationFile>
   </PropertyGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' == 'net452'">
+  <ItemGroup Condition="$(TargetFramework.Equals('net452'))">
     <PackageReference Include="MySql.Data" Version="8.0.32.1" />
   </ItemGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' == 'net462'">
+  <ItemGroup Condition="$(TargetFramework.Equals('net462'))">
     <PackageReference Include="MySql.Data" Version="8.0.33" />
   </ItemGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
+  <ItemGroup Condition="$(TargetFramework.Equals('netstandard2.0'))">
     <PackageReference Include="MySql.Data" Version="8.0.33" />
   </ItemGroup>
 

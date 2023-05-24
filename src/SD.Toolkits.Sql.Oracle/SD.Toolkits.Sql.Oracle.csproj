@@ -17,19 +17,19 @@
     <DocumentationFile>bin\Release\$(TargetFramework)\SD.Toolkits.Sql.Oracle.xml</DocumentationFile>
   </PropertyGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' == 'net45'">
+  <ItemGroup Condition="$(TargetFramework.Equals('net45'))">
     <PackageReference Include="Oracle.ManagedDataAccess" Version="19.19.0" />
   </ItemGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' == 'net462'">
+  <ItemGroup Condition="$(TargetFramework.Equals('net462'))">
     <PackageReference Include="Oracle.ManagedDataAccess" Version="21.10.0" />
   </ItemGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
+  <ItemGroup Condition="$(TargetFramework.Equals('netstandard2.0'))">
     <PackageReference Include="Oracle.ManagedDataAccess.Core" Version="2.19.190" />
   </ItemGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.1'">
+  <ItemGroup Condition="$(TargetFramework.Equals('netstandard2.1'))">
     <PackageReference Include="Oracle.ManagedDataAccess.Core" Version="3.21.100" />
   </ItemGroup>
 
