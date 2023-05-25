@@ -3,7 +3,7 @@
 namespace SD.Common.Tests.TestCases
 {
     /// <summary>
-    /// 字符串解密/解密测试
+    /// 字符串加密/解密测试
     /// </summary>
     [TestClass]
     public class EncryptTests
