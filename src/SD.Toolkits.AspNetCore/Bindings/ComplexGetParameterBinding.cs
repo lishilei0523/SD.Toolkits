@@ -81,7 +81,7 @@ namespace SD.Toolkits.AspNetCore.Bindings
         /// <summary>
         /// 读取转换参数至字典
         /// </summary>
-        private async Task<NameValueCollection> ParseParametersFromBody(HttpRequest request)
+        private Task<NameValueCollection> ParseParametersFromBody(HttpRequest request)
         {
             string cacheKey = typeof(ComplexGetParameterBinding).FullName;
             if (!request.HttpContext.Items.TryGetValue(cacheKey, out object result))
@@ -96,7 +96,7 @@ namespace SD.Toolkits.AspNetCore.Bindings
                 request.HttpContext.Items.Add(cacheKey, result);
             }
 
-            return (NameValueCollection)result;
+            return new Task<NameValueCollection>(() => (NameValueCollection)result);
         }
         #endregion
     }

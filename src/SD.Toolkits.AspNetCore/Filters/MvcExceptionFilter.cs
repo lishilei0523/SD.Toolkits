@@ -21,7 +21,7 @@ namespace SD.Toolkits.AspNetCore.Filters
         /// <summary>
         /// 执行异常过滤器事件
         /// </summary>
-        public async void OnException(ExceptionContext context)
+        public void OnException(ExceptionContext context)
         {
             //判断是否是ApiController
             if (context.ActionDescriptor is ControllerActionDescriptor actionDescriptor &&

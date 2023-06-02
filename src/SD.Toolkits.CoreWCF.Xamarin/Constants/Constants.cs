@@ -8,6 +8,9 @@ namespace System.ServiceModel.Extensions
     /// </summary>
     public static class Constants
     {
+        /// <summary>
+        /// BasicHttp绑定
+        /// </summary>
         public const string BasicHttpBinding = "basicHttpBinding";
 
         /// <summary>

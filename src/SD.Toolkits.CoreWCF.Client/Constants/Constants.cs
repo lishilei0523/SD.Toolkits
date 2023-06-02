@@ -8,9 +8,24 @@ namespace System.ServiceModel.Extensions
     /// </summary>
     public static class Constants
     {
+        /// <summary>
+        /// BasicHttp绑定
+        /// </summary>
         public const string BasicHttpBinding = "basicHttpBinding";
+
+        /// <summary>
+        /// NetTcp绑定
+        /// </summary>
         public const string NetTcpBinding = "netTcpBinding";
+
+        /// <summary>
+        /// NetHttp绑定
+        /// </summary>
         public const string NetHttpBinding = "netHttpBinding";
+
+        /// <summary>
+        /// WSHttp绑定
+        /// </summary>
         public const string WSHttpBinding = "wsHttpBinding";
 
         /// <summary>
