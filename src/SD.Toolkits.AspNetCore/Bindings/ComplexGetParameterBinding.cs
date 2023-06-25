@@ -84,7 +84,7 @@ namespace SD.Toolkits.AspNetCore.Bindings
         private Task<NameValueCollection> ParseParametersFromBody(HttpRequest request)
         {
             string cacheKey = typeof(ComplexGetParameterBinding).FullName;
-            if (!request.HttpContext.Items.TryGetValue(cacheKey, out object result))
+            if (!request.HttpContext.Items.TryGetValue(cacheKey!, out object result))
             {
                 NameValueCollection nameValueCollection = new NameValueCollection();
                 foreach (KeyValuePair<string, StringValues> keyValuePair in request.Query)

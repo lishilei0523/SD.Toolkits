@@ -86,20 +86,18 @@ namespace SD.Toolkits.AspNetCore.Bindings
         private async Task<NameValueCollection> ParseParametersFromBody(HttpRequest request)
         {
             string cacheKey = typeof(WrapPostParameterBinding).FullName;
-            if (!request.HttpContext.Items.TryGetValue(cacheKey, out object result))
+            if (!request.HttpContext.Items.TryGetValue(cacheKey!, out object result))
             {
                 if (request.ContentType.StartsWith("application/json"))
                 {
-                    using (StreamReader streamReader = new StreamReader(request.Body, Encoding.UTF8, false, 4096, true))
+                    using StreamReader streamReader = new StreamReader(request.Body, Encoding.UTF8, false, 4096, true);
+                    string body = await streamReader.ReadToEndAsync();
+                    IDictionary<string, object> values = JsonConvert.DeserializeObject<Dictionary<string, object>>(body, this._jsonSerializerSettings);
+                    result = values.Aggregate(new NameValueCollection(), (seed, current) =>
                     {
-                        string body = await streamReader.ReadToEndAsync();
-                        IDictionary<string, object> values = JsonConvert.DeserializeObject<Dictionary<string, object>>(body, this._jsonSerializerSettings);
-                        result = values.Aggregate(new NameValueCollection(), (seed, current) =>
-                        {
-                            seed.Add(current.Key, current.Value?.ToString());
-                            return seed;
-                        });
-                    }
+                        seed.Add(current.Key, current.Value?.ToString());
+                        return seed;
+                    });
                 }
                 else if (request.ContentType.StartsWith("application/x-www-form-urlencoded"))
                 {

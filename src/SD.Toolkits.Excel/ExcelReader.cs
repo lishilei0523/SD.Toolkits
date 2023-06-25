@@ -191,7 +191,7 @@ namespace SD.Toolkits.Excel
                     switch (formulaValue.CellType)
                     {
                         case CellType.Numeric:
-                            cellValue = formulaValue.NumberValue.ToString();
+                            cellValue = formulaValue.NumberValue.ToString(CultureInfo.CurrentCulture);
                             break;
                         case CellType.String:
                             cellValue = formulaValue.StringValue;

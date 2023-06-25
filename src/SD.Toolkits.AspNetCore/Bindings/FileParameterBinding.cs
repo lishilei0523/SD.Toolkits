@@ -65,7 +65,7 @@ namespace SD.Toolkits.AspNetCore.Bindings
             #endregion
 
             IDictionary<string, object> parameters = this.ParseParametersFromBody(httpContext.Request);
-            object parameterValue = parameters.ContainsKey(bindingContext.FieldName)
+            object parameterValue = parameters!.ContainsKey(bindingContext.FieldName)
                 ? parameters[bindingContext.FieldName]
                 : null;
             if (parameterValue != null)
@@ -109,9 +109,10 @@ namespace SD.Toolkits.AspNetCore.Bindings
                         }
                         else if (parameterValue is IFormFile formFile)
                         {
-                            FormFileCollection formFileCollection = new FormFileCollection();
-                            formFileCollection.Add(formFile);
-
+                            FormFileCollection formFileCollection = new FormFileCollection
+                            {
+                                formFile
+                            };
                             typicalValue = formFileCollection;
                         }
                         else
@@ -147,7 +148,7 @@ namespace SD.Toolkits.AspNetCore.Bindings
         private IDictionary<string, object> ParseParametersFromBody(HttpRequest request)
         {
             string cacheKey = typeof(FileParameterBinding).FullName;
-            if (!request.HttpContext.Items.TryGetValue(cacheKey, out object result))
+            if (!request.HttpContext.Items.TryGetValue(cacheKey!, out object result))
             {
                 IDictionary<string, object> formDatas = new ConcurrentDictionary<string, object>();
                 foreach (IFormFile formFile in request.Form.Files)
@@ -157,9 +158,11 @@ namespace SD.Toolkits.AspNetCore.Bindings
                         object formData = formDatas[formFile.Name];
                         if (formData is IFormFile prevFile)
                         {
-                            FormFileCollection formFiles = new FormFileCollection();
-                            formFiles.Add(prevFile);
-                            formFiles.Add(formFile);
+                            FormFileCollection formFiles = new FormFileCollection
+                            {
+                                prevFile,
+                                formFile
+                            };
                             formDatas[formFile.Name] = formFiles;
                         }
                         if (formData is FormFileCollection existedFiles)
