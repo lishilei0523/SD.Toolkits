@@ -6,7 +6,7 @@ namespace SD.Toolkits.NCalc.Tests.TestCases
     /// 公式表达式测试
     /// </summary>
     [TestClass]
-    public class FormulaExpressionTest
+    public class FormulaExpressionTests
     {
         #region # 测试原始表达式 —— void TestRawExpression()
         /// <summary>
