@@ -23,13 +23,13 @@ namespace SD.Toolkits.Excel
         /// <param name="titles">标题列表</param>
         public static void WriteFile<T>(IEnumerable<T> enumerable, string path, string[] titles = null)
         {
-            T[] array = enumerable == null ? new T[0] : enumerable.ToArray();
+            T[] array = enumerable?.ToArray() ?? new T[0];
 
             #region # 验证
 
             if (!array.Any())
             {
-                throw new ArgumentNullException(nameof(enumerable), $"源{typeof(T).Name}类型集合不可为空！");
+                throw new ArgumentNullException(nameof(enumerable), $"源\"{typeof(T).Name}\"类型集合不可为空！");
             }
             if (string.IsNullOrWhiteSpace(path))
             {
@@ -66,7 +66,7 @@ namespace SD.Toolkits.Excel
         /// <returns>字节数组</returns>
         public static byte[] WriteStream<T>(IEnumerable<T> enumerable, ExcelVersion excelVersion, string[] titles = null)
         {
-            T[] array = enumerable == null ? new T[0] : enumerable.ToArray();
+            T[] array = enumerable?.ToArray() ?? new T[0];
 
             #region # 验证
 

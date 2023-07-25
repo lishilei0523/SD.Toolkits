@@ -179,7 +179,7 @@ namespace SD.Toolkits.Excel
                 PropertyInfo property = properties[propertyIndex];
                 Type propertyType = property.PropertyType;
 
-                ICell cell = row.GetCell(propertyIndex);
+                ICell cell = row.Cells[propertyIndex];
                 string cellValue = cell.ToString().Trim();
 
                 #region # 公式与日期时间处理
