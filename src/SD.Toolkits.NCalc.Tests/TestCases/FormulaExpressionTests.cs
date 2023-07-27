@@ -31,7 +31,6 @@ namespace SD.Toolkits.NCalc.Tests.TestCases
         {
             string formula = "[A]+[B]+[C]";
             FormulaExpression expression = new FormulaExpression(formula);
-
             expression.Parameters["A"] = 10;
             expression.Parameters["B"] = 190;
             expression.Parameters["C"] = 0.25;
@@ -84,7 +83,6 @@ namespace SD.Toolkits.NCalc.Tests.TestCases
         {
             string formula = "[A]+[B]+[C]";
             FormulaExpression expression = new FormulaExpression(formula);
-
             expression.Parameters["A"] = 10;
             expression.Parameters["B"] = 190;
             expression.Parameters["C"] = 0.25;

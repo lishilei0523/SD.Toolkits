@@ -10,9 +10,9 @@ namespace SD.Common.Tests.TestCases
     [TestClass]
     public class NetworkTests
     {
-        #region # 获取IP测试 —— void TestGetIps()
+        #region # 测试获取IP —— void TestGetIps()
         /// <summary>
-        /// 获取IP测试
+        /// 测试获取IP
         /// </summary>
         [TestMethod]
         public void TestGetIps()
@@ -22,9 +22,9 @@ namespace SD.Common.Tests.TestCases
         }
         #endregion
 
-        #region # 获取MAC测试 —— void TestGetMacs()
+        #region # 测试获取MAC —— void TestGetMacs()
         /// <summary>
-        /// 获取MAC测试
+        /// 测试获取MAC
         /// </summary>
         [TestMethod]
         public void TestGetMacs()

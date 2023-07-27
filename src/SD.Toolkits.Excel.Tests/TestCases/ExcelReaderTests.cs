@@ -1,5 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SD.Toolkits.Excel.Tests.StubEntities;
+using SD.Toolkits.Excel.Tests.Models;
 
 namespace SD.Toolkits.Excel.Tests.TestCases
 {

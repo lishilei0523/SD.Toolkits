@@ -8,9 +8,9 @@ namespace SD.Common.Tests.TestCases
     [TestClass]
     public class EncryptTests
     {
-        #region # 无Key测试 —— void TestWithoutKey()
+        #region # 测试无Key —— void TestWithoutKey()
         /// <summary>
-        /// 无Key测试
+        /// 测试无Key
         /// </summary>
         [TestMethod]
         public void TestWithoutKey()
@@ -24,9 +24,9 @@ namespace SD.Common.Tests.TestCases
         }
         #endregion
 
-        #region # 含Key测试 —— void TestWithKey()
+        #region # 测试含Key —— void TestWithKey()
         /// <summary>
-        /// 含Key测试
+        /// 测试含Key
         /// </summary>
         [TestMethod]
         public void TestWithKey()

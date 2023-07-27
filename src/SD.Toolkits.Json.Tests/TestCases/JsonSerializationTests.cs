@@ -25,9 +25,9 @@ namespace SD.Toolkits.Json.Tests.TestCases
             };
 
             string json = studentInfo.ToJson("yyyy-MM-dd HH:mm:ss");
-            string dateStr = "2016-09-01 09:33:10";
+            string dateText = "2016-09-01 09:33:10";
 
-            Assert.IsTrue(json.Contains(dateStr));
+            Assert.IsTrue(json.Contains(dateText));
         }
         #endregion
 
@@ -46,7 +46,6 @@ namespace SD.Toolkits.Json.Tests.TestCases
             };
 
             string json = studentInfo.ToJson("yyyy-MM-dd HH:mm:ss");
-
             StudentInfo student = json.AsJsonTo<StudentInfo>();
 
             Assert.IsTrue(studentInfo.Id == student.Id);

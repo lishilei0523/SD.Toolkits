@@ -70,9 +70,9 @@ namespace SD.Common.Tests.TestCases
 
         #endregion
 
-        #region # 集合转DataTable测试 —— void TestEnumableToDataTable()
+        #region # 测试集合转DataTable —— void TestEnumableToDataTable()
         /// <summary>
-        /// 集合转DataTable测试
+        /// 测试集合转DataTable
         /// </summary>
         [TestMethod]
         public void TestEnumableToDataTable()
@@ -99,18 +99,26 @@ namespace SD.Common.Tests.TestCases
         }
         #endregion
 
-        #region # DataTable转集合测试 —— void TestDataTableToCollection()
+        #region # 测试DataTable转集合 —— void TestDataTableToCollection()
         /// <summary>
-        /// DataTable转集合测试
+        /// 测试DataTable转集合
         /// </summary>
         [TestMethod]
         public void TestDataTableToCollection()
         {
             IList<Student> students = new List<Student>
             {
-                new Student { Id = 3, Name = "学生3", Age = 21, BirthDay = new DateTime(1996, 2, 20) },
-                new Student { Id = 1, Name = "学生1", Age = null, BirthDay = new DateTime(1992, 4, 18) },
-                new Student { Id = 2, Name = "学生2", Age = 19, BirthDay = new DateTime(1991, 4, 20),Extension = new StudentExtension{Extension1 = "扩展1",Extension2 = "扩展2"}}
+                new Student {Id = 3, Name = "学生3", Age = 21, BirthDay = new DateTime(1996, 2, 20)},
+                new Student {Id = 1, Name = "学生1", Age = null, BirthDay = new DateTime(1992, 4, 18)},
+                new Student
+                {
+                    Id = 2, Name = "学生2", Age = 19, BirthDay = new DateTime(1991, 4, 20),
+                    Extension = new StudentExtension
+                    {
+                        Extension1 = "扩展1",
+                        Extension2 = "扩展2"
+                    }
+                }
             };
 
             DataTable dataTable = students.ToDataTable();

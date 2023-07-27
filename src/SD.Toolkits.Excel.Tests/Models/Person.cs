@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SD.Toolkits.Excel.Tests.StubEntities
+namespace SD.Toolkits.Excel.Tests.Models
 {
     public class Person
     {
