@@ -131,7 +131,6 @@ namespace SD.Toolkits.EntityFrameworkCore.Base
             #region # 合并类型集
 
             HashSet<Type> entityTypes = new HashSet<Type>(types);
-
             if (this.TypesToRegister != null)
             {
                 foreach (Type entityType in this.TypesToRegister)
@@ -198,7 +197,6 @@ namespace SD.Toolkits.EntityFrameworkCore.Base
         private void RegisterTableMaps(ModelBuilder modelBuilder, IEnumerable<Type> entityTypes)
         {
             string tablePrefix = string.IsNullOrWhiteSpace(this.TablePrefix) ? string.Empty : this.TablePrefix;
-
             foreach (Type entityType in entityTypes)
             {
                 EntityTypeBuilder entityTypeBuilder = modelBuilder.Entity(entityType);

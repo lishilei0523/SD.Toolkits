@@ -87,11 +87,8 @@ namespace SD.Toolkits.EntityFrameworkCore.Extensions
         public static IQueryable<T> OrderBy<T>(this IQueryable<T> queryable, IDictionary<string, bool> keySelectors)
         {
             int resetCount = 0;
-
             Type type = typeof(T);
-
             ParameterExpression param = Expression.Parameter(type, "x");
-
             foreach (KeyValuePair<string, bool> selector in keySelectors)
             {
                 PropertyInfo property = type.GetProperty(selector.Key);
@@ -100,7 +97,7 @@ namespace SD.Toolkits.EntityFrameworkCore.Extensions
 
                 if (property == null)
                 {
-                    throw new InvalidOperationException(string.Format("属性\"{0}\"不存在！", selector.Key));
+                    throw new InvalidOperationException($"属性\"{selector.Key}\"不存在！");
                 }
 
                 #endregion
@@ -111,9 +108,7 @@ namespace SD.Toolkits.EntityFrameworkCore.Extensions
                 string methodName = resetCount > 0
                     ? (selector.Value ? "ThenBy" : "ThenByDescending")
                     : (selector.Value ? "OrderBy" : "OrderByDescending");
-
-                MethodCallExpression resultExp = Expression.Call(typeof(Queryable), methodName, new Type[] { type, property.PropertyType }, queryable.Expression, Expression.Quote(orderByExpression));
-
+                MethodCallExpression resultExp = Expression.Call(typeof(Queryable), methodName, new[] { type, property.PropertyType }, queryable.Expression, Expression.Quote(orderByExpression));
                 queryable = queryable.Provider.CreateQuery<T>(resultExp);
 
                 resetCount++;
@@ -267,11 +262,10 @@ namespace SD.Toolkits.EntityFrameworkCore.Extensions
         private static IQueryable<T> IncludeRecursively<T>(IQueryable<T> queryable, Type classType, Type excludePropertyType, string pathPrefix) where T : class
         {
             //加载所有导航属性
-            Func<PropertyInfo, bool> navPropertySelector = typ =>
+            Func<PropertyInfo, bool> navPropertySelector = type =>
             {
-                MethodInfo getMethod = typ.GetGetMethod(false) == null ? typ.GetGetMethod(true) : typ.GetGetMethod(false);
-                MethodInfo setMethod = typ.GetSetMethod(false) == null ? typ.GetSetMethod(true) : typ.GetSetMethod(false);
-
+                MethodInfo getMethod = type.GetGetMethod(false) == null ? type.GetGetMethod(true) : type.GetGetMethod(false);
+                MethodInfo setMethod = type.GetSetMethod(false) == null ? type.GetSetMethod(true) : type.GetSetMethod(false);
                 if (setMethod == null)
                 {
                     return false;
@@ -294,7 +288,6 @@ namespace SD.Toolkits.EntityFrameworkCore.Extensions
             };
 
             IEnumerable<PropertyInfo> navProperties = classType.GetProperties().Where(navPropertySelector);
-
             foreach (PropertyInfo propertyInfo in navProperties)
             {
                 if (propertyInfo.PropertyType == excludePropertyType)
@@ -306,7 +299,6 @@ namespace SD.Toolkits.EntityFrameworkCore.Extensions
                 string path = string.IsNullOrWhiteSpace(pathPrefix)
                     ? propertyInfo.Name
                     : $"{pathPrefix}.{propertyInfo.Name}";
-
                 queryable = queryable.Include(path);
 
                 Type propertyType = propertyInfo.PropertyType;
