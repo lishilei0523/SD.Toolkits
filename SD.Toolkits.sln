@@ -99,6 +99,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Toolkits.SerialNumber.Sq
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Toolkits.Drawing", "src\SD.Toolkits.Drawing\SD.Toolkits.Drawing.csproj", "{2B891D69-99C4-42F1-AE40-A56D82C0A236}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Toolkits.SkiaDrawing", "src\SD.Toolkits.SkiaDrawing\SD.Toolkits.SkiaDrawing.csproj", "{370F80B9-B8EA-4C03-A0CF-44CF0CC59875}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -281,6 +283,10 @@ Global
 		{2B891D69-99C4-42F1-AE40-A56D82C0A236}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2B891D69-99C4-42F1-AE40-A56D82C0A236}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2B891D69-99C4-42F1-AE40-A56D82C0A236}.Release|Any CPU.Build.0 = Release|Any CPU
+		{370F80B9-B8EA-4C03-A0CF-44CF0CC59875}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{370F80B9-B8EA-4C03-A0CF-44CF0CC59875}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{370F80B9-B8EA-4C03-A0CF-44CF0CC59875}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{370F80B9-B8EA-4C03-A0CF-44CF0CC59875}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -330,6 +336,7 @@ Global
 		{BB8C2CDB-0148-4154-BE92-0B4BC9C9A4F5} = {84CE5E54-82B6-4B0D-AEC5-3E22BF4FD0D2}
 		{D80C6272-84D1-40CA-8FBE-FCFF98072AE6} = {84CE5E54-82B6-4B0D-AEC5-3E22BF4FD0D2}
 		{2B891D69-99C4-42F1-AE40-A56D82C0A236} = {84CE5E54-82B6-4B0D-AEC5-3E22BF4FD0D2}
+		{370F80B9-B8EA-4C03-A0CF-44CF0CC59875} = {84CE5E54-82B6-4B0D-AEC5-3E22BF4FD0D2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E971DA80-FBCC-48DC-94AF-074536131022}
