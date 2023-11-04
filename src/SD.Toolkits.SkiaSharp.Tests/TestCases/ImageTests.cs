@@ -1,9 +1,8 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SD.Toolkits.SkiaDrawing.Enums;
 using SkiaSharp;
 using System.IO;
 
-namespace SD.Toolkits.SkiaDrawing.Tests.TestCases
+namespace SD.Toolkits.SkiaSharp.Tests.TestCases
 {
     /// <summary>
     /// 图像测试
@@ -20,7 +19,7 @@ namespace SD.Toolkits.SkiaDrawing.Tests.TestCases
         {
             using SKFileStream inputStream = new SKFileStream("Images/Earth.jpg");
             using SKBitmap bitmap = SKBitmap.Decode(inputStream);
-            using SKBitmap thumbnail = bitmap.MakeThumbnail(640, 360, ThumbnailMode.WidthAndHeight);
+            using SKBitmap thumbnail = bitmap.MakeThumbnail(640, 360);
 
             using FileStream outputStream = File.OpenWrite("Images/Earth.Thumbnail.jpg");
             thumbnail.Encode(SKEncodedImageFormat.Jpeg, 80).SaveTo(outputStream);

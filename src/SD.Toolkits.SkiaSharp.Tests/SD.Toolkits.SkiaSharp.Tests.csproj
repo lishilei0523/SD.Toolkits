@@ -31,6 +31,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SD.Toolkits.SkiaDrawing\SD.Toolkits.SkiaDrawing.csproj" />
+    <ProjectReference Include="..\SD.Toolkits.SkiaSharp\SD.Toolkits.SkiaSharp.csproj" />
   </ItemGroup>
 </Project>

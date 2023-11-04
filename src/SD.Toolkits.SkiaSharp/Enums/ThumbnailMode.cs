@@ -1,4 +1,4 @@
-﻿namespace SD.Toolkits.SkiaDrawing.Enums
+﻿namespace SD.Toolkits.SkiaSharp.Enums
 {
     /// <summary>
     /// 缩略图模式

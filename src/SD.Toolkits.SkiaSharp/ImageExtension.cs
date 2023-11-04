@@ -1,8 +1,8 @@
-﻿using SD.Toolkits.SkiaDrawing.Enums;
+﻿using SD.Toolkits.SkiaSharp.Enums;
 using SkiaSharp;
 using System;
 
-namespace SD.Toolkits.SkiaDrawing
+namespace SD.Toolkits.SkiaSharp
 {
     /// <summary>
     /// 图像扩展
@@ -16,8 +16,9 @@ namespace SD.Toolkits.SkiaDrawing
         /// <param name="bitmap">图片</param>
         /// <param name="width">缩略图宽度</param>
         /// <param name="height">缩略图高度</param>
+        /// <param name="quality">质量</param>
         /// <param name="thumbnailMode">缩略图模式</param>    
-        public static SKBitmap MakeThumbnail(this SKBitmap bitmap, int width, int height, ThumbnailMode thumbnailMode)
+        public static SKBitmap MakeThumbnail(this SKBitmap bitmap, int width, int height, SKFilterQuality quality = SKFilterQuality.Medium, ThumbnailMode thumbnailMode = ThumbnailMode.WidthAndHeight)
         {
             int targetWidth = width;
             int targetHeight = height;
@@ -35,20 +36,20 @@ namespace SD.Toolkits.SkiaDrawing
                     throw new NotSupportedException();
             }
 
-            SKImageInfo thumbnailInfo = new SKImageInfo(targetWidth, targetHeight, bitmap.ColorType);
-            SKBitmap thumbnail = bitmap.Resize(thumbnailInfo, SKFilterQuality.High);
+            SKSizeI size = new SKSizeI(targetWidth, targetHeight);
+            SKBitmap thumbnail = bitmap.Resize(size, quality);
 
             return thumbnail;
         }
         #endregion
 
-        #region # 制作文字水印 —— static SKBitmap MakeTextWatermark(this SKBitmap image...
+        #region # 制作文字水印 —— static SKBitmap MakeTextWatermark(this SKBitmap bitmap...
         /// <summary>
         /// 制作文字水印
         /// </summary>
         /// <param name="bitmap">图片</param>
         /// <param name="watermarkText">水印文字</param>
-        /// <param name="fontSize">文字</param>
+        /// <param name="fontSize">字体大小</param>
         /// <param name="fontName">字体名称</param>
         /// <param name="fontColor">字体颜色</param>
         /// <param name="location">文字位置</param>
