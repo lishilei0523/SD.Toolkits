@@ -18,11 +18,6 @@
         /// <summary>
         /// 指定高，宽按比例
         /// </summary>
-        Height = 2,
-
-        /// <summary>
-        /// 指定高宽裁减
-        /// </summary>
-        Cut = 3
+        Height = 2
     }
 }

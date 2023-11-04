@@ -101,6 +101,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Toolkits.Drawing", "src\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Toolkits.SkiaDrawing", "src\SD.Toolkits.SkiaDrawing\SD.Toolkits.SkiaDrawing.csproj", "{370F80B9-B8EA-4C03-A0CF-44CF0CC59875}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Toolkits.SkiaDrawing.Tests", "src\SD.Toolkits.SkiaDrawing.Tests\SD.Toolkits.SkiaDrawing.Tests.csproj", "{EF7A4748-E514-41B0-882B-0144BBA7E08F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -287,6 +289,10 @@ Global
 		{370F80B9-B8EA-4C03-A0CF-44CF0CC59875}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{370F80B9-B8EA-4C03-A0CF-44CF0CC59875}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{370F80B9-B8EA-4C03-A0CF-44CF0CC59875}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EF7A4748-E514-41B0-882B-0144BBA7E08F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF7A4748-E514-41B0-882B-0144BBA7E08F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF7A4748-E514-41B0-882B-0144BBA7E08F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF7A4748-E514-41B0-882B-0144BBA7E08F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -337,6 +343,7 @@ Global
 		{D80C6272-84D1-40CA-8FBE-FCFF98072AE6} = {84CE5E54-82B6-4B0D-AEC5-3E22BF4FD0D2}
 		{2B891D69-99C4-42F1-AE40-A56D82C0A236} = {84CE5E54-82B6-4B0D-AEC5-3E22BF4FD0D2}
 		{370F80B9-B8EA-4C03-A0CF-44CF0CC59875} = {84CE5E54-82B6-4B0D-AEC5-3E22BF4FD0D2}
+		{EF7A4748-E514-41B0-882B-0144BBA7E08F} = {DE420171-A672-478A-99CA-62AB53D57785}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E971DA80-FBCC-48DC-94AF-074536131022}
