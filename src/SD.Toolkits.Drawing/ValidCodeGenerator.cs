@@ -1,7 +1,5 @@
-﻿using System;
-using System.Drawing;
-using System.Drawing.Drawing2D;
-using System.Drawing.Imaging;
+﻿using SkiaSharp;
+using System;
 using System.IO;
 using System.Text;
 
@@ -98,73 +96,65 @@ namespace SD.Toolkits.Drawing
         /// <returns>验证码图片序列化后的字节数组</returns>
         public static byte[] GenerateStream(string validCode)
         {
-            Bitmap image = new Bitmap((int)Math.Ceiling(validCode.Length * 12.0), 22);
-            Graphics graphic = Graphics.FromImage(image);
-            try
-            {
-                MemoryStream stream = DrawValidCode(validCode, graphic, image);
-                byte[] buffer = stream.ToArray();
-                stream.Dispose();
-
-                return buffer;
-            }
-            finally
-            {
-                graphic.Dispose();
-                image.Dispose();
-            }
-        }
-        #endregion
-
-        #region # 绘制验证码 —— MemoryStream DrawValidCode(string validCode...
-        /// <summary>
-        /// 绘制验证码
-        /// </summary>
-        /// <param name="validCode">验证码</param>
-        /// <param name="graphic">画刷</param>
-        /// <param name="image">画布</param>
-        /// <returns>内存流</returns>
-        private static MemoryStream DrawValidCode(string validCode, Graphics graphic, Bitmap image)
-        {
-            //生成随机生成器
             Random random = new Random();
+            using SKTypeface typeface = SKTypeface.FromFamilyName("Arial", SKFontStyle.BoldItalic);
+            using SKFont font = new SKFont(typeface, 16);
+            using SKTextBlob validCodeBlob = SKTextBlob.Create(validCode, font);
 
-            //清空图片背景色
-            graphic.Clear(Color.White);
+            using SKBitmap bitmap = new SKBitmap((int)Math.Ceiling(validCodeBlob.Bounds.Width - 11), 22);
+            using SKCanvas canvas = new SKCanvas(bitmap);
+            canvas.Clear(SKColors.White);
 
-            //画图片的干扰线
-            for (int i = 0; i < 25; i++)
+            SKPoint brushStartPoint = new SKPoint(0, 0);
+            SKPoint brushEndPoint = new SKPoint(bitmap.Width, bitmap.Height);
+            SKColor[] gradientColors = { SKColors.Blue, SKColors.DarkRed };
+            using SKShader brush = SKShader.CreateLinearGradient(brushStartPoint, brushEndPoint, gradientColors, SKShaderTileMode.Clamp);
+            using SKPaint textPaint = new SKPaint
             {
-                int x1 = random.Next(image.Width);
-                int x2 = random.Next(image.Width);
-                int y1 = random.Next(image.Height);
-                int y2 = random.Next(image.Height);
+                IsAntialias = true,
+                TextAlign = SKTextAlign.Center,
+                TextSize = 16,
+                Typeface = typeface,
+                Shader = brush
+            };
+            using SKPaint silverPaint = new SKPaint
+            {
+                Color = SKColors.Silver,
+                Style = SKPaintStyle.Stroke
+            };
 
-                Pen pen = new Pen(Color.Silver);
-                graphic.DrawLine(pen, x1, y1, x2, y2);
+            //画验证码
+            canvas.DrawText(validCodeBlob, 5, 17, textPaint);
+
+            //画干扰线
+            for (int index = 0; index < 15; index++)
+            {
+                int x0 = random.Next(bitmap.Width);
+                int y0 = random.Next(bitmap.Height);
+                int x1 = random.Next(bitmap.Width);
+                int y1 = random.Next(bitmap.Height);
+                canvas.DrawLine(x0, y0, x1, y1, silverPaint);
             }
 
-            Font font = new Font("Arial", 12, (FontStyle.Bold | FontStyle.Italic));
-            Rectangle rectangle = new Rectangle(0, 0, image.Width, image.Height);
-            LinearGradientBrush brush = new LinearGradientBrush(rectangle, Color.Blue, Color.DarkRed, 1.2f, true);
-            graphic.DrawString(validCode, font, brush, 3, 2);
-
-            //画图片的前景干扰点
-            for (int i = 0; i < 100; i++)
+            //画干扰点
+            for (int index = 0; index < 100; index++)
             {
-                int x = random.Next(image.Width);
-                int y = random.Next(image.Height);
-                image.SetPixel(x, y, Color.FromArgb(random.Next()));
+                int x = random.Next(bitmap.Width);
+                int y = random.Next(bitmap.Height);
+                SKColor pointColor = new SKColor((uint)random.Next());
+                canvas.DrawPoint(x, y, pointColor);
             }
 
-            //画图片的边框线
-            graphic.DrawRectangle(new Pen(Color.Silver), 0, 0, image.Width - 1, image.Height - 1);
+            //画边框线
+            canvas.DrawRect(0, 0, bitmap.Width - 1, bitmap.Height - 1, silverPaint);
 
-            //保存图片数据
-            MemoryStream stream = new MemoryStream();
-            image.Save(stream, ImageFormat.Jpeg);
+            //转换图片字节
+            using MemoryStream outputStream = new MemoryStream();
+            using SKData skData = bitmap.Encode(SKEncodedImageFormat.Jpeg, 80);
+            skData.SaveTo(outputStream);
+            byte[] imageBytes = outputStream.ToArray();
 
-            return stream;
+            return imageBytes;
         }
         #endregion
     }

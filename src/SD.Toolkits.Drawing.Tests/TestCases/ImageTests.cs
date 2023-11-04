@@ -2,7 +2,7 @@
 using SkiaSharp;
 using System.IO;
 
-namespace SD.Toolkits.SkiaSharp.Tests.TestCases
+namespace SD.Toolkits.Drawing.Tests.TestCases
 {
     /// <summary>
     /// 图像测试

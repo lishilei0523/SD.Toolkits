@@ -2,7 +2,7 @@
 using System;
 using System.IO;
 
-namespace SD.Toolkits.SkiaSharp.Tests.TestCases
+namespace SD.Toolkits.Drawing.Tests.TestCases
 {
     /// <summary>
     /// 验证码测试
