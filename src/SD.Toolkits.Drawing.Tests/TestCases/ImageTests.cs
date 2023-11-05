@@ -33,9 +33,27 @@ namespace SD.Toolkits.Drawing.Tests.TestCases
         [TestMethod]
         public void TestTextWatermark()
         {
-            using SKFileStream inputStream = new SKFileStream("Images/China.jpg");
+            using SKFileStream inputStream = new SKFileStream("Images/World.jpg");
             using SKBitmap bitmap = SKBitmap.Decode(inputStream);
-            using SKBitmap watermarkBitmap = bitmap.MakeTextWatermark("Hello World!", SKColors.Red);
+            using SKBitmap watermarkBitmap = bitmap.MakeTextWatermark("Hello World!", SKColors.Red.WithAlpha(128));
+
+            using FileStream outputStream = File.OpenWrite("Images/World.Watermark.jpg");
+            watermarkBitmap.Encode(SKEncodedImageFormat.Jpeg, 80).SaveTo(outputStream);
+        }
+        #endregion
+
+        #region # 测试图像水印 —— void TestImageWatermark()
+        /// <summary>
+        /// 测试图像水印
+        /// </summary>
+        [TestMethod]
+        public void TestImageWatermark()
+        {
+            using SKFileStream watermarkStream = new SKFileStream("Images/Avatar.jpg");
+            using SKFileStream bitmapStream = new SKFileStream("Images/China.jpg");
+            using SKBitmap watermark = SKBitmap.Decode(watermarkStream);
+            using SKBitmap bitmap = SKBitmap.Decode(bitmapStream);
+            using SKBitmap watermarkBitmap = bitmap.MakeImageWatermark(watermark, 100, 100);
 
             using FileStream outputStream = File.OpenWrite("Images/China.Watermark.jpg");
             watermarkBitmap.Encode(SKEncodedImageFormat.Jpeg, 80).SaveTo(outputStream);
