@@ -10,9 +10,25 @@ namespace SD.Toolkits.Drawing.Tests.TestCases
     [TestClass]
     public class ImageTests
     {
-        #region # 测试缩略图 —— void TestThumbnail()
+        #region # 测试调整质量 —— void TestTuneQuality()
         /// <summary>
-        /// 测试缩略图
+        /// 测试调整质量
+        /// </summary>
+        [TestMethod]
+        public void TestTuneQuality()
+        {
+            using SKFileStream inputStream = new SKFileStream("Images/Earth.jpg");
+            using SKBitmap bitmap = SKBitmap.Decode(inputStream);
+            using SKBitmap tunedBitmap = bitmap.TuneQuality(30);
+
+            using FileStream outputStream = File.OpenWrite("Images/Earth.Tuned.jpg");
+            tunedBitmap.Encode(SKEncodedImageFormat.Jpeg, 80).SaveTo(outputStream);
+        }
+        #endregion
+
+        #region # 测试制作缩略图 —— void TestThumbnail()
+        /// <summary>
+        /// 测试制作缩略图
         /// </summary>
         [TestMethod]
         public void TestThumbnail()
@@ -26,9 +42,9 @@ namespace SD.Toolkits.Drawing.Tests.TestCases
         }
         #endregion
 
-        #region # 测试文字水印 —— void TestTextWatermark()
+        #region # 测试制作文字水印 —— void TestTextWatermark()
         /// <summary>
-        /// 测试文字水印
+        /// 测试制作文字水印
         /// </summary>
         [TestMethod]
         public void TestTextWatermark()
@@ -42,9 +58,9 @@ namespace SD.Toolkits.Drawing.Tests.TestCases
         }
         #endregion
 
-        #region # 测试图像水印 —— void TestImageWatermark()
+        #region # 测试制作图像水印 —— void TestImageWatermark()
         /// <summary>
-        /// 测试图像水印
+        /// 测试制作图像水印
         /// </summary>
         [TestMethod]
         public void TestImageWatermark()

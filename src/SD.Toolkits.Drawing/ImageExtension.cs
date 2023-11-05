@@ -11,6 +11,22 @@ namespace SD.Toolkits.Drawing
     /// </summary>
     public static class ImageExtension
     {
+        #region # 调整质量 —— static SKBitmap TuneQuality(this SKBitmap bitmap...
+        /// <summary>
+        /// 调整质量
+        /// </summary>
+        /// <param name="bitmap">图像</param>
+        /// <param name="quality">质量，0~100，0最差，100最佳</param>
+        /// <remarks>不改变图像尺寸</remarks>
+        public static SKBitmap TuneQuality(this SKBitmap bitmap, byte quality)
+        {
+            using SKData imageData = bitmap.Encode(SKEncodedImageFormat.Jpeg, quality);
+            SKBitmap tunedBitmap = SKBitmap.Decode(imageData);
+
+            return tunedBitmap;
+        }
+        #endregion
+
         #region # 制作缩略图 —— static SKBitmap MakeThumbnail(this SKBitmap bitmap...
         /// <summary>
         /// 制作缩略图
@@ -59,12 +75,12 @@ namespace SD.Toolkits.Drawing
         /// 制作文字水印
         /// </summary>
         /// <param name="bitmap">图像</param>
-        /// <param name="watermarkText">水印文字</param>
+        /// <param name="watermark">水印文字</param>
         /// <param name="fontSize">字体大小</param>
         /// <param name="fontName">字体名称</param>
         /// <param name="fontColor">字体颜色</param>
         /// <param name="location">水印位置</param>
-        public static SKBitmap MakeTextWatermark(this SKBitmap bitmap, string watermarkText, SKColor fontColor, float fontSize = 60F, string fontName = "微软雅黑", SKPoint? location = null)
+        public static SKBitmap MakeTextWatermark(this SKBitmap bitmap, string watermark, SKColor fontColor, float fontSize = 60F, string fontName = "微软雅黑", SKPoint? location = null)
         {
             #region # 验证
 
@@ -80,7 +96,7 @@ namespace SD.Toolkits.Drawing
 
             using SKTypeface typeface = SKTypeface.FromFamilyName(fontName);
             using SKFont font = new SKFont(typeface, fontSize);
-            using SKTextBlob textBlob = SKTextBlob.Create(watermarkText, font);
+            using SKTextBlob textBlob = SKTextBlob.Create(watermark, font);
             float x;
             float y;
             if (location.HasValue)
