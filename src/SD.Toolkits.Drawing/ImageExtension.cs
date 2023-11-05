@@ -1,6 +1,8 @@
 ﻿using SD.Toolkits.Drawing.Enums;
 using SkiaSharp;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace SD.Toolkits.Drawing
 {
@@ -13,7 +15,7 @@ namespace SD.Toolkits.Drawing
         /// <summary>
         /// 制作缩略图
         /// </summary>
-        /// <param name="bitmap">图片</param>
+        /// <param name="bitmap">图像</param>
         /// <param name="width">缩略图宽度</param>
         /// <param name="height">缩略图高度</param>
         /// <param name="quality">质量</param>
@@ -47,7 +49,7 @@ namespace SD.Toolkits.Drawing
         /// <summary>
         /// 制作文字水印
         /// </summary>
-        /// <param name="bitmap">图片</param>
+        /// <param name="bitmap">图像</param>
         /// <param name="watermarkText">水印文字</param>
         /// <param name="fontSize">字体大小</param>
         /// <param name="fontName">字体名称</param>
@@ -86,6 +88,102 @@ namespace SD.Toolkits.Drawing
             canvas.DrawText(textBlob, x, y, paint);
 
             return copyBitmap;
+        }
+        #endregion
+
+        #region # 横向拼接图像 —— static SKBitmap MergeBitmapsHorizontally(this IEnumerable<SKBitmap>...
+        /// <summary>
+        /// 横向拼接图像
+        /// </summary>
+        /// <param name="bitmaps">图像集</param>
+        /// <returns>拼接图像</returns>
+        public static SKBitmap MergeBitmapsHorizontally(this IEnumerable<SKBitmap> bitmaps)
+        {
+            #region # 验证
+
+            bitmaps = bitmaps?.ToArray() ?? Array.Empty<SKBitmap>();
+            if (!bitmaps.Any())
+            {
+                throw new ArgumentNullException(nameof(bitmaps), "要合并的图像集不可为空！");
+            }
+            if (bitmaps.Count() == 1)
+            {
+                return bitmaps.Single();
+            }
+
+            #endregion
+
+            int width = 0;
+            int height = 0;
+            foreach (SKBitmap bitmap in bitmaps)
+            {
+                width += bitmap.Width;
+                if (height < bitmap.Height)
+                {
+                    height = bitmap.Height;
+                }
+            }
+
+            SKBitmap mergedBitmap = new SKBitmap(width, height);
+            using SKCanvas canvas = new SKCanvas(mergedBitmap);
+            canvas.Clear(SKColors.White);
+            int startX = 0;
+            foreach (SKBitmap bitmap in bitmaps)
+            {
+                int startY = (height - bitmap.Height) / 2;
+                canvas.DrawBitmap(bitmap, startX, startY);
+                startX += bitmap.Width;
+            }
+
+            return mergedBitmap;
+        }
+        #endregion
+
+        #region # 纵向拼接图像 —— static SKBitmap MergeBitmapsVertically(this IEnumerable<SKBitmap>...
+        /// <summary>
+        /// 纵向拼接图像
+        /// </summary>
+        /// <param name="bitmaps">图像集</param>
+        /// <returns>拼接图像</returns>
+        public static SKBitmap MergeBitmapsVertically(this IEnumerable<SKBitmap> bitmaps)
+        {
+            #region # 验证
+
+            bitmaps = bitmaps?.ToArray() ?? Array.Empty<SKBitmap>();
+            if (!bitmaps.Any())
+            {
+                throw new ArgumentNullException(nameof(bitmaps), "要合并的图像集不可为空！");
+            }
+            if (bitmaps.Count() == 1)
+            {
+                return bitmaps.Single();
+            }
+
+            #endregion
+
+            int width = 0;
+            int height = 0;
+            foreach (SKBitmap bitmap in bitmaps)
+            {
+                height += bitmap.Height;
+                if (width < bitmap.Width)
+                {
+                    width = bitmap.Width;
+                }
+            }
+
+            SKBitmap mergedBitmap = new SKBitmap(width, height);
+            using SKCanvas canvas = new SKCanvas(mergedBitmap);
+            canvas.Clear(SKColors.White);
+            int startY = 0;
+            foreach (SKBitmap bitmap in bitmaps)
+            {
+                int startX = (width - bitmap.Width) / 2;
+                canvas.DrawBitmap(bitmap, startX, startY);
+                startY += bitmap.Height;
+            }
+
+            return mergedBitmap;
         }
         #endregion
     }

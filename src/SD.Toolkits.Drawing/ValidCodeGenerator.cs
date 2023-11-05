@@ -10,37 +10,26 @@ namespace SD.Toolkits.Drawing
     /// </summary>
     public static class ValidCodeGenerator
     {
-        #region # 常量
-
+        #region # 生成验证码文本 —— static string GenerateCode(int length)
         /// <summary>
-        /// 验证码的最大长度
+        /// 生成验证码文本
         /// </summary>
-        private const int MaxLength = 10;
-
-        /// <summary>
-        /// 验证码的最小长度
-        /// </summary>
-        private const int MinLength = 1;
-
-        #endregion
-
-        #region # 生成验证码字符串 —— string GenerateCode(int length)
-        /// <summary>
-        /// 生成验证码字符串
-        /// </summary>
-        /// <param name="length">字符串长度</param>
-        /// <returns>验证码字符串</returns>
+        /// <param name="length">文本长度</param>
+        /// <returns>验证码文本</returns>
+        /// <remarks>最小长度1，最大长度10</remarks>
         public static string GenerateCode(int length)
         {
             #region # 验证
 
-            if (length > MaxLength)
+            const int minLength = 1;
+            const int maxLength = 10;
+            if (length > maxLength)
             {
-                length = MaxLength;
+                length = maxLength;
             }
-            if (length < MinLength)
+            if (length < minLength)
             {
-                length = MinLength;
+                length = minLength;
             }
 
             #endregion
@@ -88,12 +77,12 @@ namespace SD.Toolkits.Drawing
         }
         #endregion
 
-        #region # 生成验证码图片 —— static byte[] GenerateStream(string validCode)
+        #region # 生成验证码图像 —— static byte[] GenerateStream(string validCode)
         /// <summary>
-        /// 生成验证码图片
+        /// 生成验证码图像
         /// </summary>
-        /// <param name="validCode">验证码字符串</param>
-        /// <returns>验证码图片序列化后的字节数组</returns>
+        /// <param name="validCode">验证码文本</param>
+        /// <returns>验证码图像</returns>
         public static byte[] GenerateStream(string validCode)
         {
             Random random = new Random();
