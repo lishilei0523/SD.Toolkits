@@ -27,6 +27,25 @@ namespace SD.Toolkits.Drawing
         }
         #endregion
 
+        #region # 剪裁图像 —— static SKBitmap ClipBitmap(this SKBitmap bitmap...
+        /// <summary>
+        /// 剪裁图像
+        /// </summary>
+        /// <param name="bitmap">图像</param>
+        /// <param name="rectangle">剪裁区域</param>
+        /// <returns>剪裁后图像</returns>
+        public static SKBitmap ClipBitmap(this SKBitmap bitmap, SKRectI rectangle)
+        {
+            SKImageInfo clippedImageInfo = new SKImageInfo(rectangle.Width, rectangle.Height);
+            SKBitmap clippedBitmap = new SKBitmap(clippedImageInfo);
+            using SKCanvas canvas = new SKCanvas(clippedBitmap);
+            canvas.Clear(SKColors.White);
+            canvas.DrawBitmap(bitmap, rectangle, SKRect.Create(0, 0, rectangle.Width, rectangle.Height));
+
+            return clippedBitmap;
+        }
+        #endregion
+
         #region # 制作缩略图 —— static SKBitmap MakeThumbnail(this SKBitmap bitmap...
         /// <summary>
         /// 制作缩略图
@@ -35,7 +54,8 @@ namespace SD.Toolkits.Drawing
         /// <param name="width">缩略图宽度</param>
         /// <param name="height">缩略图高度</param>
         /// <param name="quality">质量</param>
-        /// <param name="thumbnailMode">缩略图模式</param>    
+        /// <param name="thumbnailMode">缩略图模式</param>
+        /// <returns>缩略图</returns>
         public static SKBitmap MakeThumbnail(this SKBitmap bitmap, int width, int height, SKFilterQuality quality = SKFilterQuality.Medium, ThumbnailMode thumbnailMode = ThumbnailMode.WidthAndHeight)
         {
             #region # 验证
@@ -80,6 +100,7 @@ namespace SD.Toolkits.Drawing
         /// <param name="fontName">字体名称</param>
         /// <param name="fontColor">字体颜色</param>
         /// <param name="location">水印位置</param>
+        /// <returns>水印图像</returns>
         public static SKBitmap MakeTextWatermark(this SKBitmap bitmap, string watermark, SKColor fontColor, float fontSize = 60F, string fontName = "微软雅黑", SKPoint? location = null)
         {
             #region # 验证
@@ -135,6 +156,7 @@ namespace SD.Toolkits.Drawing
         /// <param name="watermarkHeight">水印高度</param>
         /// <param name="watermarkQuality">水印质量</param>
         /// <param name="location">水印位置</param>
+        /// <returns>水印图像</returns>
         public static SKBitmap MakeImageWatermark(this SKBitmap bitmap, SKBitmap watermark, int watermarkWidth, int watermarkHeight, SKFilterQuality watermarkQuality = SKFilterQuality.Medium, SKPoint? location = null)
         {
             #region # 验证

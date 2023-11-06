@@ -26,6 +26,22 @@ namespace SD.Toolkits.Drawing.Tests.TestCases
         }
         #endregion
 
+        #region # 测试剪裁图像 —— void TestClipBitmap()
+        /// <summary>
+        /// 测试剪裁图像
+        /// </summary>
+        [TestMethod]
+        public void TestClipBitmap()
+        {
+            using SKFileStream inputStream = new SKFileStream("Images/Earth.jpg");
+            using SKBitmap bitmap = SKBitmap.Decode(inputStream);
+            using SKBitmap clippedBitmap = bitmap.ClipBitmap(SKRectI.Create(0, 540, 1920, 540));
+
+            using FileStream outputStream = File.OpenWrite("Images/Earth.Clipping.jpg");
+            clippedBitmap.Encode(SKEncodedImageFormat.Jpeg, 80).SaveTo(outputStream);
+        }
+        #endregion
+
         #region # 测试制作缩略图 —— void TestThumbnail()
         /// <summary>
         /// 测试制作缩略图
