@@ -46,6 +46,42 @@ namespace SD.Toolkits.Drawing
         }
         #endregion
 
+        #region # 剪裁图像 —— static SKBitmap[] ClipBitmaps(this SKBitmap bitmap...
+        /// <summary>
+        /// 剪裁图像
+        /// </summary>
+        /// <param name="bitmap">图像</param>
+        /// <param name="rectangles">剪裁区域集</param>
+        /// <returns>剪裁后图像列表</returns>
+        public static SKBitmap[] ClipBitmaps(this SKBitmap bitmap, IEnumerable<SKRectI> rectangles)
+        {
+            #region # 验证
+
+            SKRectI[] rectangles_ = rectangles?.ToArray() ?? Array.Empty<SKRectI>();
+            if (!rectangles_.Any())
+            {
+                return Array.Empty<SKBitmap>();
+            }
+
+            #endregion
+
+            SKBitmap[] clippedBitmaps = new SKBitmap[rectangles_.Length];
+            for (int index = 0; index < rectangles_.Length; index++)
+            {
+                SKRectI rectangle = rectangles_[index];
+                SKImageInfo clippedImageInfo = new SKImageInfo(rectangle.Width, rectangle.Height);
+                SKBitmap clippedBitmap = new SKBitmap(clippedImageInfo);
+                using SKCanvas canvas = new SKCanvas(clippedBitmap);
+                canvas.Clear(SKColors.White);
+                canvas.DrawBitmap(bitmap, rectangle, SKRect.Create(0, 0, rectangle.Width, rectangle.Height));
+
+                clippedBitmaps[index] = clippedBitmap;
+            }
+
+            return clippedBitmaps;
+        }
+        #endregion
+
         #region # 制作缩略图 —— static SKBitmap MakeThumbnail(this SKBitmap bitmap...
         /// <summary>
         /// 制作缩略图

@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SkiaSharp;
+using System;
 using System.IO;
 
 namespace SD.Toolkits.Drawing.Tests.TestCases
@@ -39,6 +40,30 @@ namespace SD.Toolkits.Drawing.Tests.TestCases
 
             using FileStream outputStream = File.OpenWrite("Images/Earth.Clipping.jpg");
             clippedBitmap.Encode(SKEncodedImageFormat.Jpeg, 80).SaveTo(outputStream);
+        }
+        #endregion
+
+        #region # 测试剪裁图像 —— void TestClipBitmaps()
+        /// <summary>
+        /// 测试剪裁图像
+        /// </summary>
+        [TestMethod]
+        public void TestClipBitmaps()
+        {
+            using SKFileStream inputStream = new SKFileStream("Images/Earth.jpg");
+            using SKBitmap bitmap = SKBitmap.Decode(inputStream);
+
+            SKRectI rectangle1 = SKRectI.Create(0, 0, 960, 540);
+            SKRectI rectangle2 = SKRectI.Create(0, 540, 960, 540);
+            SKRectI rectangle3 = SKRectI.Create(960, 0, 960, 540);
+            SKRectI rectangle4 = SKRectI.Create(960, 540, 960, 540);
+            SKBitmap[] clippedBitmaps = bitmap.ClipBitmaps(new[] { rectangle1, rectangle2, rectangle3, rectangle4 });
+            foreach (SKBitmap clippedBitmap in clippedBitmaps)
+            {
+                int index = Array.IndexOf(clippedBitmaps, clippedBitmap);
+                using FileStream outputStream = File.OpenWrite($"Images/Earth.Clipping{index}.jpg"); clippedBitmap.Encode(SKEncodedImageFormat.Jpeg, 80).SaveTo(outputStream);
+                clippedBitmap.Dispose();
+            }
         }
         #endregion
 
