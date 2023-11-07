@@ -67,6 +67,38 @@ namespace SD.Toolkits.Drawing.Tests.TestCases
         }
         #endregion
 
+        #region # 测试旋转图像 —— void TestRotateBitmap()
+        /// <summary>
+        /// 测试旋转图像
+        /// </summary>
+        [TestMethod]
+        public void TestRotateBitmap()
+        {
+            using SKFileStream inputStream = new SKFileStream("Images/Earth.jpg");
+            using SKBitmap bitmap = SKBitmap.Decode(inputStream);
+            using SKBitmap rotatedBitmap = bitmap.RotateBitmap(60);
+
+            using FileStream outputStream = File.OpenWrite("Images/Earth.Rotated.jpg");
+            rotatedBitmap.Encode(SKEncodedImageFormat.Jpeg, 80).SaveTo(outputStream);
+        }
+        #endregion
+
+        #region # 测试翻转图像 —— void TestMirrorBitmap()
+        /// <summary>
+        /// 测试翻转图像
+        /// </summary>
+        [TestMethod]
+        public void TestMirrorBitmap()
+        {
+            using SKFileStream inputStream = new SKFileStream("Images/Earth.jpg");
+            using SKBitmap bitmap = SKBitmap.Decode(inputStream);
+            using SKBitmap mirroredBitmap = bitmap.MirrorBitmap();
+
+            using FileStream outputStream = File.OpenWrite("Images/Earth.Mirrored.jpg");
+            mirroredBitmap.Encode(SKEncodedImageFormat.Jpeg, 80).SaveTo(outputStream);
+        }
+        #endregion
+
         #region # 测试制作缩略图 —— void TestThumbnail()
         /// <summary>
         /// 测试制作缩略图

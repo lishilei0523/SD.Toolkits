@@ -20,6 +20,15 @@ namespace SD.Toolkits.Drawing
         /// <remarks>不改变图像尺寸</remarks>
         public static SKBitmap TuneQuality(this SKBitmap bitmap, byte quality)
         {
+            #region # 验证
+
+            if (bitmap == null)
+            {
+                throw new ArgumentNullException(nameof(bitmap), "图像不可为空！");
+            }
+
+            #endregion
+
             using SKData imageData = bitmap.Encode(SKEncodedImageFormat.Jpeg, quality);
             SKBitmap tunedBitmap = SKBitmap.Decode(imageData);
 
@@ -36,8 +45,16 @@ namespace SD.Toolkits.Drawing
         /// <returns>剪裁后图像</returns>
         public static SKBitmap ClipBitmap(this SKBitmap bitmap, SKRectI rectangle)
         {
-            SKImageInfo clippedImageInfo = new SKImageInfo(rectangle.Width, rectangle.Height);
-            SKBitmap clippedBitmap = new SKBitmap(clippedImageInfo);
+            #region # 验证
+
+            if (bitmap == null)
+            {
+                throw new ArgumentNullException(nameof(bitmap), "图像不可为空！");
+            }
+
+            #endregion
+
+            SKBitmap clippedBitmap = new SKBitmap(rectangle.Width, rectangle.Height);
             using SKCanvas canvas = new SKCanvas(clippedBitmap);
             canvas.Clear(SKColors.White);
             canvas.DrawBitmap(bitmap, rectangle, SKRect.Create(0, 0, rectangle.Width, rectangle.Height));
@@ -69,8 +86,7 @@ namespace SD.Toolkits.Drawing
             for (int index = 0; index < rectangles_.Length; index++)
             {
                 SKRectI rectangle = rectangles_[index];
-                SKImageInfo clippedImageInfo = new SKImageInfo(rectangle.Width, rectangle.Height);
-                SKBitmap clippedBitmap = new SKBitmap(clippedImageInfo);
+                SKBitmap clippedBitmap = new SKBitmap(rectangle.Width, rectangle.Height);
                 using SKCanvas canvas = new SKCanvas(clippedBitmap);
                 canvas.Clear(SKColors.White);
                 canvas.DrawBitmap(bitmap, rectangle, SKRect.Create(0, 0, rectangle.Width, rectangle.Height));
@@ -79,6 +95,77 @@ namespace SD.Toolkits.Drawing
             }
 
             return clippedBitmaps;
+        }
+        #endregion
+
+        #region # 旋转图像 —— static SKBitmap RotateBitmap(this SKBitmap bitmap...
+        /// <summary>
+        /// 旋转图像
+        /// </summary>
+        /// <param name="bitmap">图像</param>
+        /// <param name="degrees">旋转角度</param>
+        /// <returns>旋转后图像</returns>
+        /// <remarks>角度最大值：360</remarks>
+        public static SKBitmap RotateBitmap(this SKBitmap bitmap, float degrees)
+        {
+            #region # 验证
+
+            if (bitmap == null)
+            {
+                throw new ArgumentNullException(nameof(bitmap), "图像不可为空！");
+            }
+            if (degrees > 360)
+            {
+                degrees = 360;
+            }
+
+            #endregion
+
+            double radians = Math.PI * degrees / 180;
+            float sin = (float)Math.Abs(Math.Sin(radians));
+            float cos = (float)Math.Abs(Math.Cos(radians));
+            int width = bitmap.Width;
+            int height = bitmap.Height;
+            int rotatedWidth = (int)(cos * width + sin * height);
+            int rotatedHeight = (int)(cos * height + sin * width);
+
+            SKBitmap rotatedBitmap = new SKBitmap(rotatedWidth, rotatedHeight);
+            using SKCanvas canvas = new SKCanvas(rotatedBitmap);
+            canvas.Clear(SKColors.White);
+
+            canvas.Translate(rotatedWidth / 2.0F, rotatedHeight / 2.0F);
+            canvas.RotateDegrees(degrees);
+            canvas.Translate(width / -2.0F, height / -2.0F);
+            canvas.DrawBitmap(bitmap, 0, 0);
+
+            return rotatedBitmap;
+        }
+        #endregion
+
+        #region # 翻转图像 —— static SKBitmap MirrorBitmap(this SKBitmap bitmap...
+        /// <summary>
+        /// 翻转图像
+        /// </summary>
+        /// <param name="bitmap">图像</param>
+        /// <returns>翻转后图像</returns>
+        public static SKBitmap MirrorBitmap(this SKBitmap bitmap)
+        {
+            #region # 验证
+
+            if (bitmap == null)
+            {
+                throw new ArgumentNullException(nameof(bitmap), "图像不可为空！");
+            }
+
+            #endregion
+
+            SKBitmap mirroredBitmap = bitmap.Copy();
+            using SKCanvas canvas = new SKCanvas(mirroredBitmap);
+
+            canvas.Scale(-1, 1, bitmap.Width / 2.0F, 0);
+            canvas.DrawBitmap(bitmap, 0, 0);
+
+            return mirroredBitmap;
         }
         #endregion
 
