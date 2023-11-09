@@ -121,13 +121,13 @@ namespace SD.Toolkits.Drawing
 
             #endregion
 
+            int originalWidth = bitmap.Width;
+            int originalHeight = bitmap.Height;
             double radians = Math.PI * degrees / 180;
-            float sin = (float)Math.Abs(Math.Sin(radians));
-            float cos = (float)Math.Abs(Math.Cos(radians));
-            int width = bitmap.Width;
-            int height = bitmap.Height;
-            int rotatedWidth = (int)(cos * width + sin * height);
-            int rotatedHeight = (int)(cos * height + sin * width);
+            double sin = Math.Abs(Math.Sin(radians));
+            double cos = Math.Abs(Math.Cos(radians));
+            int rotatedWidth = (int)Math.Ceiling(cos * originalWidth + sin * originalHeight);
+            int rotatedHeight = (int)Math.Ceiling(sin * originalWidth + cos * originalHeight);
 
             SKBitmap rotatedBitmap = new SKBitmap(rotatedWidth, rotatedHeight);
             using SKCanvas canvas = new SKCanvas(rotatedBitmap);
@@ -135,7 +135,7 @@ namespace SD.Toolkits.Drawing
 
             canvas.Translate(rotatedWidth / 2.0F, rotatedHeight / 2.0F);
             canvas.RotateDegrees(degrees);
-            canvas.Translate(width / -2.0F, height / -2.0F);
+            canvas.Translate(originalWidth / -2.0F, originalHeight / -2.0F);
             canvas.DrawBitmap(bitmap, 0, 0);
 
             return rotatedBitmap;
@@ -190,23 +190,23 @@ namespace SD.Toolkits.Drawing
 
             #endregion
 
-            int targetWidth = width;
-            int targetHeight = height;
+            int scaledWidth = width;
+            int scaledHeight = height;
             switch (thumbnailMode)
             {
                 case ThumbnailMode.WidthAndHeight:
                     break;
                 case ThumbnailMode.Width:
-                    targetHeight = bitmap.Height * width / bitmap.Width;
+                    scaledHeight = bitmap.Height * width / bitmap.Width;
                     break;
                 case ThumbnailMode.Height:
-                    targetWidth = bitmap.Width * height / bitmap.Height;
+                    scaledWidth = bitmap.Width * height / bitmap.Height;
                     break;
                 default:
                     throw new NotSupportedException();
             }
 
-            SKSizeI size = new SKSizeI(targetWidth, targetHeight);
+            SKSizeI size = new SKSizeI(scaledWidth, scaledHeight);
             SKBitmap thumbnail = bitmap.Resize(size, quality);
 
             return thumbnail;
