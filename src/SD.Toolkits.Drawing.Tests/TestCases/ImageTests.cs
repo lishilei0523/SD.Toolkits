@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SkiaSharp;
 using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace SD.Toolkits.Drawing.Tests.TestCases
@@ -43,12 +44,12 @@ namespace SD.Toolkits.Drawing.Tests.TestCases
         }
         #endregion
 
-        #region # 测试剪裁图像 —— void TestClipBitmaps()
+        #region # 测试剪裁图像 —— void TestClipBitmapsIndex()
         /// <summary>
         /// 测试剪裁图像
         /// </summary>
         [TestMethod]
-        public void TestClipBitmaps()
+        public void TestClipBitmapsIndex()
         {
             using SKFileStream inputStream = new SKFileStream("Images/Earth.jpg");
             using SKBitmap bitmap = SKBitmap.Decode(inputStream);
@@ -63,6 +64,38 @@ namespace SD.Toolkits.Drawing.Tests.TestCases
                 int index = Array.IndexOf(clippedBitmaps, clippedBitmap);
                 using FileStream outputStream = File.OpenWrite($"Images/Earth.Clipping{index}.jpg"); clippedBitmap.Encode(SKEncodedImageFormat.Jpeg, 80).SaveTo(outputStream);
                 clippedBitmap.Dispose();
+            }
+        }
+        #endregion
+
+        #region # 测试剪裁图像 —— void TestClipBitmapsKey()
+        /// <summary>
+        /// 测试剪裁图像
+        /// </summary>
+        [TestMethod]
+        public void TestClipBitmapsKey()
+        {
+            using SKFileStream inputStream = new SKFileStream("Images/Earth.jpg");
+            using SKBitmap bitmap = SKBitmap.Decode(inputStream);
+
+            SKRectI rectangle1 = SKRectI.Create(0, 0, 960, 540);
+            SKRectI rectangle2 = SKRectI.Create(0, 540, 960, 540);
+            SKRectI rectangle3 = SKRectI.Create(960, 0, 960, 540);
+            SKRectI rectangle4 = SKRectI.Create(960, 540, 960, 540);
+            IDictionary<string, SKRectI> rectangles = new Dictionary<string, SKRectI>
+            {
+                { "01-001", rectangle1 },
+                { "01-002", rectangle2 },
+                { "01-003", rectangle3 },
+                { "01-004", rectangle4 }
+            };
+
+            IDictionary<string, SKBitmap> clippedBitmaps = bitmap.ClipBitmaps(rectangles);
+            foreach (KeyValuePair<string, SKBitmap> kv in clippedBitmaps)
+            {
+                string key = kv.Key;
+                using SKBitmap clippedBitmap = kv.Value;
+                using FileStream outputStream = File.OpenWrite($"Images/Earth.Clipping-{key}.jpg"); clippedBitmap.Encode(SKEncodedImageFormat.Jpeg, 80).SaveTo(outputStream);
             }
         }
         #endregion

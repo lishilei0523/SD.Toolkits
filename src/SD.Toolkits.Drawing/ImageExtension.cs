@@ -79,6 +79,10 @@ namespace SD.Toolkits.Drawing
             {
                 return Array.Empty<SKBitmap>();
             }
+            if (bitmap == null)
+            {
+                throw new ArgumentNullException(nameof(bitmap), "图像不可为空！");
+            }
 
             #endregion
 
@@ -92,6 +96,48 @@ namespace SD.Toolkits.Drawing
                 canvas.DrawBitmap(bitmap, rectangle, SKRect.Create(0, 0, rectangle.Width, rectangle.Height));
 
                 clippedBitmaps[index] = clippedBitmap;
+            }
+
+            return clippedBitmaps;
+        }
+        #endregion
+
+        #region # 剪裁图像 —— static {TKey, SKBitmap} ClipBitmaps<TKey>(this SKBitmap bitmap...
+        /// <summary>
+        /// 剪裁图像
+        /// </summary>
+        /// <typeparam name="TKey">剪裁区域键类型</typeparam>
+        /// <param name="bitmap">图像</param>
+        /// <param name="rectangles">剪裁区域集</param>
+        /// <returns>剪裁后图像字典</returns>
+        public static IDictionary<TKey, SKBitmap> ClipBitmaps<TKey>(this SKBitmap bitmap, IDictionary<TKey, SKRectI> rectangles)
+        {
+            #region # 验证
+
+            rectangles = rectangles ?? new Dictionary<TKey, SKRectI>();
+            if (!rectangles.Any())
+            {
+                return new Dictionary<TKey, SKBitmap>();
+            }
+            if (bitmap == null)
+            {
+                throw new ArgumentNullException(nameof(bitmap), "图像不可为空！");
+            }
+
+            #endregion
+
+            IDictionary<TKey, SKBitmap> clippedBitmaps = new Dictionary<TKey, SKBitmap>();
+            foreach (KeyValuePair<TKey, SKRectI> kv in rectangles)
+            {
+                TKey key = kv.Key;
+                SKRectI rectangle = kv.Value;
+
+                SKBitmap clippedBitmap = new SKBitmap(rectangle.Width, rectangle.Height);
+                using SKCanvas canvas = new SKCanvas(clippedBitmap);
+                canvas.Clear(SKColors.White);
+                canvas.DrawBitmap(bitmap, rectangle, SKRect.Create(0, 0, rectangle.Width, rectangle.Height));
+
+                clippedBitmaps.Add(key, clippedBitmap);
             }
 
             return clippedBitmaps;
