@@ -37,7 +37,7 @@ namespace SD.Common
             memoryMappedFileSecurity.AddAccessRule(accessRule);
             memoryMappedFile.SetAccessControl(memoryMappedFileSecurity);
 #endif
-            using (MemoryMappedViewAccessor accessor = memoryMappedFile.CreateViewAccessor(0, int.MaxValue))
+            using (MemoryMappedViewAccessor accessor = memoryMappedFile.CreateViewAccessor(0, bytes.Length))
             {
                 accessor.WriteArray(0, bytes, 0, bytes.Length);
             }
@@ -65,7 +65,7 @@ namespace SD.Common
 
             byte[] bytes = new byte[length];
             memoryMappedFile = MemoryMappedFile.OpenExisting(key, MemoryMappedFileRights.FullControl, HandleInheritability.Inheritable);
-            using (MemoryMappedViewAccessor accessor = memoryMappedFile.CreateViewAccessor(0, int.MaxValue))
+            using (MemoryMappedViewAccessor accessor = memoryMappedFile.CreateViewAccessor(0, length))
             {
                 accessor.ReadArray(0, bytes, 0, length);
             }

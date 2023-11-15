@@ -19,8 +19,8 @@ namespace SD.Common.Tests.TestCases
         {
             string key = Guid.NewGuid().ToString();
 
-            byte[] data = new byte[1024];
-            for (int index = 0; index < 1024; index++)
+            byte[] data = new byte[65536];
+            for (int index = 0; index < 65536; index++)
             {
                 data[index] = (byte)(index % 100);
             }
