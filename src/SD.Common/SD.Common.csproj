@@ -5,9 +5,9 @@
     <Company>SD</Company>
     <Description>SD.Toolkits 公共基础类库</Description>
     <Copyright>Copyright © SD 2023</Copyright>
-    <Version>3.1.7</Version>
-    <AssemblyVersion>3.1.7</AssemblyVersion>
-    <FileVersion>3.1.7.0</FileVersion>
+    <Version>3.1.8</Version>
+    <AssemblyVersion>3.1.8</AssemblyVersion>
+    <FileVersion>3.1.8.0</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

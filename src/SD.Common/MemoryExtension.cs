@@ -1,6 +1,8 @@
 ﻿using System;
+using System.IO;
 using System.IO.MemoryMappedFiles;
 using System.Linq;
+using System.Security.AccessControl;
 
 namespace SD.Common
 {
@@ -29,6 +31,12 @@ namespace SD.Common
             #endregion
 
             memoryMappedFile = MemoryMappedFile.CreateOrOpen(key, int.MaxValue, MemoryMappedFileAccess.ReadWrite);
+#if NET40_OR_GREATER
+            AccessRule<MemoryMappedFileRights> accessRule = new AccessRule<MemoryMappedFileRights>("everyone", MemoryMappedFileRights.FullControl, AccessControlType.Allow);
+            MemoryMappedFileSecurity memoryMappedFileSecurity = new MemoryMappedFileSecurity();
+            memoryMappedFileSecurity.AddAccessRule(accessRule);
+            memoryMappedFile.SetAccessControl(memoryMappedFileSecurity);
+#endif
             using (MemoryMappedViewAccessor accessor = memoryMappedFile.CreateViewAccessor(0, int.MaxValue))
             {
                 accessor.WriteArray(0, bytes, 0, bytes.Length);
@@ -56,7 +64,7 @@ namespace SD.Common
             #endregion
 
             byte[] bytes = new byte[length];
-            memoryMappedFile = MemoryMappedFile.CreateOrOpen(key, int.MaxValue, MemoryMappedFileAccess.ReadWrite);
+            memoryMappedFile = MemoryMappedFile.OpenExisting(key, MemoryMappedFileRights.FullControl, HandleInheritability.Inheritable);
             using (MemoryMappedViewAccessor accessor = memoryMappedFile.CreateViewAccessor(0, int.MaxValue))
             {
                 accessor.ReadArray(0, bytes, 0, length);
