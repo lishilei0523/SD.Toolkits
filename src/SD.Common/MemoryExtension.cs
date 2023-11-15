@@ -27,6 +27,10 @@ namespace SD.Common
             {
                 throw new ArgumentNullException(nameof(bytes), "数据不可为空！");
             }
+            if (string.IsNullOrWhiteSpace(key))
+            {
+                throw new ArgumentNullException(nameof(key), "键不可为空！");
+            }
 
             #endregion
 
@@ -56,6 +60,10 @@ namespace SD.Common
         {
             #region # 验证
 
+            if (string.IsNullOrWhiteSpace(key))
+            {
+                throw new ArgumentNullException(nameof(key), "键不可为空！");
+            }
             if (length <= 0)
             {
                 throw new ArgumentOutOfRangeException(nameof(length), "长度不可小于等于0！");
