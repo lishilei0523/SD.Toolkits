@@ -2,6 +2,7 @@
 using SD.Common;
 using SD.IdentitySystem.IAppService.DTOs.Outputs;
 using SD.IdentitySystem.IAppService.Interfaces;
+using SD.Infrastructure;
 using SD.Infrastructure.Constants;
 using SD.Infrastructure.Membership;
 using System;
@@ -42,6 +43,7 @@ namespace SD.Toolkits.CoreWCF.Client.Tests.TestCases
             Assembly entryAssembly = Assembly.GetExecutingAssembly();
             Configuration configuration = ConfigurationExtension.GetConfigurationFromAssembly(entryAssembly);
             ServiceModelSectionGroup.Initialize(configuration);
+            FrameworkSection.Initialize(configuration);
 
             ServiceProxy<IAuthenticationContract> authenticationContractProxy = new ServiceProxy<IAuthenticationContract>();
             ServiceProxy<IUserContract> userContractProxy = new ServiceProxy<IUserContract>();

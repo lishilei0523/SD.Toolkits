@@ -1,13 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFrameworks>netstandard2.0;net6.0</TargetFrameworks>
     <Authors>Lee</Authors>
     <Company>SD</Company>
     <Description>SD.Toolkits CoreWCF移动端配置组件</Description>
     <Copyright>Copyright © SD 2023</Copyright>
-    <Version>1.0.2</Version>
-    <AssemblyVersion>1.0.2</AssemblyVersion>
-    <FileVersion>1.0.2.0</FileVersion>
+    <Version>1.2.0</Version>
+    <AssemblyVersion>1.2.0</AssemblyVersion>
+    <FileVersion>1.2.0.0</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -17,9 +17,15 @@
     <DocumentationFile>bin\Release\$(TargetFramework)\SD.Toolkits.CoreWCF.Xamarin.xml</DocumentationFile>
   </PropertyGroup>
 
-  <ItemGroup>
+  <ItemGroup Condition="$(TargetFramework.Equals('netstandard2.0'))">
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.7.0" />
     <PackageReference Include="System.ServiceModel.Primitives" Version="4.10.0" />
     <PackageReference Include="System.ServiceModel.Http" Version="4.10.0" />
+  </ItemGroup>
+
+  <ItemGroup Condition="$(TargetFramework.Equals('net6.0'))">
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="7.0.0" />
+    <PackageReference Include="System.ServiceModel.Primitives" Version="6.2.0" />
+    <PackageReference Include="System.ServiceModel.Http" Version="6.2.0" />
   </ItemGroup>
 </Project>

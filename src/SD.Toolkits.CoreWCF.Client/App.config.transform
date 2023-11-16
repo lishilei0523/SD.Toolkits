@@ -1,13 +1,13 @@
 ﻿<configuration>
   <configSections>
-    <!--WCF配置节点-->
+    <!--CoreWCF配置节点-->
     <sectionGroup name="system.serviceModel" type="System.ServiceModel.ServiceModelSectionGroup, SD.Toolkits.CoreWCF.Client">
       <section name="client" type="System.ServiceModel.ClientsSection, SD.Toolkits.CoreWCF.Client" />
       <section name="bindings" type="System.ServiceModel.BindingsSection, SD.Toolkits.CoreWCF.Client" />
       <section name="endpointBehaviors" type="System.ServiceModel.BehaviorsSection, SD.Toolkits.CoreWCF.Client" />
     </sectionGroup>
   </configSections>
-  <!--WCF配置-->
+  <!--CoreWCF配置-->
   <system.serviceModel>
     <!--WCF客户端配置，手动增加endpoint节点-->
     <client>
