@@ -74,8 +74,8 @@ namespace SD.Toolkits.Drawing
         {
             #region # 验证
 
-            SKRectI[] rectangles_ = rectangles?.ToArray() ?? Array.Empty<SKRectI>();
-            if (!rectangles_.Any())
+            SKRectI[] rects = rectangles?.ToArray() ?? Array.Empty<SKRectI>();
+            if (!rects.Any())
             {
                 return Array.Empty<SKBitmap>();
             }
@@ -86,10 +86,10 @@ namespace SD.Toolkits.Drawing
 
             #endregion
 
-            SKBitmap[] clippedBitmaps = new SKBitmap[rectangles_.Length];
-            for (int index = 0; index < rectangles_.Length; index++)
+            SKBitmap[] clippedBitmaps = new SKBitmap[rects.Length];
+            for (int index = 0; index < rects.Length; index++)
             {
-                SKRectI rectangle = rectangles_[index];
+                SKRectI rectangle = rects[index];
                 SKBitmap clippedBitmap = new SKBitmap(rectangle.Width, rectangle.Height);
                 using SKCanvas canvas = new SKCanvas(clippedBitmap);
                 canvas.Clear(SKColors.White);
@@ -114,7 +114,7 @@ namespace SD.Toolkits.Drawing
         {
             #region # 验证
 
-            rectangles = rectangles ?? new Dictionary<TKey, SKRectI>();
+            rectangles ??= new Dictionary<TKey, SKRectI>();
             if (!rectangles.Any())
             {
                 return new Dictionary<TKey, SKBitmap>();

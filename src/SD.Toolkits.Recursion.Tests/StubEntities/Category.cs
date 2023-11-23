@@ -6,7 +6,7 @@ using System.Linq;
 namespace SD.Toolkits.Recursion.Tests.StubEntities
 {
     /// <summary>
-    /// 品类
+    /// 类别
     /// </summary>
     public class Category : ITree<Category>
     {
@@ -26,22 +26,18 @@ namespace SD.Toolkits.Recursion.Tests.StubEntities
         }
         #endregion
 
-        #region 02.创建品类构造器
+        #region 02.创建类别构造器
         /// <summary>
-        /// 创建品类构造器
+        /// 创建类别构造器
         /// </summary>
-        /// <param name="categoryName">品类名称</param>
-        /// <param name="parentCategory">上级品类</param>
-        public Category(string categoryName, Category parentCategory)
+        /// <param name="categoryName">类别名称</param>
+        /// <param name="parentNode">上级节点</param>
+        public Category(string categoryName, Category parentNode)
             : this()
         {
             this.Name = categoryName;
-            this.ParentNode = parentCategory;
-
-            if (this.ParentNode != null)
-            {
-                this.ParentNode.SubNodes.Add(this);
-            }
+            this.ParentNode = parentNode;
+            parentNode?.SubNodes.Add(this);
         }
         #endregion
 
@@ -49,16 +45,16 @@ namespace SD.Toolkits.Recursion.Tests.StubEntities
 
         #region # 属性
 
-        #region 品类Id —— Guid Id
+        #region 类别Id —— Guid Id
         /// <summary>
-        /// 品类Id
+        /// 类别Id
         /// </summary>
         public Guid Id { get; private set; }
         #endregion
 
-        #region 品类名称 —— string Name
+        #region 类别名称 —— string Name
         /// <summary>
-        /// 品类名称
+        /// 类别名称
         /// </summary>
         public string Name { get; private set; }
         #endregion
@@ -69,7 +65,7 @@ namespace SD.Toolkits.Recursion.Tests.StubEntities
         /// </summary>
         public bool IsRoot
         {
-            get { return this.ParentNode == null; }
+            get => this.ParentNode == null;
         }
         #endregion
 
@@ -79,20 +75,20 @@ namespace SD.Toolkits.Recursion.Tests.StubEntities
         /// </summary>
         public bool IsLeaf
         {
-            get { return !this.SubNodes.Any(); }
+            get => !this.SubNodes.Any();
         }
         #endregion
 
-        #region 导航属性 - 父节点 —— Category ParentNode
+        #region 导航属性 - 上级节点 —— Category ParentNode
         /// <summary>
-        /// 导航属性 - 父节点
+        /// 导航属性 - 上级节点
         /// </summary>
         public virtual Category ParentNode { get; private set; }
         #endregion
 
-        #region 导航属性 - 子节点集 —— ICollection<Category> SubNodes
+        #region 导航属性 - 下级节点集 —— ICollection<Category> SubNodes
         /// <summary>
-        /// 导航属性 - 子节点集
+        /// 导航属性 - 下级节点集
         /// </summary>
         public virtual ICollection<Category> SubNodes { get; private set; }
         #endregion
@@ -101,15 +97,15 @@ namespace SD.Toolkits.Recursion.Tests.StubEntities
 
         #region # 方法
 
-        #region 添加子品类 —— void AddSubCategory(Category subCategory)
+        #region 添加下级节点 —— void AddSubNode(Category category)
         /// <summary>
-        /// 添加子品类
+        /// 添加下级节点
         /// </summary>
-        /// <param name="subCategory">子品类</param>
-        public void AddSubCategory(Category subCategory)
+        /// <param name="category">类别</param>
+        public void AddSubNode(Category category)
         {
-            this.SubNodes.Add(subCategory);
-            subCategory.ParentNode = this;
+            this.SubNodes.Add(category);
+            category.ParentNode = this;
         }
         #endregion
 

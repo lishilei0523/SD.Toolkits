@@ -7,10 +7,10 @@ using System.Linq;
 namespace SD.Toolkits.Recursion.Tests.TestCases
 {
     /// <summary>
-    /// 树形递归扩展测试
+    /// 树形递归测试
     /// </summary>
     [TestClass]
-    public class TreeRecursionExtensionTests
+    public class TreeRecursionTests
     {
         #region # 测试初始化
 

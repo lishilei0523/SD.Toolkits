@@ -26,11 +26,11 @@
   </ItemGroup>
 
   <ItemGroup Condition="$(TargetFramework.Equals('net461'))">
-    <PackageReference Include="Microsoft.Data.Sqlite" Version="6.0.20" />
+    <PackageReference Include="Microsoft.Data.Sqlite" Version="6.0.25" />
   </ItemGroup>
 
   <ItemGroup Condition="$(TargetFramework.Equals('netstandard2.0'))">
-    <PackageReference Include="Microsoft.Data.Sqlite" Version="6.0.20" />
+    <PackageReference Include="Microsoft.Data.Sqlite" Version="6.0.25" />
   </ItemGroup>
 
   <ItemGroup>

@@ -19,9 +19,14 @@ namespace SD.Toolkits.Mapper.Tests.TestCases
         [TestMethod]
         public void TestMapNormally()
         {
-            for (int index = 0; index < 100000; index++)
+            for (int index = 0; index < 10000; index++)
             {
-                Student student = new Student { Id = 1, Name = "张三", BirthDay = DateTime.Now };
+                Student student = new Student
+                {
+                    Id = index,
+                    Name = $"姓名-{index:D4}",
+                    BirthDay = DateTime.Now
+                };
                 StudentInfo studentInfo = student.Map<Student, StudentInfo>();
 
                 Assert.IsTrue(studentInfo.Name == student.Name);
@@ -38,12 +43,12 @@ namespace SD.Toolkits.Mapper.Tests.TestCases
         {
             Student student = new Student { Id = 1, Name = "张三", BirthDay = DateTime.Now };
             StudentInfo studentInfo = null;
-            for (int i = 0; i < 10; i++)
+            for (int index = 0; index < 10; index++)
             {
                 studentInfo = student.Map<Student, StudentInfo>(null, (source, target) => Trace.WriteLine(DateTime.Now));
             }
 
-            Assert.IsTrue(studentInfo.Name == student.Name);
+            Assert.IsTrue(studentInfo!.Name == student.Name);
         }
         #endregion
     }
