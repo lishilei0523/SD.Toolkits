@@ -34,8 +34,8 @@ namespace SD.Toolkits.Drawing
 
             #endregion
 
-            int[] randomNumbers = new int[length];
-            int[] validNumbers = new int[length];
+            int[] randomNos = new int[length];
+            int[] validNos = new int[length];
             int[] seeks = new int[length];
             StringBuilder validCodeBuilder = new StringBuilder();
 
@@ -53,24 +53,24 @@ namespace SD.Toolkits.Drawing
             for (int index = 0; index < length; index++)
             {
                 Random random = new Random(seeks[index]);
-                int pownum = 1 * (int)Math.Pow(10, length);
-                randomNumbers[index] = random.Next(pownum, int.MaxValue);
+                int powNo = 1 * (int)Math.Pow(10, length);
+                randomNos[index] = random.Next(powNo, int.MaxValue);
             }
 
             //抽取随机数字
             for (int index = 0; index < length; index++)
             {
-                string numberText = randomNumbers[index].ToString();
-                int numberLength = numberText.Length;
+                string number = randomNos[index].ToString();
+                int numberLength = number.Length;
                 Random random = new Random();
                 int numberPosition = random.Next(0, numberLength - 1);
-                validNumbers[index] = int.Parse(numberText.Substring(numberPosition, 1));
+                validNos[index] = int.Parse(number.Substring(numberPosition, 1));
             }
 
             //生成验证码
             for (int index = 0; index < length; index++)
             {
-                validCodeBuilder.Append(validNumbers[index]);
+                validCodeBuilder.Append(validNos[index]);
             }
 
             return validCodeBuilder.ToString();
