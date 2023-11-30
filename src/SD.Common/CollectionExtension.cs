@@ -115,7 +115,9 @@ namespace SD.Common
             #endregion
 
             HashSet<TKey> seenKeys = new HashSet<TKey>();
-            return enumerable.Where(item => seenKeys.Add(keySelector(item)));
+            IEnumerable<T> distinctedItems = enumerable.Where(item => seenKeys.Add(keySelector(item)));
+
+            return distinctedItems;
         }
         #endregion
 

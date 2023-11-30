@@ -20,7 +20,7 @@ namespace SD.Common.Tests.TestCases
             string ciphertext = text.Encrypt();
             string plaintext = ciphertext.Decrypt();
 
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(text, plaintext);
+            Assert.AreEqual(text, plaintext);
         }
         #endregion
 
@@ -37,7 +37,7 @@ namespace SD.Common.Tests.TestCases
             string ciphertext = text.Encrypt(key);
             string plaintext = ciphertext.Decrypt(key);
 
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(text, plaintext);
+            Assert.AreEqual(text, plaintext);
         }
         #endregion
     }

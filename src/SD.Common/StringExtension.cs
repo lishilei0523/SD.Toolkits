@@ -29,9 +29,9 @@ namespace SD.Common
         }
         #endregion
 
-        #region # 过滤Html标签 —— static string FilterHtmlTags(this string text)
+        #region # 过滤HTML标签 —— static string FilterHtmlTags(this string text)
         /// <summary>
-        /// 过滤Html标签
+        /// 过滤HTML标签
         /// </summary>
         /// <param name="text">文本</param>
         /// <returns>过滤后的文本</returns>
@@ -46,16 +46,16 @@ namespace SD.Common
 
             #endregion
 
-            text = Regex.Replace(text, @"<script[^>]*?>.*?</script>", "", RegexOptions.IgnoreCase);
-            text = Regex.Replace(text, @"<style[^>]*?>", "", RegexOptions.IgnoreCase);
-            text = Regex.Replace(text, @"</style>", "", RegexOptions.IgnoreCase);
-            text = Regex.Replace(text, @"<p[^>]*?>", "", RegexOptions.IgnoreCase);
-            text = Regex.Replace(text, @"<div[^>]*?>", "", RegexOptions.IgnoreCase);
-            text = Regex.Replace(text, @"</p>", "", RegexOptions.IgnoreCase);
-            text = Regex.Replace(text, @"</div>", "", RegexOptions.IgnoreCase);
-            text = Regex.Replace(text, @"-->", "", RegexOptions.IgnoreCase);
-            text = Regex.Replace(text, @"<!--.*", "", RegexOptions.IgnoreCase);
-            text = Regex.Replace(text, "<[^>]*>", "", RegexOptions.Compiled);
+            text = Regex.Replace(text, @"<script[^>]*?>.*?</script>", string.Empty, RegexOptions.IgnoreCase);
+            text = Regex.Replace(text, @"<style[^>]*?>", string.Empty, RegexOptions.IgnoreCase);
+            text = Regex.Replace(text, @"</style>", string.Empty, RegexOptions.IgnoreCase);
+            text = Regex.Replace(text, @"<p[^>]*?>", string.Empty, RegexOptions.IgnoreCase);
+            text = Regex.Replace(text, @"<div[^>]*?>", string.Empty, RegexOptions.IgnoreCase);
+            text = Regex.Replace(text, @"</p>", string.Empty, RegexOptions.IgnoreCase);
+            text = Regex.Replace(text, @"</div>", string.Empty, RegexOptions.IgnoreCase);
+            text = Regex.Replace(text, @"-->", string.Empty, RegexOptions.IgnoreCase);
+            text = Regex.Replace(text, @"<!--.*", string.Empty, RegexOptions.IgnoreCase);
+            text = Regex.Replace(text, "<[^>]*>", string.Empty, RegexOptions.Compiled);
             text = Regex.Replace(text, @"([\r\n])[\s]+", " ", RegexOptions.Compiled);
             text = text.Replace("&nbsp;", " ");
 

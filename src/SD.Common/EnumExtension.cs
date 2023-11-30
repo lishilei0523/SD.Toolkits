@@ -48,10 +48,10 @@ namespace SD.Common
         /// </summary>
         /// <param name="enumType">枚举类型</param>
         /// <returns>枚举成员名称字典</returns>
-        /// IDictionary[string, string]，[枚举名，枚举描述]
+        /// <remarks>IDictionary[string, string]，[枚举名，枚举描述]</remarks>
         public static IDictionary<string, string> GetEnumMembers(this Type enumType)
         {
-            #region # 验证参数
+            #region # 验证
 
             if (!enumType.IsSubclassOf(typeof(Enum)))
             {
@@ -71,7 +71,6 @@ namespace SD.Common
 #else
                 DescriptionAttribute enumMember = field.GetCustomAttribute<DescriptionAttribute>();
 #endif
-
                 dictionaries.Add(field.Name, enumMember == null
                     ? field.Name
                     : string.IsNullOrEmpty(enumMember.Description)
@@ -89,7 +88,7 @@ namespace SD.Common
         /// </summary>
         /// <param name="enumType">枚举类型</param>
         /// <returns>枚举值、描述字典</returns>
-        /// IDictionary[int, string]，[枚举int值，枚举描述]
+        /// <remarks>IDictionary[int, string]，[枚举int值，枚举描述]</remarks>
         public static IDictionary<int, string> GetEnumDictionary(this Type enumType)
         {
             IEnumerable<Tuple<int, string, string>> tuples = GetEnumMemberInfos(enumType);
@@ -110,12 +109,10 @@ namespace SD.Common
         /// </summary>
         /// <param name="enumType">枚举类型</param>
         /// <returns>完整信息</returns>
-        /// <remarks>
-        /// Tuple[int, string, string]，[枚举int值，枚举名，枚举描述]
-        /// </remarks>
+        /// <remarks>Tuple[int, string, string]，[枚举int值，枚举名，枚举描述]</remarks>
         public static ICollection<Tuple<int, string, string>> GetEnumMemberInfos(this Type enumType)
         {
-            #region # 验证参数
+            #region # 验证
 
             if (!enumType.IsSubclassOf(typeof(Enum)))
             {

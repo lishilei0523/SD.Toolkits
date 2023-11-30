@@ -30,7 +30,7 @@ namespace SD.Common.Tests.TestCases
             IEqualityComparer<Point> comparer = new SimilarPointsComparer(threshold, threshold);
             ICollection<Point> distinctedPoints = new HashSet<Point>(points, comparer);
 
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(distinctedPoints.Count, 4);
+            Assert.AreEqual(distinctedPoints.Count, 4);
         }
         #endregion
     }

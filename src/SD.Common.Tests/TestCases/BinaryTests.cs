@@ -19,12 +19,12 @@ namespace SD.Common.Tests.TestCases
             byte[] bytes2 = { 0x01, 0x64, 0x01, 0x00, 0x00, 0x00, 0x51, 0xFF, 0xFF, 0xC0, 0x00, 0x00, 0x00, 0x00 };
 
             byte[] crc1 = bytes1.GetModbusCRC16();
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(crc1[0], 0x1C);
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(crc1[1], 0x18);
+            Assert.AreEqual(crc1[0], 0x1C);
+            Assert.AreEqual(crc1[1], 0x18);
 
             byte[] crc2 = bytes2.GetModbusCRC16();
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(crc2[0], 0x06);
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(crc2[1], 0xC6);
+            Assert.AreEqual(crc2[0], 0x06);
+            Assert.AreEqual(crc2[1], 0xC6);
         }
         #endregion
     }

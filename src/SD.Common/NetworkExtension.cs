@@ -27,13 +27,12 @@ namespace SD.Common
         }
         #endregion
 
-        #region # 获取本机MAC地址列表 —— IList<string> GetMacs()
+        #region # 获取本机MAC地址列表 —— static string[] GetMacs()
         /// <summary>
         /// 获取本机MAC地址列表
         /// </summary>
         /// <returns>本机MAC地址列表</returns>
-        /// <remarks>以“,”分隔</remarks>
-        public static IList<string> GetMacs()
+        public static string[] GetMacs()
         {
             ICollection<string> macs = new HashSet<string>();
             NetworkInterface[] interfaces = NetworkInterface.GetAllNetworkInterfaces();
@@ -45,7 +44,7 @@ namespace SD.Common
                 macs.Add(mac);
             }
 
-            return macs.ToList();
+            return macs.ToArray();
         }
         #endregion
 
@@ -64,12 +63,12 @@ namespace SD.Common
         }
         #endregion
 
-        #region # 获取本机IP地址列表 —— static IList<string> GetIPs()
+        #region # 获取本机IP地址列表 —— static string[] GetIPs()
         /// <summary>
         /// 获取本机本机IP地址
         /// </summary>
         /// <returns>本机IP地址列表</returns>
-        public static IList<string> GetIPs()
+        public static string[] GetIPs()
         {
             ICollection<string> ips = new HashSet<string>();
 
@@ -85,7 +84,7 @@ namespace SD.Common
                 }
             }
 
-            return ips.ToList();
+            return ips.ToArray();
         }
         #endregion
     }

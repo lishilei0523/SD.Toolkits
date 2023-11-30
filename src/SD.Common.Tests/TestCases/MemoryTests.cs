@@ -25,22 +25,22 @@ namespace SD.Common.Tests.TestCases
                 data[index] = (byte)(index % 100);
             }
 
-            MemoryExtension.SetSharedMemory(key, data, out MemoryMappedFile memoryMappedFile1);
+            MemoryExtension.SetSharedMemory(key, data, out MemoryMappedFile memoryMappedFileW);
 
             Parallel.For(0, 100, index =>
             {
-                byte[] sharedBytes = MemoryExtension.GetSharedMemory(key, data.Length, out MemoryMappedFile memoryMappedFile2);
-                Microsoft.VisualStudio.TestTools.UnitTesting.Assert.IsTrue(sharedBytes.EqualsTo(data));
-                memoryMappedFile2.Dispose();
+                byte[] sharedBytes = MemoryExtension.GetSharedMemory(key, data.Length, out MemoryMappedFile memoryMappedFileR);
+                Assert.IsTrue(sharedBytes.EqualsTo(data));
+                memoryMappedFileR.Dispose();
             });
             for (int index = 0; index < 100; index++)
             {
-                byte[] sharedBytes = MemoryExtension.GetSharedMemory(key, data.Length, out MemoryMappedFile memoryMappedFile2);
-                Microsoft.VisualStudio.TestTools.UnitTesting.Assert.IsTrue(sharedBytes.EqualsTo(data));
-                memoryMappedFile2.Dispose();
+                byte[] sharedBytes = MemoryExtension.GetSharedMemory(key, data.Length, out MemoryMappedFile memoryMappedFileR);
+                Assert.IsTrue(sharedBytes.EqualsTo(data));
+                memoryMappedFileR.Dispose();
             }
 
-            memoryMappedFile1.Dispose();
+            memoryMappedFileW.Dispose();
         }
         #endregion
     }

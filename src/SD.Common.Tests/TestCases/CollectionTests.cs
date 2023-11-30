@@ -95,7 +95,7 @@ namespace SD.Common.Tests.TestCases
 
             DataTable dataTable = students.ToDataTable(true);
 
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(students.Count, dataTable.Rows.Count);
+            Assert.AreEqual(students.Count, dataTable.Rows.Count);
         }
         #endregion
 
@@ -124,7 +124,7 @@ namespace SD.Common.Tests.TestCases
             DataTable dataTable = students.ToDataTable();
             ICollection<Student> collection = dataTable.ToCollection<Student>();
 
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.IsTrue(students.EqualsTo(collection));
+            Assert.IsTrue(students.EqualsTo(collection));
         }
         #endregion
 

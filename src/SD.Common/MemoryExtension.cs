@@ -2,7 +2,6 @@
 using System.IO;
 using System.IO.MemoryMappedFiles;
 using System.Linq;
-using System.Security.AccessControl;
 
 namespace SD.Common
 {
@@ -35,10 +34,7 @@ namespace SD.Common
             #endregion
 
 #if NET40_OR_GREATER
-            AccessRule<MemoryMappedFileRights> accessRule = new AccessRule<MemoryMappedFileRights>("everyone", MemoryMappedFileRights.FullControl, AccessControlType.Allow);
-            MemoryMappedFileSecurity memoryMappedFileSecurity = new MemoryMappedFileSecurity();
-            memoryMappedFileSecurity.AddAccessRule(accessRule);
-            memoryMappedFile = MemoryMappedFile.CreateOrOpen(key, bytes.Length, MemoryMappedFileAccess.ReadWriteExecute, MemoryMappedFileOptions.DelayAllocatePages, memoryMappedFileSecurity, HandleInheritability.Inheritable);
+            memoryMappedFile = MemoryMappedFile.CreateOrOpen(key, bytes.Length, MemoryMappedFileAccess.ReadWriteExecute, MemoryMappedFileOptions.DelayAllocatePages, null, HandleInheritability.Inheritable);
 #else
             memoryMappedFile = MemoryMappedFile.CreateOrOpen(key, bytes.Length, MemoryMappedFileAccess.ReadWriteExecute, MemoryMappedFileOptions.DelayAllocatePages, HandleInheritability.Inheritable);
 #endif
