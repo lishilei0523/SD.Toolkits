@@ -34,16 +34,17 @@ namespace SD.Common
 
             #endregion
 
-            memoryMappedFile = MemoryMappedFile.CreateOrOpen(key, int.MaxValue, MemoryMappedFileAccess.ReadWrite);
 #if NET40_OR_GREATER
             AccessRule<MemoryMappedFileRights> accessRule = new AccessRule<MemoryMappedFileRights>("everyone", MemoryMappedFileRights.FullControl, AccessControlType.Allow);
             MemoryMappedFileSecurity memoryMappedFileSecurity = new MemoryMappedFileSecurity();
             memoryMappedFileSecurity.AddAccessRule(accessRule);
-            memoryMappedFile.SetAccessControl(memoryMappedFileSecurity);
+            memoryMappedFile = MemoryMappedFile.CreateOrOpen(key, bytes.Length, MemoryMappedFileAccess.ReadWriteExecute, MemoryMappedFileOptions.DelayAllocatePages, memoryMappedFileSecurity, HandleInheritability.Inheritable);
+#else
+            memoryMappedFile = MemoryMappedFile.CreateOrOpen(key, bytes.Length, MemoryMappedFileAccess.ReadWriteExecute, MemoryMappedFileOptions.DelayAllocatePages, HandleInheritability.Inheritable);
 #endif
-            using (MemoryMappedViewAccessor accessor = memoryMappedFile.CreateViewAccessor(0, bytes.Length))
+            using (MemoryMappedViewStream stream = memoryMappedFile.CreateViewStream(0, bytes.Length))
             {
-                accessor.WriteArray(0, bytes, 0, bytes.Length);
+                stream.Write(bytes, 0, bytes.Length);
             }
         }
         #endregion
@@ -73,9 +74,9 @@ namespace SD.Common
 
             byte[] bytes = new byte[length];
             memoryMappedFile = MemoryMappedFile.OpenExisting(key, MemoryMappedFileRights.FullControl, HandleInheritability.Inheritable);
-            using (MemoryMappedViewAccessor accessor = memoryMappedFile.CreateViewAccessor(0, length))
+            using (MemoryMappedViewStream stream = memoryMappedFile.CreateViewStream(0, length))
             {
-                accessor.ReadArray(0, bytes, 0, length);
+                stream.Read(bytes, 0, length);
             }
 
             return bytes;

@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.IO.MemoryMappedFiles;
+using System.Threading.Tasks;
 
 namespace SD.Common.Tests.TestCases
 {
@@ -18,7 +19,6 @@ namespace SD.Common.Tests.TestCases
         public void TestSharedMemory()
         {
             string key = Guid.NewGuid().ToString();
-
             byte[] data = new byte[65536];
             for (int index = 0; index < 65536; index++)
             {
@@ -26,12 +26,21 @@ namespace SD.Common.Tests.TestCases
             }
 
             MemoryExtension.SetSharedMemory(key, data, out MemoryMappedFile memoryMappedFile1);
-            byte[] sharedBytes = MemoryExtension.GetSharedMemory(key, data.Length, out MemoryMappedFile memoryMappedFile2);
 
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.IsTrue(sharedBytes.EqualsTo(data));
+            Parallel.For(0, 100, index =>
+            {
+                byte[] sharedBytes = MemoryExtension.GetSharedMemory(key, data.Length, out MemoryMappedFile memoryMappedFile2);
+                Microsoft.VisualStudio.TestTools.UnitTesting.Assert.IsTrue(sharedBytes.EqualsTo(data));
+                memoryMappedFile2.Dispose();
+            });
+            for (int index = 0; index < 100; index++)
+            {
+                byte[] sharedBytes = MemoryExtension.GetSharedMemory(key, data.Length, out MemoryMappedFile memoryMappedFile2);
+                Microsoft.VisualStudio.TestTools.UnitTesting.Assert.IsTrue(sharedBytes.EqualsTo(data));
+                memoryMappedFile2.Dispose();
+            }
 
             memoryMappedFile1.Dispose();
-            memoryMappedFile2.Dispose();
         }
         #endregion
     }
