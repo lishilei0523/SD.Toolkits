@@ -58,9 +58,9 @@ namespace SD.Toolkits.OpenCV
         }
         #endregion
 
-        #region # 生成傅里叶变换边框矩阵 —— static Mat GenerateDFTBorderedMatrix(this Mat matrix)
+        #region # 生成傅里叶变换边框图像矩阵 —— static Mat GenerateDFTBorderedMatrix(this Mat matrix)
         /// <summary>
-        /// 生成傅里叶变换边框矩阵
+        /// 生成傅里叶变换边框图像矩阵
         /// </summary>
         /// <param name="matrix">图像矩阵</param>
         /// <returns>边框图像矩阵</returns>
