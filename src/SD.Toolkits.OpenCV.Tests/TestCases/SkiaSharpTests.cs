@@ -18,10 +18,10 @@ namespace SD.Toolkits.OpenCV.Tests.TestCases
         [TestMethod]
         public void TestToSKBitmap()
         {
-            using Mat matrix = Cv2.ImRead("Images/Earth.jpg");
-            using SKBitmap bitmap = matrix.ToSKBitmap(SKEncodedImageFormat.Png);
+            using Mat matrix = Cv2.ImRead("Images/China.jpg");
+            using SKBitmap bitmap = matrix.ToSKBitmap(SKEncodedImageFormat.Jpeg);
 
-            using FileStream outputStream = File.OpenWrite("Images/Earth.SK.png");
+            using FileStream outputStream = File.OpenWrite("Images/China.SK.jpg");
             bitmap.Encode(SKEncodedImageFormat.Png, 80).SaveTo(outputStream);
         }
         #endregion
@@ -33,11 +33,11 @@ namespace SD.Toolkits.OpenCV.Tests.TestCases
         [TestMethod]
         public void TestToCVMatrix()
         {
-            using SKFileStream inputStream = new SKFileStream("Images/Earth.jpg");
+            using SKFileStream inputStream = new SKFileStream("Images/China.jpg");
             using SKBitmap bitmap = SKBitmap.Decode(inputStream);
-            using Mat matrix = bitmap.ToCVMatrix(SKEncodedImageFormat.Png);
 
-            matrix.SaveImage("Images/Earth.CV.png");
+            using Mat matrix = bitmap.ToCVMatrix(SKEncodedImageFormat.Jpeg);
+            matrix.SaveImage("Images/China.CV.png");
         }
         #endregion
     }
