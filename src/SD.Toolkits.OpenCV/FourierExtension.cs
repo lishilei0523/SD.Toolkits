@@ -7,7 +7,7 @@ namespace SD.Toolkits.OpenCV
     /// </summary>
     public static class FourierExtension
     {
-        #region # 频率域滤波 —— Mat FrequencyBlur(Mat borderedMatrix, Mat kernelMatrix)
+        #region # 频率域滤波 —— static Mat FrequencyBlur(this Mat borderedMatrix, Mat kernelMatrix)
         /// <summary>
         /// 频率域滤波
         /// </summary>

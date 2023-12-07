@@ -8,7 +8,7 @@ namespace SD.Toolkits.OpenCV
     /// </summary>
     public static class KernelGenerator
     {
-        #region # 生成理想低通滤波核 —— Mat GenerateIdealLPKernel(Size kernelSize, float sigma)
+        #region # 生成理想低通滤波核 —— static Mat GenerateIdealLPKernel(Size kernelSize, float sigma)
         /// <summary>
         /// 生成理想低通滤波核
         /// </summary>
@@ -52,7 +52,7 @@ namespace SD.Toolkits.OpenCV
         }
         #endregion
 
-        #region # 生成理想高通滤波核 —— Mat GenerateIdealHPKernel(Size kernelSize, float sigma)
+        #region # 生成理想高通滤波核 —— static Mat GenerateIdealHPKernel(Size kernelSize, float sigma)
         /// <summary>
         /// 生成理想高通滤波核
         /// </summary>
@@ -96,7 +96,7 @@ namespace SD.Toolkits.OpenCV
         }
         #endregion
 
-        #region # 生成理想带通滤波核 —— Mat GenerateIdealBPKernel(Size kernelSize, float sigma, float bandWidth)
+        #region # 生成理想带通滤波核 —— static Mat GenerateIdealBPKernel(Size kernelSize, float sigma, float bandWidth)
         /// <summary>
         /// 生成理想带通滤波核
         /// </summary>
@@ -145,7 +145,7 @@ namespace SD.Toolkits.OpenCV
         }
         #endregion
 
-        #region # 生成理想带阻滤波核 —— Mat GenerateIdealBRKernel(Size kernelSize, float sigma, float bandWidth)
+        #region # 生成理想带阻滤波核 —— static Mat GenerateIdealBRKernel(Size kernelSize, float sigma, float bandWidth)
         /// <summary>
         /// 生成理想带阻滤波核
         /// </summary>
@@ -194,7 +194,7 @@ namespace SD.Toolkits.OpenCV
         }
         #endregion
 
-        #region # 生成高斯低通滤波核 —— Mat GenerateGaussianLPKernel(Size kernelSize, float sigma)
+        #region # 生成高斯低通滤波核 —— static Mat GenerateGaussianLPKernel(Size kernelSize, float sigma)
         /// <summary>
         /// 生成高斯低通滤波核
         /// </summary>
@@ -231,7 +231,7 @@ namespace SD.Toolkits.OpenCV
         }
         #endregion
 
-        #region # 生成高斯高通滤波核 —— Mat GenerateGaussianHPKernel(Size kernelSize, float sigma)
+        #region # 生成高斯高通滤波核 —— static Mat GenerateGaussianHPKernel(Size kernelSize, float sigma)
         /// <summary>
         /// 生成高斯高通滤波核
         /// </summary>
@@ -268,7 +268,7 @@ namespace SD.Toolkits.OpenCV
         }
         #endregion
 
-        #region # 生成高斯带通滤波核 —— Mat GenerateGaussianBPKernel(Size kernelSize, float sigma, float bandWidth)
+        #region # 生成高斯带通滤波核 —— static Mat GenerateGaussianBPKernel(Size kernelSize, float sigma, float bandWidth)
         /// <summary>
         /// 生成高斯带通滤波核
         /// </summary>
@@ -314,7 +314,7 @@ namespace SD.Toolkits.OpenCV
         }
         #endregion
 
-        #region # 生成高斯带阻滤波核 —— Mat GenerateGaussianBRKernel(Size kernelSize, float sigma, float bandWidth)
+        #region # 生成高斯带阻滤波核 —— static Mat GenerateGaussianBRKernel(Size kernelSize, float sigma, float bandWidth)
         /// <summary>
         /// 生成高斯带阻滤波核
         /// </summary>
@@ -360,7 +360,7 @@ namespace SD.Toolkits.OpenCV
         }
         #endregion
 
-        #region # 生成高斯同态滤波核 —— Mat GenerateGaussianHomoKernel(Size kernelSize, float gammaH, float gammaL...
+        #region # 生成高斯同态滤波核 —— static Mat GenerateGaussianHomoKernel(Size kernelSize, float gammaH, float gammaL...
         /// <summary>
         /// 生成高斯同态滤波核
         /// </summary>
@@ -414,7 +414,7 @@ namespace SD.Toolkits.OpenCV
         }
         #endregion
 
-        #region # 生成巴特沃斯低通滤波核 —— Mat GenerateButterworthLPKernel(Size kernelSize, float sigma, int n)
+        #region # 生成巴特沃斯低通滤波核 —— static Mat GenerateButterworthLPKernel(Size kernelSize, float sigma, int n)
         /// <summary>
         /// 生成巴特沃斯低通滤波核
         /// </summary>
@@ -456,7 +456,7 @@ namespace SD.Toolkits.OpenCV
         }
         #endregion
 
-        #region # 生成巴特沃斯高通滤波核 —— Mat GenerateButterworthHPKernel(Size kernelSize, float sigma, int n)
+        #region # 生成巴特沃斯高通滤波核 —— static Mat GenerateButterworthHPKernel(Size kernelSize, float sigma, int n)
         /// <summary>
         /// 生成巴特沃斯高通滤波核
         /// </summary>
@@ -498,7 +498,7 @@ namespace SD.Toolkits.OpenCV
         }
         #endregion
 
-        #region # 生成巴特沃斯带通滤波核 —— Mat GenerateButterworthBPKernel(Size kernelSize, float sigma, float bandWidth...
+        #region # 生成巴特沃斯带通滤波核 —— static Mat GenerateButterworthBPKernel(Size kernelSize, float sigma, float bandWidth...
         /// <summary>
         /// 生成巴特沃斯带通滤波核
         /// </summary>
@@ -548,7 +548,7 @@ namespace SD.Toolkits.OpenCV
         }
         #endregion
 
-        #region # 生成巴特沃斯带阻滤波核 —— Mat GenerateButterworthBRKernel(Size kernelSize, float sigma, float bandWidth...
+        #region # 生成巴特沃斯带阻滤波核 —— static Mat GenerateButterworthBRKernel(Size kernelSize, float sigma, float bandWidth...
         /// <summary>
         /// 生成巴特沃斯带阻滤波核
         /// </summary>
@@ -598,7 +598,7 @@ namespace SD.Toolkits.OpenCV
         }
         #endregion
 
-        #region # 生成巴特沃斯同态滤波核 —— Mat GenerateGaussianHomoKernel(Size kernelSize, float gammaH, float gammaL...
+        #region # 生成巴特沃斯同态滤波核 —— static Mat GenerateButterworthHomoKernel(Size kernelSize, float gammaH, float gammaL...
         /// <summary>
         /// 生成巴特沃斯同态滤波核
         /// </summary>
