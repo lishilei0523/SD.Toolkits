@@ -29,6 +29,7 @@ namespace SD.Toolkits.OpenCV
 
             //迁移频域
             ShiftDFT(planes[0]);
+            ShiftDFT(planes[1]);
 
             //滤波器函数与DFT结果的乘积
             using Mat blurReal = new Mat();
@@ -40,6 +41,7 @@ namespace SD.Toolkits.OpenCV
 
             //再次迁移进行逆变换
             ShiftDFT(blurReal);
+            ShiftDFT(blurImag);
 
             //实部与虚部合并
             Cv2.Merge(blurs, blur);
