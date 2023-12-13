@@ -28,22 +28,22 @@ namespace SD.Toolkits.OpenCV
             int channelCount = result.Channels();
             if (channelCount == 1)
             {
-                result.ForEachAsByte((valuePrt, positionPtr) =>
+                result.ForEachAsByte((valuePtr, positionPtr) =>
                 {
                     int rowIndex = positionPtr[0];
                     int colIndex = positionPtr[1];
-                    result.At<byte>(rowIndex, colIndex) = bins[*valuePrt];
+                    result.At<byte>(rowIndex, colIndex) = bins[*valuePtr];
                 });
             }
             if (channelCount == 3)
             {
-                result.ForEachAsVec3b((valuePrt, positionPtr) =>
+                result.ForEachAsVec3b((valuePtr, positionPtr) =>
                 {
                     int rowIndex = positionPtr[0];
                     int colIndex = positionPtr[1];
-                    result.At<Vec3b>(rowIndex, colIndex)[0] = bins[(*valuePrt)[0]];
-                    result.At<Vec3b>(rowIndex, colIndex)[1] = bins[(*valuePrt)[1]];
-                    result.At<Vec3b>(rowIndex, colIndex)[2] = bins[(*valuePrt)[2]];
+                    result.At<Vec3b>(rowIndex, colIndex)[0] = bins[(*valuePtr)[0]];
+                    result.At<Vec3b>(rowIndex, colIndex)[1] = bins[(*valuePtr)[1]];
+                    result.At<Vec3b>(rowIndex, colIndex)[2] = bins[(*valuePtr)[2]];
                 });
             }
 
