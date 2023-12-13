@@ -1,4 +1,5 @@
 ﻿using OpenCvSharp;
+using System;
 
 namespace SD.Toolkits.OpenCV
 {
@@ -7,6 +8,49 @@ namespace SD.Toolkits.OpenCV
     /// </summary>
     public static class BlurExtension
     {
+        #region # 伽马校正 —— static Mat GammaCorrect(this Mat matrix, float gamma)
+        /// <summary>
+        /// 伽马校正
+        /// </summary>
+        /// <param name="matrix">图像矩阵</param>
+        /// <param name="gamma">伽马值</param>
+        /// <returns>校正图像矩阵</returns>
+        public static unsafe Mat GammaCorrect(this Mat matrix, float gamma)
+        {
+            Mat result = matrix.Clone();
+
+            byte[] bins = new byte[256];
+            for (int index = 0; index < bins.Length; index++)
+            {
+                bins[index] = (byte)Math.Ceiling(Math.Pow(index / 255.0f, gamma) * 255.0f);
+            }
+
+            int channelCount = result.Channels();
+            if (channelCount == 1)
+            {
+                result.ForEachAsByte((valuePrt, positionPtr) =>
+                {
+                    int rowIndex = positionPtr[0];
+                    int colIndex = positionPtr[1];
+                    result.At<byte>(rowIndex, colIndex) = bins[*valuePrt];
+                });
+            }
+            if (channelCount == 3)
+            {
+                result.ForEachAsVec3b((valuePrt, positionPtr) =>
+                {
+                    int rowIndex = positionPtr[0];
+                    int colIndex = positionPtr[1];
+                    result.At<Vec3b>(rowIndex, colIndex)[0] = bins[(*valuePrt)[0]];
+                    result.At<Vec3b>(rowIndex, colIndex)[1] = bins[(*valuePrt)[1]];
+                    result.At<Vec3b>(rowIndex, colIndex)[2] = bins[(*valuePrt)[2]];
+                });
+            }
+
+            return result;
+        }
+        #endregion
+
         #region # 理想低通滤波 —— static Mat IdealLPBlur(this Mat matrix, float sigma)
         /// <summary>
         /// 理想低通滤波
