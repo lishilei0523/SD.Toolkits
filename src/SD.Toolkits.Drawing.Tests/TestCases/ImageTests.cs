@@ -116,19 +116,19 @@ namespace SD.Toolkits.Drawing.Tests.TestCases
         }
         #endregion
 
-        #region # 测试翻转图像 —— void TestMirrorBitmap()
+        #region # 测试翻转图像 —— void TestFlipBitmap()
         /// <summary>
         /// 测试翻转图像
         /// </summary>
         [TestMethod]
-        public void TestMirrorBitmap()
+        public void TestFlipBitmap()
         {
             using SKFileStream inputStream = new SKFileStream("Images/Earth.jpg");
             using SKBitmap bitmap = SKBitmap.Decode(inputStream);
-            using SKBitmap mirroredBitmap = bitmap.MirrorBitmap();
+            using SKBitmap flippedBitmap = bitmap.FlipBitmap();
 
-            using FileStream outputStream = File.OpenWrite("Images/Earth.Mirrored.jpg");
-            mirroredBitmap.Encode(SKEncodedImageFormat.Jpeg, 80).SaveTo(outputStream);
+            using FileStream outputStream = File.OpenWrite("Images/Earth.Flipped.jpg");
+            flippedBitmap.Encode(SKEncodedImageFormat.Jpeg, 80).SaveTo(outputStream);
         }
         #endregion
 

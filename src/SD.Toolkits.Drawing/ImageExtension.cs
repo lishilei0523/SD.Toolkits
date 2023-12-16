@@ -188,13 +188,13 @@ namespace SD.Toolkits.Drawing
         }
         #endregion
 
-        #region # 翻转图像 —— static SKBitmap MirrorBitmap(this SKBitmap bitmap...
+        #region # 翻转图像 —— static SKBitmap FlipBitmap(this SKBitmap bitmap...
         /// <summary>
         /// 翻转图像
         /// </summary>
         /// <param name="bitmap">图像</param>
         /// <returns>翻转后图像</returns>
-        public static SKBitmap MirrorBitmap(this SKBitmap bitmap)
+        public static SKBitmap FlipBitmap(this SKBitmap bitmap)
         {
             #region # 验证
 
