@@ -26,6 +26,28 @@ namespace SD.Toolkits.OpenCV.Tests.TestCases
         }
         #endregion
 
+        #region # 测试阴影校正 —— void TestShadingCorrect()
+        /// <summary>
+        /// 测试阴影校正
+        /// </summary>
+        [TestMethod]
+        public void TestShadingCorrect()
+        {
+            byte kernelSizeX = 5;
+            byte kernelSizeY = 5;
+            byte gain = 60;
+            byte norse = 0;
+            byte offset = 140;
+
+            using Mat matrix = Cv2.ImRead("Images/Deer.jpg", ImreadModes.Grayscale);
+            using Mat result = matrix.ShadingCorrect(new Size(kernelSizeX, kernelSizeY), gain, norse, offset);
+
+            Cv2.ImShow("OpenCV阴影校正-原图", matrix);
+            Cv2.ImShow("OpenCV阴影校正-效果图", result);
+            Cv2.WaitKey();
+        }
+        #endregion
+
         #region # 测试理想低通滤波 —— void TestIdealLPBlur()
         /// <summary>
         /// 测试理想低通滤波

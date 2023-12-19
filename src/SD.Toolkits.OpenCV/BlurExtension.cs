@@ -51,6 +51,50 @@ namespace SD.Toolkits.OpenCV
         }
         #endregion
 
+        #region # 阴影校正 —— static Mat ShadingCorrect(this Mat matrix, Size kernelSize...
+        /// <summary>
+        /// 阴影校正
+        /// </summary>
+        /// <param name="matrix">图像矩阵</param>
+        /// <param name="kernelSize">滤波核尺寸</param>
+        /// <param name="gain">增益</param>
+        /// <param name="norse">噪声</param>
+        /// <param name="offset">亮度补偿</param>
+        /// <returns>校正图像矩阵</returns>
+        public static unsafe Mat ShadingCorrect(this Mat matrix, Size kernelSize, byte gain = 60, byte norse = 0, byte offset = 140)
+        {
+            //克隆前景图，转32F1
+            Mat foreMatrix = matrix.Clone();
+            foreMatrix.ConvertTo(foreMatrix, MatType.CV_32FC1);
+
+            //滤波取背景图
+            using Mat backMatrix = foreMatrix.GaussianBlur(kernelSize, 1);
+
+            //计算差值图
+            foreMatrix.ForEachAsFloat((valuePtr, positionPtr) =>
+            {
+                int rowIndex = positionPtr[0];
+                int colIndex = positionPtr[1];
+                float foreValue = *valuePtr;
+                float backValue = backMatrix.At<float>(rowIndex, colIndex);
+                if (foreValue > backValue)
+                {
+                    foreMatrix.At<float>(rowIndex, colIndex) = gain * (foreValue - backValue - norse) + offset;
+                }
+                else
+                {
+                    foreMatrix.At<float>(rowIndex, colIndex) = gain * (foreValue - backValue + norse) + offset;
+                }
+            });
+
+            //再次滤波，转回8UC1
+            foreMatrix = foreMatrix.GaussianBlur(kernelSize, 1);
+            foreMatrix.ConvertTo(foreMatrix, MatType.CV_8UC1);
+
+            return foreMatrix;
+        }
+        #endregion
+
         #region # 理想低通滤波 —— static Mat IdealLPBlur(this Mat matrix, float sigma)
         /// <summary>
         /// 理想低通滤波
