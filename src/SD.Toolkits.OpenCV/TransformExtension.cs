@@ -184,5 +184,24 @@ namespace SD.Toolkits.OpenCV
             return foreMatrix;
         }
         #endregion
+
+        #region # 自适应直方图均衡化 —— static Mat AdaptiveEqualizeHist(this Mat matrix, double clipLimit...
+        /// <summary>
+        /// 阴影变换
+        /// </summary>
+        /// <param name="matrix">图像矩阵</param>
+        /// <param name="clipLimit">裁剪限制</param>
+        /// <param name="tileGridSize">块尺寸</param>
+        /// <returns>变换图像矩阵</returns>
+        public static Mat AdaptiveEqualizeHist(this Mat matrix, double clipLimit = 2.0d, Size? tileGridSize = null)
+        {
+            using CLAHE clahe = Cv2.CreateCLAHE(clipLimit, tileGridSize);
+
+            Mat result = new Mat();
+            clahe.Apply(matrix, result);
+
+            return result;
+        }
+        #endregion
     }
 }

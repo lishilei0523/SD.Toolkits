@@ -82,5 +82,21 @@ namespace SD.Toolkits.OpenCV.Tests.TestCases
             Cv2.WaitKey();
         }
         #endregion
+
+        #region # 测试自适应直方图均衡化 —— void TestAdaptiveEqualizeHist()
+        /// <summary>
+        /// 测试自适应直方图均衡化
+        /// </summary>
+        [TestMethod]
+        public void TestAdaptiveEqualizeHist()
+        {
+            using Mat matrix = Cv2.ImRead("Images/Lena.jpg", ImreadModes.Grayscale);
+            using Mat result = matrix.AdaptiveEqualizeHist();
+
+            Cv2.ImShow("OpenCV自适应直方图均衡化-原图", matrix);
+            Cv2.ImShow("OpenCV自适应直方图均衡化-效果图", result);
+            Cv2.WaitKey();
+        }
+        #endregion
     }
 }
