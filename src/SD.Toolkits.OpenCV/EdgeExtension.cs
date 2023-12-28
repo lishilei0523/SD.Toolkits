@@ -1,4 +1,5 @@
 ﻿using OpenCvSharp;
+using System;
 
 namespace SD.Toolkits.OpenCV
 {
@@ -7,6 +8,44 @@ namespace SD.Toolkits.OpenCV
     /// </summary>
     public static class EdgeExtension
     {
+        #region # 适用Robert边缘检测算子 —— static Mat ApplyRobert(this Mat matrix)
+        /// <summary>
+        /// 适用Robert边缘检测算子
+        /// </summary>
+        /// <param name="matrix">图像矩阵</param>
+        /// <returns>边缘检测图像矩阵</returns>
+        public static unsafe Mat ApplyRobert(this Mat matrix)
+        {
+            Mat result = matrix.Clone();
+            matrix.ForEachAsByte((_, positionPtr) =>
+            {
+                int rowIndex = positionPtr[0];
+                int colIndex = positionPtr[1];
+
+                #region # 验证
+
+                if (rowIndex == matrix.Rows - 1)
+                {
+                    return;
+                }
+                if (colIndex == matrix.Cols - 1)
+                {
+                    return;
+                }
+
+                #endregion
+
+                double dx = Math.Pow(matrix.At<byte>(rowIndex, colIndex) - matrix.At<byte>(rowIndex + 1, colIndex + 1), 2);
+                double dy = Math.Pow(matrix.At<byte>(rowIndex + 1, colIndex) - matrix.At<byte>(rowIndex, colIndex + 1), 2);
+                double value = Math.Sqrt(dx + dy);
+                byte pixelValue = value >= byte.MaxValue ? byte.MaxValue : (byte)Math.Ceiling(value);
+                result.At<byte>(rowIndex, colIndex) = pixelValue;
+            });
+
+            return result;
+        }
+        #endregion
+
         #region # 适用Sobel边缘检测算子 —— static Mat ApplySobel(this Mat matrix, int kernalSize...
         /// <summary>
         /// 适用Sobel边缘检测算子
