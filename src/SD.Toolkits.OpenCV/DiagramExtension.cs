@@ -1,5 +1,6 @@
 ﻿using OpenCvSharp;
-using System;
+using ScottPlot;
+using System.Linq;
 
 namespace SD.Toolkits.OpenCV
 {
@@ -8,36 +9,36 @@ namespace SD.Toolkits.OpenCV
     /// </summary>
     public static class DiagramExtension
     {
-        #region # 生成直方图 —— static Mat GenerateHistogram(this Mat matrix...
+        #region # 生成灰度直方图 —— static Mat GenerateGrayHistogram(this Mat matrix...
         /// <summary>
-        /// 生成直方图
+        /// 生成灰度直方图
         /// </summary>
         /// <param name="matrix">图像矩阵</param>
-        /// <param name="histogramWidth">直方图图像宽度</param>
-        /// <param name="histogramHeigth">直方图图像高度</param>
-        /// <returns>直方图矩阵</returns>
-        public static Mat GenerateHistogram(this Mat matrix, int histogramWidth = 1024, int histogramHeigth = 768)
+        /// <param name="width">直方图图像宽度</param>
+        /// <param name="height">直方图图像高度</param>
+        /// <returns>灰度直方图矩阵</returns>
+        public static Mat GenerateGrayHistogram(this Mat matrix, int width = 1024, int height = 768)
         {
-            Mat[] images = { matrix };
-            Mat histogram = new Mat();
+            //生成直方图矩阵
+            int dims = 1;
             int[] channels = { 0 };
             int[] histSize = { 256 };
-            Rangef[] histRange = { new Rangef(0, 256) };
-            Cv2.CalcHist(images, channels, null, histogram, 1, histSize, histRange);
+            Rangef[] histRange = { new Rangef(0, 255) };
+            using Mat histMatrix = new Mat();
+            Cv2.CalcHist(new[] { matrix }, channels, null, histMatrix, dims, histSize, histRange);
+            histMatrix.GetArray(out float[] histVector);
 
-            Mat histogramImage = new Mat(histogramHeigth, histogramWidth, MatType.CV_8UC1, Scalar.All(0));
-            double binW = Math.Round((double)histogramImage.Width / histogram.Height);
+            //ScottPlot绘图
+            double[] values = histVector.Select(x => (double)x).ToArray();
+            double[] positions = Enumerable.Range(1, histVector.Length).Select(x => (double)x).ToArray();
+            Plot plot = new Plot();
+            plot.Add.Bars(positions, values);
+            byte[] imageBytes = plot.GetImageBytes(width, height, ImageFormat.Jpeg);
 
-            //归一化
-            Cv2.Normalize(histogram, histogram, 0, histogramImage.Rows, NormTypes.MinMax);
-            for (int index = 1; index < histogram.Height; index++)
-            {
-                Point point1 = new Point(binW * (index - 1), histogramImage.Height - Math.Round(histogram.At<float>(index - 1)));
-                Point point2 = new Point(binW * (index), histogramImage.Height - Math.Round(histogram.At<float>(index)));
-                Cv2.Line(histogramImage, point1, point2, Scalar.White, 1, LineTypes.AntiAlias);
-            }
+            //转换OpenCV图像矩阵
+            Mat histImage = Cv2.ImDecode(imageBytes, ImreadModes.Color);
 
-            return histogramImage;
+            return histImage;
         }
         #endregion
 

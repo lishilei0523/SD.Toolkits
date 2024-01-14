@@ -18,19 +18,19 @@
   </PropertyGroup>
 
   <ItemGroup Condition="$(TargetFramework.Equals('net45'))">
-    <PackageReference Include="Oracle.ManagedDataAccess" Version="19.20.0" />
+    <PackageReference Include="Oracle.ManagedDataAccess" Version="19.22.0" />
   </ItemGroup>
 
   <ItemGroup Condition="$(TargetFramework.Equals('net462'))">
-    <PackageReference Include="Oracle.ManagedDataAccess" Version="21.12.0" />
+    <PackageReference Include="Oracle.ManagedDataAccess" Version="21.13.0" />
   </ItemGroup>
 
   <ItemGroup Condition="$(TargetFramework.Equals('netstandard2.0'))">
-    <PackageReference Include="Oracle.ManagedDataAccess.Core" Version="2.19.210" />
+    <PackageReference Include="Oracle.ManagedDataAccess.Core" Version="2.19.220" />
   </ItemGroup>
 
   <ItemGroup Condition="$(TargetFramework.Equals('netstandard2.1'))">
-    <PackageReference Include="Oracle.ManagedDataAccess.Core" Version="3.21.120" />
+    <PackageReference Include="Oracle.ManagedDataAccess.Core" Version="3.21.130" />
   </ItemGroup>
 
   <ItemGroup>
