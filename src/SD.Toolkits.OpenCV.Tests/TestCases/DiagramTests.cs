@@ -9,15 +9,15 @@ namespace SD.Toolkits.OpenCV.Tests.TestCases
     [TestClass]
     public class DiagramTests
     {
-        #region # 测试直方图 —— void TestHistogram()
+        #region # 测试灰度直方图 —— void TestGrayHistogram()
         /// <summary>
-        /// 测试直方图
+        /// 测试灰度直方图
         /// </summary>
         [TestMethod]
-        public void TestHistogram()
+        public void TestGrayHistogram()
         {
             using Mat matrix = Cv2.ImRead("Images/Cat.jpg", ImreadModes.Grayscale);
-            using Mat histogramImage = matrix.GenerateHistogram();
+            using Mat histogramImage = matrix.GenerateGrayHistogram();
 
             Cv2.ImShow("OpenCV计算直方图-原图", matrix);
             Cv2.ImShow("OpenCV计算直方图-直方图", histogramImage);
