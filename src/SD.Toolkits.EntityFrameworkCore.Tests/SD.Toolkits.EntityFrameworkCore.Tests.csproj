@@ -4,7 +4,7 @@
     <IsPackable>false</IsPackable>
     <Authors>Lee</Authors>
     <Company>SD</Company>
-    <Copyright>Copyright © SD 2023</Copyright>
+    <Copyright>Copyright © SD 2024</Copyright>
   </PropertyGroup>
 
   <ItemGroup>
@@ -43,11 +43,11 @@
   </ItemGroup>
 
   <ItemGroup Condition="$(TargetFramework.Equals('net7.0'))">
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.10">
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.15">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.10" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.15" />
   </ItemGroup>
 
   <ItemGroup Condition="$(TargetFramework.Equals('net8.0'))">

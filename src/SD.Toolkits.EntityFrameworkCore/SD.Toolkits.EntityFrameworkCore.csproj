@@ -4,7 +4,7 @@
     <Authors>Lee</Authors>
     <Company>SD</Company>
     <Description>SD.Toolkits EntityFrameworkCore基础</Description>
-    <Copyright>Copyright © SD 2023</Copyright>
+    <Copyright>Copyright © SD 2024</Copyright>
     <Version>2.2.2</Version>
     <AssemblyVersion>2.2.2</AssemblyVersion>
     <FileVersion>2.2.2.0</FileVersion>
@@ -33,8 +33,8 @@
   </ItemGroup>
 
   <ItemGroup Condition="$(TargetFramework.Equals('net7.0'))">
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.10" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="7.0.10" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.15" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="7.0.15" />
   </ItemGroup>
 
   <ItemGroup Condition="$(TargetFramework.Equals('net8.0'))">
