@@ -65,12 +65,12 @@ namespace SD.Common
 
             #endregion
 
-            FileInfo file = new FileInfo(path);
+            FileInfo fileInfo = new FileInfo(path);
             StreamWriter writer = null;
 
-            if (file.Exists && !append)
+            if (fileInfo.Exists && !append)
             {
-                file.Delete();
+                fileInfo.Delete();
             }
             try
             {
@@ -82,10 +82,10 @@ namespace SD.Common
                 }
                 if (!Directory.Exists(directory))
                 {
-                    Directory.CreateDirectory(directory);
+                    Directory.CreateDirectory(directory!);
                 }
 
-                writer = append ? file.AppendText() : new StreamWriter(path, false, Encoding.UTF8);
+                writer = append ? fileInfo.AppendText() : new StreamWriter(path, false, Encoding.UTF8);
                 writer.Write(text);
             }
             finally
@@ -124,17 +124,17 @@ namespace SD.Common
 
             //拷贝文件
             DirectoryInfo sourceDir = new DirectoryInfo(sourceDirectory);
-            FileInfo[] fileArray = sourceDir.GetFiles();
-            foreach (FileInfo file in fileArray)
+            FileInfo[] fileInfos = sourceDir.GetFiles();
+            foreach (FileInfo fileInfo in fileInfos)
             {
-                file.CopyTo($"{targetDirectory}\\{file.Name}", true);
+                fileInfo.CopyTo(@$"{targetDirectory}\{fileInfo.Name}", true);
             }
 
             //递归子文件夹
-            DirectoryInfo[] subDirArray = sourceDir.GetDirectories();
-            foreach (DirectoryInfo subDir in subDirArray)
+            DirectoryInfo[] subDirs = sourceDir.GetDirectories();
+            foreach (DirectoryInfo subDir in subDirs)
             {
-                CopyFolderTo(subDir.FullName, $"{targetDirectory}//{subDir.Name}");
+                CopyFolderTo(subDir.FullName, @$"{targetDirectory}\{subDir.Name}");
             }
         }
         #endregion
@@ -210,10 +210,8 @@ namespace SD.Common
             request.UseBinary = true;
             request.UsePassive = true;
             request.ContentLength = fileDatas.Length;
-            using (Stream stream = request.GetRequestStream())
-            {
-                stream.Write(fileDatas, 0, fileDatas.Length);
-            }
+            using Stream stream = request.GetRequestStream();
+            stream.Write(fileDatas, 0, fileDatas.Length);
         }
         #endregion
 
@@ -232,14 +230,11 @@ namespace SD.Common
             request.UseBinary = true;
             request.UsePassive = false;
 
-            using (FtpWebResponse response = (FtpWebResponse)request.GetResponse())
-            {
-                using (Stream stream = response.GetResponseStream())
-                {
-                    byte[] buffer = stream.ToByteArray();
-                    return buffer;
-                }
-            }
+            using FtpWebResponse response = (FtpWebResponse)request.GetResponse();
+            using Stream stream = response.GetResponseStream();
+            byte[] buffer = stream.ToByteArray();
+
+            return buffer;
         }
         #endregion
 
@@ -259,7 +254,7 @@ namespace SD.Common
                 FtpWebRequest ftp = CreateFtpRequest(uri, loginId, password);
                 ftp.Method = WebRequestMethods.Ftp.MakeDirectory;
 
-                FtpWebResponse response = (FtpWebResponse)ftp.GetResponse();
+                using FtpWebResponse response = (FtpWebResponse)ftp.GetResponse();
                 response.Close();
             }
             catch (Exception exception)
@@ -267,7 +262,6 @@ namespace SD.Common
                 if (exception is WebException webException)
                 {
                     FtpWebResponse response = (FtpWebResponse)webException.Response;
-
                     if (response.StatusCode != FtpStatusCode.ActionNotTakenFileUnavailable)
                     {
                         throw;
@@ -295,28 +289,22 @@ namespace SD.Common
             FtpWebRequest ftp = CreateFtpRequest(uri, loginId, password);
             ftp.Method = WebRequestMethods.Ftp.ListDirectory;
 
-            using (FtpWebResponse response = (FtpWebResponse)ftp.GetResponse())
+            using FtpWebResponse response = (FtpWebResponse)ftp.GetResponse();
+            using Stream stream = response.GetResponseStream();
+            using StreamReader streamReader = new StreamReader(stream!, Encoding.Default);
+            StringBuilder builder = new StringBuilder();
+            string line = streamReader.ReadLine();
+            while (line != null)
             {
-                using (Stream stream = response.GetResponseStream())
-                {
-                    using (StreamReader streamReader = new StreamReader(stream, Encoding.Default))
-                    {
-                        StringBuilder builder = new StringBuilder();
-                        string line = streamReader.ReadLine();
-                        while (line != null)
-                        {
-                            builder.Append(line);
-                            builder.Append(newLine);
-                            line = streamReader.ReadLine();
-                        }
-
-                        builder.Remove(builder.ToString().LastIndexOf(newLine), 1);
-                        string[] files = builder.ToString().Split(newLine);
-
-                        return files;
-                    }
-                }
+                builder.Append(line);
+                builder.Append(newLine);
+                line = streamReader.ReadLine();
             }
+
+            builder.Remove(builder.ToString().LastIndexOf(newLine), 1);
+            string[] files = builder.ToString().Split(newLine);
+
+            return files;
         }
         #endregion
     }

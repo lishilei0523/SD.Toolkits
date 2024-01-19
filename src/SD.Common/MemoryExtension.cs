@@ -38,10 +38,8 @@ namespace SD.Common
 #else
             memoryMappedFile = MemoryMappedFile.CreateOrOpen(key, bytes.Length, MemoryMappedFileAccess.ReadWriteExecute, MemoryMappedFileOptions.DelayAllocatePages, HandleInheritability.Inheritable);
 #endif
-            using (MemoryMappedViewStream stream = memoryMappedFile.CreateViewStream(0, bytes.Length))
-            {
-                stream.Write(bytes, 0, bytes.Length);
-            }
+            using MemoryMappedViewStream stream = memoryMappedFile.CreateViewStream(0, bytes.Length);
+            stream.Write(bytes, 0, bytes.Length);
         }
         #endregion
 
@@ -63,17 +61,15 @@ namespace SD.Common
             }
             if (length <= 0)
             {
-                throw new ArgumentOutOfRangeException(nameof(length), "长度不可小于等于0！");
+                throw new ArgumentOutOfRangeException(nameof(length), "数据长度不可小于等于0！");
             }
 
             #endregion
 
             byte[] bytes = new byte[length];
             memoryMappedFile = MemoryMappedFile.OpenExisting(key, MemoryMappedFileRights.FullControl, HandleInheritability.Inheritable);
-            using (MemoryMappedViewStream stream = memoryMappedFile.CreateViewStream(0, length))
-            {
-                stream.Read(bytes, 0, length);
-            }
+            using MemoryMappedViewStream stream = memoryMappedFile.CreateViewStream(0, length);
+            stream.Read(bytes, 0, length);
 
             return bytes;
         }

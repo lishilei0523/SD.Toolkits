@@ -43,16 +43,9 @@ namespace SD.Toolkits.Excel
             IWorkbook workbook = CreateWorkbook(extensionName, array, titles);
 
             //写入文件
-            using (FileStream fileStream = File.OpenWrite(path))
-            {
-#if NET40 || NET45
-                workbook.Write(fileStream);
-#endif
-#if NET472 || NETSTANDARD2_0_OR_GREATER
-                workbook.Write(fileStream, false);
-#endif
-                workbook.Close();
-            }
+            using FileStream fileStream = File.OpenWrite(path);
+            workbook.Write(fileStream);
+            workbook.Close();
         }
         #endregion
 
@@ -81,19 +74,12 @@ namespace SD.Toolkits.Excel
             IWorkbook workbook = CreateWorkbook(extensionName, array, titles);
 
             //写入内存流
-            using (MemoryStream stream = new MemoryStream())
-            {
-#if NET40 || NET45
-                workbook.Write(stream);
-#endif
-#if NET472 || NETSTANDARD2_0_OR_GREATER
-                workbook.Write(stream, false);
-#endif
-                workbook.Close();
-                byte[] buffer = stream.ToArray();
+            using MemoryStream stream = new MemoryStream();
+            workbook.Write(stream);
+            workbook.Close();
+            byte[] buffer = stream.ToArray();
 
-                return buffer;
-            }
+            return buffer;
         }
         #endregion
 

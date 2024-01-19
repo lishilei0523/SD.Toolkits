@@ -19,16 +19,15 @@ namespace SD.Common
         public static string ToMD5(this string text)
         {
             byte[] buffer = Encoding.Default.GetBytes(text);
-            using (MD5 md5 = MD5.Create())
+            using MD5 md5 = MD5.Create();
+            buffer = md5.ComputeHash(buffer);
+            StringBuilder md5Builder = new StringBuilder();
+            foreach (byte @byte in buffer)
             {
-                buffer = md5.ComputeHash(buffer);
-                StringBuilder md5Builder = new StringBuilder();
-                foreach (byte @byte in buffer)
-                {
-                    md5Builder.Append(@byte.ToString("x2"));
-                }
-                return md5Builder.ToString();
+                md5Builder.Append(@byte.ToString("x2"));
             }
+
+            return md5Builder.ToString();
         }
         #endregion
 
@@ -57,19 +56,16 @@ namespace SD.Common
         /// <returns>MD5值</returns>
         public static string ToMD5(this Stream stream)
         {
-            using (MD5 md5 = MD5.Create())
+            using MD5 md5 = MD5.Create();
+            byte[] buffer = md5.ComputeHash(stream);
+            StringBuilder md5Builder = new StringBuilder();
+            foreach (byte @byte in buffer)
             {
-                byte[] buffer = md5.ComputeHash(stream);
-                StringBuilder md5Builder = new StringBuilder();
-                foreach (byte @byte in buffer)
-                {
-                    md5Builder.Append(@byte.ToString("x2"));
-                }
-
-                return md5Builder.ToString();
+                md5Builder.Append(@byte.ToString("x2"));
             }
-        }
 
+            return md5Builder.ToString();
+        }
         #endregion
 
         #region # 计算字节数组MD5值 —— static string ToMD5(this byte[] bytes)
@@ -80,19 +76,16 @@ namespace SD.Common
         /// <returns>MD5值</returns>
         public static string ToMD5(this byte[] bytes)
         {
-            using (MD5 md5 = MD5.Create())
+            using MD5 md5 = MD5.Create();
+            byte[] buffer = md5.ComputeHash(bytes);
+            StringBuilder md5Builder = new StringBuilder();
+            foreach (byte @byte in buffer)
             {
-                byte[] buffer = md5.ComputeHash(bytes);
-                StringBuilder md5Builder = new StringBuilder();
-                foreach (byte @byte in buffer)
-                {
-                    md5Builder.Append(@byte.ToString("x2"));
-                }
-
-                return md5Builder.ToString();
+                md5Builder.Append(@byte.ToString("x2"));
             }
-        }
 
+            return md5Builder.ToString();
+        }
         #endregion
     }
 }

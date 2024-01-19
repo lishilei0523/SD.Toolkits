@@ -56,7 +56,7 @@ namespace SD.Common
         /// <remarks>以“,”分隔</remarks>
         public static string GetLocalIPAddress()
         {
-            ICollection<string> ips = GetIPs();
+            string[] ips = GetIPs();
             string ipsStr = ips.ToSpliceString();
 
             return ipsStr;

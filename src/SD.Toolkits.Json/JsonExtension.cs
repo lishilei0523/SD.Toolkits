@@ -13,9 +13,9 @@ namespace SD.Toolkits.Json
         /// 序列化JSON
         /// </summary>
         /// <param name="instance">实例</param>
-        /// <param name="timeFormat">时间格式</param>
+        /// <param name="dateTimeFormat">日期时间格式</param>
         /// <returns>JSON文本</returns>
-        public static string ToJson(this object instance, string timeFormat = null)
+        public static string ToJson(this object instance, string dateTimeFormat = null)
         {
             #region # 验证
 
@@ -32,12 +32,13 @@ namespace SD.Toolkits.Json
                 {
                     ReferenceLoopHandling = ReferenceLoopHandling.Ignore
                 };
-                if (!string.IsNullOrWhiteSpace(timeFormat))
+                if (!string.IsNullOrWhiteSpace(dateTimeFormat))
                 {
-                    settting.DateFormatString = timeFormat;
+                    settting.DateFormatString = dateTimeFormat!;
                 }
+                string json = JsonConvert.SerializeObject(instance, Formatting.None, settting);
 
-                return JsonConvert.SerializeObject(instance, Formatting.None, settting);
+                return json;
             }
             catch (InvalidOperationException exception)
             {

@@ -11,24 +11,6 @@ namespace SD.Common
     /// </summary>
     public static class StringExtension
     {
-        #region # 忽略大小写比较字符串是否相等 —— static bool EqualsTo(this string sourceText...
-        /// <summary>
-        /// 忽略大小写比较字符串是否相等
-        /// </summary>
-        /// <param name="sourceText">源文本</param>
-        /// <param name="targetText">目标文本</param>
-        /// <returns>是否相等</returns>
-        public static bool EqualsTo(this string sourceText, string targetText)
-        {
-            if (string.IsNullOrWhiteSpace(sourceText) && string.IsNullOrWhiteSpace(targetText))
-            {
-                return true;
-            }
-
-            return string.Equals(sourceText, targetText, StringComparison.OrdinalIgnoreCase);
-        }
-        #endregion
-
         #region # 过滤HTML标签 —— static string FilterHtmlTags(this string text)
         /// <summary>
         /// 过滤HTML标签
@@ -73,32 +55,24 @@ namespace SD.Common
         public static string Encrypt(this string plaintext, string key = null)
         {
             key = string.IsNullOrWhiteSpace(key) ? "744FBCAD-3BA6-40FB-9A75-B6C81E25403E" : key;
-            using (DESCryptoServiceProvider desCryptoService = new DESCryptoServiceProvider())
+            using DESCryptoServiceProvider desCryptoService = new DESCryptoServiceProvider();
+            string keyHash8 = key.ToHash16().Substring(0, 8);
+            desCryptoService.Key = Encoding.ASCII.GetBytes(keyHash8);
+            desCryptoService.IV = Encoding.ASCII.GetBytes(keyHash8);
+
+            using MemoryStream memoryStream = new MemoryStream();
+            using CryptoStream cryptoStream = new CryptoStream(memoryStream, desCryptoService.CreateEncryptor(), CryptoStreamMode.Write);
+            byte[] inputBytes = Encoding.Default.GetBytes(plaintext);
+            cryptoStream.Write(inputBytes, 0, inputBytes.Length);
+            cryptoStream.FlushFinalBlock();
+
+            StringBuilder stringBuilder = new StringBuilder();
+            foreach (byte @byte in memoryStream.ToArray())
             {
-                string keyHash8 = key.ToHash16().Substring(0, 8);
-                desCryptoService.Key = Encoding.ASCII.GetBytes(keyHash8);
-                desCryptoService.IV = Encoding.ASCII.GetBytes(keyHash8);
-
-                byte[] inputByteArray = Encoding.Default.GetBytes(plaintext);
-
-                using (MemoryStream memoryStream = new MemoryStream())
-                {
-                    using (CryptoStream cryptoStream = new CryptoStream(memoryStream, desCryptoService.CreateEncryptor(), CryptoStreamMode.Write))
-                    {
-                        cryptoStream.Write(inputByteArray, 0, inputByteArray.Length);
-                        cryptoStream.FlushFinalBlock();
-
-                        StringBuilder stringBuilder = new StringBuilder();
-
-                        foreach (byte byt in memoryStream.ToArray())
-                        {
-                            stringBuilder.AppendFormat("{0:X2}", byt);
-                        }
-
-                        return stringBuilder.ToString();
-                    }
-                }
+                stringBuilder.AppendFormat("{0:X2}", @byte);
             }
+
+            return stringBuilder.ToString();
         }
         #endregion
 
@@ -114,29 +88,25 @@ namespace SD.Common
             key = string.IsNullOrWhiteSpace(key) ? "744FBCAD-3BA6-40FB-9A75-B6C81E25403E" : key;
             int length = ciphertext.Length / 2;
 
-            byte[] inputByteArray = new byte[length];
+            byte[] inputBytes = new byte[length];
             for (int index = 0; index < length; index++)
             {
-                inputByteArray[index] = Convert.ToByte(ciphertext.Substring(index * 2, 2), 16);
+                inputBytes[index] = Convert.ToByte(ciphertext.Substring(index * 2, 2), 16);
             }
 
-            using (DESCryptoServiceProvider desCryptoService = new DESCryptoServiceProvider())
-            {
-                string keyHash8 = key.ToHash16().Substring(0, 8);
-                desCryptoService.Key = Encoding.ASCII.GetBytes(keyHash8);
-                desCryptoService.IV = Encoding.ASCII.GetBytes(keyHash8);
+            using DESCryptoServiceProvider desCryptoService = new DESCryptoServiceProvider();
+            string keyHash8 = key.ToHash16().Substring(0, 8);
+            desCryptoService.Key = Encoding.ASCII.GetBytes(keyHash8);
+            desCryptoService.IV = Encoding.ASCII.GetBytes(keyHash8);
 
-                using (MemoryStream memoryStream = new MemoryStream())
-                {
-                    using (CryptoStream cryptoStream = new CryptoStream(memoryStream, desCryptoService.CreateDecryptor(), CryptoStreamMode.Write))
-                    {
-                        cryptoStream.Write(inputByteArray, 0, inputByteArray.Length);
-                        cryptoStream.FlushFinalBlock();
+            using MemoryStream memoryStream = new MemoryStream();
+            using CryptoStream cryptoStream = new CryptoStream(memoryStream, desCryptoService.CreateDecryptor(), CryptoStreamMode.Write);
+            cryptoStream.Write(inputBytes, 0, inputBytes.Length);
+            cryptoStream.FlushFinalBlock();
 
-                        return Encoding.Default.GetString(memoryStream.ToArray());
-                    }
-                }
-            }
+            string plainText = Encoding.Default.GetString(memoryStream.ToArray());
+
+            return plainText;
         }
         #endregion
     }

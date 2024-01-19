@@ -17,7 +17,7 @@ namespace SD.Toolkits.Excel.Tests.TestCases
         [TestMethod]
         public void TestReadToArrayByIndex03()
         {
-            Person[] persons = ExcelReader.ReadFile<Person>("StubExcel.xls", 0, 1);
+            Person[] persons = ExcelReader.ReadFile<Person>("Content/StubExcel.xls", 0, 1);
 
             Assert.IsTrue(persons.Length == 4);
         }
@@ -31,7 +31,7 @@ namespace SD.Toolkits.Excel.Tests.TestCases
         [TestMethod]
         public void TestReadToArrayByName03()
         {
-            Person[] persons = ExcelReader.ReadFile<Person>("StubExcel.xls", "default", 1);
+            Person[] persons = ExcelReader.ReadFile<Person>("Content/StubExcel.xls", "default", 1);
 
             Assert.IsTrue(persons.Length == 4);
         }
@@ -45,7 +45,7 @@ namespace SD.Toolkits.Excel.Tests.TestCases
         [TestMethod]
         public void TestReadToArrayByIndex07()
         {
-            Person[] persons = ExcelReader.ReadFile<Person>("StubExcel.xlsx", 0, 1);
+            Person[] persons = ExcelReader.ReadFile<Person>("Content/StubExcel.xlsx", 0, 1);
 
             Assert.IsTrue(persons.Length == 4);
         }
@@ -59,7 +59,7 @@ namespace SD.Toolkits.Excel.Tests.TestCases
         [TestMethod]
         public void TestReadToArrayByName07()
         {
-            Person[] persons = ExcelReader.ReadFile<Person>("StubExcel.xlsx", "default", 1);
+            Person[] persons = ExcelReader.ReadFile<Person>("Content/StubExcel.xlsx", "default", 1);
 
             Assert.IsTrue(persons.Length == 4);
         }

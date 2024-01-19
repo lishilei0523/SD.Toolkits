@@ -36,9 +36,13 @@ namespace SD.Common
 #else
             DescriptionAttribute enumMember = field.GetCustomAttribute<DescriptionAttribute>();
 #endif
-            return enumMember == null ? @enum.ToString()
-                : string.IsNullOrEmpty(enumMember.Description) ? @enum.ToString() :
-                enumMember.Description;
+            string enumMemberDescription = enumMember == null
+                ? @enum.ToString()
+                : string.IsNullOrWhiteSpace(enumMember.Description)
+                    ? @enum.ToString()
+                    : enumMember.Description;
+
+            return enumMemberDescription;
         }
         #endregion
 
@@ -61,8 +65,7 @@ namespace SD.Common
             #endregion
 
             FieldInfo[] fields = enumType.GetFields();
-
-            IDictionary<string, string> dictionaries = new Dictionary<string, string>();
+            IDictionary<string, string> dictionary = new Dictionary<string, string>();
             foreach (FieldInfo field in fields.Where(x => x.Name != EnumValueField))
             {
 #if NET40
@@ -71,14 +74,15 @@ namespace SD.Common
 #else
                 DescriptionAttribute enumMember = field.GetCustomAttribute<DescriptionAttribute>();
 #endif
-                dictionaries.Add(field.Name, enumMember == null
+                string enumMemberDescription = enumMember == null
                     ? field.Name
                     : string.IsNullOrEmpty(enumMember.Description)
                         ? field.Name
-                        : enumMember.Description);
+                        : enumMember.Description;
+                dictionary.Add(field.Name, enumMemberDescription);
             }
 
-            return dictionaries;
+            return dictionary;
         }
         #endregion
 
@@ -92,7 +96,6 @@ namespace SD.Common
         public static IDictionary<int, string> GetEnumDictionary(this Type enumType)
         {
             IEnumerable<Tuple<int, string, string>> tuples = GetEnumMemberInfos(enumType);
-
             IDictionary<int, string> dictionary = new Dictionary<int, string>();
             foreach (Tuple<int, string, string> tuple in tuples)
             {
@@ -133,7 +136,6 @@ namespace SD.Common
                 DescriptionAttribute enumMember = field.GetCustomAttribute<DescriptionAttribute>();
 #endif
                 int value = Convert.ToInt32(field.GetValue(Activator.CreateInstance(enumType)));
-
                 enumInfos.Add(new Tuple<int, string, string>(value, field.Name, enumMember == null ? field.Name : string.IsNullOrEmpty(enumMember.Description) ? field.Name : enumMember.Description));
             }
 

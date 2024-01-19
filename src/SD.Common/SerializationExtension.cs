@@ -29,24 +29,22 @@ namespace SD.Common
 
             #endregion
 
-            using (MemoryStream memoryStream = new MemoryStream())
+            using MemoryStream memoryStream = new MemoryStream();
+            BinaryFormatter binaryFormatter = new BinaryFormatter();
+            binaryFormatter.Serialize(memoryStream, instance);
+            memoryStream.Position = 0;
+            T copy = binaryFormatter.Deserialize(memoryStream) as T;
+
+            #region # 验证
+
+            if (copy == null)
             {
-                BinaryFormatter binaryFormatter = new BinaryFormatter();
-                binaryFormatter.Serialize(memoryStream, instance);
-                memoryStream.Position = 0;
-                T copy = binaryFormatter.Deserialize(memoryStream) as T;
-
-                #region # 验证
-
-                if (copy == null)
-                {
-                    throw new InvalidCastException($"无法将源类型\"{instance.GetType().Name}\"反序列化为给定类型\"{typeof(T).Name}\"，请检查类型后重试！");
-                }
-
-                #endregion
-
-                return copy;
+                throw new InvalidCastException($"无法将源类型\"{instance.GetType().Name}\"反序列化为给定类型\"{typeof(T).Name}\"，请检查类型后重试！");
             }
+
+            #endregion
+
+            return copy;
         }
         #endregion
 
@@ -67,18 +65,19 @@ namespace SD.Common
 
             #endregion
 
-            using (MemoryStream memoryStream = new MemoryStream())
+            using MemoryStream memoryStream = new MemoryStream();
+            try
             {
-                try
-                {
-                    BinaryFormatter binaryFormatter = new BinaryFormatter();
-                    binaryFormatter.Serialize(memoryStream, instance);
-                    return Convert.ToBase64String(memoryStream.ToArray());
-                }
-                catch (SerializationException)
-                {
-                    throw new SerializationException($"给定对象类型\"{instance.GetType().Name}\"未标记\"Serializable\"特性！");
-                }
+                BinaryFormatter binaryFormatter = new BinaryFormatter();
+                binaryFormatter.Serialize(memoryStream, instance);
+                byte[] bytes = memoryStream.ToArray();
+                string base64String = Convert.ToBase64String(bytes);
+
+                return base64String;
+            }
+            catch (SerializationException)
+            {
+                throw new SerializationException($"给定对象类型\"{instance.GetType().Name}\"未标记\"Serializable\"特性！");
             }
         }
         #endregion
@@ -100,18 +99,16 @@ namespace SD.Common
 
             #endregion
 
-            using (MemoryStream memoryStream = new MemoryStream())
+            using MemoryStream memoryStream = new MemoryStream();
+            try
             {
-                try
-                {
-                    BinaryFormatter binaryFormatter = new BinaryFormatter();
-                    binaryFormatter.Serialize(memoryStream, instance);
-                    return memoryStream.ToArray();
-                }
-                catch (SerializationException)
-                {
-                    throw new SerializationException($"给定对象类型\"{instance.GetType().Name}\"未标记\"Serializable\"特性！");
-                }
+                BinaryFormatter binaryFormatter = new BinaryFormatter();
+                binaryFormatter.Serialize(memoryStream, instance);
+                return memoryStream.ToArray();
+            }
+            catch (SerializationException)
+            {
+                throw new SerializationException($"给定对象类型\"{instance.GetType().Name}\"未标记\"Serializable\"特性！");
             }
         }
         #endregion
@@ -133,12 +130,12 @@ namespace SD.Common
 
             #endregion
 
-            using (TextWriter stringWriter = new StringWriter())
-            {
-                XmlSerializer xmlSerializer = new XmlSerializer(instance.GetType());
-                xmlSerializer.Serialize(stringWriter, instance);
-                return stringWriter.ToString();
-            }
+            using TextWriter textWriter = new StringWriter();
+            XmlSerializer xmlSerializer = new XmlSerializer(instance.GetType());
+            xmlSerializer.Serialize(textWriter, instance);
+            string xml = textWriter.ToString();
+
+            return xml;
         }
         #endregion
 
@@ -159,21 +156,22 @@ namespace SD.Common
 
             #endregion
 
-            using (MemoryStream stream = new MemoryStream(Convert.FromBase64String(binaryText)))
+            byte[] bytes = Convert.FromBase64String(binaryText);
+            using MemoryStream stream = new MemoryStream(bytes);
+            try
             {
-                try
-                {
-                    BinaryFormatter binaryFormatter = new BinaryFormatter();
-                    return (T)binaryFormatter.Deserialize(stream);
-                }
-                catch (SerializationException)
-                {
-                    throw new SerializationException($"给定对象类型\"{typeof(T).Name}\"未标记\"Serializable\"特性！");
-                }
-                catch (InvalidCastException exception)
-                {
-                    throw new InvalidCastException($"无法将给定二进制文本反序列化为给定类型\"{typeof(T).Name}\"，请检查类型后重试！", exception);
-                }
+                BinaryFormatter binaryFormatter = new BinaryFormatter();
+                T instance = (T)binaryFormatter.Deserialize(stream);
+
+                return instance;
+            }
+            catch (SerializationException)
+            {
+                throw new SerializationException($"给定对象类型\"{typeof(T).Name}\"未标记\"Serializable\"特性！");
+            }
+            catch (InvalidCastException exception)
+            {
+                throw new InvalidCastException($"无法将给定二进制文本反序列化为给定类型\"{typeof(T).Name}\"，请检查类型后重试！", exception);
             }
         }
         #endregion
@@ -195,22 +193,21 @@ namespace SD.Common
 
             #endregion
 
-            using (MemoryStream memoryStream = new MemoryStream(binaryBuffer))
+            using MemoryStream memoryStream = new MemoryStream(binaryBuffer);
+            try
             {
-                try
-                {
-                    BinaryFormatter binaryFormatter = new BinaryFormatter();
-                    object instance = binaryFormatter.Deserialize(memoryStream);
-                    return (T)instance;
-                }
-                catch (SerializationException)
-                {
-                    throw new SerializationException($"给定对象类型\"{typeof(T).Name}\"未标记\"Serializable\"特性！");
-                }
-                catch (InvalidCastException exception)
-                {
-                    throw new InvalidCastException($"无法将给定byte数组反序列化为给定类型\"{typeof(T).Name}\"，请检查类型后重试！", exception);
-                }
+                BinaryFormatter binaryFormatter = new BinaryFormatter();
+                object instance = binaryFormatter.Deserialize(memoryStream);
+
+                return (T)instance;
+            }
+            catch (SerializationException)
+            {
+                throw new SerializationException($"给定对象类型\"{typeof(T).Name}\"未标记\"Serializable\"特性！");
+            }
+            catch (InvalidCastException exception)
+            {
+                throw new InvalidCastException($"无法将给定byte数组反序列化为给定类型\"{typeof(T).Name}\"，请检查类型后重试！", exception);
             }
         }
         #endregion
@@ -232,17 +229,17 @@ namespace SD.Common
 
             #endregion
 
-            using (StringReader stringReader = new StringReader(xml))
+            using StringReader stringReader = new StringReader(xml);
+            XmlSerializer xmlSerializer = new XmlSerializer(typeof(T));
+            try
             {
-                XmlSerializer xmlSerializer = new XmlSerializer(typeof(T));
-                try
-                {
-                    return (T)xmlSerializer.Deserialize(stringReader);
-                }
-                catch (InvalidCastException exception)
-                {
-                    throw new InvalidCastException($"无法将源XML文本反序列化为给定类型\"{typeof(T).Name}\"，请检查类型后重试！", exception);
-                }
+                T instance = (T)xmlSerializer.Deserialize(stringReader);
+
+                return instance;
+            }
+            catch (InvalidCastException exception)
+            {
+                throw new InvalidCastException($"无法将源XML文本反序列化为给定类型\"{typeof(T).Name}\"，请检查类型后重试！", exception);
             }
         }
         #endregion
@@ -264,20 +261,18 @@ namespace SD.Common
 
             #endregion
 
-            using (MemoryStream memoryStream = new MemoryStream(xmlBuffer))
+            using MemoryStream memoryStream = new MemoryStream(xmlBuffer);
+            using StreamReader streamReader = new StreamReader(memoryStream);
+            XmlSerializer xmlSerializer = new XmlSerializer(typeof(T));
+            try
             {
-                using (StreamReader streamReader = new StreamReader(memoryStream))
-                {
-                    XmlSerializer xmlSerializer = new XmlSerializer(typeof(T));
-                    try
-                    {
-                        return (T)xmlSerializer.Deserialize(streamReader);
-                    }
-                    catch (InvalidCastException exception)
-                    {
-                        throw new InvalidCastException($"无法将源XML文本反序列化为给定类型\"{typeof(T).Name}\"，请检查类型后重试！", exception);
-                    }
-                }
+                T instance = (T)xmlSerializer.Deserialize(streamReader);
+
+                return instance;
+            }
+            catch (InvalidCastException exception)
+            {
+                throw new InvalidCastException($"无法将源XML文本反序列化为给定类型\"{typeof(T).Name}\"，请检查类型后重试！", exception);
             }
         }
         #endregion

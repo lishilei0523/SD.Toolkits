@@ -204,8 +204,8 @@ namespace SD.Common
         /// <returns>是否相等</returns>
         public static bool EqualsTo<TKey, TValue>(this IDictionary<TKey, TValue> sourceDict, IDictionary<TKey, TValue> targetDict)
         {
-            sourceDict = sourceDict ?? new Dictionary<TKey, TValue>();
-            targetDict = targetDict ?? new Dictionary<TKey, TValue>();
+            sourceDict ??= new Dictionary<TKey, TValue>();
+            targetDict ??= new Dictionary<TKey, TValue>();
 
             #region 01.长度对比
 

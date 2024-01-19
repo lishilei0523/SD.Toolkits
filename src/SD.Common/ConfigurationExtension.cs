@@ -39,17 +39,13 @@ namespace SD.Common
 
             #endregion
 
-            using (StreamReader streamReader = new StreamReader(configStream))
-            {
-                string configContent = streamReader.ReadToEnd();
-                using (TemporaryFileStream temporaryFileStream = TemporaryFileStream.Create(configContent))
-                {
-                    ConfigurationFileMap configurationFileMap = new ConfigurationFileMap(temporaryFileStream.Name);
-                    Configuration configuration = ConfigurationManager.OpenMappedMachineConfiguration(configurationFileMap);
+            using StreamReader streamReader = new StreamReader(configStream);
+            string configContent = streamReader.ReadToEnd();
+            using TemporaryFileStream temporaryFileStream = TemporaryFileStream.Create(configContent);
+            ConfigurationFileMap configurationFileMap = new ConfigurationFileMap(temporaryFileStream.Name);
+            Configuration configuration = ConfigurationManager.OpenMappedMachineConfiguration(configurationFileMap);
 
-                    return configuration;
-                }
-            }
+            return configuration;
         }
         #endregion
     }

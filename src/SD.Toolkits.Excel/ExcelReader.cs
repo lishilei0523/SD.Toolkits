@@ -43,29 +43,27 @@ namespace SD.Toolkits.Excel
 
             #endregion
 
-            using (FileStream stream = File.OpenRead(path))
+            //读取工作薄
+            using FileStream stream = File.OpenRead(path);
+            string extensionName = Path.GetExtension(path);
+            IWorkbook workbook = ExcelConductor.CreateWorkbook(extensionName, stream);
+
+            #region # 验证
+
+            if (sheetIndex + 1 > workbook.NumberOfSheets)
             {
-                //读取工作薄
-                string extensionName = Path.GetExtension(path);
-                IWorkbook workbook = ExcelConductor.CreateWorkbook(extensionName, stream);
-
-                #region # 验证
-
-                if (sheetIndex + 1 > workbook.NumberOfSheets)
-                {
-                    throw new ArgumentOutOfRangeException(nameof(sheetIndex), "给定工作表索引超出了Excel有效工作表数！");
-                }
-
-                #endregion
-
-                ISheet sheet = workbook.GetSheetAt(sheetIndex);
-                T[] array = SheetToArray<T>(sheet, rowIndex);
-
-                //关闭工作薄
-                workbook.Close();
-
-                return array;
+                throw new ArgumentOutOfRangeException(nameof(sheetIndex), "给定工作表索引超出了Excel有效工作表数！");
             }
+
+            #endregion
+
+            ISheet sheet = workbook.GetSheetAt(sheetIndex);
+            T[] array = SheetToArray<T>(sheet, rowIndex);
+
+            //关闭工作薄
+            workbook.Close();
+
+            return array;
         }
         #endregion
 
@@ -97,20 +95,18 @@ namespace SD.Toolkits.Excel
 
             #endregion
 
-            using (FileStream stream = File.OpenRead(path))
-            {
-                //读取工作薄
-                string extensionName = Path.GetExtension(path);
-                IWorkbook workbook = ExcelConductor.CreateWorkbook(extensionName, stream);
+            //读取工作薄
+            using FileStream stream = File.OpenRead(path);
+            string extensionName = Path.GetExtension(path);
+            IWorkbook workbook = ExcelConductor.CreateWorkbook(extensionName, stream);
 
-                ISheet sheet = workbook.GetSheet(sheetName);
-                T[] array = SheetToArray<T>(sheet, rowIndex);
+            ISheet sheet = workbook.GetSheet(sheetName);
+            T[] array = SheetToArray<T>(sheet, rowIndex);
 
-                //关闭工作薄
-                workbook.Close();
+            //关闭工作薄
+            workbook.Close();
 
-                return array;
-            }
+            return array;
         }
         #endregion
 

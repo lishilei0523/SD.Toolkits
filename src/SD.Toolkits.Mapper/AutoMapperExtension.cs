@@ -92,7 +92,9 @@ namespace SD.Toolkits.Mapper
                 }
 
                 IMapper mapper = new AutoMapper.Mapper(mapperConfiguration);
-                return mapper.Map<TTarget>(sourceInstance);
+                TTarget targetInstance = mapper.Map<TTarget>(sourceInstance);
+
+                return targetInstance;
             }
         }
         #endregion

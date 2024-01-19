@@ -10,6 +10,8 @@ namespace SD.Toolkits.Redis
     /// </summary>
     public static class RedisManager
     {
+        #region # 字段及构造器
+
         /// <summary>
         /// Redis密码
         /// </summary>
@@ -53,40 +55,55 @@ namespace SD.Toolkits.Redis
             _Instance = ConnectionMultiplexer.Connect(_RedisConfigurationOptions);
         }
 
+        #endregion
 
+        #region # 属性
+
+        #region Redis密码 —— static string RedisPassword
         /// <summary>
         /// Redis密码
         /// </summary>
         public static string RedisPassword
         {
-            get { return _RedisPassword; }
+            get => _RedisPassword;
         }
+        #endregion
 
+        #region Redis终结点列表 —— static IList<KeyValuePair<string, int>> RedisEndpoints
         /// <summary>
         /// Redis终结点列表
         /// </summary>
         public static IList<KeyValuePair<string, int>> RedisEndpoints
         {
-            get { return _RedisEndpoints; }
+            get => _RedisEndpoints;
         }
+        #endregion
 
+        #region Redis配置选项 —— static ConfigurationOptions RedisConfigurationOptions
         /// <summary>
         /// Redis配置选项
         /// </summary>
         public static ConfigurationOptions RedisConfigurationOptions
         {
-            get { return _RedisConfigurationOptions; }
+            get => _RedisConfigurationOptions;
         }
+        #endregion
 
+        #region Redis连接通道实例 —— static ConnectionMultiplexer Instance
         /// <summary>
-        /// Redis连接通道
+        /// Redis连接通道实例
         /// </summary>
         public static ConnectionMultiplexer Instance
         {
-            get { return _Instance; }
+            get => _Instance;
         }
+        #endregion
 
+        #endregion
 
+        #region # 方法
+
+        #region 获取数据库 —— static IDatabase GetDatabase(int db = -1, object asyncState = null)
         /// <summary>
         /// 获取数据库
         /// </summary>
@@ -95,5 +112,9 @@ namespace SD.Toolkits.Redis
         {
             return _Instance.GetDatabase(db, asyncState);
         }
+
+        #endregion 
+
+        #endregion
     }
 }
