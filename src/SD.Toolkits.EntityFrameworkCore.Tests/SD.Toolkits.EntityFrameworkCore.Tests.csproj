@@ -22,7 +22,6 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="SD.Common" Version="3.2.0" />
     <PackageReference Include="SD.Infrastructure" Version="3.6.0" />
   </ItemGroup>
 
@@ -43,6 +42,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\SD.Common\SD.Common.csproj" />
     <ProjectReference Include="..\SD.Toolkits.EntityFrameworkCore\SD.Toolkits.EntityFrameworkCore.csproj" />
   </ItemGroup>
 </Project>
