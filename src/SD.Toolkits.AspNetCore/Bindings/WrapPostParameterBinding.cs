@@ -88,7 +88,7 @@ namespace SD.Toolkits.AspNetCore.Bindings
             string cacheKey = typeof(WrapPostParameterBinding).FullName;
             if (!request.HttpContext.Items.TryGetValue(cacheKey!, out object result))
             {
-                if (request.ContentType.StartsWith("application/json"))
+                if (request.ContentType!.StartsWith("application/json"))
                 {
                     using StreamReader streamReader = new StreamReader(request.Body, Encoding.UTF8, false, 4096, true);
                     string body = await streamReader.ReadToEndAsync();
