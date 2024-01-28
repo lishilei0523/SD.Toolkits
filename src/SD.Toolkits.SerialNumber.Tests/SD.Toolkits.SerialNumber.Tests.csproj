@@ -13,7 +13,7 @@
     </None>
   </ItemGroup>
 
-  <ItemGroup Condition="$(TargetFramework.StartsWith('net4'))">
+  <ItemGroup Condition="$(TargetFramework.Equals('net462'))">
     <Reference Include="System.Configuration" />
   </ItemGroup>
 
