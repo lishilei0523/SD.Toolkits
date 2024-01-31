@@ -28,7 +28,7 @@ namespace SD.Toolkits.EntityFrameworkCore.Extensions
 #if NETSTANDARD2_0
             throw new NotSupportedException();
 #endif
-#if NETCOREAPP3_1_OR_GREATER
+#if NETSTANDARD2_1 || NETCOREAPP3_1_OR_GREATER
             return queryable.ToQueryString();
 #endif
         }

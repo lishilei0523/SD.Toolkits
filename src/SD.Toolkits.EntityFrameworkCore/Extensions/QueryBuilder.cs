@@ -105,9 +105,10 @@ namespace SD.Toolkits.EntityFrameworkCore.Extensions
         private static Expression<TExpression> Merge<TExpression>(Expression<TExpression> left, Expression<TExpression> right, Func<Expression, Expression, Expression> @operator)
         {
             // zip parameters (map from parameters of right to parameters of left)
-            IDictionary<ParameterExpression, ParameterExpression> map = left.Parameters
-                .Select((expression, index) => new { expression, s = right.Parameters[index] })
-                .ToDictionary(p => p.s, p => p.expression);
+            IDictionary<ParameterExpression, ParameterExpression> map =
+                left.Parameters
+                    .Select((expression, index) => new { Expression = expression, Parameter = right.Parameters[index] })
+                    .ToDictionary(x => x.Parameter, x => x.Expression);
 
             // replace parameters in the right lambda expression with the parameters in the left
             ParameterExpressionVisitor parameterExpressionVisitor = new ParameterExpressionVisitor(map);
@@ -115,48 +116,6 @@ namespace SD.Toolkits.EntityFrameworkCore.Extensions
 
             // create a merged lambda expression with parameters from the left expression
             return Expression.Lambda<TExpression>(@operator.Invoke(left.Body, rightBody), left.Parameters);
-        }
-        #endregion
-    }
-
-
-    /// <summary>
-    /// 参数表达式访问者
-    /// </summary>
-    internal class ParameterExpressionVisitor : ExpressionVisitor
-    {
-        #region # 字段及构造器
-
-        /// <summary>
-        /// 参数表达式映射
-        /// </summary>
-        private readonly IDictionary<ParameterExpression, ParameterExpression> _map;
-
-        /// <summary>
-        /// 构造器
-        /// </summary>
-        /// <param name="map">参数表达式映射</param>
-        public ParameterExpressionVisitor(IDictionary<ParameterExpression, ParameterExpression> map)
-        {
-            this._map = map;
-        }
-
-        #endregion
-
-        #region # 访问 —— override Expression VisitParameter(ParameterExpression expression)
-        /// <summary>
-        /// 访问
-        /// </summary>
-        /// <param name="expression">参数表达式</param>
-        /// <returns>表达式</returns>
-        protected override Expression VisitParameter(ParameterExpression expression)
-        {
-            if (this._map.TryGetValue(expression, out ParameterExpression replacement))
-            {
-                expression = replacement;
-            }
-
-            return base.VisitParameter(expression);
         }
         #endregion
     }
