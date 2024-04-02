@@ -27,15 +27,15 @@ namespace SD.Common
 
             #endregion
 
-            const string configFileName = "App.config";
+            const string appConfig = "App.config";
             string assemblyName = assembly.GetName().Name;
-            using Stream configStream = assembly.GetManifestResourceStream($"{assemblyName}.{configFileName}");
+            using Stream configStream = assembly.GetManifestResourceStream($"{assemblyName}.{appConfig}");
 
             #region # 验证
 
             if (configStream == null)
             {
-                throw new NullReferenceException($"程序集\"{assemblyName}\"未嵌入\"{configFileName}\"！");
+                throw new NullReferenceException($"程序集\"{assemblyName}\"未嵌入\"{appConfig}\"！");
             }
 
             #endregion
