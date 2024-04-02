@@ -8,14 +8,14 @@ using System.Reflection;
 namespace SD.Toolkits.AspNet.Tests.TestCases
 {
     /// <summary>
-    /// ÅäÖÃÎÄ¼ş²âÊÔ
+    /// é…ç½®æ–‡ä»¶æµ‹è¯•
     /// </summary>
     [TestClass]
     public class ConfigurationTests
     {
-        #region # ²âÊÔ³õÊ¼»¯ ¡ª¡ª void Initialize()
+        #region # æµ‹è¯•åˆå§‹åŒ– â€”â€” void Initialize()
         /// <summary>
-        /// ²âÊÔ³õÊ¼»¯
+        /// æµ‹è¯•åˆå§‹åŒ–
         /// </summary>
         [TestInitialize]
         public void Initialize()
@@ -28,9 +28,9 @@ namespace SD.Toolkits.AspNet.Tests.TestCases
         }
         #endregion
 
-        #region # ²âÊÔÅäÖÃÎÄ¼ş ¡ª¡ª void TestConfiguration()
+        #region # æµ‹è¯•é…ç½®æ–‡ä»¶ â€”â€” void TestConfiguration()
         /// <summary>
-        /// ²âÊÔÅäÖÃÎÄ¼ş
+        /// æµ‹è¯•é…ç½®æ–‡ä»¶
         /// </summary>
         [TestMethod]
         public void TestConfiguration()
