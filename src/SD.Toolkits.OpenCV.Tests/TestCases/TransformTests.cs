@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenCvSharp;
+using SD.Toolkits.OpenCV.Extensions;
 
 namespace SD.Toolkits.OpenCV.Tests.TestCases
 {

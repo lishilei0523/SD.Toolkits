@@ -4,7 +4,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace SD.Toolkits.OpenCV
+namespace SD.Toolkits.OpenCV.Extensions
 {
     /// <summary>
     /// 几何变换扩展

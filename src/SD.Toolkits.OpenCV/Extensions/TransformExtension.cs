@@ -1,7 +1,7 @@
 ﻿using OpenCvSharp;
 using System;
 
-namespace SD.Toolkits.OpenCV
+namespace SD.Toolkits.OpenCV.Extensions
 {
     /// <summary>
     /// 变换扩展

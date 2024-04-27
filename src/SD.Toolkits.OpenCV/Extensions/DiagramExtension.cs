@@ -1,47 +1,12 @@
 ﻿using OpenCvSharp;
-using ScottPlot;
-using System.Linq;
 
-namespace SD.Toolkits.OpenCV
+namespace SD.Toolkits.OpenCV.Extensions
 {
     /// <summary>
     /// 图表扩展
     /// </summary>
     public static class DiagramExtension
     {
-        #region # 生成灰度直方图 —— static Mat GenerateGrayHistogram(this Mat matrix...
-        /// <summary>
-        /// 生成灰度直方图
-        /// </summary>
-        /// <param name="matrix">图像矩阵</param>
-        /// <param name="width">直方图图像宽度</param>
-        /// <param name="height">直方图图像高度</param>
-        /// <returns>灰度直方图矩阵</returns>
-        public static Mat GenerateGrayHistogram(this Mat matrix, int width = 1024, int height = 768)
-        {
-            //生成直方图矩阵
-            int dims = 1;
-            int[] channels = { 0 };
-            int[] histSize = { 256 };
-            Rangef[] histRange = { new Rangef(0, 255) };
-            using Mat histMatrix = new Mat();
-            Cv2.CalcHist(new[] { matrix }, channels, null, histMatrix, dims, histSize, histRange);
-            histMatrix.GetArray(out float[] histVector);
-
-            //ScottPlot绘图
-            double[] values = histVector.Select(x => (double)x).ToArray();
-            double[] positions = Enumerable.Range(1, histVector.Length).Select(x => (double)x).ToArray();
-            Plot plot = new Plot();
-            plot.Add.Bars(positions, values);
-            byte[] imageBytes = plot.GetImageBytes(width, height, ImageFormat.Jpeg);
-
-            //转换OpenCV图像矩阵
-            Mat histImage = Cv2.ImDecode(imageBytes, ImreadModes.Color);
-
-            return histImage;
-        }
-        #endregion
-
         #region # 生成频率谱图 —— static Mat GenerateFrequencySpectrum(this Mat matrix)
         /// <summary>
         /// 生成频率谱图

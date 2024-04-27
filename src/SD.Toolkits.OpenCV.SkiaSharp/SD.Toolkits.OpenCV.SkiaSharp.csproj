@@ -2,24 +2,25 @@
   <PropertyGroup>
     <TargetFrameworks>net462;netstandard2.0</TargetFrameworks>
     <LangVersion>8.0</LangVersion>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <Authors>Lee</Authors>
     <Company>SD</Company>
-    <Description>SD.Toolkits OpenCV扩展组件</Description>
+    <Description>SD.Toolkits OpenCV SkiaSharp扩展组件</Description>
     <Copyright>Copyright © SD 2024</Copyright>
-    <Version>0.1.1</Version>
-    <AssemblyVersion>0.1.1</AssemblyVersion>
-    <FileVersion>0.1.1.0</FileVersion>
+    <Version>0.1.0</Version>
+    <AssemblyVersion>0.1.0</AssemblyVersion>
+    <FileVersion>0.1.0.0</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>bin\Debug\$(TargetFramework)\SD.Toolkits.OpenCV.xml</DocumentationFile>
+    <DocumentationFile>bin\Debug\$(TargetFramework)\SD.Toolkits.OpenCV.SkiaSharp.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>bin\Release\$(TargetFramework)\SD.Toolkits.OpenCV.xml</DocumentationFile>
+    <DocumentationFile>bin\Release\$(TargetFramework)\SD.Toolkits.OpenCV.SkiaSharp.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="OpenCvSharp4" Version="4.9.0.20240103" />
+    <PackageReference Include="SkiaSharp" Version="2.88.7" />
+    <PackageReference Include="ScottPlot" Version="5.0.21" />
   </ItemGroup>
 </Project>

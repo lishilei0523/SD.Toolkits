@@ -1,7 +1,7 @@
 ﻿using OpenCvSharp;
 using System;
 
-namespace SD.Toolkits.OpenCV
+namespace SD.Toolkits.OpenCV.Extensions
 {
     /// <summary>
     /// Retinex算法扩展

@@ -27,5 +27,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SD.Toolkits.OpenCV\SD.Toolkits.OpenCV.csproj" />
+    <ProjectReference Include="..\SD.Toolkits.OpenCV.SkiaSharp\SD.Toolkits.OpenCV.SkiaSharp.csproj" />
   </ItemGroup>
 </Project>

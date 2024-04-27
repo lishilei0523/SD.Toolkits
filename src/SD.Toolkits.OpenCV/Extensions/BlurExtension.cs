@@ -1,6 +1,6 @@
 ﻿using OpenCvSharp;
 
-namespace SD.Toolkits.OpenCV
+namespace SD.Toolkits.OpenCV.Extensions
 {
     /// <summary>
     /// 滤波扩展

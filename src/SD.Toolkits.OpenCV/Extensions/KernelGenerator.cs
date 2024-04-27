@@ -1,7 +1,7 @@
 ﻿using OpenCvSharp;
 using System;
 
-namespace SD.Toolkits.OpenCV
+namespace SD.Toolkits.OpenCV.Extensions
 {
     /// <summary>
     /// 卷积核生成器
@@ -527,7 +527,7 @@ namespace SD.Toolkits.OpenCV
                 int colDiff = colIndex - center.X;
                 double norm2 = Math.Pow(rowDiff, 2) + Math.Pow(colDiff, 2);
                 double distance = Math.Sqrt(norm2);
-                double element = (distance * bandWidth) / (norm2 - Math.Pow(sigma, 2));
+                double element = distance * bandWidth / (norm2 - Math.Pow(sigma, 2));
                 double elementPow = Math.Pow(element, 2.0f * n);
                 kernel.At<float>(rowIndex, colIndex) = 1.0f - 1.0f / (float)(1.0f + elementPow);
             });
@@ -576,7 +576,7 @@ namespace SD.Toolkits.OpenCV
                 int colDiff = colIndex - center.X;
                 double norm2 = Math.Pow(rowDiff, 2) + Math.Pow(colDiff, 2);
                 double distance = Math.Sqrt(norm2);
-                double element = (distance * bandWidth) / (norm2 - Math.Pow(sigma, 2));
+                double element = distance * bandWidth / (norm2 - Math.Pow(sigma, 2));
                 double elementPow = Math.Pow(element, 2.0f * n);
                 kernel.At<float>(rowIndex, colIndex) = 1.0f / (float)(1.0f + elementPow);
             });

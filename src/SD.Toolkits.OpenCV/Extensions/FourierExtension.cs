@@ -1,6 +1,6 @@
 ﻿using OpenCvSharp;
 
-namespace SD.Toolkits.OpenCV
+namespace SD.Toolkits.OpenCV.Extensions
 {
     /// <summary>
     /// 傅里叶扩展
@@ -28,8 +28,8 @@ namespace SD.Toolkits.OpenCV
             Cv2.Split(complexMatrix, out planes);
 
             //迁移频域
-            ShiftDFT(planes[0]);
-            ShiftDFT(planes[1]);
+            planes[0].ShiftDFT();
+            planes[1].ShiftDFT();
 
             //滤波器函数与DFT结果的乘积
             using Mat blurReal = new Mat();
@@ -40,8 +40,8 @@ namespace SD.Toolkits.OpenCV
             Mat[] blurs = { blurReal, blurImag };
 
             //再次迁移进行逆变换
-            ShiftDFT(blurReal);
-            ShiftDFT(blurImag);
+            blurReal.ShiftDFT();
+            blurImag.ShiftDFT();
 
             //实部与虚部合并
             Cv2.Merge(blurs, blur);
