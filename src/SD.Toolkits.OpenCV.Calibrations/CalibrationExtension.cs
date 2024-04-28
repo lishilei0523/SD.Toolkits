@@ -4,6 +4,7 @@ using OpenCvSharp;
 using SD.Toolkits.OpenCV.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SD.Toolkits.OpenCV.Calibrations
 {
@@ -333,6 +334,78 @@ namespace SD.Toolkits.OpenCV.Calibrations
             }
 
             return success;
+        }
+        #endregion
+
+        #region # 验证对极约束 —— static double[] CheckEpipolarConstraints(Mat cameraMat...
+        /// <summary>
+        /// 验证对极约束
+        /// </summary>
+        /// <param name="cameraMat">相机内参矩阵</param>
+        /// <param name="sourcePoints">源关键点集</param>
+        /// <param name="targetPoints">目标关键点集</param>
+        /// <param name="rMat">旋转矩阵</param>
+        /// <param name="tMat">平移矩阵</param>
+        /// <returns>对极约束列表</returns>
+        public static double[] CheckEpipolarConstraints(Mat cameraMat, IList<Point2f> sourcePoints, IList<Point2f> targetPoints, Mat rMat, Mat tMat)
+        {
+            IList<double> epipolarConstraints = new List<double>();
+            for (int i = 0; i < sourcePoints.Count; i++)
+            {
+                double[] y1Array = { sourcePoints[i].X, sourcePoints[i].Y, 1 };
+                double[] y2Array = { targetPoints[i].X, targetPoints[i].Y, 1 };
+                Mat y1 = Mat.FromArray(y1Array);
+                Mat y2 = Mat.FromArray(y2Array);
+
+                double[,] txArray =
+                {
+                    {0, -tMat.At<double>(2, 0), tMat.At<double>(1, 0)},
+                    {tMat.At<double>(2, 0), 0, -tMat.At<double>(0, 0)},
+                    {-tMat.At<double>(1, 0), tMat.At<double>(0, 0), 0}
+                };
+                Mat txMat = Mat.FromArray(txArray);
+
+                Mat d = y2.T() * cameraMat.Inv().T() * txMat * rMat * cameraMat.Inv() * y1;
+                epipolarConstraints.Add(d.At<double>(0, 0));
+            }
+
+            return epipolarConstraints.ToArray();
+        }
+        #endregion
+
+        #region # 验证对极约束 —— static double[] CheckEpipolarConstraints(Matrix<double> cameraMatrix...
+        /// <summary>
+        /// 验证对极约束
+        /// </summary>
+        /// <param name="cameraMatrix">相机内参矩阵</param>
+        /// <param name="sourcePoints">源关键点集</param>
+        /// <param name="targetPoints">目标关键点集</param>
+        /// <param name="rMatrix">旋转矩阵</param>
+        /// <param name="tMatrix">平移矩阵</param>
+        /// <returns>对极约束列表</returns>
+        public static double[] CheckEpipolarConstraints(Matrix<double> cameraMatrix, IList<Point2f> sourcePoints, IList<Point2f> targetPoints, Matrix<double> rMatrix, Matrix<double> tMatrix)
+        {
+            IList<double> epipolarConstraints = new List<double>();
+            for (int i = 0; i < sourcePoints.Count; i++)
+            {
+                double[] y1Array = { sourcePoints[i].X, sourcePoints[i].Y, 1 };
+                double[] y2Array = { targetPoints[i].X, targetPoints[i].Y, 1 };
+                Vector<double> y1 = DenseVector.OfArray(y1Array);
+                Vector<double> y2 = DenseVector.OfArray(y2Array);
+
+                double[,] txArray =
+                {
+                    { 0, -tMatrix[2, 0], tMatrix[1, 0] },
+                    { tMatrix[2, 0], 0, -tMatrix[0, 0] },
+                    { -tMatrix[1, 0], tMatrix[0, 0], 0 }
+                };
+                Matrix<double> txMatrix = DenseMatrix.OfArray(txArray);
+
+                Vector<double> d = y2.ToRowMatrix() * cameraMatrix.Inverse().Transpose() * txMatrix * rMatrix * cameraMatrix.Inverse() * y1;
+                epipolarConstraints.Add(d.Single());
+            }
+
+            return epipolarConstraints.ToArray();
         }
         #endregion
     }
