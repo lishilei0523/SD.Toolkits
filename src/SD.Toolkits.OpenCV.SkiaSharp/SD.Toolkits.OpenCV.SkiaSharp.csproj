@@ -20,7 +20,7 @@
 
   <ItemGroup>
     <PackageReference Include="OpenCvSharp4" Version="4.9.0.20240103" />
-    <PackageReference Include="SkiaSharp" Version="2.88.7" />
-    <PackageReference Include="ScottPlot" Version="5.0.21" />
+    <PackageReference Include="SkiaSharp" Version="2.88.8" />
+    <PackageReference Include="ScottPlot" Version="5.0.31" />
   </ItemGroup>
 </Project>

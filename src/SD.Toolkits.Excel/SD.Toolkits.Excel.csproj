@@ -27,10 +27,10 @@
   </ItemGroup>
 
   <ItemGroup Condition="$(TargetFramework.Equals('net472'))">
-    <PackageReference Include="NPOI" Version="2.6.2" />
+    <PackageReference Include="NPOI" Version="2.7.0" />
   </ItemGroup>
 
   <ItemGroup Condition="$(TargetFramework.Equals('netstandard2.0'))">
-    <PackageReference Include="NPOI" Version="2.6.2" />
+    <PackageReference Include="NPOI" Version="2.7.0" />
   </ItemGroup>
 </Project>

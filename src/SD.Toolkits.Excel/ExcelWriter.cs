@@ -157,7 +157,11 @@ namespace SD.Toolkits.Excel
             for (int index = 0; index < rowTitle.LastCellNum; index++)
             {
                 sheet.AutoSizeColumn(index);
+#if NET40 || NET45
                 int columnWidth = sheet.GetColumnWidth(index);
+#else
+                double columnWidth = sheet.GetColumnWidth(index);
+#endif
                 sheet.SetColumnWidth(index, columnWidth + 3 * 256);
             }
 

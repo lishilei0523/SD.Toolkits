@@ -204,7 +204,11 @@ namespace SD.Toolkits.Excel
                 //日期时间
                 if (cell.CellType == CellType.Numeric && DateUtil.IsCellDateFormatted(cell))
                 {
+#if NET40 || NET45
                     cellValue = cell.DateCellValue.ToString(CultureInfo.CurrentCulture);
+#else
+                    cellValue = cell.DateCellValue.ToString();
+#endif
                 }
 
                 #endregion

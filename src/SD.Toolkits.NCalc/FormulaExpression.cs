@@ -47,16 +47,6 @@ namespace SD.Toolkits.NCalc
         /// 创建公式表达式构造器
         /// </summary>
         /// <param name="expression">逻辑表达式</param>
-        public FormulaExpression(LogicalExpression expression)
-            : base(expression)
-        {
-
-        }
-
-        /// <summary>
-        /// 创建公式表达式构造器
-        /// </summary>
-        /// <param name="expression">逻辑表达式</param>
         /// <param name="options">求值设定</param>
         public FormulaExpression(LogicalExpression expression, EvaluateOptions options)
             : base(expression, options)
