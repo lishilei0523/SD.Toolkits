@@ -241,5 +241,28 @@ namespace SD.Toolkits.OpenCV.Extensions
             return targetCoutour;
         }
         #endregion
+
+        #region # 距离变换 —— static Mat DistanceTrans(this Mat matrix)
+        /// <summary>
+        /// 距离变换
+        /// </summary>
+        /// <param name="matrix">图像矩阵</param>
+        /// <returns>距离变换图像矩阵</returns>
+        public static Mat DistanceTrans(this Mat matrix)
+        {
+            //阈值分割
+            using Mat binaryMatrix = new Mat();
+            Cv2.Threshold(matrix, binaryMatrix, 0, 255, ThresholdTypes.BinaryInv | ThresholdTypes.Otsu);
+
+            //距离变换
+            Mat distanceMatrix = new Mat();
+            Cv2.DistanceTransform(binaryMatrix, distanceMatrix, DistanceTypes.L2, DistanceTransformMasks.Mask3);
+
+            //归一化
+            Cv2.Normalize(distanceMatrix, distanceMatrix, 0, 1, NormTypes.MinMax);
+
+            return distanceMatrix;
+        }
+        #endregion
     }
 }

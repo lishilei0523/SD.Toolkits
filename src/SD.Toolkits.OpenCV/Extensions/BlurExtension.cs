@@ -7,6 +7,29 @@ namespace SD.Toolkits.OpenCV.Extensions
     /// </summary>
     public static class BlurExtension
     {
+        #region # 锐化滤波 —— static Mat SharpBlur(this Mat matrix)
+        /// <summary>
+        /// 锐化滤波
+        /// </summary>
+        /// <param name="matrix">图像矩阵</param>
+        /// <returns>滤波图像矩阵</returns>
+        public static Mat SharpBlur(this Mat matrix)
+        {
+            double[,] kernelArray =
+            {
+                {-1, -1, -1},
+                {-1, 9, -1},
+                {-1, -1, -1},
+            };
+            using Mat kernel = Mat.FromArray(kernelArray);
+
+            Mat result = new Mat();
+            Cv2.Filter2D(matrix, result, MatType.CV_8UC3, kernel);
+
+            return result;
+        }
+        #endregion
+
         #region # 理想低通滤波 —— static Mat IdealLPBlur(this Mat matrix, float sigma)
         /// <summary>
         /// 理想低通滤波
