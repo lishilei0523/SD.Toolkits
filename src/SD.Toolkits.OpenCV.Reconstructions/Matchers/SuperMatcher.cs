@@ -9,7 +9,7 @@ using System.Linq;
 namespace SD.Toolkits.OpenCV.Reconstructions.Matchers
 {
     /// <summary>
-    /// Super特征匹配器
+    /// Super张量匹配器
     /// </summary>
     /// <remarks>LightGlue描述子匹配器</remarks>
     public class SuperMatcher : IDisposable
@@ -32,7 +32,7 @@ namespace SD.Toolkits.OpenCV.Reconstructions.Matchers
         private readonly InferenceSession _lightGlue;
 
         /// <summary>
-        /// 创建Super特征匹配器构造器
+        /// 创建Super张量匹配器构造器
         /// </summary>
         public SuperMatcher()
         {
@@ -41,7 +41,7 @@ namespace SD.Toolkits.OpenCV.Reconstructions.Matchers
         }
 
         /// <summary>
-        /// 创建Super特征匹配器构造器
+        /// 创建Super张量匹配器构造器
         /// </summary>
         /// <param name="onnxPath">ONNX模型路径</param>
         public SuperMatcher(string onnxPath)
@@ -51,7 +51,7 @@ namespace SD.Toolkits.OpenCV.Reconstructions.Matchers
         }
 
         /// <summary>
-        /// 创建Super特征匹配器构造器
+        /// 创建Super张量匹配器构造器
         /// </summary>
         /// <param name="onnxPath">ONNX模型路径</param>
         /// <param name="sessionOptions">会话设置</param>
@@ -62,7 +62,7 @@ namespace SD.Toolkits.OpenCV.Reconstructions.Matchers
         }
 
         /// <summary>
-        /// 创建Super特征匹配器构造器
+        /// 创建Super张量匹配器构造器
         /// </summary>
         /// <param name="onnxPath">ONNX模型路径</param>
         /// <param name="sessionOptions">会话设置</param>
@@ -77,9 +77,9 @@ namespace SD.Toolkits.OpenCV.Reconstructions.Matchers
 
         #region # 方法
 
-        #region 匹配描述子 —— DMatch[] Match(float threshold, long[] sourceKptsArray...
+        #region 匹配张量 —— DMatch[] Match(float threshold, long[] sourceKptsArray...
         /// <summary>
-        /// 匹配描述子
+        /// 匹配张量
         /// </summary>
         /// <param name="threshold">打分阈值</param>
         /// <param name="sourceKptsArray">原关键点张量数组</param>
@@ -102,16 +102,16 @@ namespace SD.Toolkits.OpenCV.Reconstructions.Matchers
             DenseTensor<float> kpts1 = new DenseTensor<float>(targetKptsFeatures, targetKptsDims);
             DenseTensor<float> desc0 = new DenseTensor<float>(sourceDescArray, sourceDescDims);
             DenseTensor<float> desc1 = new DenseTensor<float>(targetDescArray, targetDescDims);
-            List<NamedOnnxValue> inputs3 = new List<NamedOnnxValue>
+            List<NamedOnnxValue> namedOnnxValues = new List<NamedOnnxValue>
             {
-                NamedOnnxValue.CreateFromTensor("kpts0", kpts0),
-                NamedOnnxValue.CreateFromTensor("kpts1", kpts1),
-                NamedOnnxValue.CreateFromTensor("desc0", desc0),
-                NamedOnnxValue.CreateFromTensor("desc1", desc1)
+                NamedOnnxValue.CreateFromTensor(nameof(kpts0), kpts0),
+                NamedOnnxValue.CreateFromTensor(nameof(kpts1), kpts1),
+                NamedOnnxValue.CreateFromTensor(nameof(desc0), desc0),
+                NamedOnnxValue.CreateFromTensor(nameof(desc1), desc1)
             };
 
             //运行推理
-            IDisposableReadOnlyCollection<DisposableNamedOnnxValue> inferResults = this._lightGlue.Run(inputs3);
+            IDisposableReadOnlyCollection<DisposableNamedOnnxValue> inferResults = this._lightGlue.Run(namedOnnxValues);
             Tensor<long> matches0Tensor = inferResults.Single(x => x.Name == "matches0").AsTensor<long>();
             Tensor<long> matches1Tensor = inferResults.Single(x => x.Name == "matches1").AsTensor<long>();
             Tensor<float> scores0Tensor = inferResults.Single(x => x.Name == "mscores0").AsTensor<float>();

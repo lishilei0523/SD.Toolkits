@@ -91,7 +91,7 @@ namespace SD.Toolkits.OpenCV.Reconstructions.Features
             //计算张量
             this.ComputeTensors(image.GetMat(), mask?.GetMat(), out long[] keyPointsArray, out int[] keyPointsDims, out float[] descriptorsArray, out int[] descriptorsDims);
 
-            //计算关键点
+            //解析关键点
             keyPoints = new KeyPoint[keyPointsDims[1]];
             for (int index = 0; index < keyPointsDims[1]; index++)
             {
@@ -102,15 +102,15 @@ namespace SD.Toolkits.OpenCV.Reconstructions.Features
                 keyPoints[index] = keyPoint;
             }
 
-            //计算描述子
+            //解析描述子
             using Mat descriptorsMat = new Mat();
             descriptorsMat.Create(new Size(descriptorsDims[2], descriptorsDims[1]), MatType.CV_32FC1);
-            for (int h = 0; h < descriptorsDims[1]; h++)
+            for (int rowIndex = 0; rowIndex < descriptorsDims[1]; rowIndex++)
             {
-                for (int w = 0; w < descriptorsDims[2]; w++)
+                for (int colIndex = 0; colIndex < descriptorsDims[2]; colIndex++)
                 {
-                    int index = h * descriptorsDims[2] + w;
-                    descriptorsMat.At<float>(h, w) = descriptorsArray[index];
+                    int index = rowIndex * descriptorsDims[2] + colIndex;
+                    descriptorsMat.At<float>(rowIndex, colIndex) = descriptorsArray[index];
                 }
             }
             descriptorsMat.CopyTo(descriptors);
@@ -160,28 +160,28 @@ namespace SD.Toolkits.OpenCV.Reconstructions.Features
 
             #endregion
 
+            //特征工程
             float[] imageFeatures = grayImage.GetImageFeatures();
 
             //定义输入张量
-            DenseTensor<float> sourceTensor = new DenseTensor<float>(imageFeatures, new[] { 1, 1, grayImage.Width, grayImage.Height });
-            List<NamedOnnxValue> sourceInputs = new List<NamedOnnxValue>
+            int[] sourceDims = { 1, 1, grayImage.Width, grayImage.Height };
+            DenseTensor<float> sourceTensor = new DenseTensor<float>(imageFeatures, sourceDims);
+            List<NamedOnnxValue> namedOnnxValues = new List<NamedOnnxValue>
             {
                 NamedOnnxValue.CreateFromTensor("image", sourceTensor)
             };
 
             //运行推理
-            IDisposableReadOnlyCollection<DisposableNamedOnnxValue> inferResults = this._superpoint.Run(sourceInputs);
-
-            //得到输出张量
+            IDisposableReadOnlyCollection<DisposableNamedOnnxValue> inferResults = this._superpoint.Run(namedOnnxValues);
             Tensor<long> keyPointsTensor = inferResults.Single(o => o.Name == "keypoints").AsTensor<long>();
             Tensor<float> descriptorsTensor = inferResults.Single(x => x.Name == "descriptors").AsTensor<float>();
             Tensor<float> scoresTensor = inferResults.Single(x => x.Name == "scores").AsTensor<float>();
 
-            //特征工程 关键点
+            //关键点
             keyPointsArray = keyPointsTensor.ToArray();
             keyPointsDims = keyPointsTensor.Dimensions.ToArray();
 
-            //特征工程 描述子
+            //描述子
             descriptorsArray = descriptorsTensor.ToArray();
             descriptorsDims = descriptorsTensor.Dimensions.ToArray();
 
