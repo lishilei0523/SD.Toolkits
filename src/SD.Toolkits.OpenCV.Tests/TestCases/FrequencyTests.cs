@@ -1,32 +1,15 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenCvSharp;
 using SD.Toolkits.OpenCV.Extensions;
-using SD.Toolkits.OpenCV.SkiaSharp;
 
 namespace SD.Toolkits.OpenCV.Tests.TestCases
 {
     /// <summary>
-    /// 图表测试
+    /// 频率域测试
     /// </summary>
     [TestClass]
-    public class DiagramTests
+    public class FrequencyTests
     {
-        #region # 测试灰度直方图 —— void TestGrayHistogram()
-        /// <summary>
-        /// 测试灰度直方图
-        /// </summary>
-        [TestMethod]
-        public void TestGrayHistogram()
-        {
-            using Mat matrix = Cv2.ImRead("Images/Cat.jpg", ImreadModes.Grayscale);
-            using Mat histogramImage = matrix.GenerateGrayHistogram();
-
-            Cv2.ImShow("OpenCV计算直方图-原图", matrix);
-            Cv2.ImShow("OpenCV计算直方图-直方图", histogramImage);
-            Cv2.WaitKey();
-        }
-        #endregion
-
         #region # 测试频率谱图 —— void TestFrequencySpectrum()
         /// <summary>
         /// 测试频率谱图

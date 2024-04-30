@@ -4,9 +4,9 @@ using System;
 namespace SD.Toolkits.OpenCV.Extensions
 {
     /// <summary>
-    /// 变换扩展
+    /// 灰度变换扩展
     /// </summary>
-    public static class TransformExtension
+    public static class GrayscaleExtension
     {
         #region # 线性变换 —— static Mat LinearTransform(this Mat matrix, float alpha, float beta)
         /// <summary>
@@ -182,25 +182,6 @@ namespace SD.Toolkits.OpenCV.Extensions
             foreMatrix.ConvertTo(foreMatrix, MatType.CV_8UC1);
 
             return foreMatrix;
-        }
-        #endregion
-
-        #region # 自适应直方图均衡化 —— static Mat AdaptiveEqualizeHist(this Mat matrix, double clipLimit...
-        /// <summary>
-        /// 阴影变换
-        /// </summary>
-        /// <param name="matrix">图像矩阵</param>
-        /// <param name="clipLimit">裁剪限制</param>
-        /// <param name="tileGridSize">块尺寸</param>
-        /// <returns>变换图像矩阵</returns>
-        public static Mat AdaptiveEqualizeHist(this Mat matrix, double clipLimit = 2.0d, Size? tileGridSize = null)
-        {
-            using CLAHE clahe = Cv2.CreateCLAHE(clipLimit, tileGridSize);
-
-            Mat result = new Mat();
-            clahe.Apply(matrix, result);
-
-            return result;
         }
         #endregion
     }

@@ -1,9 +1,13 @@
 ﻿using OpenCvSharp;
+using System;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace SD.Toolkits.OpenCV.Extensions
 {
     /// <summary>
-    /// 分割扩展
+    /// 图像分割扩展
     /// </summary>
     public static class SegmentExtension
     {
@@ -23,6 +27,32 @@ namespace SD.Toolkits.OpenCV.Extensions
         }
         #endregion
 
+        #region # 生成掩膜 —— static Mat GenerateMask(this Mat matrix, IEnumerable<Point> contourPoints)
+        /// <summary>
+        /// 生成掩膜
+        /// </summary>
+        /// <param name="matrix">图像矩阵</param>
+        /// <param name="contourPoints">轮廓坐标点集</param>
+        /// <returns>掩膜矩阵</returns>
+        public static Mat GenerateMask(this Mat matrix, IEnumerable<Point> contourPoints)
+        {
+            #region # 验证
+
+            contourPoints = contourPoints?.Distinct().ToArray() ?? Array.Empty<Point>();
+            if (!contourPoints.Any())
+            {
+                throw new ArgumentNullException(nameof(contourPoints), "轮廓坐标点集不可为空！");
+            }
+
+            #endregion
+
+            Mat mask = Mat.Zeros(matrix.Size(), MatType.CV_8UC1);
+            Cv2.DrawContours(mask, new[] { contourPoints }, 0, Scalar.White, -1);
+
+            return mask;
+        }
+        #endregion
+
         #region # 适用掩膜 —— static Mat ApplyMask(this Mat matrix, Rect rectangle)
         /// <summary>
         /// 适用掩膜
@@ -37,6 +67,102 @@ namespace SD.Toolkits.OpenCV.Extensions
             matrix.CopyTo(result, mask);
 
             return result;
+        }
+        #endregion
+
+        #region # 适用掩膜 —— static Mat ApplyMask(this Mat matrix, IEnumerable<Point> contourPoints)
+        /// <summary>
+        /// 适用掩膜
+        /// </summary>
+        /// <param name="matrix">图像矩阵</param>
+        /// <param name="contourPoints">轮廓坐标点集</param>
+        /// <returns>结果图像矩阵</returns>
+        public static Mat ApplyMask(this Mat matrix, IEnumerable<Point> contourPoints)
+        {
+            using Mat mask = matrix.GenerateMask(contourPoints);
+            Mat result = new Mat();
+            matrix.CopyTo(result, mask);
+
+            return result;
+        }
+        #endregion
+
+        #region # 提取轮廓内图像 —— static Mat ExtractMatrixInContour(this Mat matrix...
+        /// <summary>
+        /// 提取轮廓内图像
+        /// </summary>
+        /// <param name="matrix">图像矩阵</param>
+        /// <param name="contourPoints">轮廓坐标点集</param>
+        /// <returns>轮廓内图像矩阵</returns>
+        public static Mat ExtractMatrixInContour(this Mat matrix, IEnumerable<Point> contourPoints)
+        {
+            #region # 验证
+
+            contourPoints = contourPoints?.Distinct().ToArray() ?? Array.Empty<Point>();
+            if (!contourPoints.Any())
+            {
+                throw new ArgumentNullException(nameof(contourPoints), "轮廓坐标点集不可为空！");
+            }
+
+            #endregion
+
+            //制作掩膜
+            using Mat mask = matrix.GenerateMask(contourPoints);
+
+            //提取有效区域
+            using Mat canvas = new Mat();
+            matrix.CopyTo(canvas, mask);
+
+            //外接矩形截取
+            Rect boundingRect = Cv2.BoundingRect(contourPoints);
+            Mat result = canvas[boundingRect];
+
+            return result;
+        }
+        #endregion
+
+        #region # 提取轮廓内像素 —— static IEnumerable<byte> ExtractPixelsInContour(this Mat matrix...
+        /// <summary>
+        /// 提取轮廓内像素
+        /// </summary>
+        /// <param name="matrix">图像矩阵</param>
+        /// <param name="contourPoints">轮廓坐标点集</param>
+        /// <returns>轮廓内像素列表</returns>
+        public static unsafe IEnumerable<byte> ExtractPixelsInContour(this Mat matrix, IEnumerable<Point> contourPoints)
+        {
+            #region # 验证
+
+            contourPoints = contourPoints?.Distinct().ToArray() ?? Array.Empty<Point>();
+            if (!contourPoints.Any())
+            {
+                throw new ArgumentNullException(nameof(contourPoints), "轮廓坐标点集不可为空！");
+            }
+
+            #endregion
+
+            //制作掩膜
+            using Mat mask = matrix.GenerateMask(contourPoints);
+
+            //提取有效区域
+            using Mat canvas = new Mat();
+            matrix.CopyTo(canvas, mask);
+
+            //有效像素点
+            ConcurrentBag<byte> availablePixels = new ConcurrentBag<byte>();
+            canvas.ForEachAsByte((valuePtr, positionPtr) =>
+            {
+                byte pixelValue = *valuePtr;
+                int rowIndex = positionPtr[0];
+                int colIndex = positionPtr[1];
+                Point2f point = new Point2f(rowIndex, colIndex);
+                double distance = Cv2.PointPolygonTest(contourPoints, point, false);
+                if (!distance.Equals(-1))
+                {
+                    availablePixels.Add(pixelValue);
+                }
+            });
+
+            return availablePixels;
         }
         #endregion
 

@@ -1,21 +1,23 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenCvSharp;
 using SD.Toolkits.OpenCV.Extensions;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace SD.Toolkits.OpenCV.Tests.TestCases
 {
     /// <summary>
-    /// 分割测试
+    /// 图像分割测试
     /// </summary>
     [TestClass]
     public class SegmentTests
     {
-        #region # 测试生成掩膜 —— void TestGenerateMask()
+        #region # 测试生成矩形掩膜 —— void TestGenerateRectangleMask()
         /// <summary>
-        /// 测试生成掩膜
+        /// 测试生成矩形掩膜
         /// </summary>
         [TestMethod]
-        public void TestGenerateMask()
+        public void TestGenerateRectangleMask()
         {
             using Mat matrix = Cv2.ImRead("Images/Ballon.jpg");
 
@@ -28,21 +30,114 @@ namespace SD.Toolkits.OpenCV.Tests.TestCases
         }
         #endregion
 
-        #region # 测试适用掩膜 —— void TestApplyMask()
+        #region # 测试生成多边形掩膜 —— void TestGeneratePolygonMask()
         /// <summary>
-        /// 测试适用掩膜
+        /// 测试生成多边形掩膜
         /// </summary>
         [TestMethod]
-        public void TestApplyMask()
+        public void TestGeneratePolygonMask()
+        {
+            using Mat matrix = Cv2.ImRead("Images/China.jpg");
+
+            Point[] contourPoints =
+            {
+                new Point(100, 100),
+                new Point(1000, 150),
+                new Point(1200, 600),
+                new Point(400, 700)
+            };
+            using Mat mask = matrix.GenerateMask(contourPoints);
+
+            Cv2.ImShow("OpenCV生成掩膜-原图", matrix);
+            Cv2.ImShow("OpenCV生成掩膜-掩膜", mask);
+            Cv2.WaitKey();
+        }
+        #endregion
+
+        #region # 测试适用矩形掩膜 —— void TestApplyRectangleMask()
+        /// <summary>
+        /// 测试适用矩形掩膜
+        /// </summary>
+        [TestMethod]
+        public void TestApplyRectangleMask()
         {
             using Mat matrix = Cv2.ImRead("Images/Ballon.jpg");
 
             Rect rectangle = new Rect(140, 45, 330, 335);
             using Mat result = matrix.ApplyMask(rectangle);
 
-            Cv2.ImShow("OpenCV适用分割-原图", matrix);
+            Cv2.ImShow("OpenCV适用掩膜-原图", matrix);
             Cv2.ImShow("OpenCV适用掩膜-效果图", result);
             Cv2.WaitKey();
+        }
+        #endregion
+
+        #region # 测试适用多边形掩膜 —— void TestApplyPolygonMask()
+        /// <summary>
+        /// 测试适用多边形掩膜
+        /// </summary>
+        [TestMethod]
+        public void TestApplyPolygonMask()
+        {
+            using Mat matrix = Cv2.ImRead("Images/China.jpg");
+
+            Point[] contourPoints =
+            {
+                new Point(100, 100),
+                new Point(1000, 150),
+                new Point(1200, 600),
+                new Point(400, 700)
+            };
+            using Mat result = matrix.ApplyMask(contourPoints);
+
+            Cv2.ImShow("OpenCV适用掩膜-原图", matrix);
+            Cv2.ImShow("OpenCV适用掩膜-效果图", result);
+            Cv2.WaitKey();
+        }
+        #endregion
+
+        #region # 测试提取轮廓内图像 —— void TestExtractMatrixInContour()
+        /// <summary>
+        /// 测试提取轮廓内图像
+        /// </summary>
+        [TestMethod]
+        public void TestExtractMatrixInContour()
+        {
+            using Mat matrix = Cv2.ImRead("Images/China.jpg", ImreadModes.Grayscale);
+
+            Point[] contourPoints =
+            {
+                new Point(100, 100),
+                new Point(1000, 150),
+                new Point(1200, 600),
+                new Point(400, 700)
+            };
+            using Mat contourMatrix = matrix.ExtractMatrixInContour(contourPoints);
+
+            Cv2.ImShow("OpenCV提取轮廓内图像-原图", matrix);
+            Cv2.ImShow("OpenCV提取轮廓内图像-效果图", contourMatrix);
+            Cv2.WaitKey();
+        }
+        #endregion
+
+        #region # 测试提取轮廓内像素 —— void TestExtractMatrixInContour()
+        /// <summary>
+        /// 测试提取轮廓内像素
+        /// </summary>
+        [TestMethod]
+        public void TestExtractPixelsInContour()
+        {
+            using Mat matrix = Cv2.ImRead("Images/China.jpg", ImreadModes.Grayscale);
+
+            Point[] contourPoints =
+            {
+                new Point(100, 100),
+                new Point(1000, 150),
+                new Point(1200, 600),
+                new Point(400, 700)
+            };
+            IEnumerable<byte> pixels = matrix.ExtractPixelsInContour(contourPoints);
+            Assert.IsTrue(pixels.Any());
         }
         #endregion
 

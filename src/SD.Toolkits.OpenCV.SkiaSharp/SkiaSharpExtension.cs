@@ -1,5 +1,6 @@
 ﻿using OpenCvSharp;
 using ScottPlot;
+using SD.Toolkits.OpenCV.Extensions;
 using SkiaSharp;
 using System.IO;
 using System.Linq;
@@ -40,24 +41,19 @@ namespace SD.Toolkits.OpenCV.SkiaSharp
         }
         #endregion
 
-        #region # 生成灰度直方图 —— static Mat GenerateGrayHistogram(this Mat matrix...
+        #region # 生成直方图图像 —— static Mat GenerateHistogramImage(this Mat matrix...
         /// <summary>
-        /// 生成灰度直方图
+        /// 生成直方图图像
         /// </summary>
         /// <param name="matrix">图像矩阵</param>
         /// <param name="width">直方图图像宽度</param>
         /// <param name="height">直方图图像高度</param>
-        /// <returns>灰度直方图矩阵</returns>
-        public static Mat GenerateGrayHistogram(this Mat matrix, int width = 1024, int height = 768)
+        /// <returns>直方图图像矩阵</returns>
+        public static Mat GenerateHistogramImage(this Mat matrix, int width = 1024, int height = 768)
         {
             //生成直方图矩阵
-            int dims = 1;
-            int[] channels = { 0 };
-            int[] histSize = { 256 };
-            Rangef[] histRange = { new Rangef(0, 255) };
-            using Mat histMatrix = new Mat();
-            Cv2.CalcHist(new[] { matrix }, channels, null, histMatrix, dims, histSize, histRange);
-            histMatrix.GetArray(out float[] histVector);
+            using Mat histogram = matrix.GenerateHistogram();
+            histogram.GetArray(out float[] histVector);
 
             //ScottPlot绘图
             double[] values = histVector.Select(x => (double)x).ToArray();

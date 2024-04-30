@@ -10,6 +10,22 @@ namespace SD.Toolkits.OpenCV.Tests.TestCases
     [TestClass]
     public class BlurTests
     {
+        #region # 测试锐化滤波 —— void TestSharpBlur()
+        /// <summary>
+        /// 测试锐化滤波
+        /// </summary>
+        [TestMethod]
+        public void TestSharpBlur()
+        {
+            using Mat matrix = Cv2.ImRead("Images/Cat.jpg");
+            using Mat result = matrix.SharpBlur();
+
+            Cv2.ImShow("OpenCV锐化滤波-原图", matrix);
+            Cv2.ImShow("OpenCV锐化滤波-效果图", result);
+            Cv2.WaitKey();
+        }
+        #endregion
+
         #region # 测试理想低通滤波 —— void TestIdealLPBlur()
         /// <summary>
         /// 测试理想低通滤波

@@ -1,8 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenCvSharp;
 using SD.Toolkits.OpenCV.Extensions;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace SD.Toolkits.OpenCV.Tests.TestCases
 {
@@ -12,51 +10,6 @@ namespace SD.Toolkits.OpenCV.Tests.TestCases
     [TestClass]
     public class GeometryTests
     {
-        #region # 测试提取轮廓内图像 —— void TestExtractMatrixInContour()
-        /// <summary>
-        /// 测试提取轮廓内图像
-        /// </summary>
-        [TestMethod]
-        public void TestExtractMatrixInContour()
-        {
-            using Mat matrix = Cv2.ImRead("Images/China.jpg", ImreadModes.Grayscale);
-
-            Point[] contourPoints =
-            {
-                new Point(100, 100),
-                new Point(1000, 150),
-                new Point(1200, 600),
-                new Point(400, 700)
-            };
-            using Mat contourMatrix = matrix.ExtractMatrixInContour(contourPoints);
-
-            Cv2.ImShow("OpenCV提取轮廓内图像-原图", matrix);
-            Cv2.ImShow("OpenCV提取轮廓内图像-效果图", contourMatrix);
-            Cv2.WaitKey();
-        }
-        #endregion
-
-        #region # 测试提取轮廓内像素 —— void TestExtractMatrixInContour()
-        /// <summary>
-        /// 测试提取轮廓内像素
-        /// </summary>
-        [TestMethod]
-        public void TestExtractPixelsInContour()
-        {
-            using Mat matrix = Cv2.ImRead("Images/China.jpg", ImreadModes.Grayscale);
-
-            Point[] contourPoints =
-            {
-                new Point(100, 100),
-                new Point(1000, 150),
-                new Point(1200, 600),
-                new Point(400, 700)
-            };
-            IEnumerable<byte> pixels = matrix.ExtractPixelsInContour(contourPoints);
-            Assert.IsTrue(pixels.Any());
-        }
-        #endregion
-
         #region # 测试仿射变换 —— void TestAffineTrans()
         /// <summary>
         /// 测试仿射变换
@@ -113,6 +66,22 @@ namespace SD.Toolkits.OpenCV.Tests.TestCases
 
             Cv2.ImShow("OpenCV透射变换-原图", matrix);
             Cv2.ImShow("OpenCV透射变换-效果图", result);
+            Cv2.WaitKey();
+        }
+        #endregion
+
+        #region # 测试距离变换 —— void TestDistanceTrans()
+        /// <summary>
+        /// 测试距离变换
+        /// </summary>
+        [TestMethod]
+        public void TestDistanceTrans()
+        {
+            using Mat matrix = Cv2.ImRead("Images/Chessboard.jpg", ImreadModes.Grayscale);
+            using Mat result = matrix.DistanceTrans();
+
+            Cv2.ImShow("OpenCV距离变换-原图", matrix);
+            Cv2.ImShow("OpenCV距离变换-效果图", result);
             Cv2.WaitKey();
         }
         #endregion

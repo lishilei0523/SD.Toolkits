@@ -41,5 +41,21 @@ namespace SD.Toolkits.OpenCV.Tests.TestCases
             matrix.SaveImage("Images/China.CV.png");
         }
         #endregion
+
+        #region # 测试直方图图像 —— void TestHistogramImage()
+        /// <summary>
+        /// 测试直方图图像
+        /// </summary>
+        [TestMethod]
+        public void TestHistogramImage()
+        {
+            using Mat matrix = Cv2.ImRead("Images/Cat.jpg", ImreadModes.Grayscale);
+            using Mat histogramImage = matrix.GenerateHistogramImage();
+
+            Cv2.ImShow("OpenCV直方图图像-原图", matrix);
+            Cv2.ImShow("OpenCV直方图图像-直方图", histogramImage);
+            Cv2.WaitKey();
+        }
+        #endregion
     }
 }

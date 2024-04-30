@@ -23,4 +23,8 @@
     <PackageReference Include="SkiaSharp" Version="2.88.8" />
     <PackageReference Include="ScottPlot" Version="5.0.31" />
   </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SD.Toolkits.OpenCV\SD.Toolkits.OpenCV.csproj" />
+  </ItemGroup>
 </Project>
