@@ -159,6 +159,10 @@ namespace SD.Toolkits.OpenCV.Reconstructions
                 {0, 0, 0, 1}
             };
 
+            //释放资源
+            srcDecriptors.Dispose();
+            tgtDecriptors.Dispose();
+
             return rtArray4x4;
         }
         #endregion
