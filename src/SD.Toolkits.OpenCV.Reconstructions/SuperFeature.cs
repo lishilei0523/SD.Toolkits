@@ -1,12 +1,11 @@
 ﻿using Microsoft.ML.OnnxRuntime;
 using Microsoft.ML.OnnxRuntime.Tensors;
 using OpenCvSharp;
-using SD.Toolkits.OpenCV.Reconstructions.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace SD.Toolkits.OpenCV.Reconstructions.Features
+namespace SD.Toolkits.OpenCV.Reconstructions
 {
     /// <summary>
     /// Super特征提取器
@@ -77,49 +76,9 @@ namespace SD.Toolkits.OpenCV.Reconstructions.Features
 
         #region # 方法
 
-        #region 检测关键点和计算描述子 —— override void DetectAndCompute(InputArray image, InputArray mask...
+        #region 计算张量、关键点与描述子 —— void ComputeAll(Mat image, Mat mask, out long[] keyPointsArray...
         /// <summary>
-        /// 检测关键点和计算描述子
-        /// </summary>
-        /// <param name="image">图像</param>
-        /// <param name="mask">掩膜</param>
-        /// <param name="keyPoints">关键点列表</param>
-        /// <param name="descriptors">描述子列表</param>
-        /// <param name="useProvidedKeypoints"></param>
-        public override void DetectAndCompute(InputArray image, InputArray mask, out KeyPoint[] keyPoints, OutputArray descriptors, bool useProvidedKeypoints = false)
-        {
-            //计算张量
-            this.ComputeTensors(image.GetMat(), mask?.GetMat(), out long[] keyPointsArray, out int[] keyPointsDims, out float[] descriptorsArray, out int[] descriptorsDims);
-
-            //解析关键点
-            keyPoints = new KeyPoint[keyPointsDims[1]];
-            for (int index = 0; index < keyPointsDims[1]; index++)
-            {
-                KeyPoint keyPoint = new KeyPoint();
-                int i = index * 2;
-                keyPoint.Pt.X = keyPointsArray[i];
-                keyPoint.Pt.Y = keyPointsArray[i + 1];
-                keyPoints[index] = keyPoint;
-            }
-
-            //解析描述子
-            using Mat descriptorsMat = new Mat();
-            descriptorsMat.Create(new Size(descriptorsDims[2], descriptorsDims[1]), MatType.CV_32FC1);
-            for (int rowIndex = 0; rowIndex < descriptorsDims[1]; rowIndex++)
-            {
-                for (int colIndex = 0; colIndex < descriptorsDims[2]; colIndex++)
-                {
-                    int index = rowIndex * descriptorsDims[2] + colIndex;
-                    descriptorsMat.At<float>(rowIndex, colIndex) = descriptorsArray[index];
-                }
-            }
-            descriptorsMat.CopyTo(descriptors);
-        }
-        #endregion
-
-        #region 计算张量 —— void ComputeTensors(Mat image, Mat mask, out long[] keyPointsArray...
-        /// <summary>
-        /// 计算张量
+        /// 计算张量、关键点与描述子
         /// </summary>
         /// <param name="image">图像</param>
         /// <param name="mask">掩膜</param>
@@ -127,7 +86,9 @@ namespace SD.Toolkits.OpenCV.Reconstructions.Features
         /// <param name="keyPointsDims">关键点维度数组</param>
         /// <param name="descriptorsArray">描述子张量数组</param>
         /// <param name="descriptorsDims">描述子维度数组</param>
-        public void ComputeTensors(Mat image, Mat mask, out long[] keyPointsArray, out int[] keyPointsDims, out float[] descriptorsArray, out int[] descriptorsDims)
+        /// <param name="keyPoints">关键点列表</param>
+        /// <param name="descriptors">描述子列表</param>
+        public void ComputeAll(Mat image, Mat mask, out long[] keyPointsArray, out int[] keyPointsDims, out float[] descriptorsArray, out int[] descriptorsDims, out KeyPoint[] keyPoints, out Mat descriptors)
         {
             bool needDispose;
             Mat grayImage;
@@ -185,12 +146,54 @@ namespace SD.Toolkits.OpenCV.Reconstructions.Features
             descriptorsArray = descriptorsTensor.ToArray();
             descriptorsDims = descriptorsTensor.Dimensions.ToArray();
 
+            //解析关键点
+            keyPoints = new KeyPoint[keyPointsDims[1]];
+            for (int index = 0; index < keyPointsDims[1]; index++)
+            {
+                KeyPoint keyPoint = new KeyPoint();
+                int i = index * 2;
+                keyPoint.Pt.X = keyPointsArray[i];
+                keyPoint.Pt.Y = keyPointsArray[i + 1];
+                keyPoints[index] = keyPoint;
+            }
+
+            //解析描述子
+            descriptors = new Mat();
+            descriptors.Create(new Size(descriptorsDims[2], descriptorsDims[1]), MatType.CV_32FC1);
+            for (int rowIndex = 0; rowIndex < descriptorsDims[1]; rowIndex++)
+            {
+                for (int colIndex = 0; colIndex < descriptorsDims[2]; colIndex++)
+                {
+                    int index = rowIndex * descriptorsDims[2] + colIndex;
+                    descriptors.At<float>(rowIndex, colIndex) = descriptorsArray[index];
+                }
+            }
+
             //释放资源
             inferResults.Dispose();
             if (needDispose)
             {
                 grayImage.Dispose();
             }
+        }
+        #endregion
+
+        #region 检测关键点和计算描述子 —— override void DetectAndCompute(InputArray image, InputArray mask...
+        /// <summary>
+        /// 检测关键点和计算描述子
+        /// </summary>
+        /// <param name="image">图像</param>
+        /// <param name="mask">掩膜</param>
+        /// <param name="keyPoints">关键点列表</param>
+        /// <param name="descriptors">描述子列表</param>
+        /// <param name="useProvidedKeypoints"></param>
+        public override void DetectAndCompute(InputArray image, InputArray mask, out KeyPoint[] keyPoints, OutputArray descriptors, bool useProvidedKeypoints = false)
+        {
+            //计算
+            this.ComputeAll(image.GetMat(), mask?.GetMat(), out long[] keyPointsArray, out int[] keyPointsDims, out float[] descriptorsArray, out int[] descriptorsDims, out keyPoints, out Mat descriptorsMat);
+
+            descriptorsMat.CopyTo(descriptors);
+            descriptorsMat.Dispose();
         }
         #endregion
 

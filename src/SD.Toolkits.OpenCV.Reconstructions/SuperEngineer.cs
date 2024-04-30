@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace SD.Toolkits.OpenCV.Reconstructions.Extensions
+namespace SD.Toolkits.OpenCV.Reconstructions
 {
     /// <summary>
     /// Super特征工程
