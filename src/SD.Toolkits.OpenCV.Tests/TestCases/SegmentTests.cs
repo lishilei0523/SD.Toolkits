@@ -96,6 +96,39 @@ namespace SD.Toolkits.OpenCV.Tests.TestCases
         }
         #endregion
 
+        #region # 测试提取矩形内图像 —— void TestExtractMatrixInRectangle()
+        /// <summary>
+        /// 测试提取矩形内图像
+        /// </summary>
+        [TestMethod]
+        public void TestExtractMatrixInRectangle()
+        {
+            using Mat matrix = Cv2.ImRead("Images/China.jpg", ImreadModes.Grayscale);
+
+            Rect rectangle = new Rect(100, 100, 640, 480);
+            using Mat contourMatrix = matrix.ExtractMatrixInRectangle(rectangle);
+
+            Cv2.ImShow("OpenCV提取矩形内图像-原图", matrix);
+            Cv2.ImShow("OpenCV提取矩形内图像-效果图", contourMatrix);
+            Cv2.WaitKey();
+        }
+        #endregion
+
+        #region # 测试提取矩形内像素 —— void TestExtractMatrixInRectangle()
+        /// <summary>
+        /// 测试提取矩形内像素
+        /// </summary>
+        [TestMethod]
+        public void TestExtractPixelsInRectangle()
+        {
+            using Mat matrix = Cv2.ImRead("Images/China.jpg", ImreadModes.Grayscale);
+
+            Rect rectangle = new Rect(100, 100, 640, 480);
+            IEnumerable<byte> pixels = matrix.ExtractPixelsInRectangle(rectangle);
+            Assert.IsTrue(pixels.Any());
+        }
+        #endregion
+
         #region # 测试提取轮廓内图像 —— void TestExtractMatrixInContour()
         /// <summary>
         /// 测试提取轮廓内图像
