@@ -54,7 +54,7 @@
         /// <summary>
         /// 畸变向量
         /// </summary>
-        /// <remarks>5x1一位数组</remarks>
+        /// <remarks>5x1向量: 一维数组</remarks>
         public double[] DistortionVector { get; private set; }
         #endregion 
 
@@ -62,7 +62,7 @@
         /// <summary>
         /// 内参矩阵
         /// </summary>
-        /// <remarks>3x3二维数组</remarks>
+        /// <remarks>3x3矩阵: 二维数组</remarks>
         public double[,] IntrinsicMatrix { get; private set; }
         #endregion
 
