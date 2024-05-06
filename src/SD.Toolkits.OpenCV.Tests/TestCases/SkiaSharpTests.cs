@@ -27,17 +27,17 @@ namespace SD.Toolkits.OpenCV.Tests.TestCases
         }
         #endregion
 
-        #region # 测试映射OpenCV矩阵 —— void TestToCVMatrix()
+        #region # 测试映射OpenCV矩阵 —— void TestToMat()
         /// <summary>
         /// 测试映射OpenCV矩阵
         /// </summary>
         [TestMethod]
-        public void TestToCVMatrix()
+        public void TestToMat()
         {
             using SKFileStream inputStream = new SKFileStream("Images/China.jpg");
             using SKBitmap bitmap = SKBitmap.Decode(inputStream);
 
-            using Mat matrix = bitmap.ToCVMatrix(SKEncodedImageFormat.Jpeg);
+            using Mat matrix = bitmap.ToMat(SKEncodedImageFormat.Jpeg);
             matrix.SaveImage("Images/China.CV.png");
         }
         #endregion

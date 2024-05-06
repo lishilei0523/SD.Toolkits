@@ -26,11 +26,11 @@ namespace SD.Toolkits.OpenCV.SkiaSharp
         }
         #endregion
 
-        #region # SKBitmap映射OpenCV矩阵 —— static Mat ToCVMatrix(this SKBitmap bitmap...
+        #region # SKBitmap映射OpenCV矩阵 —— static Mat ToMat(this SKBitmap bitmap...
         /// <summary>
         /// SKBitmap映射OpenCV矩阵
         /// </summary>
-        public static Mat ToCVMatrix(this SKBitmap bitmap, SKEncodedImageFormat imageFormat = SKEncodedImageFormat.Jpeg, int quantity = 100)
+        public static Mat ToMat(this SKBitmap bitmap, SKEncodedImageFormat imageFormat = SKEncodedImageFormat.Jpeg, int quantity = 100)
         {
             using MemoryStream stream = new MemoryStream();
             bitmap.Encode(stream, imageFormat, quantity);

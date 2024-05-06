@@ -408,5 +408,83 @@ namespace SD.Toolkits.OpenCV.Calibrations
             return epipolarConstraints.ToArray();
         }
         #endregion
+
+        #region # 矫正畸变 —— static Mat RectifyDistortions(this Mat image, CameraIntrinsics cameraIntrinsics)
+        /// <summary>
+        /// 矫正畸变
+        /// </summary>
+        /// <param name="image">图像矩阵</param>
+        /// <param name="cameraIntrinsics">相机内参</param>
+        /// <returns>矫正图像矩阵</returns>
+        public static Mat RectifyDistortions(this Mat image, CameraIntrinsics cameraIntrinsics)
+        {
+            #region # 验证
+
+            if (image == null)
+            {
+                throw new ArgumentNullException(nameof(image), "图像不可为空！");
+            }
+            if (cameraIntrinsics == null)
+            {
+                throw new ArgumentNullException(nameof(cameraIntrinsics), "相机内参不可为空！");
+            }
+
+            #endregion
+
+            Mat result = new Mat();
+            Cv2.Undistort(image, result, InputArray.Create(cameraIntrinsics.IntrinsicMatrix), InputArray.Create(cameraIntrinsics.DistortionVector));
+
+            return result;
+        }
+        #endregion
+
+        #region # 矫正畸变 —— static IDictionary<string, Mat> RectifyDistortions(this IDictionary<string, Mat> images...
+        /// <summary>
+        /// 矫正畸变
+        /// </summary>
+        /// <param name="images">图像矩阵字典</param>
+        /// <param name="cameraIntrinsics">相机内参</param>
+        /// <returns>矫正图像矩阵字典</returns>
+        public static IDictionary<string, Mat> RectifyDistortions(this IDictionary<string, Mat> images, CameraIntrinsics cameraIntrinsics)
+        {
+            #region # 验证
+
+            images ??= new Dictionary<string, Mat>();
+            if (!images.Any())
+            {
+                return new Dictionary<string, Mat>();
+            }
+            if (images.Values.Select(x => x.Width).Distinct().Count() != 1)
+            {
+                throw new ArgumentOutOfRangeException(nameof(images), "图像宽度不一致");
+            }
+            if (images.Values.Select(x => x.Height).Distinct().Count() != 1)
+            {
+                throw new ArgumentOutOfRangeException(nameof(images), "图像高度不一致");
+            }
+            if (cameraIntrinsics == null)
+            {
+                throw new ArgumentNullException(nameof(cameraIntrinsics), "相机内参不可为空！");
+            }
+
+            #endregion
+
+            using Mat map1 = new Mat();
+            using Mat map2 = new Mat();
+            using Mat r = new Mat();
+            Size imageSize = images.Values.First().Size();
+            Cv2.InitUndistortRectifyMap(InputArray.Create(cameraIntrinsics.IntrinsicMatrix), InputArray.Create(cameraIntrinsics.DistortionVector), r, InputArray.Create(cameraIntrinsics.IntrinsicMatrix), imageSize, MatType.CV_16SC2, map1, map2);
+
+            IDictionary<string, Mat> results = new Dictionary<string, Mat>();
+            foreach (KeyValuePair<string, Mat> kv in images)
+            {
+                Mat result = new Mat();
+                Cv2.Remap(kv.Value, result, map1, map2);
+                results.Add(kv.Key, result);
+            }
+
+            return results;
+        }
+        #endregion
     }
 }

@@ -87,6 +87,58 @@ namespace SD.Toolkits.OpenCV.Extensions
         }
         #endregion
 
+        #region # 提取矩形内图像 —— static Mat ExtractMatrixInRectangle(this Mat matrix...
+        /// <summary>
+        /// 提取矩形内图像
+        /// </summary>
+        /// <param name="matrix">图像矩阵</param>
+        /// <param name="rectangle">矩形</param>
+        /// <returns>矩形内图像矩阵</returns>
+        public static Mat ExtractMatrixInRectangle(this Mat matrix, Rect rectangle)
+        {
+            //制作掩膜
+            using Mat mask = matrix.GenerateMask(rectangle);
+
+            //提取有效区域
+            using Mat canvas = new Mat();
+            matrix.CopyTo(canvas, mask);
+
+            //矩形截取
+            Mat result = canvas[rectangle];
+
+            return result;
+        }
+        #endregion
+
+        #region # 提取矩形内像素 —— static IEnumerable<byte> ExtractPixelsInRectangle(this Mat matrix...
+        /// <summary>
+        /// 提取矩形内像素
+        /// </summary>
+        /// <param name="matrix">图像矩阵</param>
+        /// <param name="rectangle">轮廓坐标点集</param>
+        /// <returns>矩形内像素列表</returns>
+        public static unsafe IEnumerable<byte> ExtractPixelsInRectangle(this Mat matrix, Rect rectangle)
+        {
+            //制作掩膜
+            using Mat mask = matrix.GenerateMask(rectangle);
+
+            //提取有效区域
+            using Mat canvas = new Mat();
+            matrix.CopyTo(canvas, mask);
+
+            //有效像素点
+            ConcurrentBag<byte> availablePixels = new ConcurrentBag<byte>();
+            using Mat result = canvas[rectangle];
+            result.ForEachAsByte((valuePtr, positionPtr) =>
+            {
+                byte pixelValue = *valuePtr;
+                availablePixels.Add(pixelValue);
+            });
+
+            return availablePixels;
+        }
+        #endregion
+
         #region # 提取轮廓内图像 —— static Mat ExtractMatrixInContour(this Mat matrix...
         /// <summary>
         /// 提取轮廓内图像
