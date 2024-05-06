@@ -2,7 +2,6 @@
 using SD.Toolkits.OpenCV.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace SD.Toolkits.OpenCV.Reconstructions
 {
@@ -84,17 +83,16 @@ namespace SD.Toolkits.OpenCV.Reconstructions
         }
         #endregion
 
-        #region # 重建位置 —— static double[,] RecoverPose(Mat sourceImage, Mat targetImage...
+        #region # 匹配图像 —— static MatchResult Match(Mat sourceImage, Mat targetImage...
         /// <summary>
-        /// 重建位置
+        /// 匹配图像
         /// </summary>
         /// <param name="sourceImage">源图像</param>
         /// <param name="targetImage">目标图像</param>
-        /// <param name="cameraMatrix">相机内参矩阵</param>
         /// <param name="threshold">匹配阈值</param>
         /// <param name="scaledSize">图像缩放尺寸</param>
         /// <returns>旋转平移矩阵: 4x4二维数组</returns>
-        public static double[,] RecoverPose(Mat sourceImage, Mat targetImage, double[,] cameraMatrix, float threshold = 0.9f, int scaledSize = 512)
+        public static MatchResult Match(Mat sourceImage, Mat targetImage, float threshold = 0.9f, int scaledSize = 512)
         {
             #region # 验证
 
@@ -114,14 +112,6 @@ namespace SD.Toolkits.OpenCV.Reconstructions
             {
                 throw new InvalidOperationException("源图像与目标图像尺寸不一致！");
             }
-            if (cameraMatrix == null)
-            {
-                throw new ArgumentNullException(nameof(cameraMatrix), "相机内参矩阵不可为空！");
-            }
-            if (!(cameraMatrix.Rank == 2 && cameraMatrix.GetLength(0) == 3 && cameraMatrix.GetLength(1) == 3))
-            {
-                throw new InvalidOperationException("相机内参矩阵必须为3x3矩阵！");
-            }
 
             #endregion
 
@@ -140,8 +130,84 @@ namespace SD.Toolkits.OpenCV.Reconstructions
 
             //解析匹配结果
             MatchResult matchResult = matches.ResolveMatchResult(scaledSrcKpts, scaledTgtKpts);
-            Point2f[] matchedSourcePoints = matchResult.MatchedSourceKeyPoints.Select(x => x.Pt).ToArray();
-            Point2f[] matchedTargetPoints = matchResult.MatchedTargetKeyPoints.Select(x => x.Pt).ToArray();
+
+            //释放资源
+            srcDecriptors.Dispose();
+            tgtDecriptors.Dispose();
+
+            return matchResult;
+        }
+        #endregion
+
+        #region # 重建图像 —— static Mat RecoverImage(Mat sourceImage, Mat targetImage...
+        /// <summary>
+        /// 重建图像
+        /// </summary>
+        /// <param name="sourceImage">源图像</param>
+        /// <param name="targetImage">目标图像</param>
+        /// <param name="threshold">匹配阈值</param>
+        /// <param name="scaledSize">图像缩放尺寸</param>
+        /// <returns>重建后源图像</returns>
+        public static Mat RecoverImage(Mat sourceImage, Mat targetImage, float threshold = 0.9f, int scaledSize = 512)
+        {
+            #region # 验证
+
+            if (!_Initialized)
+            {
+                throw new InvalidOperationException("重建器未初始化，请先初始化！");
+            }
+
+            #endregion
+
+            //解析匹配结果
+            MatchResult matchResult = Match(sourceImage, targetImage, threshold, scaledSize);
+            Point2f[] matchedSourcePoints = matchResult.GetMatchedSourcePoints();
+            Point2f[] matchedTargetPoints = matchResult.GetMatchedTargetPoints();
+
+            //计算单应矩阵
+            using Mat homoMat = Cv2.FindHomography(InputArray.Create(matchedSourcePoints), InputArray.Create(matchedTargetPoints), HomographyMethods.Ransac);
+
+            //透射变换源图像
+            Mat result = new Mat();
+            Cv2.WarpPerspective(sourceImage, result, homoMat, sourceImage.Size());
+
+            return result;
+        }
+        #endregion
+
+        #region # 重建位置 —— static double[,] RecoverPose(Mat sourceImage, Mat targetImage...
+        /// <summary>
+        /// 重建位置
+        /// </summary>
+        /// <param name="sourceImage">源图像</param>
+        /// <param name="targetImage">目标图像</param>
+        /// <param name="cameraMatrix">相机内参矩阵</param>
+        /// <param name="threshold">匹配阈值</param>
+        /// <param name="scaledSize">图像缩放尺寸</param>
+        /// <returns>旋转平移矩阵: 4x4二维数组</returns>
+        public static double[,] RecoverPose(Mat sourceImage, Mat targetImage, double[,] cameraMatrix, float threshold = 0.9f, int scaledSize = 512)
+        {
+            #region # 验证
+
+            if (!_Initialized)
+            {
+                throw new InvalidOperationException("重建器未初始化，请先初始化！");
+            }
+            if (cameraMatrix == null)
+            {
+                throw new ArgumentNullException(nameof(cameraMatrix), "相机内参矩阵不可为空！");
+            }
+            if (!(cameraMatrix.Rank == 2 && cameraMatrix.GetLength(0) == 3 && cameraMatrix.GetLength(1) == 3))
+            {
+                throw new InvalidOperationException("相机内参矩阵必须为3x3矩阵！");
+            }
+
+            #endregion
+
+            //解析匹配结果
+            MatchResult matchResult = Match(sourceImage, targetImage, threshold, scaledSize);
+            Point2f[] matchedSourcePoints = matchResult.GetMatchedSourcePoints();
+            Point2f[] matchedTargetPoints = matchResult.GetMatchedTargetPoints();
 
             //计算本征矩阵
             using Mat cameraMat = Mat.FromArray(cameraMatrix);
@@ -158,10 +224,6 @@ namespace SD.Toolkits.OpenCV.Reconstructions
                 {rMat.At<double>(2, 0), rMat.At<double>(2, 1), rMat.At<double>(2, 2), tMat.At<double>(2, 0)},
                 {0, 0, 0, 1}
             };
-
-            //释放资源
-            srcDecriptors.Dispose();
-            tgtDecriptors.Dispose();
 
             return rtArray4x4;
         }

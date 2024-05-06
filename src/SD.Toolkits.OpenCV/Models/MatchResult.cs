@@ -1,4 +1,6 @@
 ﻿using OpenCvSharp;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace SD.Toolkits.OpenCV.Models
 {
@@ -20,33 +22,74 @@ namespace SD.Toolkits.OpenCV.Models
         /// <summary>
         /// 创建匹配结果构造器
         /// </summary>
-        /// <param name="matchedSourceKeyPoints">匹配的源关键点列表</param>
-        /// <param name="matchedTargetKeyPoints">匹配的目标关键点列表</param>
-        public MatchResult(KeyPoint[] matchedSourceKeyPoints, KeyPoint[] matchedTargetKeyPoints)
+        /// <param name="matchedCount">匹配数量</param>
+        /// <param name="matchedSourceKeyPoints">匹配的源关键点字典</param>
+        /// <param name="matchedTargetKeyPoints">匹配的目标关键点字典</param>
+        public MatchResult(int matchedCount, IDictionary<int, KeyPoint> matchedSourceKeyPoints, IDictionary<int, KeyPoint> matchedTargetKeyPoints)
             : this()
         {
+            this.MatchedCount = matchedCount;
             this.MatchedSourceKeyPoints = matchedSourceKeyPoints;
             this.MatchedTargetKeyPoints = matchedTargetKeyPoints;
         }
-        #endregion 
+        #endregion
 
         #endregion
 
         #region # 属性
 
-        #region 匹配的源关键点列表 —— KeyPoint[] MatchedSourceKeyPoints
+        #region 匹配数量 —— int MatchedCount
         /// <summary>
-        /// 匹配的源关键点列表
+        /// 匹配数量
         /// </summary>
-        public KeyPoint[] MatchedSourceKeyPoints { get; private set; }
+        public int MatchedCount { get; private set; }
         #endregion
 
-        #region 匹配的目标关键点列表 —— KeyPoint[] MatchedTargetKeyPoints
+        #region 匹配的源关键点字典 —— IDictionary<int, KeyPoint> MatchedSourceKeyPoints
         /// <summary>
-        /// 匹配的目标关键点列表
+        /// 匹配的源关键点字典
         /// </summary>
-        public KeyPoint[] MatchedTargetKeyPoints { get; private set; }
-        #endregion 
+        /// <remarks>键：索引，值：关键点</remarks>
+        public IDictionary<int, KeyPoint> MatchedSourceKeyPoints { get; private set; }
+        #endregion
+
+        #region 匹配的目标关键点字典 —— IDictionary<int, KeyPoint> MatchedTargetKeyPoints
+        /// <summary>
+        /// 匹配的目标关键点字典
+        /// </summary>
+        /// <remarks>键：索引，值：关键点</remarks>
+        public IDictionary<int, KeyPoint> MatchedTargetKeyPoints { get; private set; }
+        #endregion
+
+        #endregion
+
+        #region # 方法
+
+        #region 获取匹配的源坐标点列表 —— Point2f[] GetMatchedSourcePoints()
+        /// <summary>
+        /// 获取匹配的源坐标点列表
+        /// </summary>
+        /// <returns>坐标点列表</returns>
+        public Point2f[] GetMatchedSourcePoints()
+        {
+            Point2f[] points = this.MatchedSourceKeyPoints.Values.Select(x => x.Pt).ToArray();
+
+            return points;
+        }
+        #endregion
+
+        #region 获取匹配的目标坐标点列表 —— Point2f[] GetMatchedTargetPoints()
+        /// <summary>
+        /// 获取匹配的目标坐标点列表
+        /// </summary>
+        /// <returns>坐标点列表</returns>
+        public Point2f[] GetMatchedTargetPoints()
+        {
+            Point2f[] points = this.MatchedTargetKeyPoints.Values.Select(x => x.Pt).ToArray();
+
+            return points;
+        }
+        #endregion
 
         #endregion
     }

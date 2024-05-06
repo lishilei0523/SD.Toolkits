@@ -12,10 +12,11 @@ namespace SD.Toolkits.OpenCV.Calibrations
     /// </summary>
     public static class Calibrator
     {
-        #region # 单目标定 —— static CameraIntrinsics MonoCalibrate(float patternSideSize, Size patternSize...
+        #region # 单目标定 —— static CameraIntrinsics MonoCalibrate(string cameraId, float patternSideSize...
         /// <summary>
         /// 单目标定
         /// </summary>
+        /// <param name="cameraId">相机Id</param>
         /// <param name="patternSideSize">标定板方格边长</param>
         /// <param name="patternSize">标定板尺寸</param>
         /// <param name="patternType">标定板类型</param>
@@ -24,7 +25,7 @@ namespace SD.Toolkits.OpenCV.Calibrations
         /// <param name="extrinsicMatrices">外参矩阵字典</param>
         /// <param name="failedImageKeys">失败图像键列表</param>
         /// <returns>相机内参</returns>
-        public static CameraIntrinsics MonoCalibrate(float patternSideSize, Size patternSize, PatternType patternType, Size imageSize, IDictionary<string, Mat> images, out IDictionary<string, Matrix<double>> extrinsicMatrices, out ICollection<string> failedImageKeys)
+        public static CameraIntrinsics MonoCalibrate(string cameraId, float patternSideSize, Size patternSize, PatternType patternType, Size imageSize, IDictionary<string, Mat> images, out IDictionary<string, Matrix<double>> extrinsicMatrices, out ICollection<string> failedImageKeys)
         {
             #region # 验证
 
@@ -105,7 +106,7 @@ namespace SD.Toolkits.OpenCV.Calibrations
             }
 
             reprojectionError /= patternPointsGroup.Count;
-            CameraIntrinsics cameraIntrinsics = new CameraIntrinsics(calibratedReprojectionError, reprojectionError, distortionArray5x1, cameraArray3x3);
+            CameraIntrinsics cameraIntrinsics = new CameraIntrinsics(cameraId, calibratedReprojectionError, reprojectionError, distortionArray5x1, cameraArray3x3);
 
             return cameraIntrinsics;
         }

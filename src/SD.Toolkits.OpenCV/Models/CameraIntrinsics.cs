@@ -18,13 +18,15 @@
         /// <summary>
         /// 创建相机内参构造器
         /// </summary>
+        /// <param name="cameraId">相机Id</param>
         /// <param name="calibratedReprojectionError">标定重投影误差</param>
         /// <param name="reprojectionError">重投影误差</param>
         /// <param name="distortionVector">畸变向量</param>
         /// <param name="intrinsicMatrix">内参矩阵</param>
-        public CameraIntrinsics(double calibratedReprojectionError, double reprojectionError, double[] distortionVector, double[,] intrinsicMatrix)
+        public CameraIntrinsics(string cameraId, double calibratedReprojectionError, double reprojectionError, double[] distortionVector, double[,] intrinsicMatrix)
             : this()
         {
+            this.CameraId = cameraId;
             this.CalibratedReprojectionError = calibratedReprojectionError;
             this.ReprojectionError = reprojectionError;
             this.DistortionVector = distortionVector;
@@ -35,6 +37,13 @@
         #endregion
 
         #region # 属性
+
+        #region 相机Id —— string CameraId
+        /// <summary>
+        /// 相机Id
+        /// </summary>
+        public string CameraId { get; private set; }
+        #endregion
 
         #region 标定重投影误差 —— double CalibratedReprojectionError
         /// <summary>

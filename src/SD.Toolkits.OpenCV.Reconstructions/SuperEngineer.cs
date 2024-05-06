@@ -122,22 +122,43 @@ namespace SD.Toolkits.OpenCV.Reconstructions
             targetKeyPoints = targetKeyPoints?.ToArray() ?? Array.Empty<KeyPoint>();
             if (!matches.Any() || !sourceKeyPoints.Any() || !targetKeyPoints.Any())
             {
-                return new MatchResult(Array.Empty<KeyPoint>(), Array.Empty<KeyPoint>());
+                return new MatchResult(0, new Dictionary<int, KeyPoint>(), new Dictionary<int, KeyPoint>());
             }
 
             #endregion
 
-            IList<KeyPoint> matchedSourceKeyPoints = new List<KeyPoint>();
-            IList<KeyPoint> matchedTargetKeyPoints = new List<KeyPoint>();
+            IDictionary<int, KeyPoint> matchedSourceKeyPoints = new Dictionary<int, KeyPoint>();
+            IDictionary<int, KeyPoint> matchedTargetKeyPoints = new Dictionary<int, KeyPoint>();
             foreach (DMatch goodMatch in matches)
             {
-                matchedSourceKeyPoints.Add(sourceKeyPoints.ElementAt(goodMatch.QueryIdx));
-                matchedTargetKeyPoints.Add(targetKeyPoints.ElementAt(goodMatch.TrainIdx));
+                matchedSourceKeyPoints.Add(goodMatch.QueryIdx, sourceKeyPoints.ElementAt(goodMatch.QueryIdx));
+                matchedTargetKeyPoints.Add(goodMatch.TrainIdx, targetKeyPoints.ElementAt(goodMatch.TrainIdx));
             }
 
-            MatchResult matchResult = new MatchResult(matchedSourceKeyPoints.ToArray(), matchedTargetKeyPoints.ToArray());
+            MatchResult matchResult = new MatchResult(matches.Count(), matchedSourceKeyPoints, matchedTargetKeyPoints);
 
             return matchResult;
+        }
+        #endregion
+
+        #region # 匹配结果转DMatch列表 —— static ICollection<DMatch> ToDMatches(this MatchResult matchResult)
+        /// <summary>
+        /// 匹配结果转DMatch列表
+        /// </summary>
+        /// <param name="matchResult">匹配结果</param>
+        /// <returns>DMatch列表</returns>
+        public static ICollection<DMatch> ToDMatches(this MatchResult matchResult)
+        {
+            IList<DMatch> dMatches = new List<DMatch>();
+            for (int index = 0; index < matchResult.MatchedCount; index++)
+            {
+                KeyValuePair<int, KeyPoint> srcKv = matchResult.MatchedSourceKeyPoints.ElementAt(index);
+                KeyValuePair<int, KeyPoint> tgtKv = matchResult.MatchedTargetKeyPoints.ElementAt(index);
+                DMatch dMatch = new DMatch(srcKv.Key, tgtKv.Key, 0);
+                dMatches.Add(dMatch);
+            }
+
+            return dMatches;
         }
         #endregion
 
