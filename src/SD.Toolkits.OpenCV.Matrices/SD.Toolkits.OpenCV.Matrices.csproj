@@ -4,7 +4,7 @@
     <LangVersion>8.0</LangVersion>
     <Authors>Lee</Authors>
     <Company>SD</Company>
-    <Description>SD.Toolkits OpenCV标定扩展组件</Description>
+    <Description>SD.Toolkits OpenCV矩阵扩展组件</Description>
     <Copyright>Copyright © SD 2024</Copyright>
     <Version>0.1.0</Version>
     <AssemblyVersion>0.1.0</AssemblyVersion>
@@ -19,7 +19,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="MathNet.Numerics" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\SD.Toolkits.OpenCV\SD.Toolkits.OpenCV.csproj" />
-    <ProjectReference Include="..\SD.Toolkits.OpenCV.Matrices\SD.Toolkits.OpenCV.Matrices.csproj" />
   </ItemGroup>
 </Project>
