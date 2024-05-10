@@ -12,10 +12,10 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>bin\Debug\$(TargetFramework)\SD.Toolkits.OpenCV.Calibrations.xml</DocumentationFile>
+    <DocumentationFile>bin\Debug\$(TargetFramework)\SD.Toolkits.OpenCV.Matrices.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>bin\Release\$(TargetFramework)\SD.Toolkits.OpenCV.Calibrations.xml</DocumentationFile>
+    <DocumentationFile>bin\Release\$(TargetFramework)\SD.Toolkits.OpenCV.Matrices.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
