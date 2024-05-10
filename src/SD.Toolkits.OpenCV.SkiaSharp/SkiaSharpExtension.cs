@@ -101,44 +101,14 @@ namespace SD.Toolkits.OpenCV.SkiaSharp
             //ScottPlot绘图
             double[] values = histVector.Select(x => (double)x).ToArray();
             double[] positions = Enumerable.Range(1, histVector.Length).Select(x => (double)x).ToArray();
-            Plot plot = new Plot();
+            using Plot plot = new Plot();
             plot.Add.Bars(positions, values);
-            byte[] imageBytes = plot.GetImageBytes(width, height, ImageFormat.Jpeg);
+            byte[] imageBytes = plot.GetImageBytes(width, height);
 
             //转换OpenCV图像矩阵
-            Mat histImage = Cv2.ImDecode(imageBytes, ImreadModes.Color);
+            Mat histogramImage = Cv2.ImDecode(imageBytes, ImreadModes.Color);
 
-            return histImage;
-        }
-        #endregion
-
-        #region # 获取图像扩展名 —— static string GetImageExtension(this SKEncodedImageFormat...
-        /// <summary>
-        /// 获取图像扩展名
-        /// </summary>
-        /// <param name="imageFormat">图像格式</param>
-        /// <returns>图像扩展名</returns>
-        public static string GetImageExtension(this SKEncodedImageFormat imageFormat)
-        {
-            string imageExtension = imageFormat switch
-            {
-                SKEncodedImageFormat.Bmp => ".bmp",
-                SKEncodedImageFormat.Gif => ".gif",
-                SKEncodedImageFormat.Ico => ".ico",
-                SKEncodedImageFormat.Jpeg => ".jpg",
-                SKEncodedImageFormat.Png => ".png",
-                SKEncodedImageFormat.Wbmp => ".wbmp",
-                SKEncodedImageFormat.Webp => ".webp",
-                SKEncodedImageFormat.Pkm => ".pkm",
-                SKEncodedImageFormat.Ktx => ".ktx",
-                SKEncodedImageFormat.Astc => ".astc",
-                SKEncodedImageFormat.Dng => ".dng",
-                SKEncodedImageFormat.Heif => ".heif",
-                SKEncodedImageFormat.Avif => ".avif",
-                _ => ".jpg"
-            };
-
-            return imageExtension;
+            return histogramImage;
         }
         #endregion
     }
