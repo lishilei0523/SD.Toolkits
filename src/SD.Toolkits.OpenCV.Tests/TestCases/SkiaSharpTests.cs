@@ -20,7 +20,7 @@ namespace SD.Toolkits.OpenCV.Tests.TestCases
         public void TestToSKBitmap()
         {
             using Mat matrix = Cv2.ImRead("Images/China.jpg");
-            using SKBitmap bitmap = matrix.ToSKBitmap(SKEncodedImageFormat.Jpeg);
+            using SKBitmap bitmap = matrix.ToSKBitmap();
 
             using FileStream outputStream = File.OpenWrite("Images/China.SK.jpg");
             bitmap.Encode(SKEncodedImageFormat.Png, 80).SaveTo(outputStream);
@@ -37,7 +37,7 @@ namespace SD.Toolkits.OpenCV.Tests.TestCases
             using SKFileStream inputStream = new SKFileStream("Images/China.jpg");
             using SKBitmap bitmap = SKBitmap.Decode(inputStream);
 
-            using Mat matrix = bitmap.ToMat(SKEncodedImageFormat.Jpeg);
+            using Mat matrix = bitmap.ToMat();
             matrix.SaveImage("Images/China.CV.png");
         }
         #endregion
