@@ -10,6 +10,22 @@ namespace SD.Toolkits.OpenCV.Tests.TestCases
     [TestClass]
     public class BlurTests
     {
+        #region # 测试单尺度Retinex增强 —— void TestSingleScaleRetinex()
+        /// <summary>
+        /// 测试单尺度Retinex增强
+        /// </summary>
+        [TestMethod]
+        public void TestSingleScaleRetinex()
+        {
+            using Mat matrix = Cv2.ImRead("Images/Cloud.jpg");
+            using Mat result = matrix.SingleScaleRetinex(80);
+
+            Cv2.ImShow("OpenCV SSR-原图", matrix);
+            Cv2.ImShow("OpenCV SSR-效果图", result);
+            Cv2.WaitKey();
+        }
+        #endregion
+
         #region # 测试锐化滤波 —— void TestSharpBlur()
         /// <summary>
         /// 测试锐化滤波

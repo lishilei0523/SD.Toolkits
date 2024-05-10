@@ -10,6 +10,54 @@ namespace SD.Toolkits.OpenCV.Tests.TestCases
     [TestClass]
     public class GeometryTests
     {
+        #region # 测试绝对缩放 —— void TestResizeAbsolutely()
+        /// <summary>
+        /// 测试绝对缩放
+        /// </summary>
+        [TestMethod]
+        public void TestResizeAbsolutely()
+        {
+            using Mat matrix = Cv2.ImRead("Images/Chessboard.jpg");
+            using Mat result = matrix.ResizeAbsolutely(400, 400);
+
+            Cv2.ImShow("OpenCV绝对缩放-原图", matrix);
+            Cv2.ImShow("OpenCV绝对缩放-效果图", result);
+            Cv2.WaitKey();
+        }
+        #endregion
+
+        #region # 测试相对缩放 —— void TestResizeRelatively()
+        /// <summary>
+        /// 测试相对缩放
+        /// </summary>
+        [TestMethod]
+        public void TestResizeRelatively()
+        {
+            using Mat matrix = Cv2.ImRead("Images/Chessboard.jpg");
+            using Mat result = matrix.ResizeRelatively(0.4f);
+
+            Cv2.ImShow("OpenCV相对缩放-原图", matrix);
+            Cv2.ImShow("OpenCV相对缩放-效果图", result);
+            Cv2.WaitKey();
+        }
+        #endregion
+
+        #region # 测试自适应缩放 —— void TestResizeAdaptively()
+        /// <summary>
+        /// 测试自适应缩放
+        /// </summary>
+        [TestMethod]
+        public void TestResizeAdaptively()
+        {
+            using Mat matrix = Cv2.ImRead("Images/China.jpg");
+            using Mat result = matrix.ResizeAdaptively(512);
+
+            Cv2.ImShow("OpenCV自适应缩放-原图", matrix);
+            Cv2.ImShow("OpenCV自适应缩放-效果图", result);
+            Cv2.WaitKey();
+        }
+        #endregion
+
         #region # 测试仿射变换 —— void TestAffineTrans()
         /// <summary>
         /// 测试仿射变换

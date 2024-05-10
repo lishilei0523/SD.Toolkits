@@ -1,4 +1,5 @@
 ﻿using OpenCvSharp;
+using SD.Toolkits.OpenCV.Extensions;
 using SD.Toolkits.OpenCV.Models;
 using System;
 using System.Collections.Generic;
@@ -116,8 +117,8 @@ namespace SD.Toolkits.OpenCV.Reconstructions
             #endregion
 
             //缩放图像
-            using Mat scaledSourceImage = sourceImage.ScaleImageAdaptively(scaledSize);
-            using Mat scaledReferenceImage = targetImage.ScaleImageAdaptively(scaledSize);
+            using Mat scaledSourceImage = sourceImage.ResizeAdaptively(scaledSize);
+            using Mat scaledReferenceImage = targetImage.ResizeAdaptively(scaledSize);
 
             //推理匹配
             _Feature.ComputeAll(scaledSourceImage, null, out long[] sourceKptsArray, out int[] sourceKptsDims, out float[] sourceDescArray, out int[] sourceDescDims, out KeyPoint[] srcKeyPoints, out Mat srcDecriptors);
