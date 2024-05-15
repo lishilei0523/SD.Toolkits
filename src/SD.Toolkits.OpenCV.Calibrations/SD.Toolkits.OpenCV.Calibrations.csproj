@@ -19,7 +19,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SD.Toolkits.Matrices\SD.Toolkits.Matrices.csproj" />
+    <ProjectReference Include="..\SD.Toolkits.Mathematics\SD.Toolkits.Mathematics.csproj" />
     <ProjectReference Include="..\SD.Toolkits.OpenCV\SD.Toolkits.OpenCV.csproj" />
   </ItemGroup>
 </Project>

@@ -111,9 +111,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Toolkits.OpenCV.Calibrat
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Toolkits.OpenCV.Reconstructions", "src\SD.Toolkits.OpenCV.Reconstructions\SD.Toolkits.OpenCV.Reconstructions.csproj", "{978AC755-91E7-4085-AFAD-3DA4CC486740}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Toolkits.Matrices", "src\SD.Toolkits.Matrices\SD.Toolkits.Matrices.csproj", "{D7718BEA-98C4-435A-84D5-31B546B45EBB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Toolkits.Mathematics", "src\SD.Toolkits.Mathematics\SD.Toolkits.Mathematics.csproj", "{D7718BEA-98C4-435A-84D5-31B546B45EBB}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Toolkits.Matrices.Tests", "src\SD.Toolkits.Matrices.Tests\SD.Toolkits.Matrices.Tests.csproj", "{649C12C2-2692-4DCC-BC63-9C9EA8ED2F4B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Toolkits.Mathematics.Tests", "src\SD.Toolkits.Mathematics.Tests\SD.Toolkits.Mathematics.Tests.csproj", "{649C12C2-2692-4DCC-BC63-9C9EA8ED2F4B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

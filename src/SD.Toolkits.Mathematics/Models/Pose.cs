@@ -2,7 +2,7 @@
 using MathNet.Spatial.Units;
 using System;
 
-namespace SD.Toolkits.Matrices.Models
+namespace SD.Toolkits.Mathematics.Models
 {
     /// <summary>
     /// 位姿

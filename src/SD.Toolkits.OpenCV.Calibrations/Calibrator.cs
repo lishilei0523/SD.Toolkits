@@ -2,8 +2,8 @@
 using MathNet.Numerics.LinearAlgebra.Double;
 using MathNet.Spatial.Euclidean;
 using OpenCvSharp;
-using SD.Toolkits.Matrices.Extensions;
-using SD.Toolkits.Matrices.Models;
+using SD.Toolkits.Mathematics.Extensions;
+using SD.Toolkits.Mathematics.Models;
 using SD.Toolkits.OpenCV.Models;
 using System;
 using System.Collections.Generic;

@@ -1,7 +1,7 @@
 ﻿using MathNet.Numerics.LinearAlgebra;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenCvSharp;
-using SD.Toolkits.Matrices.Models;
+using SD.Toolkits.Mathematics.Models;
 using SD.Toolkits.OpenCV.Calibrations;
 using SD.Toolkits.OpenCV.Models;
 using System;

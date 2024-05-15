@@ -3,11 +3,11 @@ using MathNet.Numerics.LinearAlgebra.Double;
 using MathNet.Spatial.Euclidean;
 using MathNet.Spatial.Units;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SD.Toolkits.Matrices.Extensions;
-using SD.Toolkits.Matrices.Models;
+using SD.Toolkits.Mathematics.Extensions;
+using SD.Toolkits.Mathematics.Models;
 using System.Diagnostics;
 
-namespace SD.Toolkits.Matrices.Tests.TestCases
+namespace SD.Toolkits.Mathematics.Tests.TestCases
 {
     /// <summary>
     /// 空间扩展测试

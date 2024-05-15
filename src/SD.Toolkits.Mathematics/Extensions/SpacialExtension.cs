@@ -2,10 +2,10 @@
 using MathNet.Numerics.LinearAlgebra.Double;
 using MathNet.Spatial.Euclidean;
 using MathNet.Spatial.Units;
-using SD.Toolkits.Matrices.Models;
+using SD.Toolkits.Mathematics.Models;
 using System;
 
-namespace SD.Toolkits.Matrices.Extensions
+namespace SD.Toolkits.Mathematics.Extensions
 {
     /// <summary>
     /// 空间扩展

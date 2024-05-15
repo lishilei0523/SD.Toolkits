@@ -20,6 +20,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SD.Toolkits.Matrices\SD.Toolkits.Matrices.csproj" />
+    <ProjectReference Include="..\SD.Toolkits.Mathematics\SD.Toolkits.Mathematics.csproj" />
   </ItemGroup>
 </Project>
