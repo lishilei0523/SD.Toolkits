@@ -17,8 +17,8 @@ namespace SD.Toolkits.OpenCV.Tests.TestCases
         [TestMethod]
         public void TestMapHistogram()
         {
-            using Mat sourceMatrix = Cv2.ImRead("Images/Horse.jpg");
-            using Mat referenceMatrix = Cv2.ImRead("Images/Cat.jpg");
+            using Mat sourceMatrix = Cv2.ImRead("Content/Images/Horse.jpg");
+            using Mat referenceMatrix = Cv2.ImRead("Content/Images/Cat.jpg");
 
             Cv2.Split(sourceMatrix, out Mat[] sourceChannels);
             Cv2.Split(referenceMatrix, out Mat[] referenceChannels);
@@ -45,7 +45,7 @@ namespace SD.Toolkits.OpenCV.Tests.TestCases
         [TestMethod]
         public void TestAdaptiveEqualizeHist()
         {
-            using Mat matrix = Cv2.ImRead("Images/Lena.jpg", ImreadModes.Grayscale);
+            using Mat matrix = Cv2.ImRead("Content/Images/Lena.jpg", ImreadModes.Grayscale);
             using Mat result = matrix.AdaptiveEqualizeHist();
 
             Cv2.ImShow("OpenCV自适应直方图均衡化-原图", matrix);

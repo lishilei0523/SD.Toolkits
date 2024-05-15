@@ -20,8 +20,8 @@ namespace SD.Toolkits.OpenCV.Tests.TestCases
         {
             IList<Mat> matrices = new List<Mat>
             {
-                Cv2.ImRead("Images/Earth-001.jpg"),
-                Cv2.ImRead("Images/Earth-002.jpg")
+                Cv2.ImRead("Content/Images/Earth-001.jpg"),
+                Cv2.ImRead("Content/Images/Earth-002.jpg")
             };
             using Mat result = matrices.Stitch();
 
@@ -37,7 +37,7 @@ namespace SD.Toolkits.OpenCV.Tests.TestCases
         [TestMethod]
         public void TestInpainte()
         {
-            using Mat matrix = Cv2.ImRead("Images/Lena.jpg");
+            using Mat matrix = Cv2.ImRead("Content/Images/Lena.jpg");
             Rect rectangle = new Rect(0, 0, 120, 160);
             using Mat result = matrix.Inpainte(rectangle);
 
@@ -56,10 +56,10 @@ namespace SD.Toolkits.OpenCV.Tests.TestCases
         {
             IList<Mat> matrices = new List<Mat>
             {
-                Cv2.ImRead("Images/EF-001.png"),
-                Cv2.ImRead("Images/EF-002.png"),
-                Cv2.ImRead("Images/EF-003.png"),
-                Cv2.ImRead("Images/EF-004.png")
+                Cv2.ImRead("Content/Images/EF-001.png"),
+                Cv2.ImRead("Content/Images/EF-002.png"),
+                Cv2.ImRead("Content/Images/EF-003.png"),
+                Cv2.ImRead("Content/Images/EF-004.png")
             };
             using Mat result = matrices.ExposureFusion();
             result.SaveImage("EF.png");

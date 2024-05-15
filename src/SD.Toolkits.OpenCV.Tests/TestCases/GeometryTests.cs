@@ -17,7 +17,7 @@ namespace SD.Toolkits.OpenCV.Tests.TestCases
         [TestMethod]
         public void TestResizeAbsolutely()
         {
-            using Mat matrix = Cv2.ImRead("Images/Chessboard.jpg");
+            using Mat matrix = Cv2.ImRead("Content/Images/Chessboard.jpg");
             using Mat result = matrix.ResizeAbsolutely(400, 400);
 
             Cv2.ImShow("OpenCV绝对缩放-原图", matrix);
@@ -33,7 +33,7 @@ namespace SD.Toolkits.OpenCV.Tests.TestCases
         [TestMethod]
         public void TestResizeRelatively()
         {
-            using Mat matrix = Cv2.ImRead("Images/Chessboard.jpg");
+            using Mat matrix = Cv2.ImRead("Content/Images/Chessboard.jpg");
             using Mat result = matrix.ResizeRelatively(0.4f);
 
             Cv2.ImShow("OpenCV相对缩放-原图", matrix);
@@ -49,7 +49,7 @@ namespace SD.Toolkits.OpenCV.Tests.TestCases
         [TestMethod]
         public void TestResizeAdaptively()
         {
-            using Mat matrix = Cv2.ImRead("Images/China.jpg");
+            using Mat matrix = Cv2.ImRead("Content/Images/China.jpg");
             using Mat result = matrix.ResizeAdaptively(512);
 
             Cv2.ImShow("OpenCV自适应缩放-原图", matrix);
@@ -65,7 +65,7 @@ namespace SD.Toolkits.OpenCV.Tests.TestCases
         [TestMethod]
         public void TestAffineTrans()
         {
-            using Mat matrix = Cv2.ImRead("Images/Chessboard.jpg");
+            using Mat matrix = Cv2.ImRead("Content/Images/Chessboard.jpg");
 
             Point2f[] sourcePoints =
             {
@@ -94,7 +94,7 @@ namespace SD.Toolkits.OpenCV.Tests.TestCases
         [TestMethod]
         public void TestPerspectiveTrans()
         {
-            using Mat matrix = Cv2.ImRead("Images/Chessboard.jpg");
+            using Mat matrix = Cv2.ImRead("Content/Images/Chessboard.jpg");
 
             Point2f[] sourcePoints =
             {
@@ -125,7 +125,7 @@ namespace SD.Toolkits.OpenCV.Tests.TestCases
         [TestMethod]
         public void TestDistanceTrans()
         {
-            using Mat matrix = Cv2.ImRead("Images/Chessboard.jpg", ImreadModes.Grayscale);
+            using Mat matrix = Cv2.ImRead("Content/Images/Chessboard.jpg", ImreadModes.Grayscale);
             using Mat result = matrix.DistanceTrans();
 
             Cv2.ImShow("OpenCV距离变换-原图", matrix);

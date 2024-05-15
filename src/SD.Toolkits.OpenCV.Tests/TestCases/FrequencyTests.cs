@@ -17,7 +17,7 @@ namespace SD.Toolkits.OpenCV.Tests.TestCases
         [TestMethod]
         public void TestFrequencySpectrum()
         {
-            using Mat matrix = Cv2.ImRead("Images/Deer.jpg", ImreadModes.Grayscale);
+            using Mat matrix = Cv2.ImRead("Content/Images/Deer.jpg", ImreadModes.Grayscale);
             using Mat magnitudeMatrix = matrix.GenerateFrequencySpectrum();
 
             Cv2.ImShow("OpenCV傅里叶变换-原图", matrix);
@@ -33,7 +33,7 @@ namespace SD.Toolkits.OpenCV.Tests.TestCases
         [TestMethod]
         public void TestPhaseSpectrum()
         {
-            using Mat matrix = Cv2.ImRead("Images/Deer.jpg", ImreadModes.Grayscale);
+            using Mat matrix = Cv2.ImRead("Content/Images/Deer.jpg", ImreadModes.Grayscale);
             using Mat phaseMatrix = matrix.GeneratePhaseSpectrum();
 
             Cv2.ImShow("OpenCV傅里叶变换-原图", matrix);

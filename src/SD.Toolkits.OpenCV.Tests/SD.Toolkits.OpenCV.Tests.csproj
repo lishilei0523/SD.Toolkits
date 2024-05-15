@@ -9,7 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Update="Images\*.*">
+    <None Update="Content\**">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
@@ -33,6 +33,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SD.Toolkits.OpenCV\SD.Toolkits.OpenCV.csproj" />
+    <ProjectReference Include="..\SD.Toolkits.OpenCV.Calibrations\SD.Toolkits.OpenCV.Calibrations.csproj" />
+    <ProjectReference Include="..\SD.Toolkits.OpenCV.Reconstructions\SD.Toolkits.OpenCV.Reconstructions.csproj" />
     <ProjectReference Include="..\SD.Toolkits.OpenCV.SkiaSharp\SD.Toolkits.OpenCV.SkiaSharp.csproj" />
   </ItemGroup>
 </Project>

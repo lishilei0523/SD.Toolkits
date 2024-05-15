@@ -17,7 +17,7 @@ namespace SD.Toolkits.OpenCV.Tests.TestCases
         [TestMethod]
         public void TestSingleScaleRetinex()
         {
-            using Mat matrix = Cv2.ImRead("Images/Cloud.jpg");
+            using Mat matrix = Cv2.ImRead("Content/Images/Cloud.jpg");
             using Mat result = matrix.SingleScaleRetinex(80);
 
             Cv2.ImShow("OpenCV SSR-原图", matrix);
@@ -33,7 +33,7 @@ namespace SD.Toolkits.OpenCV.Tests.TestCases
         [TestMethod]
         public void TestSharpBlur()
         {
-            using Mat matrix = Cv2.ImRead("Images/Cat.jpg");
+            using Mat matrix = Cv2.ImRead("Content/Images/Cat.jpg");
             using Mat result = matrix.SharpBlur();
 
             Cv2.ImShow("OpenCV锐化滤波-原图", matrix);
@@ -50,7 +50,7 @@ namespace SD.Toolkits.OpenCV.Tests.TestCases
         public void TestIdealLPBlur()
         {
             float sigma = 50f;
-            using Mat matrix = Cv2.ImRead("Images/Avatar.jpg", ImreadModes.Grayscale);
+            using Mat matrix = Cv2.ImRead("Content/Images/Avatar.jpg", ImreadModes.Grayscale);
             using Mat result = matrix.IdealLPBlur(sigma);
 
             Cv2.ImShow("OpenCV理想低通滤波-原图", matrix);
@@ -67,7 +67,7 @@ namespace SD.Toolkits.OpenCV.Tests.TestCases
         public void TestIdealHPBlur()
         {
             float sigma = 5f;
-            using Mat matrix = Cv2.ImRead("Images/Avatar.jpg", ImreadModes.Grayscale);
+            using Mat matrix = Cv2.ImRead("Content/Images/Avatar.jpg", ImreadModes.Grayscale);
             using Mat result = matrix.IdealHPBlur(sigma);
 
             Cv2.ImShow("OpenCV理想高通滤波-原图", matrix);
@@ -85,7 +85,7 @@ namespace SD.Toolkits.OpenCV.Tests.TestCases
         {
             float sigma = 18f;
             float bandWidth = 23f;
-            using Mat matrix = Cv2.ImRead("Images/China.jpg", ImreadModes.Grayscale);
+            using Mat matrix = Cv2.ImRead("Content/Images/China.jpg", ImreadModes.Grayscale);
             using Mat result = matrix.IdealBPBlur(sigma, bandWidth);
 
             Cv2.ImShow("OpenCV理想带通滤波-原图", matrix);
@@ -103,7 +103,7 @@ namespace SD.Toolkits.OpenCV.Tests.TestCases
         {
             float sigma = 18f;
             float bandWidth = 23f;
-            using Mat matrix = Cv2.ImRead("Images/China.jpg", ImreadModes.Grayscale);
+            using Mat matrix = Cv2.ImRead("Content/Images/China.jpg", ImreadModes.Grayscale);
             using Mat result = matrix.IdealBRBlur(sigma, bandWidth);
 
             Cv2.ImShow("OpenCV理想带阻滤波-原图", matrix);
@@ -120,7 +120,7 @@ namespace SD.Toolkits.OpenCV.Tests.TestCases
         public void TestGaussianLPBlur()
         {
             float sigma = 50f;
-            using Mat matrix = Cv2.ImRead("Images/Cat.jpg", ImreadModes.Grayscale);
+            using Mat matrix = Cv2.ImRead("Content/Images/Cat.jpg", ImreadModes.Grayscale);
             using Mat result = matrix.GaussianLPBlur(sigma);
 
             Cv2.ImShow("OpenCV高斯低通滤波-原图", matrix);
@@ -137,7 +137,7 @@ namespace SD.Toolkits.OpenCV.Tests.TestCases
         public void TestGaussianHPBlur()
         {
             float sigma = 5f;
-            using Mat matrix = Cv2.ImRead("Images/Cat.jpg", ImreadModes.Grayscale);
+            using Mat matrix = Cv2.ImRead("Content/Images/Cat.jpg", ImreadModes.Grayscale);
             using Mat result = matrix.GaussianHPBlur(sigma);
 
             Cv2.ImShow("OpenCV高斯高通滤波-原图", matrix);
@@ -155,7 +155,7 @@ namespace SD.Toolkits.OpenCV.Tests.TestCases
         {
             float sigma = 18f;
             float bandWidth = 23f;
-            using Mat matrix = Cv2.ImRead("Images/China.jpg", ImreadModes.Grayscale);
+            using Mat matrix = Cv2.ImRead("Content/Images/China.jpg", ImreadModes.Grayscale);
             using Mat result = matrix.GaussianBPBlur(sigma, bandWidth);
 
             Cv2.ImShow("OpenCV高斯带通滤波-原图", matrix);
@@ -173,7 +173,7 @@ namespace SD.Toolkits.OpenCV.Tests.TestCases
         {
             float sigma = 18f;
             float bandWidth = 23f;
-            using Mat matrix = Cv2.ImRead("Images/China.jpg", ImreadModes.Grayscale);
+            using Mat matrix = Cv2.ImRead("Content/Images/China.jpg", ImreadModes.Grayscale);
             using Mat result = matrix.GaussianBRBlur(sigma, bandWidth);
 
             Cv2.ImShow("OpenCV高斯带阻滤波-原图", matrix);
@@ -193,7 +193,7 @@ namespace SD.Toolkits.OpenCV.Tests.TestCases
             float gammaL = 0.5f;
             float sigma = 0.01f;
             float slope = 1f;
-            using Mat matrix = Cv2.ImRead("Images/Book.jpg", ImreadModes.Grayscale);
+            using Mat matrix = Cv2.ImRead("Content/Images/Book.jpg", ImreadModes.Grayscale);
             using Mat result = matrix.GaussianHomoBlur(gammaH, gammaL, sigma, slope);
 
             Cv2.ImShow("OpenCV高斯同态滤波-原图", matrix);
@@ -210,7 +210,7 @@ namespace SD.Toolkits.OpenCV.Tests.TestCases
         public void TestButterworthLPBlur()
         {
             float sigma = 50f;
-            using Mat matrix = Cv2.ImRead("Images/Cat.jpg", ImreadModes.Grayscale);
+            using Mat matrix = Cv2.ImRead("Content/Images/Cat.jpg", ImreadModes.Grayscale);
             using Mat result = matrix.ButterworthLPBlur(sigma, 2);
 
             Cv2.ImShow("OpenCV巴特沃斯低通滤波-原图", matrix);
@@ -227,7 +227,7 @@ namespace SD.Toolkits.OpenCV.Tests.TestCases
         public void TestButterworthHPBlur()
         {
             float sigma = 5f;
-            using Mat matrix = Cv2.ImRead("Images/China.jpg", ImreadModes.Grayscale);
+            using Mat matrix = Cv2.ImRead("Content/Images/China.jpg", ImreadModes.Grayscale);
             using Mat result = matrix.ButterworthHPBlur(sigma, 2);
 
             Cv2.ImShow("OpenCV巴特沃斯高通滤波-原图", matrix);
@@ -245,7 +245,7 @@ namespace SD.Toolkits.OpenCV.Tests.TestCases
         {
             float sigma = 18f;
             float bandWidth = 23f;
-            using Mat matrix = Cv2.ImRead("Images/China.jpg", ImreadModes.Grayscale);
+            using Mat matrix = Cv2.ImRead("Content/Images/China.jpg", ImreadModes.Grayscale);
             using Mat result = matrix.ButterworthBPBlur(sigma, bandWidth, 2);
 
             Cv2.ImShow("OpenCV巴特沃斯带通滤波-原图", matrix);
@@ -263,7 +263,7 @@ namespace SD.Toolkits.OpenCV.Tests.TestCases
         {
             float sigma = 18f;
             float bandWidth = 23f;
-            using Mat matrix = Cv2.ImRead("Images/China.jpg", ImreadModes.Grayscale);
+            using Mat matrix = Cv2.ImRead("Content/Images/China.jpg", ImreadModes.Grayscale);
             using Mat result = matrix.ButterworthBRBlur(sigma, bandWidth, 2);
 
             Cv2.ImShow("OpenCV巴特沃斯带阻滤波-原图", matrix);
@@ -283,7 +283,7 @@ namespace SD.Toolkits.OpenCV.Tests.TestCases
             float gammaL = 0.2f;
             float sigma = 2f;
             float slope = 1f;
-            using Mat matrix = Cv2.ImRead("Images/Book.jpg", ImreadModes.Grayscale);
+            using Mat matrix = Cv2.ImRead("Content/Images/Book.jpg", ImreadModes.Grayscale);
             using Mat result = matrix.ButterworthHomoBlur(gammaH, gammaL, sigma, slope);
 
             Cv2.ImShow("OpenCV巴特沃斯同态滤波-原图", matrix);

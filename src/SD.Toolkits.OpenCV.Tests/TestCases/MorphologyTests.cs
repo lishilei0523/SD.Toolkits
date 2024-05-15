@@ -17,7 +17,7 @@ namespace SD.Toolkits.OpenCV.Tests.TestCases
         [TestMethod]
         public void TestErode()
         {
-            using Mat matrix = Cv2.ImRead("Images/Lena.jpg");
+            using Mat matrix = Cv2.ImRead("Content/Images/Lena.jpg");
             using Mat result = matrix.MorphErode();
 
             Cv2.ImShow("OpenCV腐蚀-原图", matrix);
@@ -33,7 +33,7 @@ namespace SD.Toolkits.OpenCV.Tests.TestCases
         [TestMethod]
         public void TestDilate()
         {
-            using Mat matrix = Cv2.ImRead("Images/Lena.jpg");
+            using Mat matrix = Cv2.ImRead("Content/Images/Lena.jpg");
             using Mat result = matrix.MorphDilate();
 
             Cv2.ImShow("OpenCV膨胀-原图", matrix);
@@ -49,7 +49,7 @@ namespace SD.Toolkits.OpenCV.Tests.TestCases
         [TestMethod]
         public void TestOpen()
         {
-            using Mat matrix = Cv2.ImRead("Images/Lena.jpg");
+            using Mat matrix = Cv2.ImRead("Content/Images/Lena.jpg");
             using Mat result = matrix.MorphOpen();
 
             Cv2.ImShow("OpenCV开运算-原图", matrix);
@@ -65,7 +65,7 @@ namespace SD.Toolkits.OpenCV.Tests.TestCases
         [TestMethod]
         public void TestClose()
         {
-            using Mat matrix = Cv2.ImRead("Images/Lena.jpg");
+            using Mat matrix = Cv2.ImRead("Content/Images/Lena.jpg");
             using Mat result = matrix.MorphClose();
 
             Cv2.ImShow("OpenCV闭运算-原图", matrix);
@@ -81,7 +81,7 @@ namespace SD.Toolkits.OpenCV.Tests.TestCases
         [TestMethod]
         public void TestGradient()
         {
-            using Mat matrix = Cv2.ImRead("Images/Lena.jpg");
+            using Mat matrix = Cv2.ImRead("Content/Images/Lena.jpg");
             using Mat result = matrix.MorphGradient();
 
             Cv2.ImShow("OpenCV梯度运算-原图", matrix);
@@ -97,7 +97,7 @@ namespace SD.Toolkits.OpenCV.Tests.TestCases
         [TestMethod]
         public void TestTopHat()
         {
-            using Mat matrix = Cv2.ImRead("Images/Lena.jpg");
+            using Mat matrix = Cv2.ImRead("Content/Images/Lena.jpg");
             using Mat result = matrix.MorphTopHat();
 
             Cv2.ImShow("OpenCV礼帽运算-原图", matrix);
@@ -113,7 +113,7 @@ namespace SD.Toolkits.OpenCV.Tests.TestCases
         [TestMethod]
         public void TestBlackHat()
         {
-            using Mat matrix = Cv2.ImRead("Images/Lena.jpg");
+            using Mat matrix = Cv2.ImRead("Content/Images/Lena.jpg");
             using Mat result = matrix.MorphBlackHat();
 
             Cv2.ImShow("OpenCV黑帽运算-原图", matrix);
@@ -129,7 +129,7 @@ namespace SD.Toolkits.OpenCV.Tests.TestCases
         [TestMethod]
         public void TestHitMiss()
         {
-            using Mat matrix = Cv2.ImRead("Images/Lena.jpg", ImreadModes.Grayscale);
+            using Mat matrix = Cv2.ImRead("Content/Images/Lena.jpg", ImreadModes.Grayscale);
             using Mat result = matrix.MorphHitMiss();
 
             Cv2.ImShow("OpenCV击中与否运算-原图", matrix);

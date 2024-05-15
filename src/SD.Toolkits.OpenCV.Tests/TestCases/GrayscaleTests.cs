@@ -19,7 +19,7 @@ namespace SD.Toolkits.OpenCV.Tests.TestCases
         {
             float alpha = 1f;   //对比度
             float beta = 30f;   //亮度
-            using Mat matrix = Cv2.ImRead("Images/Deer.jpg");
+            using Mat matrix = Cv2.ImRead("Content/Images/Deer.jpg");
             using Mat result = matrix.LinearTransform(alpha, beta);
 
             Cv2.ImShow("OpenCV线性变换-原图", matrix);
@@ -36,7 +36,7 @@ namespace SD.Toolkits.OpenCV.Tests.TestCases
         public void TestGammaTransform()
         {
             float gamma = 1 / 2.0f;
-            using Mat matrix = Cv2.ImRead("Images/Deer.jpg");
+            using Mat matrix = Cv2.ImRead("Content/Images/Deer.jpg");
             using Mat result = matrix.GammaTransform(gamma);
 
             Cv2.ImShow("OpenCV伽马变换-原图", matrix);
@@ -53,7 +53,7 @@ namespace SD.Toolkits.OpenCV.Tests.TestCases
         public void TestLogarithmicTransform()
         {
             float gamma = 1 / 1.2f;
-            using Mat matrix = Cv2.ImRead("Images/Deer.jpg");
+            using Mat matrix = Cv2.ImRead("Content/Images/Deer.jpg");
             using Mat result = matrix.LogarithmicTransform(gamma);
 
             Cv2.ImShow("OpenCV对数变换-原图", matrix);
@@ -75,7 +75,7 @@ namespace SD.Toolkits.OpenCV.Tests.TestCases
             byte norse = 0;
             byte offset = 140;
 
-            using Mat matrix = Cv2.ImRead("Images/Deer.jpg", ImreadModes.Grayscale);
+            using Mat matrix = Cv2.ImRead("Content/Images/Deer.jpg", ImreadModes.Grayscale);
             using Mat result = matrix.ShadingTransform(new Size(kernelSizeX, kernelSizeY), gain, norse, offset);
 
             Cv2.ImShow("OpenCV阴影变换-原图", matrix);

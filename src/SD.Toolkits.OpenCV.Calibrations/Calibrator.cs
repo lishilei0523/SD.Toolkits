@@ -1,7 +1,9 @@
 ﻿using MathNet.Numerics.LinearAlgebra;
 using MathNet.Numerics.LinearAlgebra.Double;
+using MathNet.Spatial.Euclidean;
 using OpenCvSharp;
-using SD.Toolkits.OpenCV.Matrices;
+using SD.Toolkits.Matrices.Extensions;
+using SD.Toolkits.Matrices.Models;
 using SD.Toolkits.OpenCV.Models;
 using System;
 using System.Collections.Generic;
@@ -91,8 +93,8 @@ namespace SD.Toolkits.OpenCV.Calibrations
             {
                 KeyValuePair<string, ICollection<Point3f>> patternPointsKV = patternPointsGroup.ElementAt(i);
                 KeyValuePair<string, ICollection<Point2f>> cornerPointsKV = cornerPointsGroup.ElementAt(i);
-                double[] rArray3x1 = rVecs[i].ToArray();
-                double[] tArray3x1 = tVecs[i].ToArray();
+                double[] rArray3x1 = { rVecs[i].Item0, rVecs[i].Item1, rVecs[i].Item2 };
+                double[] tArray3x1 = { tVecs[i].Item0, tVecs[i].Item1, tVecs[i].Item2 };
 
                 //计算重投影误差
                 Cv2.ProjectPoints(patternPointsKV.Value, rArray3x1, tArray3x1, cameraArray3x3, distortionArray5x1, out Point2f[] imagePoints, out double[,] jacobian);
@@ -102,8 +104,11 @@ namespace SD.Toolkits.OpenCV.Calibrations
                 reprojectionError += unitError;
 
                 //外参矩阵字典
-                double[,] rArray3x3 = rArray3x1.RotationVectorToRotationMatrix();
-                Matrix<double> rtMatrix = MatrixExtension.BuildRotationTranslationMatrix(rArray3x3, tArray3x1);
+                Cv2.Rodrigues(rArray3x1, out double[,] rArray3x3, out _);
+
+                Matrix<double> rMatrix = DenseMatrix.OfArray(rArray3x3);
+                Vector3D tVector = new Vector3D(tArray3x1[0], tArray3x1[1], tArray3x1[2]);
+                Matrix<double> rtMatrix = SpacialExtension.BuildRotationTranslationMatrix(rMatrix, tVector);
                 extrinsicMatrices.Add(patternPointsKV.Key, rtMatrix);
             }
 
@@ -157,12 +162,13 @@ namespace SD.Toolkits.OpenCV.Calibrations
                 Matrix<double> extrinsicMatrix = extrinsicMatrices[kv.Key];
 
                 //抓手到基底旋转矩阵
-                double[,] robotRotationArray3x3 = pose.GetRotationArray3x3();
-                Mat rEndToBaseMat = Mat.FromArray(robotRotationArray3x3);
+                EulerAngles eulerAngles = pose.GetEulerAngles();
+                Matrix<double> rMatrix = eulerAngles.ToRotationMatrix();
+                Mat rEndToBaseMat = rMatrix.ToMat();
 
                 //抓手到基底平移向量
-                double[] robotTranslationArray3x1 = pose.GetTranslationArray3x1();
-                Mat tEndToBaseMat = Mat.FromArray(robotTranslationArray3x1);
+                Vector3D tVector = pose.GetTranslationVector();
+                Mat tEndToBaseMat = Mat.FromArray(tVector.X, tVector.Y, tVector.Z);
 
                 //标定板到相机旋转矩阵
                 Matrix<double> rExtrinsicMatrix = extrinsicMatrix.SubMatrix(0, 3, 0, 3);
@@ -190,7 +196,7 @@ namespace SD.Toolkits.OpenCV.Calibrations
             tPatternToCameraMats.ForEach(mat => mat.Dispose());
 
             //相机到抓手旋转平移矩阵
-            Matrix<double> rtCameraToEndMatrix = MatrixExtension.BuildRotationTranslationMatrix(rCameraToEndMat, tCameraToEndMat);
+            Matrix<double> rtCameraToEndMatrix = BuildRotationTranslationMatrix(rCameraToEndMat, tCameraToEndMat);
 
             return rtCameraToEndMatrix;
         }
@@ -278,7 +284,7 @@ namespace SD.Toolkits.OpenCV.Calibrations
             tPatternToCameraMats.ForEach(mat => mat.Dispose());
 
             //相机到基底旋转平移矩阵
-            Matrix<double> rtCameraToBaseMatrix = MatrixExtension.BuildRotationTranslationMatrix(rCameraToBaseMat, tCameraToBaseMat);
+            Matrix<double> rtCameraToBaseMatrix = BuildRotationTranslationMatrix(rCameraToBaseMat, tCameraToBaseMat);
 
             return rtCameraToBaseMatrix;
         }
@@ -370,10 +376,12 @@ namespace SD.Toolkits.OpenCV.Calibrations
             Cv2.SolvePnP(patternPoints, cornerPoints, cameraIntrinsics.IntrinsicMatrix, cameraIntrinsics.DistortionVector.ToArray(), ref rArray3x1, ref tArray3x1);
 
             //旋转向量转旋转矩阵
-            double[,] rArray3x3 = rArray3x1.RotationVectorToRotationMatrix();
+            Cv2.Rodrigues(rArray3x1, out double[,] rArray3x3, out _);
 
             //构造RT矩阵
-            Matrix<double> rtPatternToCameraMatrix = MatrixExtension.BuildRotationTranslationMatrix(rArray3x3, tArray3x1);
+            Matrix<double> rMatrix = DenseMatrix.OfArray(rArray3x3);
+            Vector3D tVector = new Vector3D(tArray3x1[0], tArray3x1[1], tArray3x1[2]);
+            Matrix<double> rtPatternToCameraMatrix = SpacialExtension.BuildRotationTranslationMatrix(rMatrix, tVector);
 
             return rtPatternToCameraMatrix;
         }
@@ -601,6 +609,61 @@ namespace SD.Toolkits.OpenCV.Calibrations
             }
 
             return success;
+        }
+        #endregion
+
+        #region # Matrix转Mat —— static Mat ToMat(this Matrix<double> matrix)
+        /// <summary>
+        /// Matrix转Mat
+        /// </summary>
+        public static Mat ToMat(this Matrix<double> matrix)
+        {
+            Mat mat = new Mat(matrix.RowCount, matrix.ColumnCount, MatType.CV_64FC1);
+            for (int rowIndex = 0; rowIndex < matrix.RowCount; rowIndex++)
+            {
+                for (int colIndex = 0; colIndex < matrix.ColumnCount; colIndex++)
+                {
+                    mat.Set(rowIndex, colIndex, matrix[rowIndex, colIndex]);
+                }
+            }
+
+            return mat;
+        }
+        #endregion
+
+        #region # Mat转Matrix —— static Matrix ToMatrix(this Mat mat)
+        /// <summary>
+        /// Mat转Matrix
+        /// </summary>
+        public static Matrix ToMatrix(this Mat mat)
+        {
+            Matrix matrix = DenseMatrix.Create(mat.Rows, mat.Cols, 0);
+            for (int rowIndex = 0; rowIndex < mat.Rows; rowIndex++)
+            {
+                for (int colIndex = 0; colIndex < mat.Cols; colIndex++)
+                {
+                    matrix[rowIndex, colIndex] = mat.At<double>(rowIndex, colIndex);
+                }
+            }
+
+            return matrix;
+        }
+        #endregion
+
+        #region # 构造旋转平移矩阵 —— static Matrix<double> BuildRotationTranslationMatrix(Mat rMat, Mat tMat)
+        /// <summary>
+        /// 构造旋转平移矩阵
+        /// </summary>
+        /// <param name="rMat">旋转矩阵3x3</param>
+        /// <param name="tMat">平移矩阵3x1</param>
+        /// <returns>旋转平移矩阵</returns>
+        public static Matrix<double> BuildRotationTranslationMatrix(Mat rMat, Mat tMat)
+        {
+            Matrix<double> rMatrix = rMat.ToMatrix();
+            Vector3D tVector = new Vector3D(tMat.At<double>(0, 0), tMat.At<double>(1, 0), tMat.At<double>(2, 0));
+            Matrix<double> rtMatrix = SpacialExtension.BuildRotationTranslationMatrix(rMatrix, tVector);
+
+            return rtMatrix;
         }
         #endregion
     }

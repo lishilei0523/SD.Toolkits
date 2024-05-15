@@ -21,13 +21,13 @@ namespace SD.Toolkits.OpenCV.Tests.TestCases
         [TestMethod]
         public void TestToBitmapSource()
         {
-            using Mat matrix = Cv2.ImRead("Images/China.jpg");
+            using Mat matrix = Cv2.ImRead("Content/Images/China.jpg");
             BitmapSource bitmapSource = matrix.ToBitmapSource();
 
             BitmapEncoder bitmapEncoder = new JpegBitmapEncoder();
             BitmapFrame bitmapFrame = BitmapFrame.Create(bitmapSource);
             bitmapEncoder.Frames.Add(bitmapFrame);
-            using FileStream outputStream = File.OpenWrite("Images/China.BS.jpg");
+            using FileStream outputStream = File.OpenWrite("Content/Images/China.BS.jpg");
             bitmapEncoder.Save(outputStream);
         }
         #endregion
@@ -39,11 +39,11 @@ namespace SD.Toolkits.OpenCV.Tests.TestCases
         [TestMethod]
         public void TestToMat()
         {
-            Uri imageUri = new Uri("Images/China.jpg", UriKind.Relative);
+            Uri imageUri = new Uri("Content/Images/China.jpg", UriKind.Relative);
             BitmapSource bitmapSource = new BitmapImage(imageUri);
 
             using Mat matrix = bitmapSource.ToMat();
-            matrix.SaveImage("Images/China.BS-MT.jpg");
+            matrix.SaveImage("Content/Images/China.BS-MT.jpg");
         }
         #endregion
     }

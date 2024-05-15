@@ -20,7 +20,7 @@ namespace SD.Toolkits.OpenCV.Tests.TestCases
         [TestMethod]
         public void TestGenerateRectangleMask()
         {
-            using Mat matrix = Cv2.ImRead("Images/Ballon.jpg");
+            using Mat matrix = Cv2.ImRead("Content/Images/Ballon.jpg");
 
             Rect rectangle = new Rect(140, 45, 330, 335);
             using Mat mask = matrix.GenerateMask(rectangle);
@@ -38,7 +38,7 @@ namespace SD.Toolkits.OpenCV.Tests.TestCases
         [TestMethod]
         public void TestGeneratePolygonMask()
         {
-            using Mat matrix = Cv2.ImRead("Images/China.jpg");
+            using Mat matrix = Cv2.ImRead("Content/Images/China.jpg");
 
             Point[] contourPoints =
             {
@@ -62,7 +62,7 @@ namespace SD.Toolkits.OpenCV.Tests.TestCases
         [TestMethod]
         public void TestApplyRectangleMask()
         {
-            using Mat matrix = Cv2.ImRead("Images/Ballon.jpg");
+            using Mat matrix = Cv2.ImRead("Content/Images/Ballon.jpg");
 
             Rect rectangle = new Rect(140, 45, 330, 335);
             using Mat result = matrix.ApplyMask(rectangle);
@@ -80,7 +80,7 @@ namespace SD.Toolkits.OpenCV.Tests.TestCases
         [TestMethod]
         public void TestApplyPolygonMask()
         {
-            using Mat matrix = Cv2.ImRead("Images/China.jpg");
+            using Mat matrix = Cv2.ImRead("Content/Images/China.jpg");
 
             Point[] contourPoints =
             {
@@ -104,7 +104,7 @@ namespace SD.Toolkits.OpenCV.Tests.TestCases
         [TestMethod]
         public void TestExtractMatrixInRectangle()
         {
-            using Mat matrix = Cv2.ImRead("Images/China.jpg", ImreadModes.Grayscale);
+            using Mat matrix = Cv2.ImRead("Content/Images/China.jpg", ImreadModes.Grayscale);
 
             Rect rectangle = new Rect(100, 100, 640, 480);
             using Mat contourMatrix = matrix.ExtractMatrixInRectangle(rectangle);
@@ -122,7 +122,7 @@ namespace SD.Toolkits.OpenCV.Tests.TestCases
         [TestMethod]
         public void TestExtractPixelsInRectangle()
         {
-            using Mat matrix = Cv2.ImRead("Images/China.jpg", ImreadModes.Grayscale);
+            using Mat matrix = Cv2.ImRead("Content/Images/China.jpg", ImreadModes.Grayscale);
 
             Rect rectangle = new Rect(100, 100, 640, 480);
             IEnumerable<byte> pixels = matrix.ExtractPixelsInRectangle(rectangle);
@@ -137,7 +137,7 @@ namespace SD.Toolkits.OpenCV.Tests.TestCases
         [TestMethod]
         public void TestExtractMatrixInContour()
         {
-            using Mat matrix = Cv2.ImRead("Images/China.jpg", ImreadModes.Grayscale);
+            using Mat matrix = Cv2.ImRead("Content/Images/China.jpg", ImreadModes.Grayscale);
 
             Point[] contourPoints =
             {
@@ -161,7 +161,7 @@ namespace SD.Toolkits.OpenCV.Tests.TestCases
         [TestMethod]
         public void TestExtractPixelsInContour()
         {
-            using Mat matrix = Cv2.ImRead("Images/China.jpg", ImreadModes.Grayscale);
+            using Mat matrix = Cv2.ImRead("Content/Images/China.jpg", ImreadModes.Grayscale);
 
             Point[] contourPoints =
             {
@@ -185,7 +185,7 @@ namespace SD.Toolkits.OpenCV.Tests.TestCases
             Scalar lowerYellow = new Scalar(20, 43, 46);
             Scalar upperYellow = new Scalar(34, 255, 255);
 
-            using Mat matrix = Cv2.ImRead("Images/Flag.jpg");
+            using Mat matrix = Cv2.ImRead("Content/Images/Flag.jpg");
             using Mat hsvMatrix = matrix.CvtColor(ColorConversionCodes.BGR2HSV);
             Mat result = hsvMatrix.ColorSegment(lowerYellow, upperYellow);
 
@@ -204,10 +204,10 @@ namespace SD.Toolkits.OpenCV.Tests.TestCases
         {
             Action<Rect, Mat> action = (rect, roi) =>
             {
-                roi.SaveImage($"Images/{rect.X}-{rect.Y}.jpg");
+                roi.SaveImage($"Content/Images/{rect.X}-{rect.Y}.jpg");
             };
 
-            using Mat matrix = Cv2.ImRead("Images/Lena.jpg");
+            using Mat matrix = Cv2.ImRead("Content/Images/Lena.jpg");
             for (int i = 0; i < 10; i++)
             {
                 matrix.SlideWindow(200, 200, 50, action);

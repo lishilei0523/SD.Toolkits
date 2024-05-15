@@ -17,7 +17,7 @@ namespace SD.Toolkits.OpenCV.Tests.TestCases
         [TestMethod]
         public void TestApplyRobert()
         {
-            using Mat matrix = Cv2.ImRead("Images/Lena.jpg", ImreadModes.Grayscale);
+            using Mat matrix = Cv2.ImRead("Content/Images/Lena.jpg", ImreadModes.Grayscale);
             using Mat result = matrix.ApplyRobert();
 
             Cv2.ImShow("OpenCV Robert边缘检测-原图", matrix);
@@ -33,7 +33,7 @@ namespace SD.Toolkits.OpenCV.Tests.TestCases
         [TestMethod]
         public void TestApplySobel()
         {
-            using Mat matrix = Cv2.ImRead("Images/Horse.jpg", ImreadModes.Grayscale);
+            using Mat matrix = Cv2.ImRead("Content/Images/Horse.jpg", ImreadModes.Grayscale);
             using Mat result = matrix.ApplySobel();
 
             Cv2.ImShow("OpenCV Sobel边缘检测-原图", matrix);
@@ -49,7 +49,7 @@ namespace SD.Toolkits.OpenCV.Tests.TestCases
         [TestMethod]
         public void TestApplyScharr()
         {
-            using Mat matrix = Cv2.ImRead("Images/Horse.jpg", ImreadModes.Grayscale);
+            using Mat matrix = Cv2.ImRead("Content/Images/Horse.jpg", ImreadModes.Grayscale);
             using Mat result = matrix.ApplyScharr();
 
             Cv2.ImShow("OpenCV Scharr边缘检测-原图", matrix);
@@ -65,7 +65,7 @@ namespace SD.Toolkits.OpenCV.Tests.TestCases
         [TestMethod]
         public void TestApplyLaplacian()
         {
-            using Mat matrix = Cv2.ImRead("Images/Horse.jpg", ImreadModes.Grayscale);
+            using Mat matrix = Cv2.ImRead("Content/Images/Horse.jpg", ImreadModes.Grayscale);
             using Mat result = matrix.ApplyLaplacian();
 
             Cv2.ImShow("OpenCV Laplacian边缘检测-原图", matrix);

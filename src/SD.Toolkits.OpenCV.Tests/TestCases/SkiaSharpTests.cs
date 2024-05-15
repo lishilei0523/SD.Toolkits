@@ -19,10 +19,10 @@ namespace SD.Toolkits.OpenCV.Tests.TestCases
         [TestMethod]
         public void TestToSKBitmap()
         {
-            using Mat matrix = Cv2.ImRead("Images/China.jpg");
+            using Mat matrix = Cv2.ImRead("Content/Images/China.jpg");
             using SKBitmap bitmap = matrix.ToSKBitmap();
 
-            using FileStream outputStream = File.OpenWrite("Images/China.SK.jpg");
+            using FileStream outputStream = File.OpenWrite("Content/Images/China.SK.jpg");
             bitmap.Encode(SKEncodedImageFormat.Png, 80).SaveTo(outputStream);
         }
         #endregion
@@ -34,11 +34,11 @@ namespace SD.Toolkits.OpenCV.Tests.TestCases
         [TestMethod]
         public void TestToMat()
         {
-            using SKFileStream inputStream = new SKFileStream("Images/China.jpg");
+            using SKFileStream inputStream = new SKFileStream("Content/Images/China.jpg");
             using SKBitmap bitmap = SKBitmap.Decode(inputStream);
 
             using Mat matrix = bitmap.ToMat();
-            matrix.SaveImage("Images/China.CV.png");
+            matrix.SaveImage("Content/Images/China.CV.png");
         }
         #endregion
 
@@ -49,7 +49,7 @@ namespace SD.Toolkits.OpenCV.Tests.TestCases
         [TestMethod]
         public void TestHistogramImage()
         {
-            using Mat matrix = Cv2.ImRead("Images/Cat.jpg", ImreadModes.Grayscale);
+            using Mat matrix = Cv2.ImRead("Content/Images/Cat.jpg", ImreadModes.Grayscale);
             using Mat histogramImage = matrix.GenerateHistogramImage();
 
             Cv2.ImShow("OpenCV直方图图像-原图", matrix);
