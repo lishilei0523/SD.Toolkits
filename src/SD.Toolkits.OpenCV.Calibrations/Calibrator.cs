@@ -170,13 +170,14 @@ namespace SD.Toolkits.OpenCV.Calibrations
                 Vector3D tVector = pose.GetTranslationVector();
                 Mat tEndToBaseMat = Mat.FromArray(tVector.X, tVector.Y, tVector.Z);
 
+                //分离旋转平移矩阵
+                extrinsicMatrix.SplitRotationTranslationMatrix(out Matrix<double> rExtrinsicMatrix, out Vector3D tExtrinsicVector);
+
                 //标定板到相机旋转矩阵
-                Matrix<double> rExtrinsicMatrix = extrinsicMatrix.SubMatrix(0, 3, 0, 3);
                 Mat rPatternToCameraMat = rExtrinsicMatrix.ToMat();
 
                 //标定板到相机平移向量
-                Matrix<double> tExtrinsicMatrix = extrinsicMatrix.SubMatrix(0, 3, 3, 1);
-                Mat tPatternToCameraMat = tExtrinsicMatrix.ToMat();
+                Mat tPatternToCameraMat = tExtrinsicVector.ToMat();
 
                 rEndToBaseMats.Add(rEndToBaseMat);
                 tEndToBaseMats.Add(tEndToBaseMat);
@@ -249,22 +250,22 @@ namespace SD.Toolkits.OpenCV.Calibrations
 
                 //基底到抓手旋转平移矩阵
                 Matrix<double> rtEndToBaseMatrix = rtBaseToEndMatrix.Inverse();
+                rtEndToBaseMatrix.SplitRotationTranslationMatrix(out Matrix<double> rEndToBaseMatrix, out Vector3D tEndToBaseVector);
 
                 //基底到抓手旋转矩阵
-                Matrix<double> rEndToBaseMatrix = rtEndToBaseMatrix.SubMatrix(0, 3, 0, 3);
                 Mat rEndToBaseMat = rEndToBaseMatrix.ToMat();
 
                 //基底到抓手平移向量
-                Matrix<double> tEndToBaseMatrix = rtEndToBaseMatrix.SubMatrix(0, 3, 3, 1);
-                Mat tEndToBaseMat = tEndToBaseMatrix.ToMat();
+                Mat tEndToBaseMat = tEndToBaseVector.ToMat();
+
+                //分离旋转平移矩阵
+                extrinsicMatrix.SplitRotationTranslationMatrix(out Matrix<double> rExtrinsicMatrix, out Vector3D tExtrinsicVector);
 
                 //标定板到相机旋转矩阵
-                Matrix<double> rExtrinsicMatrix = extrinsicMatrix.SubMatrix(0, 3, 0, 3);
                 Mat rPatternToCameraMat = rExtrinsicMatrix.ToMat();
 
                 //标定板到相机平移向量
-                Matrix<double> tExtrinsicMatrix = extrinsicMatrix.SubMatrix(0, 3, 3, 1);
-                Mat tPatternToCameraMat = tExtrinsicMatrix.ToMat();
+                Mat tPatternToCameraMat = tExtrinsicVector.ToMat();
 
                 rBaseToEndMats.Add(rEndToBaseMat);
                 tBaseToEndMats.Add(tEndToBaseMat);
@@ -537,6 +538,7 @@ namespace SD.Toolkits.OpenCV.Calibrations
         }
         #endregion
 
+
         #region # 生成标定板世界坐标点列表 —— static ICollection<Point3f> GeneratePatternPoints(float patternSideSize...
         /// <summary>
         /// 生成标定板世界坐标点列表
@@ -612,6 +614,34 @@ namespace SD.Toolkits.OpenCV.Calibrations
         }
         #endregion
 
+
+        #region # Vector3D转Mat —— static Mat ToMat(this Vector3D vector3D)
+        /// <summary>
+        /// Vector3D转Mat
+        /// </summary>
+        public static Mat ToMat(this Vector3D vector3D)
+        {
+            Mat mat = new Mat(3, 1, MatType.CV_64FC1);
+            mat.Set(0, 0, vector3D.X);
+            mat.Set(1, 0, vector3D.Y);
+            mat.Set(2, 0, vector3D.Z);
+
+            return mat;
+        }
+        #endregion
+
+        #region # Mat转Vector3D —— static Vector3D ToVector3D(this Mat mat)
+        /// <summary>
+        /// Mat转Vector3D
+        /// </summary>
+        public static Vector3D ToVector3D(this Mat mat)
+        {
+            Vector3D vector3D = new Vector3D(mat.At<double>(0, 0), mat.At<double>(1, 0), mat.At<double>(2, 0));
+
+            return vector3D;
+        }
+        #endregion
+
         #region # Matrix转Mat —— static Mat ToMat(this Matrix<double> matrix)
         /// <summary>
         /// Matrix转Mat
@@ -660,7 +690,7 @@ namespace SD.Toolkits.OpenCV.Calibrations
         public static Matrix<double> BuildRotationTranslationMatrix(Mat rMat, Mat tMat)
         {
             Matrix<double> rMatrix = rMat.ToMatrix();
-            Vector3D tVector = new Vector3D(tMat.At<double>(0, 0), tMat.At<double>(1, 0), tMat.At<double>(2, 0));
+            Vector3D tVector = tMat.ToVector3D();
             Matrix<double> rtMatrix = SpacialExtension.BuildRotationTranslationMatrix(rMatrix, tVector);
 
             return rtMatrix;

@@ -224,5 +224,19 @@ namespace SD.Toolkits.Matrices.Extensions
             return rtMatrix;
         }
         #endregion
+
+        #region # 分离旋转平移矩阵 —— static void SplitRotationTranslationMatrix(this Matrix<double> rtMatrix...
+        /// <summary>
+        /// 分离旋转平移矩阵
+        /// </summary>
+        /// <param name="rtMatrix">旋转平移矩阵4x4</param>
+        /// <param name="rMatrix">旋转矩阵3x3</param>
+        /// <param name="tVector">平移向量3x1</param>
+        public static void SplitRotationTranslationMatrix(this Matrix<double> rtMatrix, out Matrix<double> rMatrix, out Vector3D tVector)
+        {
+            rMatrix = rtMatrix.SubMatrix(0, 3, 0, 3);
+            tVector = Vector3D.OfVector(rtMatrix.SubMatrix(0, 3, 3, 1).Column(0));
+        }
+        #endregion
     }
 }

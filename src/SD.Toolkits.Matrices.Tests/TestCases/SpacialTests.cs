@@ -194,5 +194,27 @@ namespace SD.Toolkits.Matrices.Tests.TestCases
             Trace.WriteLine(rtMatrix);
         }
         #endregion
+
+        #region # 测试分离旋转平移矩阵 —— void TestSplitRotationTranslationMatrix()
+        /// <summary>
+        /// 测试分离旋转平移矩阵
+        /// </summary>
+        [TestMethod]
+        public void TestSplitRotationTranslationMatrix()
+        {
+            double[,] rtArray4x4 =
+            {
+                {0.433013, -0.625, 0.649519, 1},
+                {0.75, 0.649519, 0.125, -5},
+                {-0.5, 0.433013, 0.75, 9},
+                {0, 0, 0, 1}
+            };
+            Matrix<double> rtMatrix = DenseMatrix.OfArray(rtArray4x4);
+
+            rtMatrix.SplitRotationTranslationMatrix(out Matrix<double> rMatrix, out Vector3D tVector);
+            Trace.WriteLine(rMatrix);
+            Trace.WriteLine(tVector);
+        }
+        #endregion
     }
 }
