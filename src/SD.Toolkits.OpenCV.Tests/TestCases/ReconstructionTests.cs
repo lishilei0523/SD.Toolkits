@@ -1,7 +1,11 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using MathNet.Numerics.LinearAlgebra;
+using MathNet.Numerics.LinearAlgebra.Double;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenCvSharp;
-using SD.Toolkits.OpenCV.Extensions;
+using SD.Toolkits.OpenCV.Calibrations;
+using SD.Toolkits.OpenCV.Models;
 using SD.Toolkits.OpenCV.Reconstructions;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -14,75 +18,106 @@ namespace SD.Toolkits.OpenCV.Tests.TestCases
     [TestClass]
     public class ReconstructionTests
     {
-        #region # 测试计算关键点与描述子 —— void TestDetectAndCompute()
+        #region # 测试匹配图像 —— void TestMatchImage()
         /// <summary>
-        /// 测试计算关键点与描述子
+        /// 测试匹配图像
         /// </summary>
         [TestMethod]
-        public void TestDetectAndCompute()
+        public void TestMatchImage()
         {
-            string imagePath = "Content/Images/Faw/001.bmp";
+            //初始化模型
+            Reconstructor.Initialize();
 
-            SuperFeature feature = new SuperFeature();
-            using Mat image = Cv2.ImRead(imagePath);
+            //读取图像
+            using Mat image1 = Cv2.ImRead("Content/Images/Faw/001.bmp");
+            using Mat image2 = Cv2.ImRead("Content/Images/Faw/006.bmp");
 
-            using Mat descriptors = new Mat();
-            feature.DetectAndCompute(image, null, out KeyPoint[] keyPoints, descriptors);
+            //匹配图像
+            MatchResult matchResult = Reconstructor.Match(image1, image2, 0.8f);
 
-            Trace.WriteLine($"图像: {Path.GetFileNameWithoutExtension(imagePath)}");
-            Trace.WriteLine($"关键点数量: {keyPoints.Length}");
-            Trace.WriteLine($"描述子行数: {descriptors.Rows}");
-            Trace.WriteLine($"描述子列数: {descriptors.Cols}");
-            Trace.WriteLine("-------------------------------------");
-
-            //释放资源
-            feature.Dispose();
+            Trace.WriteLine($"匹配关键点数量: {matchResult.MatchedCount}");
         }
         #endregion
 
-        #region # 测试匹配 —— void TestMatch()
+        #region # 测试重建图像 —— void TestRecoverImage()
         /// <summary>
-        /// 测试匹配
+        /// 测试重建图像
         /// </summary>
         [TestMethod]
-        public void TestMatch()
+        public void TestRecoverImage()
         {
-            using Mat image1 = Cv2.ImRead("Content/Images/Steel-1.jpg");
-            using Mat image2 = Cv2.ImRead("Content/Images/Steel-2.jpg");
+            //初始化模型
+            Reconstructor.Initialize();
 
-            //缩放图像
-            int scaledSize = 512;
-            using Mat scaledImage1 = image1.ResizeAdaptively(scaledSize);
-            using Mat scaledImage2 = image2.ResizeAdaptively(scaledSize);
+            //读取图像
+            using Mat image1 = Cv2.ImRead("Content/Images/Faw/001.bmp");
+            using Mat image2 = Cv2.ImRead("Content/Images/Faw/006.bmp");
 
-            //定义特征提取器与匹配器
-            SuperFeature feature = new SuperFeature();
-            SuperMatcher matcher = new SuperMatcher();
+            //重建图像
+            using Mat result = Reconstructor.RecoverImage(image1, image2, 0.8f);
 
-            //推理匹配
-            float threshold = 0.9f;
-            feature.ComputeAll(scaledImage1, null, out long[] sourceKptsArray, out int[] sourceKptsDims, out float[] sourceDescArray, out int[] sourceDescDims, out KeyPoint[] srcKeyPoints, out Mat srcDecriptors);
-            feature.ComputeAll(scaledImage2, null, out long[] targetKptsArray, out int[] targetKptsDims, out float[] targetDescArray, out int[] targetDescDims, out KeyPoint[] tgtKeyPoints, out Mat tgtDecriptors);
-            DMatch[] matches = matcher.Match(threshold, sourceKptsArray, sourceKptsDims, sourceDescArray, sourceDescDims, targetKptsArray, targetKptsDims, targetDescArray, targetDescDims);
+            Cv2.ImShow("OpenCV重建图像-原图1", image1);
+            Cv2.ImShow("OpenCV重建图像-原图2", image2);
+            Cv2.ImShow("OpenCV重建图像-效果图", result);
+            Cv2.WaitKey();
+        }
+        #endregion
 
-            Trace.WriteLine($"阈值: {threshold}");
-            Trace.WriteLine($"匹配关键点数量: {matches.Length}");
+        #region # 测试重建位姿 —— void TestRecoverPose()
+        /// <summary>
+        /// 测试重建位姿
+        /// </summary>
+        [TestMethod]
+        public void TestRecoverPose()
+        {
+            //初始化模型
+            Reconstructor.Initialize();
 
-            //关键点缩放
-            ICollection<KeyPoint> scaledSrcKpts = srcKeyPoints.ScaleKeyPoints(image1.Width, image1.Height, scaledSize);
-            ICollection<KeyPoint> scaledTgtKpts = tgtKeyPoints.ScaleKeyPoints(image1.Width, image1.Height, scaledSize);
+            //标定相机
+            CameraIntrinsics cameraIntrinsics = CalibrateCamera();
 
-            //绘制匹配结果、保存图片
-            using Mat outImage = new Mat();
-            Cv2.DrawMatches(image1, scaledSrcKpts, image2, scaledTgtKpts, matches, outImage);
-            Cv2.ImWrite("Content/MatchResult.jpg", outImage);
-            Trace.WriteLine("图像已保存");
+            //读取图像
+            using Mat image1 = Cv2.ImRead("Content/Images/Faw/001.bmp");
+            using Mat image2 = Cv2.ImRead("Content/Images/Faw/002.bmp");
 
-            //释放资源
-            feature.Dispose();
-            matcher.Dispose();
-            srcDecriptors.Dispose();
-            tgtDecriptors.Dispose();
+            //重建位姿
+            double[,] rtArray4x4 = Reconstructor.RecoverPose(image1, image2, cameraIntrinsics.IntrinsicMatrix, 0.98f);
+            Matrix<double> rtMatrix = DenseMatrix.OfArray(rtArray4x4);
+
+            Trace.WriteLine("RT矩阵: ");
+            Trace.WriteLine(rtMatrix);
+        }
+        #endregion
+
+
+        //Private
+
+        #region # 标定相机 —— static CameraIntrinsics CalibrateCamera()
+        /// <summary>
+        /// 标定相机
+        /// </summary>
+        private static CameraIntrinsics CalibrateCamera()
+        {
+            //读取图像
+            string imageDir = "Content/Images/Faw";
+            string[] imagePaths = Directory.GetFiles(imageDir);
+            IDictionary<string, Mat> images = new Dictionary<string, Mat>();
+            foreach (string imagePath in imagePaths)
+            {
+                Mat image = Cv2.ImRead(imagePath, ImreadModes.Grayscale);
+                images.Add(Path.GetFileNameWithoutExtension(imagePath), image);
+            }
+
+            //设置参数
+            float patternSideSize = 0.05f; //标定板方格边长
+            Size patternSize = new Size(11, 8);//标定板尺寸，行列内角点个数
+            PatternType patternType = PatternType.Chessboard;//标定板类型
+            Size imageSize = new Size(2048, 1536);//图像尺寸
+
+            //标定相机
+            CameraIntrinsics cameraIntrinsics = Calibrator.MonoCalibrate(Guid.NewGuid().ToString(), patternSideSize, patternSize, patternType, imageSize, images, out _, out _);
+
+            return cameraIntrinsics;
         }
         #endregion
     }

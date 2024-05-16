@@ -176,9 +176,9 @@ namespace SD.Toolkits.OpenCV.Reconstructions
         }
         #endregion
 
-        #region # 重建位置 —— static double[,] RecoverPose(Mat sourceImage, Mat targetImage...
+        #region # 重建位姿 —— static double[,] RecoverPose(Mat sourceImage, Mat targetImage...
         /// <summary>
-        /// 重建位置
+        /// 重建位姿
         /// </summary>
         /// <param name="sourceImage">源图像</param>
         /// <param name="targetImage">目标图像</param>
