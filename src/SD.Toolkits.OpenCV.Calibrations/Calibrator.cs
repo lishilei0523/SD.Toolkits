@@ -553,11 +553,11 @@ namespace SD.Toolkits.OpenCV.Calibrations
         public static ICollection<Point3f> GeneratePatternPoints(float patternSideSize, Size patternSize)
         {
             IList<Point3f> patternPoints = new List<Point3f>();
-            for (int i = 0; i < patternSize.Height; i++)
+            for (int rowIndex = 0; rowIndex < patternSize.Height; rowIndex++)
             {
-                for (int j = 0; j < patternSize.Width; j++)
+                for (int colIndex = 0; colIndex < patternSize.Width; colIndex++)
                 {
-                    Point3f point = new Point3f(j * patternSideSize, i * patternSideSize, 0);
+                    Point3f point = new Point3f(colIndex * patternSideSize, rowIndex * patternSideSize, 0);
                     patternPoints.Add(point);
                 }
             }
@@ -578,11 +578,11 @@ namespace SD.Toolkits.OpenCV.Calibrations
         /// <returns>是否成功</returns>
         public static bool GetOptimizedChessboardCorners(this Mat image, Size patternSize, int maxCount, double epsilon, out ICollection<Point2f> cornerPoints)
         {
-            bool success = Cv2.FindChessboardCorners(image, patternSize, out Point2f[] keyPoints, ChessboardFlags.AdaptiveThresh | ChessboardFlags.FastCheck | ChessboardFlags.NormalizeImage);
+            bool success = Cv2.FindChessboardCorners(image, patternSize, out Point2f[] keyPoints);
             if (success)
             {
                 //优化角点
-                TermCriteria criteria = new TermCriteria(CriteriaTypes.MaxIter | CriteriaTypes.Count, maxCount, epsilon);
+                TermCriteria criteria = new TermCriteria(CriteriaTypes.MaxIter | CriteriaTypes.Eps, maxCount, epsilon);
                 cornerPoints = Cv2.CornerSubPix(image, keyPoints, new Size(11, 11), new Size(-1, -1), criteria);
             }
             else
