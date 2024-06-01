@@ -24,12 +24,14 @@ namespace SD.Toolkits.OpenCV.Calibrations
         /// <param name="patternSideSize">标定板方格边长</param>
         /// <param name="patternSize">标定板尺寸</param>
         /// <param name="patternType">标定板类型</param>
+        /// <param name="maxCount">优化迭代次数</param>
+        /// <param name="epsilon">优化误差</param>
         /// <param name="imageSize">图像尺寸</param>
         /// <param name="images">图像字典</param> 
         /// <param name="extrinsicMatrices">外参矩阵字典</param>
         /// <param name="failedImageKeys">失败图像键列表</param>
         /// <returns>相机内参</returns>
-        public static CameraIntrinsics MonoCalibrate(string cameraId, float patternSideSize, Size patternSize, PatternType patternType, Size imageSize, IDictionary<string, Mat> images, out IDictionary<string, Matrix<double>> extrinsicMatrices, out ICollection<string> failedImageKeys)
+        public static CameraIntrinsics MonoCalibrate(string cameraId, float patternSideSize, Size patternSize, PatternType patternType, int maxCount, double epsilon, Size imageSize, IDictionary<string, Mat> images, out IDictionary<string, Matrix<double>> extrinsicMatrices, out ICollection<string> failedImageKeys)
         {
             #region # 验证
 
@@ -60,11 +62,11 @@ namespace SD.Toolkits.OpenCV.Calibrations
                 ICollection<Point2f> cornerPoints;
                 if (patternType == PatternType.Chessboard)
                 {
-                    success = kv.Value.GetOptimizedChessboardCorners(patternSize, out cornerPoints);
+                    success = kv.Value.GetOptimizedChessboardCorners(patternSize, maxCount, epsilon, out cornerPoints);
                 }
                 else if (patternType == PatternType.CirclesGrid)
                 {
-                    success = kv.Value.GetOptimizedCirclesGridCorners(patternSize, out cornerPoints);
+                    success = kv.Value.GetOptimizedCirclesGridCorners(patternSize, maxCount, epsilon, out cornerPoints);
                 }
                 else
                 {
@@ -298,10 +300,12 @@ namespace SD.Toolkits.OpenCV.Calibrations
         /// <param name="patternSideSize">标定板方格边长</param>
         /// <param name="patternSize">标定板尺寸</param>
         /// <param name="patternType">标定板类型</param>
+        /// <param name="maxCount">优化迭代次数</param>
+        /// <param name="epsilon">优化误差</param>
         /// <param name="image">图像</param>
         /// <param name="cameraIntrinsics">相机内参</param>
         /// <returns>外参矩阵</returns>
-        public static Matrix<double> SolveExtrinsicMatrix(int patternSideSize, Size patternSize, PatternType patternType, Mat image, CameraIntrinsics cameraIntrinsics)
+        public static Matrix<double> SolveExtrinsicMatrix(int patternSideSize, Size patternSize, PatternType patternType, int maxCount, double epsilon, Mat image, CameraIntrinsics cameraIntrinsics)
         {
             #region # 验证
 
@@ -320,11 +324,11 @@ namespace SD.Toolkits.OpenCV.Calibrations
             ICollection<Point2f> cornerPoints;
             if (patternType == PatternType.Chessboard)
             {
-                success = image.GetOptimizedChessboardCorners(patternSize, out cornerPoints);
+                success = image.GetOptimizedChessboardCorners(patternSize, maxCount, epsilon, out cornerPoints);
             }
             else if (patternType == PatternType.CirclesGrid)
             {
-                success = image.GetOptimizedCirclesGridCorners(patternSize, out cornerPoints);
+                success = image.GetOptimizedCirclesGridCorners(patternSize, maxCount, epsilon, out cornerPoints);
             }
             else
             {
@@ -569,14 +573,16 @@ namespace SD.Toolkits.OpenCV.Calibrations
         /// <param name="image">图像</param>
         /// <param name="patternSize">标定板尺寸</param>
         /// <param name="cornerPoints">角点列表</param>
+        /// <param name="maxCount">优化迭代次数</param>
+        /// <param name="epsilon">优化误差</param>
         /// <returns>是否成功</returns>
-        public static bool GetOptimizedChessboardCorners(this Mat image, Size patternSize, out ICollection<Point2f> cornerPoints)
+        public static bool GetOptimizedChessboardCorners(this Mat image, Size patternSize, int maxCount, double epsilon, out ICollection<Point2f> cornerPoints)
         {
             bool success = Cv2.FindChessboardCorners(image, patternSize, out Point2f[] keyPoints, ChessboardFlags.AdaptiveThresh | ChessboardFlags.FastCheck | ChessboardFlags.NormalizeImage);
             if (success)
             {
                 //优化角点
-                TermCriteria criteria = new TermCriteria(CriteriaTypes.MaxIter | CriteriaTypes.Count, 50, 0.001);
+                TermCriteria criteria = new TermCriteria(CriteriaTypes.MaxIter | CriteriaTypes.Count, maxCount, epsilon);
                 cornerPoints = Cv2.CornerSubPix(image, keyPoints, new Size(11, 11), new Size(-1, -1), criteria);
             }
             else
@@ -595,14 +601,16 @@ namespace SD.Toolkits.OpenCV.Calibrations
         /// <param name="image">图像</param>
         /// <param name="patternSize">标定板尺寸</param>
         /// <param name="cornerPoints">角点列表</param>
+        /// <param name="maxCount">优化迭代次数</param>
+        /// <param name="epsilon">优化误差</param>
         /// <returns>是否成功</returns>
-        public static bool GetOptimizedCirclesGridCorners(this Mat image, Size patternSize, out ICollection<Point2f> cornerPoints)
+        public static bool GetOptimizedCirclesGridCorners(this Mat image, Size patternSize, int maxCount, double epsilon, out ICollection<Point2f> cornerPoints)
         {
             bool success = Cv2.FindCirclesGrid(image, patternSize, out Point2f[] keyPoints);
             if (success)
             {
                 //优化角点
-                TermCriteria criteria = new TermCriteria(CriteriaTypes.Eps | CriteriaTypes.MaxIter, 30, 0.001);
+                TermCriteria criteria = new TermCriteria(CriteriaTypes.Eps | CriteriaTypes.MaxIter, maxCount, epsilon);
                 cornerPoints = Cv2.CornerSubPix(image, keyPoints, new Size(11, 11), new Size(-1, -1), criteria);
             }
             else

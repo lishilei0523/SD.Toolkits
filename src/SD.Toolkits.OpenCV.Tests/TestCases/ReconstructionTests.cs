@@ -115,7 +115,7 @@ namespace SD.Toolkits.OpenCV.Tests.TestCases
             Size imageSize = new Size(2048, 1536);//图像尺寸
 
             //标定相机
-            CameraIntrinsics cameraIntrinsics = Calibrator.MonoCalibrate(Guid.NewGuid().ToString(), patternSideSize, patternSize, patternType, imageSize, images, out _, out _);
+            CameraIntrinsics cameraIntrinsics = Calibrator.MonoCalibrate(Guid.NewGuid().ToString(), patternSideSize, patternSize, patternType, 30, 0.01, imageSize, images, out _, out _);
 
             return cameraIntrinsics;
         }

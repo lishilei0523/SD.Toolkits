@@ -41,7 +41,7 @@ namespace SD.Toolkits.OpenCV.Tests.TestCases
             Size imageSize = new Size(640, 480);//图像尺寸
 
             //标定
-            CameraIntrinsics cameraIntrinsics = Calibrator.MonoCalibrate(Guid.NewGuid().ToString(), patternSideSize, patternSize, patternType, imageSize, images, out IDictionary<string, Matrix<double>> extrinsicMatrices, out ICollection<string> failedImageKeys);
+            CameraIntrinsics cameraIntrinsics = Calibrator.MonoCalibrate(Guid.NewGuid().ToString(), patternSideSize, patternSize, patternType, 30, 0.01, imageSize, images, out IDictionary<string, Matrix<double>> extrinsicMatrices, out ICollection<string> failedImageKeys);
 
             Trace.WriteLine($"标定重投影误差: {cameraIntrinsics.CalibratedReprojectionError}");
             Trace.WriteLine($"重投影误差: {cameraIntrinsics.ReprojectionError}");
@@ -116,7 +116,7 @@ namespace SD.Toolkits.OpenCV.Tests.TestCases
             Size imageSize = new Size(2048, 1536);//图像尺寸
 
             //标定相机
-            Calibrator.MonoCalibrate(Guid.NewGuid().ToString(), patternSideSize, patternSize, patternType, imageSize, images, out IDictionary<string, Matrix<double>> extrinsicMatrices, out ICollection<string> failedImageKeys);
+            Calibrator.MonoCalibrate(Guid.NewGuid().ToString(), patternSideSize, patternSize, patternType, 30, 0.01, imageSize, images, out IDictionary<string, Matrix<double>> extrinsicMatrices, out ICollection<string> failedImageKeys);
 
             //标定手眼
             Matrix<double> rtMatrix = Calibrator.CalibrateEyeInHand(HandEyeCalibrationMethod.TSAI, robotPoses, extrinsicMatrices);
@@ -174,7 +174,7 @@ namespace SD.Toolkits.OpenCV.Tests.TestCases
             Size imageSize = new Size(2048, 1536);//图像尺寸
 
             //标定相机
-            Calibrator.MonoCalibrate(Guid.NewGuid().ToString(), patternSideSize, patternSize, patternType, imageSize, images, out IDictionary<string, Matrix<double>> extrinsicMatrices, out ICollection<string> failedImageKeys);
+            Calibrator.MonoCalibrate(Guid.NewGuid().ToString(), patternSideSize, patternSize, patternType, 30, 0.01, imageSize, images, out IDictionary<string, Matrix<double>> extrinsicMatrices, out ICollection<string> failedImageKeys);
 
             //标定手眼
             Matrix<double> rtMatrix = Calibrator.CalibrateEyeToHand(HandEyeCalibrationMethod.TSAI, robotPoses, extrinsicMatrices);
@@ -212,13 +212,13 @@ namespace SD.Toolkits.OpenCV.Tests.TestCases
             Size imageSize = new Size(640, 480);//图像尺寸
 
             //标定相机
-            CameraIntrinsics cameraIntrinsics = Calibrator.MonoCalibrate(Guid.NewGuid().ToString(), patternSideSize, patternSize, patternType, imageSize, images, out IDictionary<string, Matrix<double>> extrinsicMatrices, out _);
+            CameraIntrinsics cameraIntrinsics = Calibrator.MonoCalibrate(Guid.NewGuid().ToString(), patternSideSize, patternSize, patternType, 30, 0.01, imageSize, images, out IDictionary<string, Matrix<double>> extrinsicMatrices, out _);
 
             //解析外参
             string testImagePath = "Content/Images/Standard/left01.jpg";
             string testImageName = Path.GetFileNameWithoutExtension(testImagePath);
             using Mat testImage = Cv2.ImRead(testImagePath, ImreadModes.Grayscale);
-            Matrix<double> extrinsicMatrix = Calibrator.SolveExtrinsicMatrix(patternSideSize, patternSize, patternType, testImage, cameraIntrinsics);
+            Matrix<double> extrinsicMatrix = Calibrator.SolveExtrinsicMatrix(patternSideSize, patternSize, patternType, 30, 0.01, testImage, cameraIntrinsics);
 
             Trace.WriteLine($"图像: \"{testImageName}\": ");
             Trace.WriteLine("----------------------------------");
@@ -260,7 +260,7 @@ namespace SD.Toolkits.OpenCV.Tests.TestCases
             Size imageSize = new Size(640, 480);//图像尺寸
 
             //标定相机
-            CameraIntrinsics cameraIntrinsics = Calibrator.MonoCalibrate(Guid.NewGuid().ToString(), patternSideSize, patternSize, patternType, imageSize, images, out IDictionary<string, Matrix<double>> extrinsicMatrices, out _);
+            CameraIntrinsics cameraIntrinsics = Calibrator.MonoCalibrate(Guid.NewGuid().ToString(), patternSideSize, patternSize, patternType, 30, 0.01, imageSize, images, out IDictionary<string, Matrix<double>> extrinsicMatrices, out _);
 
             //矫正畸变
             string testImagePath = "Content/Images/Standard/left02.jpg";
