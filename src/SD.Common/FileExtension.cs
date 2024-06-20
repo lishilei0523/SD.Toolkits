@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Text;
 
@@ -147,7 +149,7 @@ namespace SD.Common
         /// 创建FTP请求
         /// </summary>
         /// <param name="uri">远程地址</param>
-        /// <param name="loginId">用户名</param>
+        /// <param name="loginId">账号</param>
         /// <param name="password">密码</param>
         /// <returns>FTP请求</returns>
         public static FtpWebRequest CreateFtpRequest(string uri, string loginId, string password)
@@ -167,17 +169,18 @@ namespace SD.Common
         }
         #endregion
 
-        #region # 上传文件 —— static void Upload(string fileName, byte[] fileDatas...
+        #region # 上传文件 —— static void UploadFile(string fileName, byte[] fileBytes...
         /// <summary>
         /// 上传文件
         /// </summary>
         /// <param name="fileName">文件名</param>
-        /// <param name="fileDatas">文件数据</param>
+        /// <param name="fileBytes">文件数据</param>
+        /// <param name="ip">IP地址</param>
+        /// <param name="port">端口号</param>
         /// <param name="remoteDirectory">远程目录</param>
-        /// <param name="hostName">主机名</param>
-        /// <param name="loginId">用户名</param>
+        /// <param name="loginId">账号</param>
         /// <param name="password">密码</param>
-        public static void Upload(string fileName, byte[] fileDatas, string hostName, string remoteDirectory, string loginId, string password)
+        public static void UploadFile(string fileName, byte[] fileBytes, string ip, int port, string remoteDirectory, string loginId, string password)
         {
             #region # 验证
 
@@ -185,33 +188,33 @@ namespace SD.Common
             {
                 throw new ArgumentNullException(nameof(fileName), "文件名不可为空！");
             }
-            if (fileDatas == null)
+            if (fileBytes == null || !fileBytes.Any())
             {
-                throw new ArgumentNullException(nameof(fileDatas), "文件数据不可为空！");
+                throw new ArgumentNullException(nameof(fileBytes), "文件数据不可为空！");
             }
             if (string.IsNullOrWhiteSpace(remoteDirectory))
             {
-                throw new ArgumentNullException(nameof(remoteDirectory), "目标路径不可为空！");
+                throw new ArgumentNullException(nameof(remoteDirectory), "远程目录不可为空！");
             }
-            if (string.IsNullOrWhiteSpace(hostName))
+            if (string.IsNullOrWhiteSpace(ip))
             {
-                throw new ArgumentNullException(nameof(hostName), "host地址不可为空！");
+                throw new ArgumentNullException(nameof(ip), "IP地址不可为空！");
             }
 
             #endregion
 
             //创建目录
-            CreateRemoteDirectoryIfNotExists(hostName, remoteDirectory, loginId, password);
+            FileExtension.CreateRemoteDirectory(ip, port, remoteDirectory, loginId, password);
 
-            string uri = $"ftp://{hostName}/{remoteDirectory}/{fileName}";
+            string uri = $"ftp://{ip}:{port}/{remoteDirectory}/{fileName}";
 
             FtpWebRequest request = CreateFtpRequest(uri, loginId, password);
             request.Method = WebRequestMethods.Ftp.UploadFile;
             request.UseBinary = true;
             request.UsePassive = true;
-            request.ContentLength = fileDatas.Length;
+            request.ContentLength = fileBytes.Length;
             using Stream stream = request.GetRequestStream();
-            stream.Write(fileDatas, 0, fileDatas.Length);
+            stream.Write(fileBytes, 0, fileBytes.Length);
         }
         #endregion
 
@@ -220,7 +223,7 @@ namespace SD.Common
         /// 下载文件
         /// </summary>
         /// <param name="uri">远程地址</param>
-        /// <param name="loginId">用户名</param>
+        /// <param name="loginId">账号</param>
         /// <param name="password">密码</param>
         /// <returns>文件数据</returns>
         public static byte[] DownloadFile(string uri, string loginId, string password)
@@ -238,73 +241,52 @@ namespace SD.Common
         }
         #endregion
 
-        #region # 创建远程目录 —— static void CreateRemoteDirectoryIfNotExists(string hostName, string directoryName...
+        #region # 创建远程目录 —— static void CreateRemoteDirectory(string ip, int port...
         /// <summary>
         /// 创建远程目录
         /// </summary>
-        /// <param name="hostName">主机名</param>
-        /// <param name="directoryName">目录名</param>
-        /// <param name="loginId">用户名</param>
+        /// <param name="ip">IP地址</param>
+        /// <param name="port">端口号</param>
+        /// <param name="remoteDirectory">远程目录</param>
+        /// <param name="loginId">账号</param>
         /// <param name="password">密码</param>
-        public static void CreateRemoteDirectoryIfNotExists(string hostName, string directoryName, string loginId, string password)
+        public static void CreateRemoteDirectory(string ip, int port, string remoteDirectory, string loginId, string password)
         {
-            try
-            {
-                string uri = "ftp://" + hostName + "/" + directoryName;
-                FtpWebRequest ftp = CreateFtpRequest(uri, loginId, password);
-                ftp.Method = WebRequestMethods.Ftp.MakeDirectory;
+            string uri = $"ftp://{ip}:{port}/{remoteDirectory}";
+            FtpWebRequest ftp = CreateFtpRequest(uri, loginId, password);
+            ftp.Method = WebRequestMethods.Ftp.MakeDirectory;
 
-                using FtpWebResponse response = (FtpWebResponse)ftp.GetResponse();
-                response.Close();
-            }
-            catch (Exception exception)
-            {
-                if (exception is WebException webException)
-                {
-                    FtpWebResponse response = (FtpWebResponse)webException.Response;
-                    if (response.StatusCode != FtpStatusCode.ActionNotTakenFileUnavailable)
-                    {
-                        throw;
-                    }
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            using FtpWebResponse response = (FtpWebResponse)ftp.GetResponse();
+            response.Close();
         }
         #endregion
 
-        #region # 读取远程地址文件列表 —— static string[] ReadRemoteFiles(string uri, string loginId...
+        #region # 读取远程文件列表 —— static string[] ReadRemoteFiles(string uri, string loginId...
         /// <summary>
-        /// 读取远程地址文件列表
+        /// 读取远程文件列表
         /// </summary>
         /// <param name="uri">远程地址</param>
-        /// <param name="loginId">用户名</param>
+        /// <param name="loginId">账号</param>
         /// <param name="password">密码</param>
-        /// <returns>远程目录文件列表</returns>
+        /// <returns>文件列表</returns>
         public static string[] ReadRemoteFiles(string uri, string loginId, string password)
         {
-            const char newLine = '\n';
             FtpWebRequest ftp = CreateFtpRequest(uri, loginId, password);
             ftp.Method = WebRequestMethods.Ftp.ListDirectory;
 
             using FtpWebResponse response = (FtpWebResponse)ftp.GetResponse();
             using Stream stream = response.GetResponseStream();
             using StreamReader streamReader = new StreamReader(stream!, Encoding.Default);
-            StringBuilder builder = new StringBuilder();
+
+            IList<string> files = new List<string>();
             string line = streamReader.ReadLine();
             while (line != null)
             {
-                builder.Append(line);
-                builder.Append(newLine);
+                files.Add(line);
                 line = streamReader.ReadLine();
             }
 
-            builder.Remove(builder.ToString().LastIndexOf(newLine), 1);
-            string[] files = builder.ToString().Split(newLine);
-
-            return files;
+            return files.ToArray();
         }
         #endregion
     }
