@@ -127,7 +127,7 @@ namespace SD.Toolkits.Excel
 
             if (rowIndex > sheet.LastRowNum)
             {
-                throw new InvalidOperationException($"给定行索引\"{rowIndex}\"超出了Excel有效行数！");
+                throw new InvalidOperationException($"给定行索引\"{rowIndex}\"超出了[Sheet: \"{sheet.SheetName}\"]有效行数！");
             }
 
             #endregion
@@ -165,7 +165,7 @@ namespace SD.Toolkits.Excel
 
             if (properties.Length != row.Cells.Count)
             {
-                throw new InvalidOperationException($"模型与Excel表格不兼容：第{rowIndex + 1}行 列数不一致！");
+                throw new InvalidOperationException($"模型与[Sheet: \"{sheet.SheetName}\"]表格不兼容：第{rowIndex + 1}行 列数不一致！");
             }
 
             #endregion
