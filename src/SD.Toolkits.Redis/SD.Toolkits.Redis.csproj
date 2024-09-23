@@ -30,11 +30,11 @@
   </ItemGroup>
 
   <ItemGroup Condition="$(TargetFramework.Equals('net461'))">
-    <PackageReference Include="StackExchange.Redis" Version="2.8.0" />
+    <PackageReference Include="StackExchange.Redis" Version="2.8.16" />
   </ItemGroup>
 
   <ItemGroup Condition="$(TargetFramework.Equals('netstandard2.0'))">
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.7.0" />
-    <PackageReference Include="StackExchange.Redis" Version="2.8.0" />
+    <PackageReference Include="StackExchange.Redis" Version="2.8.16" />
   </ItemGroup>
 </Project>
