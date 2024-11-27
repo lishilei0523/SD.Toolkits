@@ -1,13 +1,13 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net45;net462;net472;netstandard2.0;netstandard2.1</TargetFrameworks>
+    <TargetFrameworks>net462;net472;netstandard2.0;netstandard2.1</TargetFrameworks>
     <Authors>Lee</Authors>
     <Company>SD</Company>
     <Description>SD.Toolkits SQL扩展组件 - Oracle实现</Description>
     <Copyright>Copyright © SD 2024</Copyright>
-    <Version>1.0.6</Version>
-    <AssemblyVersion>1.0.6</AssemblyVersion>
-    <FileVersion>1.0.6.0</FileVersion>
+    <Version>1.1.0</Version>
+    <AssemblyVersion>1.1.0</AssemblyVersion>
+    <FileVersion>1.1.0.0</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -16,10 +16,6 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DocumentationFile>bin\Release\$(TargetFramework)\SD.Toolkits.Sql.Oracle.xml</DocumentationFile>
   </PropertyGroup>
-
-  <ItemGroup Condition="$(TargetFramework.Equals('net45'))">
-    <PackageReference Include="Oracle.ManagedDataAccess" Version="19.22.0" />
-  </ItemGroup>
 
   <ItemGroup Condition="$(TargetFramework.Equals('net462'))">
     <PackageReference Include="Oracle.ManagedDataAccess" Version="21.16.0" />

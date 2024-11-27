@@ -1,13 +1,13 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net452;net462;netstandard2.0</TargetFrameworks>
+    <TargetFrameworks>net462;netstandard2.0</TargetFrameworks>
     <Authors>Lee</Authors>
     <Company>SD</Company>
     <Description>SD.Toolkits SQL扩展组件 - MySQL实现</Description>
     <Copyright>Copyright © SD 2024</Copyright>
-    <Version>1.0.6</Version>
-    <AssemblyVersion>1.0.6</AssemblyVersion>
-    <FileVersion>1.0.6.0</FileVersion>
+    <Version>1.1.0</Version>
+    <AssemblyVersion>1.1.0</AssemblyVersion>
+    <FileVersion>1.1.0.0</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -17,15 +17,7 @@
     <DocumentationFile>bin\Release\$(TargetFramework)\SD.Toolkits.Sql.MySql.xml</DocumentationFile>
   </PropertyGroup>
 
-  <ItemGroup Condition="$(TargetFramework.Equals('net452'))">
-    <PackageReference Include="MySql.Data" Version="8.0.32.1" />
-  </ItemGroup>
-
-  <ItemGroup Condition="$(TargetFramework.Equals('net462'))">
-    <PackageReference Include="MySql.Data" Version="9.1.0" />
-  </ItemGroup>
-
-  <ItemGroup Condition="$(TargetFramework.Equals('netstandard2.0'))">
+  <ItemGroup>
     <PackageReference Include="MySql.Data" Version="9.1.0" />
   </ItemGroup>
 

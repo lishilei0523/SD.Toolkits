@@ -32,8 +32,7 @@ namespace SD.Common
             }
 
             #endregion
-
-#if NET40_OR_GREATER
+#if NET462_OR_GREATER
             memoryMappedFile = MemoryMappedFile.CreateOrOpen(key, bytes.Length, MemoryMappedFileAccess.ReadWriteExecute, MemoryMappedFileOptions.DelayAllocatePages, null, HandleInheritability.Inheritable);
 #else
             memoryMappedFile = MemoryMappedFile.CreateOrOpen(key, bytes.Length, MemoryMappedFileAccess.ReadWriteExecute, MemoryMappedFileOptions.DelayAllocatePages, HandleInheritability.Inheritable);

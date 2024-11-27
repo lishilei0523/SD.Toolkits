@@ -1,13 +1,13 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net40;net45;net461;netstandard2.0;netstandard2.1;net6.0</TargetFrameworks>
+    <TargetFrameworks>net462;netstandard2.0;netstandard2.1;net8.0</TargetFrameworks>
     <Authors>Lee</Authors>
     <Company>SD</Company>
     <Description>SD.Toolkits Mapper扩展组件</Description>
     <Copyright>Copyright © SD 2024</Copyright>
-    <Version>1.1.2</Version>
-    <AssemblyVersion>1.1.2</AssemblyVersion>
-    <FileVersion>1.1.2.0</FileVersion>
+    <Version>1.2.0</Version>
+    <AssemblyVersion>1.2.0</AssemblyVersion>
+    <FileVersion>1.2.0.0</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -17,15 +17,7 @@
     <DocumentationFile>bin\Release\$(TargetFramework)\SD.Toolkits.Mapper.xml</DocumentationFile>
   </PropertyGroup>
 
-  <ItemGroup Condition="$(TargetFramework.Equals('net40'))">
-    <PackageReference Include="AutoMapper" Version="6.2.2" />
-  </ItemGroup>
-
-  <ItemGroup Condition="$(TargetFramework.Equals('net45'))">
-    <PackageReference Include="AutoMapper" Version="7.0.1" />
-  </ItemGroup>
-
-  <ItemGroup Condition="$(TargetFramework.Equals('net461'))">
+  <ItemGroup Condition="$(TargetFramework.Equals('net462'))">
     <PackageReference Include="AutoMapper" Version="10.1.1" />
   </ItemGroup>
 
@@ -37,7 +29,7 @@
     <PackageReference Include="AutoMapper" Version="12.0.1" />
   </ItemGroup>
 
-  <ItemGroup Condition="$(TargetFramework.Equals('net6.0'))">
+  <ItemGroup Condition="$(TargetFramework.Equals('net8.0'))">
     <PackageReference Include="AutoMapper" Version="13.0.1" />
   </ItemGroup>
 </Project>

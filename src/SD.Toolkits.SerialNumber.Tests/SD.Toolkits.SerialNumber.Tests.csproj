@@ -35,7 +35,6 @@
   <ItemGroup>
     <ProjectReference Include="..\SD.Common\SD.Common.csproj" />
     <ProjectReference Include="..\SD.Toolkits.SerialNumber\SD.Toolkits.SerialNumber.csproj" />
-    <ProjectReference Include="..\SD.Toolkits.SerialNumber.Firebird\SD.Toolkits.SerialNumber.Firebird.csproj" />
     <ProjectReference Include="..\SD.Toolkits.SerialNumber.MySql\SD.Toolkits.SerialNumber.MySql.csproj" />
     <ProjectReference Include="..\SD.Toolkits.SerialNumber.PostgreSQL\SD.Toolkits.SerialNumber.PostgreSQL.csproj" />
     <ProjectReference Include="..\SD.Toolkits.SerialNumber.Sqlite\SD.Toolkits.SerialNumber.Sqlite.csproj" />

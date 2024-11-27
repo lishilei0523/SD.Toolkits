@@ -30,12 +30,7 @@ namespace SD.Common
         {
             Type type = @enum.GetType();
             FieldInfo field = type.GetField(@enum.ToString());
-#if NET40
-            object[] attributes = field.GetCustomAttributes(typeof(DescriptionAttribute), false);
-            DescriptionAttribute enumMember = attributes.Any() ? (DescriptionAttribute)attributes[0] : null;
-#else
             DescriptionAttribute enumMember = field.GetCustomAttribute<DescriptionAttribute>();
-#endif
             string enumMemberDescription = enumMember == null
                 ? @enum.ToString()
                 : string.IsNullOrWhiteSpace(enumMember.Description)
@@ -68,12 +63,7 @@ namespace SD.Common
             IDictionary<string, string> dictionary = new Dictionary<string, string>();
             foreach (FieldInfo field in fields.Where(x => x.Name != EnumValueField))
             {
-#if NET40
-                object[] attributes = field.GetCustomAttributes(typeof(DescriptionAttribute), false);
-                DescriptionAttribute enumMember = attributes.Any() ? (DescriptionAttribute)attributes[0] : null;
-#else
                 DescriptionAttribute enumMember = field.GetCustomAttribute<DescriptionAttribute>();
-#endif
                 string enumMemberDescription = enumMember == null
                     ? field.Name
                     : string.IsNullOrEmpty(enumMember.Description)
@@ -129,12 +119,7 @@ namespace SD.Common
             ICollection<Tuple<int, string, string>> enumInfos = new HashSet<Tuple<int, string, string>>();
             foreach (FieldInfo field in fields.Where(x => x.Name != EnumValueField))
             {
-#if NET40
-                object[] attributes = field.GetCustomAttributes(typeof(DescriptionAttribute), false);
-                DescriptionAttribute enumMember = attributes.Any() ? (DescriptionAttribute)attributes[0] : null;
-#else
                 DescriptionAttribute enumMember = field.GetCustomAttribute<DescriptionAttribute>();
-#endif
                 int value = Convert.ToInt32(field.GetValue(Activator.CreateInstance(enumType)));
                 enumInfos.Add(new Tuple<int, string, string>(value, field.Name, enumMember == null ? field.Name : string.IsNullOrEmpty(enumMember.Description) ? field.Name : enumMember.Description));
             }

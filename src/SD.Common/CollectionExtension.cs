@@ -392,11 +392,7 @@ namespace SD.Common
             {
                 IEnumerable<object> propertyValues =
                     from property in properties
-#if NET40
-                    let propertyValue = property.GetValue(instance, null)
-#else
                     let propertyValue = property.GetValue(instance)
-#endif
                     select propertyValue;
 
                 dataTable.Rows.Add(propertyValues.ToArray());
