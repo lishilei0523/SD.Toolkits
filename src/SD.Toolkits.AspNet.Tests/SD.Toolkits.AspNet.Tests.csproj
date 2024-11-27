@@ -13,7 +13,7 @@
 
   <ItemGroup Condition="$(TargetFramework.Equals('net8.0'))">
     <EmbeddedResource Include="App.config" />
-    <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.7.0" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="8.0.1" />
   </ItemGroup>
 
   <ItemGroup>
