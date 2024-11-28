@@ -145,11 +145,7 @@ namespace SD.Toolkits.Excel
         /// <param name="value">属性值</param>
         internal static void SetValueInternal(this PropertyInfo propertyInfo, object instance, object value)
         {
-#if NET40
-            propertyInfo.SetValue(instance, value, null);
-#else
             propertyInfo.SetValue(instance, value);
-#endif
         }
         #endregion
 
@@ -162,11 +158,7 @@ namespace SD.Toolkits.Excel
         /// <returns>属性值</returns>
         internal static object GetValueInternal(this PropertyInfo propertyInfo, object instance)
         {
-#if NET40
-            return propertyInfo.GetValue(instance, null);
-#else
             return propertyInfo.GetValue(instance);
-#endif
         }
         #endregion
     }

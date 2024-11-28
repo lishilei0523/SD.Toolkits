@@ -1,13 +1,8 @@
-﻿using System;
+﻿using Microsoft.Data.Sqlite;
+using System;
 using System.Data;
 using System.Data.Common;
 using System.Linq;
-#if NET40 || NET45
-using System.Data.SQLite;
-#endif
-#if NET461_OR_GREATER || NETSTANDARD2_0_OR_GREATER
-using Microsoft.Data.Sqlite;
-#endif
 
 namespace SD.Toolkits.Sql.SQLite
 {
