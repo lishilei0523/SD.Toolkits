@@ -4,7 +4,7 @@ using Microsoft.OpenApi.Models;
 using Newtonsoft.Json.Serialization;
 using SD.Toolkits.AspNetCore.Filters;
 
-namespace SD.Toolkits.AspNetCore.Tests
+namespace SD.Toolkits.AspNetCore.Server.Tests
 {
     /// <summary>
     /// 应用程序启动器
@@ -34,6 +34,11 @@ namespace SD.Toolkits.AspNetCore.Tests
                 //Camel命名设置
                 options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
             });
+
+            //.AddJsonOptions(options =>
+            //{
+            //    options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+            //})
         }
 
         /// <summary>

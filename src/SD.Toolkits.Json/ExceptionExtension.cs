@@ -1,6 +1,6 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections;
+﻿using System;
+using System.Collections.Generic;
+using System.Text.Json;
 
 namespace SD.Toolkits.Json
 {
@@ -67,10 +67,11 @@ namespace SD.Toolkits.Json
         {
             try
             {
-                IDictionary json = JsonConvert.DeserializeObject<IDictionary>(exceptionMessage);
-                if (json != null && json.Contains("ErrorMessage"))
+                const string errorMessageKey = "ErrorMessage";
+                IDictionary<string, object> jObject = JsonSerializer.Deserialize<IDictionary<string, object>>(exceptionMessage);
+                if (jObject != null && jObject.ContainsKey(errorMessageKey))
                 {
-                    errorMessage = json["ErrorMessage"].ToString();
+                    errorMessage = jObject[errorMessageKey]?.ToString();
                 }
                 else
                 {

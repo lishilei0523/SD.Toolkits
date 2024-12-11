@@ -1,4 +1,4 @@
-﻿namespace SD.Toolkits.AspNetCore.Tests.Models
+﻿namespace SD.Toolkits.AspNetCore.Server.Tests.Models
 {
     public enum Gender
     {

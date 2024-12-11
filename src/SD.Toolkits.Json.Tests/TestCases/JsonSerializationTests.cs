@@ -45,8 +45,9 @@ namespace SD.Toolkits.Json.Tests.TestCases
                 BirthDay = new DateTime(2016, 9, 1, 9, 33, 10)
             };
 
-            string json = studentInfo.ToJson("yyyy-MM-dd HH:mm:ss");
-            StudentInfo student = json.AsJsonTo<StudentInfo>();
+            string dateTimeFormat = "yyyy-MM-dd HH:mm:ss";
+            string json = studentInfo.ToJson(dateTimeFormat);
+            StudentInfo student = json.AsJsonTo<StudentInfo>(dateTimeFormat);
 
             Assert.IsTrue(studentInfo.Id == student.Id);
             Assert.IsTrue(studentInfo.Name == student.Name);

@@ -60,8 +60,8 @@ namespace SD.Toolkits.AspNetCore.Bindings
             {
                 throw new InvalidOperationException("Only post method available !");
             }
-            if (!httpContext.Request.ContentType.StartsWith("application/json") &&
-                !httpContext.Request.ContentType.StartsWith("application/x-www-form-urlencoded"))
+            if (!httpContext.Request.ContentType!.StartsWith("application/json") &&
+                !httpContext.Request.ContentType!.StartsWith("application/x-www-form-urlencoded"))
             {
                 bindingContext.Result = ModelBindingResult.Failed();
                 return;
@@ -99,13 +99,14 @@ namespace SD.Toolkits.AspNetCore.Bindings
                         return seed;
                     });
                 }
-                else if (request.ContentType.StartsWith("application/x-www-form-urlencoded"))
+                else if (request.ContentType!.StartsWith("application/x-www-form-urlencoded"))
                 {
                     NameValueCollection collection = new NameValueCollection();
                     foreach (KeyValuePair<string, StringValues> kv in request.Form)
                     {
                         collection.Add(kv.Key, kv.Value.ToString());
                     }
+                    result = collection;
                 }
                 else
                 {

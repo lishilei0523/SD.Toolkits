@@ -82,19 +82,19 @@ namespace SD.Toolkits.AspNetCore.Extensions
                 }
                 else if (parameterType == typeof(Guid))
                 {
-                    typicalValue = Guid.Parse(parameterValue.ToString());
+                    typicalValue = Guid.Parse(parameterValue.ToString()!);
                 }
                 else if (parameterType == typeof(DateTime))
                 {
-                    typicalValue = DateTime.Parse(parameterValue.ToString());
+                    typicalValue = DateTime.Parse(parameterValue.ToString()!);
                 }
                 else if (parameterType == typeof(TimeSpan))
                 {
-                    typicalValue = TimeSpan.Parse(parameterValue.ToString());
+                    typicalValue = TimeSpan.Parse(parameterValue.ToString()!);
                 }
                 else if (parameterType.IsEnum)
                 {
-                    typicalValue = Enum.Parse(parameterType, parameterValue.ToString());
+                    typicalValue = Enum.Parse(parameterType, parameterValue.ToString()!);
                 }
                 else if (parameterType.IsPrimitive)
                 {
@@ -108,7 +108,7 @@ namespace SD.Toolkits.AspNetCore.Extensions
                 else
                 {
                     //除字符串、Guid、时间、枚举、基元类型外，都按对象反序列化
-                    typicalValue = JsonConvert.DeserializeObject(parameterValue.ToString(), parameterType, jsonSerializerSettings);
+                    typicalValue = JsonConvert.DeserializeObject(parameterValue.ToString()!, parameterType, jsonSerializerSettings);
                 }
 
                 return typicalValue;

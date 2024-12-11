@@ -1,5 +1,7 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
+using System.Text.Encodings.Web;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace SD.Toolkits.Json
 {
@@ -15,7 +17,7 @@ namespace SD.Toolkits.Json
         /// <param name="instance">实例</param>
         /// <param name="dateTimeFormat">日期时间格式</param>
         /// <returns>JSON文本</returns>
-        public static string ToJson(this object instance, string dateTimeFormat = null)
+        public static string ToJson(this object instance, string dateTimeFormat = "yyyy-MM-dd HH:mm:ss")
         {
             #region # 验证
 
@@ -28,32 +30,34 @@ namespace SD.Toolkits.Json
 
             try
             {
-                JsonSerializerSettings settting = new JsonSerializerSettings
+                JsonSerializerOptions settting = new JsonSerializerOptions
                 {
-                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                    ReferenceHandler = ReferenceHandler.IgnoreCycles,
+                    Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping
                 };
                 if (!string.IsNullOrWhiteSpace(dateTimeFormat))
                 {
-                    settting.DateFormatString = dateTimeFormat!;
+                    settting.Converters.Add(new DateTimeJsonConverter(dateTimeFormat));
                 }
-                string json = JsonConvert.SerializeObject(instance, Formatting.None, settting);
+                string json = JsonSerializer.Serialize(instance, settting);
 
                 return json;
             }
-            catch (InvalidOperationException exception)
+            catch (Exception exception)
             {
-                throw new InvalidOperationException($"无法将给定实例序列化为JSON，请检查类型后重试！", exception);
+                throw new InvalidOperationException("无法将给定实例序列化为JSON，请检查类型后重试！", exception);
             }
         }
         #endregion
 
-        #region # JSON反序列化对象 —— static T AsJsonTo<T>(this string json)
+        #region # JSON反序列化对象 —— static T AsJsonTo<T>(this string json...
         /// <summary>
         /// JSON反序列化对象
         /// </summary>
         /// <param name="json">JSON文本</param>
+        /// <param name="dateTimeFormat">日期时间格式</param>
         /// <returns>实例</returns>
-        public static T AsJsonTo<T>(this string json)
+        public static T AsJsonTo<T>(this string json, string dateTimeFormat = "yyyy-MM-dd HH:mm:ss")
         {
             #region # 验证
 
@@ -66,9 +70,18 @@ namespace SD.Toolkits.Json
 
             try
             {
-                return JsonConvert.DeserializeObject<T>(json);
+                JsonSerializerOptions settting = new JsonSerializerOptions
+                {
+                    ReferenceHandler = ReferenceHandler.IgnoreCycles,
+                    Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping
+                };
+                if (!string.IsNullOrWhiteSpace(dateTimeFormat))
+                {
+                    settting.Converters.Add(new DateTimeJsonConverter(dateTimeFormat));
+                }
+                return JsonSerializer.Deserialize<T>(json, settting);
             }
-            catch (InvalidOperationException exception)
+            catch (Exception exception)
             {
                 throw new InvalidOperationException($"无法将给定JSON反序列化为类型\"{typeof(T).Name}\"，请检查类型后重试！", exception);
             }

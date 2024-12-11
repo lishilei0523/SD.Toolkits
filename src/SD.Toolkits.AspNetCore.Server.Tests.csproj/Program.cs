@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 using SD.Toolkits.AspNet;
 
-namespace SD.Toolkits.AspNetCore.Tests
+namespace SD.Toolkits.AspNetCore.Server.Tests
 {
     class Program
     {
