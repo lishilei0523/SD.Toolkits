@@ -2,12 +2,13 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
+// ReSharper disable once CheckNamespace
 namespace SD.Toolkits.Json
 {
     /// <summary>
     /// 日期时间转换器
     /// </summary>
-    internal class DateTimeConverter : JsonConverter<DateTime>
+    public class DateTimeConverter : JsonConverter<DateTime>
     {
         /// <summary>
         /// 日期时间格式
@@ -18,7 +19,7 @@ namespace SD.Toolkits.Json
         /// 创建日期时间转换器构造器
         /// </summary>
         /// <param name="dateTimeFormat">日期时间格式</param>
-        internal DateTimeConverter(string dateTimeFormat)
+        public DateTimeConverter(string dateTimeFormat)
         {
             if (string.IsNullOrWhiteSpace(dateTimeFormat))
             {

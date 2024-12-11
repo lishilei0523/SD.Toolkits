@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text.Json;
 
+// ReSharper disable once CheckNamespace
 namespace SD.Toolkits.Json
 {
     /// <summary>
