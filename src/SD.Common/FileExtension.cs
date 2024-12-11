@@ -235,7 +235,9 @@ namespace SD.Common
 
             using FtpWebResponse response = (FtpWebResponse)request.GetResponse();
             using Stream stream = response.GetResponseStream();
-            byte[] buffer = stream.ToByteArray();
+            using MemoryStream memoryStream = new MemoryStream();
+            stream!.CopyTo(memoryStream);
+            byte[] buffer = memoryStream.ToArray();
 
             return buffer;
         }

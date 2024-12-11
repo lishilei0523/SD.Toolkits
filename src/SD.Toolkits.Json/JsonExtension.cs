@@ -50,9 +50,9 @@ namespace SD.Toolkits.Json
         }
         #endregion
 
-        #region # JSON反序列化对象 —— static T AsJsonTo<T>(this string json...
+        #region # JSON反序列化实例 —— static T AsJsonTo<T>(this string json...
         /// <summary>
-        /// JSON反序列化对象
+        /// JSON反序列化实例
         /// </summary>
         /// <param name="json">JSON文本</param>
         /// <param name="dateTimeFormat">日期时间格式</param>
