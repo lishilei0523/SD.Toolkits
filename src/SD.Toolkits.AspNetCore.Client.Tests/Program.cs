@@ -16,7 +16,7 @@ namespace SD.Toolkits.AspNetCore.Client.Tests
             //TestArray();
             //TestDictionary();
             //TestMultipleParams();
-            //TestNullableParams();
+            TestNullableParams();
             //TestMultipleParamsWithList();
             //TestMultipleParamsWithDictionary();
             //TestMultipleParamsWithObject();

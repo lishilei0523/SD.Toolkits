@@ -3,12 +3,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Primitives;
-using Newtonsoft.Json;
 using SD.Toolkits.AspNetCore.Extensions;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace SD.Toolkits.AspNetCore.Bindings
@@ -23,14 +23,14 @@ namespace SD.Toolkits.AspNetCore.Bindings
         /// <summary>
         /// JSON序列化设置
         /// </summary>
-        private readonly JsonSerializerSettings _jsonSerializerSettings;
+        private readonly JsonSerializerOptions _jsonSerializerSettings;
 
         /// <summary>
         /// 依赖注入构造器
         /// </summary>
-        public FileParameterBinding(IOptions<MvcNewtonsoftJsonOptions> jsonOptions)
+        public FileParameterBinding(IOptions<JsonOptions> jsonOptions)
         {
-            this._jsonSerializerSettings = jsonOptions.Value.SerializerSettings;
+            this._jsonSerializerSettings = jsonOptions.Value.JsonSerializerOptions;
         }
 
         #endregion

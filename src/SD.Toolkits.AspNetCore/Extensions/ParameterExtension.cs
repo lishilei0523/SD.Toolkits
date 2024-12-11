@@ -1,5 +1,5 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
+using System.Text.Json;
 
 namespace SD.Toolkits.AspNetCore.Extensions
 {
@@ -16,7 +16,7 @@ namespace SD.Toolkits.AspNetCore.Extensions
         /// <param name="parameterValue">参数值</param>
         /// <param name="jsonSerializerSettings">JSON序列化设置</param>
         /// <returns>类型化参数值</returns>
-        public static object TypifyParameterValue(Type parameterType, string parameterValue, JsonSerializerSettings jsonSerializerSettings)
+        public static object TypifyParameterValue(Type parameterType, string parameterValue, JsonSerializerOptions jsonSerializerSettings)
         {
             if (!string.IsNullOrWhiteSpace(parameterValue))
             {
@@ -53,7 +53,7 @@ namespace SD.Toolkits.AspNetCore.Extensions
                 else
                 {
                     //除字符串、Guid、时间、枚举、基元类型外，都按对象反序列化
-                    typicalValue = JsonConvert.DeserializeObject(parameterValue, parameterType, jsonSerializerSettings);
+                    typicalValue = JsonSerializer.Deserialize(parameterValue, parameterType, jsonSerializerSettings);
                 }
 
                 return typicalValue;
@@ -71,7 +71,7 @@ namespace SD.Toolkits.AspNetCore.Extensions
         /// <param name="parameterValue">参数值</param>
         /// <param name="jsonSerializerSettings">JSON序列化设置</param>
         /// <returns>类型化参数值</returns>
-        public static object TypifyParameterValue(Type parameterType, object parameterValue, JsonSerializerSettings jsonSerializerSettings)
+        public static object TypifyParameterValue(Type parameterType, object parameterValue, JsonSerializerOptions jsonSerializerSettings)
         {
             if (parameterValue != null)
             {
@@ -108,7 +108,7 @@ namespace SD.Toolkits.AspNetCore.Extensions
                 else
                 {
                     //除字符串、Guid、时间、枚举、基元类型外，都按对象反序列化
-                    typicalValue = JsonConvert.DeserializeObject(parameterValue.ToString()!, parameterType, jsonSerializerSettings);
+                    typicalValue = JsonSerializer.Deserialize(parameterValue.ToString()!, parameterType, jsonSerializerSettings);
                 }
 
                 return typicalValue;

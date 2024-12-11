@@ -17,7 +17,7 @@ namespace SD.Toolkits.Json
         /// <param name="instance">实例</param>
         /// <param name="dateTimeFormat">日期时间格式</param>
         /// <returns>JSON文本</returns>
-        public static string ToJson(this object instance, string dateTimeFormat = "yyyy-MM-dd HH:mm:ss")
+        public static string ToJson(this object instance, string dateTimeFormat = null)
         {
             #region # 验证
 
@@ -57,7 +57,7 @@ namespace SD.Toolkits.Json
         /// <param name="json">JSON文本</param>
         /// <param name="dateTimeFormat">日期时间格式</param>
         /// <returns>实例</returns>
-        public static T AsJsonTo<T>(this string json, string dateTimeFormat = "yyyy-MM-dd HH:mm:ss")
+        public static T AsJsonTo<T>(this string json, string dateTimeFormat = null)
         {
             #region # 验证
 
@@ -79,7 +79,9 @@ namespace SD.Toolkits.Json
                 {
                     settting.Converters.Add(new DateTimeJsonConverter(dateTimeFormat));
                 }
-                return JsonSerializer.Deserialize<T>(json, settting);
+                T instance = JsonSerializer.Deserialize<T>(json, settting);
+
+                return instance;
             }
             catch (Exception exception)
             {

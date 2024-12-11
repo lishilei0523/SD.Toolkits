@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Primitives;
-using Newtonsoft.Json;
 using SD.Toolkits.AspNetCore.Extensions;
 using System;
 using System.Collections.Generic;
@@ -13,6 +12,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace SD.Toolkits.AspNetCore.Bindings
@@ -27,14 +27,14 @@ namespace SD.Toolkits.AspNetCore.Bindings
         /// <summary>
         /// JSON序列化设置
         /// </summary>
-        private readonly JsonSerializerSettings _jsonSerializerSettings;
+        private readonly JsonSerializerOptions _jsonSerializerSettings;
 
         /// <summary>
         /// 依赖注入构造器
         /// </summary>
-        public WrapPostParameterBinding(IOptions<MvcNewtonsoftJsonOptions> jsonOptions)
+        public WrapPostParameterBinding(IOptions<JsonOptions> jsonOptions)
         {
-            this._jsonSerializerSettings = jsonOptions.Value.SerializerSettings;
+            this._jsonSerializerSettings = jsonOptions.Value.JsonSerializerOptions;
         }
 
         #endregion
@@ -92,7 +92,7 @@ namespace SD.Toolkits.AspNetCore.Bindings
                 {
                     using StreamReader streamReader = new StreamReader(request.Body, Encoding.UTF8, false, 4096, true);
                     string body = await streamReader.ReadToEndAsync();
-                    IDictionary<string, object> values = JsonConvert.DeserializeObject<Dictionary<string, object>>(body, this._jsonSerializerSettings);
+                    IDictionary<string, object> values = JsonSerializer.Deserialize<Dictionary<string, object>>(body, this._jsonSerializerSettings);
                     result = values.Aggregate(new NameValueCollection(), (seed, current) =>
                     {
                         seed.Add(current.Key, current.Value?.ToString());

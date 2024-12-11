@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
-using Newtonsoft.Json.Serialization;
 using SD.Toolkits.AspNetCore.Filters;
+using System.Text.Json;
 
 namespace SD.Toolkits.AspNetCore.Server.Tests
 {
@@ -29,16 +29,10 @@ namespace SD.Toolkits.AspNetCore.Server.Tests
             services.AddControllers(options =>
             {
                 options.Filters.Add(new WebApiExceptionFilter());
-            }).AddNewtonsoftJson(options =>
+            }).AddJsonOptions(options =>
             {
-                //CamelÃüÃûÉèÖÃ
-                options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+                options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
             });
-
-            //.AddJsonOptions(options =>
-            //{
-            //    options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
-            //})
         }
 
         /// <summary>

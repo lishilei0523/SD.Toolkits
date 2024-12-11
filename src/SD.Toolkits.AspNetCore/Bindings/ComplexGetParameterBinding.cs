@@ -3,12 +3,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Primitives;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Net;
 using System.Net.Http;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace SD.Toolkits.AspNetCore.Bindings
@@ -23,14 +23,14 @@ namespace SD.Toolkits.AspNetCore.Bindings
         /// <summary>
         /// JSON序列化设置
         /// </summary>
-        private readonly JsonSerializerSettings _jsonSerializerSettings;
+        private readonly JsonSerializerOptions _jsonSerializerSettings;
 
         /// <summary>
         /// 依赖注入构造器
         /// </summary>
-        public ComplexGetParameterBinding(IOptions<MvcNewtonsoftJsonOptions> jsonOptions)
+        public ComplexGetParameterBinding(IOptions<JsonOptions> jsonOptions)
         {
-            this._jsonSerializerSettings = jsonOptions.Value.SerializerSettings;
+            this._jsonSerializerSettings = jsonOptions.Value.JsonSerializerOptions;
         }
 
         #endregion
@@ -64,7 +64,7 @@ namespace SD.Toolkits.AspNetCore.Bindings
             parameterValue = WebUtility.UrlDecode(parameterValue);
             if (!string.IsNullOrWhiteSpace(parameterValue))
             {
-                object paramValue = JsonConvert.DeserializeObject(parameterValue, bindingContext.ModelType, this._jsonSerializerSettings);
+                object paramValue = JsonSerializer.Deserialize(parameterValue, bindingContext.ModelType, this._jsonSerializerSettings);
                 bindingContext.Result = ModelBindingResult.Success(paramValue);
             }
             else
