@@ -5,9 +5,9 @@ using System.Text.Json.Serialization;
 namespace SD.Toolkits.Json
 {
     /// <summary>
-    /// 日期时间JSON转换器
+    /// 日期时间转换器
     /// </summary>
-    internal class DateTimeJsonConverter : JsonConverter<DateTime>
+    internal class DateTimeConverter : JsonConverter<DateTime>
     {
         /// <summary>
         /// 日期时间格式
@@ -15,10 +15,10 @@ namespace SD.Toolkits.Json
         private readonly string _dateTimeFormat;
 
         /// <summary>
-        /// 创建日期时间JSON转换器构造器
+        /// 创建日期时间转换器构造器
         /// </summary>
         /// <param name="dateTimeFormat">日期时间格式</param>
-        internal DateTimeJsonConverter(string dateTimeFormat)
+        internal DateTimeConverter(string dateTimeFormat)
         {
             if (string.IsNullOrWhiteSpace(dateTimeFormat))
             {

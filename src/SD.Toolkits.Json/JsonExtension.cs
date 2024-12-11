@@ -37,7 +37,7 @@ namespace SD.Toolkits.Json
                 };
                 if (!string.IsNullOrWhiteSpace(dateTimeFormat))
                 {
-                    settting.Converters.Add(new DateTimeJsonConverter(dateTimeFormat));
+                    settting.Converters.Add(new DateTimeConverter(dateTimeFormat));
                 }
                 string json = JsonSerializer.Serialize(instance, settting);
 
@@ -77,7 +77,7 @@ namespace SD.Toolkits.Json
                 };
                 if (!string.IsNullOrWhiteSpace(dateTimeFormat))
                 {
-                    settting.Converters.Add(new DateTimeJsonConverter(dateTimeFormat));
+                    settting.Converters.Add(new DateTimeConverter(dateTimeFormat));
                 }
                 T instance = JsonSerializer.Deserialize<T>(json, settting);
 
