@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 namespace SD.Toolkits.AspNetCore.Bindings
 {
     /// <summary>
-    /// GET请求复杂参数绑定
+    /// GET请求复杂参数模型绑定
     /// </summary>
     public class ComplexGetParameterBinding : IModelBinder
     {
@@ -38,11 +38,11 @@ namespace SD.Toolkits.AspNetCore.Bindings
 
         //Implements
 
-        #region # 执行参数模型绑定 —— async Task BindModelAsync(ModelBindingContext bindingContext)
+        #region # 执行参数模型绑定 —— Task BindModelAsync(ModelBindingContext bindingContext)
         /// <summary>
         /// 执行参数模型绑定
         /// </summary>
-        public async Task BindModelAsync(ModelBindingContext bindingContext)
+        public Task BindModelAsync(ModelBindingContext bindingContext)
         {
             HttpContext httpContext = bindingContext.HttpContext;
 
@@ -59,7 +59,7 @@ namespace SD.Toolkits.AspNetCore.Bindings
 
             #endregion
 
-            NameValueCollection parameters = await this.ParseParametersFromBody(httpContext.Request);
+            NameValueCollection parameters = this.ParseParametersFromBody(httpContext.Request);
             string parameterValue = parameters.Get(bindingContext.FieldName);
             parameterValue = WebUtility.UrlDecode(parameterValue);
             if (!string.IsNullOrWhiteSpace(parameterValue))
@@ -71,17 +71,19 @@ namespace SD.Toolkits.AspNetCore.Bindings
             {
                 bindingContext.Result = ModelBindingResult.Success(null);
             }
+
+            return Task.CompletedTask;
         }
         #endregion
 
 
         //Private
 
-        #region # 读取转换参数至字典 —— async Task<NameValueCollection> ParseParametersFromBody(...
+        #region # 读取转换参数至字典 —— NameValueCollection ParseParametersFromBody(HttpRequest request)
         /// <summary>
         /// 读取转换参数至字典
         /// </summary>
-        private async Task<NameValueCollection> ParseParametersFromBody(HttpRequest request)
+        private NameValueCollection ParseParametersFromBody(HttpRequest request)
         {
             string cacheKey = typeof(ComplexGetParameterBinding).FullName;
             if (!request.HttpContext.Items.TryGetValue(cacheKey!, out object result))

@@ -13,9 +13,8 @@ namespace SD.Toolkits.AspNetCore.Filters
     /// </summary>
     public class MvcExceptionFilter : IExceptionFilter
     {
-        #region # 执行异常过滤器事件 —— void OnException(ExceptionContext context)
         /// <summary>
-        /// 执行异常过滤器事件
+        /// 发生异常事件
         /// </summary>
         public void OnException(ExceptionContext context)
         {
@@ -26,6 +25,7 @@ namespace SD.Toolkits.AspNetCore.Filters
                 return;
             }
 
+            //获取内部异常
             Exception innerException = context.Exception.GetInnerException();
 
             //处理异常消息
@@ -52,6 +52,5 @@ namespace SD.Toolkits.AspNetCore.Filters
                 context.HttpContext.Response.Redirect(AspNetSection.Setting.ErrorPage.Value);
             }
         }
-        #endregion
     }
 }

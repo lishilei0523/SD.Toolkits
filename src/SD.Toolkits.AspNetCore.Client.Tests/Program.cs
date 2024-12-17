@@ -14,9 +14,9 @@ namespace SD.Toolkits.AspNetCore.Client.Tests
         {
             //TestException();
             //TestArray();
-            //TestDictionary();
+            TestDictionary();
             //TestMultipleParams();
-            TestNullableParams();
+            //TestNullableParams();
             //TestMultipleParamsWithList();
             //TestMultipleParamsWithDictionary();
             //TestMultipleParamsWithObject();

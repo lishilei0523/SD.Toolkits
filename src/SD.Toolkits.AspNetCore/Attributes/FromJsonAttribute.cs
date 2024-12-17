@@ -6,7 +6,7 @@ using System;
 namespace SD.Toolkits.AspNetCore.Attributes
 {
     /// <summary>
-    /// 复杂参数JSON反序列化绑定特性
+    /// 复杂参数JSON绑定特性
     /// </summary>
     /// <remarks>只适用于GET请求的参数</remarks>
     [AttributeUsage(AttributeTargets.Parameter)]

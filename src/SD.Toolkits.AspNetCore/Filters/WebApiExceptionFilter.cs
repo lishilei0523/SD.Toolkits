@@ -12,24 +12,25 @@ namespace SD.Toolkits.AspNetCore.Filters
     /// </summary>
     public class WebApiExceptionFilter : IExceptionFilter
     {
-        //Implements
-
-        #region # 执行异常事件过滤器 —— void OnException(ExceptionContext context)
         /// <summary>
-        /// 执行异常事件过滤器
+        /// 发生异常事件
         /// </summary>
         public void OnException(ExceptionContext context)
         {
+            //获取内部异常
+            Exception innerException = context.Exception.GetInnerException();
+
+            //处理异常消息
+            string errorMessage = string.Empty;
+            errorMessage = innerException.Message.GetErrorMessage(ref errorMessage);
+
+            //异常已处理
+            context.ExceptionHandled = true;
+
             //判断是否是ApiController
             if (context.ActionDescriptor is ControllerActionDescriptor actionDescriptor &&
                 actionDescriptor.ControllerTypeInfo.IsDefined(typeof(ApiControllerAttribute), true))
             {
-                Exception innerException = context.Exception.GetInnerException();
-
-                //处理异常消息
-                string errorMessage = string.Empty;
-                errorMessage = innerException.Message.GetErrorMessage(ref errorMessage);
-
                 ObjectResult response = new ObjectResult(errorMessage)
                 {
                     StatusCode = (int)HttpStatusCode.InternalServerError
@@ -37,6 +38,5 @@ namespace SD.Toolkits.AspNetCore.Filters
                 context.Result = response;
             }
         }
-        #endregion
     }
 }

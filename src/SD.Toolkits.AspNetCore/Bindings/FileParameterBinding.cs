@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 namespace SD.Toolkits.AspNetCore.Bindings
 {
     /// <summary>
-    /// 文件参数模型模型绑定
+    /// 文件参数模型绑定
     /// </summary>
     public class FileParameterBinding : IModelBinder
     {
