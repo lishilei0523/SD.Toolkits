@@ -112,7 +112,6 @@ namespace SD.Toolkits.Redis
         {
             return _Instance.GetDatabase(db, asyncState);
         }
-
         #endregion 
 
         #endregion
