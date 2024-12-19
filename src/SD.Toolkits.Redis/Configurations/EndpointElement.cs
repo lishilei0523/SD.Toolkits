@@ -11,7 +11,7 @@ namespace SD.Toolkits.Redis.Configurations
         /// <summary>
         /// 名称
         /// </summary>
-        [ConfigurationProperty("name", IsRequired = true, IsKey = true)]
+        [ConfigurationProperty("name", IsRequired = false, IsKey = false)]
         public string Name
         {
             get { return (string)this["name"]; }
@@ -23,7 +23,7 @@ namespace SD.Toolkits.Redis.Configurations
         /// <summary>
         /// 服务器
         /// </summary>
-        [ConfigurationProperty("host", IsRequired = true, IsKey = true)]
+        [ConfigurationProperty("host", IsRequired = true, IsKey = false)]
         public string Host
         {
             get { return (string)this["host"]; }
@@ -35,7 +35,7 @@ namespace SD.Toolkits.Redis.Configurations
         /// <summary>
         /// 端口
         /// </summary>
-        [ConfigurationProperty("port", IsRequired = true, IsKey = true)]
+        [ConfigurationProperty("port", IsRequired = true, IsKey = false)]
         public int Port
         {
             get { return (int)this["port"]; }
