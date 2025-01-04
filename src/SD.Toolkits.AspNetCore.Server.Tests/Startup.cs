@@ -31,6 +31,7 @@ namespace SD.Toolkits.AspNetCore.Server.Tests
                 options.Filters.Add(new WebApiExceptionFilter());
             }).AddJsonOptions(options =>
             {
+                //CamelÃüÃûÉèÖÃ
                 options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
             });
         }

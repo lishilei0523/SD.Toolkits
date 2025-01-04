@@ -1,4 +1,5 @@
-﻿using RestSharp;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using RestSharp;
 using SD.Toolkits.AspNetCore.Client.Tests.Models;
 using SD.Toolkits.Json;
 using System;
@@ -6,27 +7,20 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net;
 
-namespace SD.Toolkits.AspNetCore.Client.Tests
+namespace SD.Toolkits.AspNetCore.Client.Tests.TestCases
 {
-    class Program
+    /// <summary>
+    /// 请求测试
+    /// </summary>
+    [TestClass]
+    public class RequestTests
     {
-        static void Main()
-        {
-            //TestException();
-            //TestArray();
-            TestDictionary();
-            //TestMultipleParams();
-            //TestNullableParams();
-            //TestMultipleParamsWithList();
-            //TestMultipleParamsWithDictionary();
-            //TestMultipleParamsWithObject();
-            //TestSingleFile();
-            //TestMultiFiles();
-
-            Console.ReadKey();
-        }
-
-        static void TestException()
+        #region # 测试异常 —— void TestException()
+        /// <summary>
+        /// 测试异常
+        /// </summary>
+        [TestMethod]
+        public void TestException()
         {
             const string url = "http://localhost:33101/Api/Home/TestException";
             using RestClient httpClient = new RestClient();
@@ -46,8 +40,14 @@ namespace SD.Toolkits.AspNetCore.Client.Tests
                 Console.WriteLine(response.Content);
             }
         }
+        #endregion
 
-        static void TestArray()
+        #region # 测试数组 —— void TestArray()
+        /// <summary>
+        /// 测试数组
+        /// </summary>
+        [TestMethod]
+        public void TestArray()
         {
             const string url = "http://localhost:33101/Api/Home/TestArray";
             using RestClient httpClient = new RestClient();
@@ -71,8 +71,14 @@ namespace SD.Toolkits.AspNetCore.Client.Tests
                 Console.WriteLine(response.Content);
             }
         }
+        #endregion
 
-        static void TestDictionary()
+        #region # 测试字典 —— void TestDictionary()
+        /// <summary>
+        /// 测试字典
+        /// </summary>
+        [TestMethod]
+        public void TestDictionary()
         {
             const string url = "http://localhost:33101/Api/Home/TestDictionary";
             using RestClient httpClient = new RestClient();
@@ -100,8 +106,14 @@ namespace SD.Toolkits.AspNetCore.Client.Tests
                 Console.WriteLine(response.Content);
             }
         }
+        #endregion
 
-        static void TestMultipleParams()
+        #region # 测试多参数 —— void TestMultipleParams()
+        /// <summary>
+        /// 测试多参数
+        /// </summary>
+        [TestMethod]
+        public void TestMultipleParams()
         {
             const string url = "http://localhost:33101/Api/Home/TestMultipleParams";
             using RestClient httpClient = new RestClient();
@@ -125,8 +137,14 @@ namespace SD.Toolkits.AspNetCore.Client.Tests
                 Console.WriteLine(response.Content);
             }
         }
+        #endregion
 
-        static void TestNullableParams()
+        #region # 测试可空参数 —— void TestNullableParams()
+        /// <summary>
+        /// 测试可空参数
+        /// </summary>
+        [TestMethod]
+        public void TestNullableParams()
         {
             const string url = "http://localhost:33101/Api/Home/TestNullableParams";
             using RestClient httpClient = new RestClient();
@@ -150,8 +168,14 @@ namespace SD.Toolkits.AspNetCore.Client.Tests
                 Console.WriteLine(response.Content);
             }
         }
+        #endregion
 
-        static void TestMultipleParamsWithList()
+        #region # 测试多参数带集合 —— void TestMultipleParamsWithList()
+        /// <summary>
+        /// 测试多参数带集合
+        /// </summary>
+        [TestMethod]
+        public void TestMultipleParamsWithList()
         {
             const string url = "http://localhost:33101/Api/Home/TestMultipleParamsWithList";
             using RestClient httpClient = new RestClient();
@@ -175,8 +199,14 @@ namespace SD.Toolkits.AspNetCore.Client.Tests
                 Console.WriteLine(response.Content);
             }
         }
+        #endregion
 
-        static void TestMultipleParamsWithDictionary()
+        #region # 测试多参数带字典 —— void TestMultipleParamsWithDictionary()
+        /// <summary>
+        /// 测试多参数带字典
+        /// </summary>
+        [TestMethod]
+        public void TestMultipleParamsWithDictionary()
         {
             const string url = "http://localhost:33101/Api/Home/TestMultipleParamsWithDictionary";
             using RestClient httpClient = new RestClient();
@@ -205,8 +235,14 @@ namespace SD.Toolkits.AspNetCore.Client.Tests
                 Console.WriteLine(response.Content);
             }
         }
+        #endregion
 
-        static void TestMultipleParamsWithObject()
+        #region # 测试多参数带对象 —— void TestMultipleParamsWithObject()
+        /// <summary>
+        /// 测试多参数带对象
+        /// </summary>
+        [TestMethod]
+        public void TestMultipleParamsWithObject()
         {
             const string url = "http://localhost:33101/Api/Home/TestMultipleParamsWithObject";
             using RestClient httpClient = new RestClient();
@@ -243,10 +279,16 @@ namespace SD.Toolkits.AspNetCore.Client.Tests
                 Console.WriteLine(response.Content);
             }
         }
+        #endregion
 
-        static void TestSingleFile()
+        #region # 测试单文件上传 —— void TestSingleFile()
+        /// <summary>
+        /// 测试单文件上传
+        /// </summary>
+        [TestMethod]
+        public void TestSingleFile()
         {
-            string filePath = Program.CreateFile();
+            string filePath = CreateFile();
             string fileName = Path.GetFileName(filePath);
             using FileStream stream = new FileStream(filePath, FileMode.Open, FileAccess.Read);
             byte[] buffer = new byte[stream.Length];
@@ -274,13 +316,19 @@ namespace SD.Toolkits.AspNetCore.Client.Tests
                 Console.WriteLine(response.Content);
             }
         }
+        #endregion
 
-        static void TestMultiFiles()
+        #region # 测试多文件上传 —— void TestMultiFiles()
+        /// <summary>
+        /// 测试多文件上传
+        /// </summary>
+        [TestMethod]
+        public void TestMultiFiles()
         {
             IDictionary<string, byte[]> buffers = new Dictionary<string, byte[]>();
             for (int index = 0; index < 3; index++)
             {
-                string filePath = Program.CreateFile();
+                string filePath = CreateFile();
                 string fileName = Path.GetFileName(filePath);
                 using FileStream stream = new FileStream(filePath, FileMode.Open, FileAccess.Read);
                 byte[] buffer = new byte[stream.Length];
@@ -313,8 +361,16 @@ namespace SD.Toolkits.AspNetCore.Client.Tests
                 Console.WriteLine(response.Content);
             }
         }
+        #endregion
 
-        static string CreateFile()
+
+        //Private
+
+        #region # 创建文件 —— static string CreateFile()
+        /// <summary>
+        /// 创建文件
+        /// </summary>
+        private static string CreateFile()
         {
             string fileName = Guid.NewGuid().ToString();
             string filePath = $@"D:\{fileName}.txt";
@@ -323,5 +379,6 @@ namespace SD.Toolkits.AspNetCore.Client.Tests
 
             return filePath;
         }
+        #endregion
     }
 }
