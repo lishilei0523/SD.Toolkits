@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using AutoMapper.Configuration;
+using Microsoft.Extensions.Logging.Abstractions;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -87,7 +87,7 @@ namespace SD.Toolkits.Mapper
 
                     #endregion
 
-                    mapperConfiguration = new MapperConfiguration(configExpression);
+                    mapperConfiguration = new MapperConfiguration(configExpression, NullLoggerFactory.Instance);
                     _MapperConfigurations.Add(key, mapperConfiguration);
                 }
 

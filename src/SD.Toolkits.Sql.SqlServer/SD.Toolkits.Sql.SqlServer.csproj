@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net462;netstandard2.0;net8.0</TargetFrameworks>
+    <TargetFrameworks>net462;net8.0</TargetFrameworks>
     <Authors>Lee</Authors>
     <Company>SD</Company>
     <Description>SD.Toolkits SQL扩展组件 - SQL Server实现</Description>
@@ -15,12 +15,8 @@
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
   </PropertyGroup>
 
-  <ItemGroup Condition="$(TargetFramework.Equals('netstandard2.0'))">
-    <PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.2" />
-  </ItemGroup>
-
-  <ItemGroup Condition="$(TargetFramework.Equals('net8.0'))">
-    <PackageReference Include="Microsoft.Data.SqlClient" Version="6.0.1" />
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="6.0.2" />
   </ItemGroup>
 
   <ItemGroup>
