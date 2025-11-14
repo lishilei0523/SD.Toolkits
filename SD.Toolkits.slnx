@@ -1,0 +1,53 @@
+<Solution>
+  <Folder Name="/01 - .NET Standard/">
+    <Project Path="src/SD.Common/SD.Common.csproj" />
+    <Project Path="src/SD.Toolkits.AspNet/SD.Toolkits.AspNet.csproj" />
+    <Project Path="src/SD.Toolkits.Drawing/SD.Toolkits.Drawing.csproj" />
+    <Project Path="src/SD.Toolkits.Excel/SD.Toolkits.Excel.csproj" />
+    <Project Path="src/SD.Toolkits.Json/SD.Toolkits.Json.csproj" />
+    <Project Path="src/SD.Toolkits.Mapper/SD.Toolkits.Mapper.csproj" />
+    <Project Path="src/SD.Toolkits.Mathematics/SD.Toolkits.Mathematics.csproj" />
+    <Project Path="src/SD.Toolkits.NCalc/SD.Toolkits.NCalc.csproj" />
+    <Project Path="src/SD.Toolkits.Recursion/SD.Toolkits.Recursion.csproj" />
+    <Project Path="src/SD.Toolkits.Redis/SD.Toolkits.Redis.csproj" />
+    <Project Path="src/SD.Toolkits.Serialization/SD.Toolkits.Serialization.csproj" />
+    <Project Path="src/SD.Toolkits.SerialNumber.MySql/SD.Toolkits.SerialNumber.MySql.csproj" />
+    <Project Path="src/SD.Toolkits.SerialNumber.PostgreSQL/SD.Toolkits.SerialNumber.PostgreSQL.csproj" />
+    <Project Path="src/SD.Toolkits.SerialNumber.Sqlite/SD.Toolkits.SerialNumber.Sqlite.csproj" />
+    <Project Path="src/SD.Toolkits.SerialNumber.SqlServer/SD.Toolkits.SerialNumber.SqlServer.csproj" />
+    <Project Path="src/SD.Toolkits.SerialNumber/SD.Toolkits.SerialNumber.csproj" />
+    <Project Path="src/SD.Toolkits.Sql.MySql/SD.Toolkits.Sql.MySql.csproj" />
+    <Project Path="src/SD.Toolkits.Sql.Oracle/SD.Toolkits.Sql.Oracle.csproj" />
+    <Project Path="src/SD.Toolkits.Sql.PostgreSQL/SD.Toolkits.Sql.PostgreSQL.csproj" />
+    <Project Path="src/SD.Toolkits.Sql.Sqlite/SD.Toolkits.Sql.Sqlite.csproj" />
+    <Project Path="src/SD.Toolkits.Sql.SqlServer/SD.Toolkits.Sql.SqlServer.csproj" />
+    <Project Path="src/SD.Toolkits.Sql/SD.Toolkits.Sql.csproj" />
+  </Folder>
+  <Folder Name="/02 - .NET Core/">
+    <Project Path="src/SD.Toolkits.AspNetCore/SD.Toolkits.AspNetCore.csproj" />
+    <Project Path="src/SD.Toolkits.CoreWCF.Client/SD.Toolkits.CoreWCF.Client.csproj" />
+    <Project Path="src/SD.Toolkits.CoreWCF.Mobile/SD.Toolkits.CoreWCF.Mobile.csproj" />
+    <Project Path="src/SD.Toolkits.EntityFrameworkCore/SD.Toolkits.EntityFrameworkCore.csproj" />
+    <Project Path="src/SD.Toolkits.Grpc.Client/SD.Toolkits.Grpc.Client.csproj" />
+    <Project Path="src/SD.Toolkits.Grpc.Server/SD.Toolkits.Grpc.Server.csproj" />
+  </Folder>
+  <Folder Name="/03 - Tests/">
+    <Project Path="src/SD.Common.Tests/SD.Common.Tests.csproj" />
+    <Project Path="src/SD.Toolkits.AspNet.Tests/SD.Toolkits.AspNet.Tests.csproj" />
+    <Project Path="src/SD.Toolkits.AspNetCore.Client.Tests/SD.Toolkits.AspNetCore.Client.Tests.csproj" />
+    <Project Path="src/SD.Toolkits.AspNetCore.Server.Tests/SD.Toolkits.AspNetCore.Server.Tests.csproj" />
+    <Project Path="src/SD.Toolkits.CoreWCF.Client.Tests/SD.Toolkits.CoreWCF.Client.Tests.csproj" />
+    <Project Path="src/SD.Toolkits.Drawing.Tests/SD.Toolkits.Drawing.Tests.csproj" />
+    <Project Path="src/SD.Toolkits.EntityFrameworkCore.Tests/SD.Toolkits.EntityFrameworkCore.Tests.csproj" />
+    <Project Path="src/SD.Toolkits.Excel.Tests/SD.Toolkits.Excel.Tests.csproj" />
+    <Project Path="src/SD.Toolkits.Grpc.Client.Tests/SD.Toolkits.Grpc.Client.Tests.csproj" />
+    <Project Path="src/SD.Toolkits.Json.Tests/SD.Toolkits.Json.Tests.csproj" />
+    <Project Path="src/SD.Toolkits.Mapper.Tests/SD.Toolkits.Mapper.Tests.csproj" />
+    <Project Path="src/SD.Toolkits.Mathematics.Tests/SD.Toolkits.Mathematics.Tests.csproj" />
+    <Project Path="src/SD.Toolkits.NCalc.Tests/SD.Toolkits.NCalc.Tests.csproj" />
+    <Project Path="src/SD.Toolkits.Recursion.Tests/SD.Toolkits.Recursion.Tests.csproj" />
+    <Project Path="src/SD.Toolkits.Redis.Tests/SD.Toolkits.Redis.Tests.csproj" />
+    <Project Path="src/SD.Toolkits.Serialization.Tests/SD.Toolkits.Serialization.Tests.csproj" />
+    <Project Path="src/SD.Toolkits.SerialNumber.Tests/SD.Toolkits.SerialNumber.Tests.csproj" />
+  </Folder>
+</Solution>
