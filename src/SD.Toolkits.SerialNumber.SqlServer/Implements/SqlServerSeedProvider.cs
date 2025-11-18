@@ -9,7 +9,7 @@ using System.Text;
 #if NET40_OR_GREATER
 using System.Data.SqlClient;
 #endif
-#if NETSTANDARD2_0_OR_GREATER
+#if NETSTANDARD2_0_OR_GREATER || NET8_0_OR_GREATER
 using Microsoft.Data.SqlClient;
 #endif
 

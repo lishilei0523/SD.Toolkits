@@ -1,13 +1,13 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net462;netstandard2.0</TargetFrameworks>
+    <TargetFrameworks>net462;net8.0</TargetFrameworks>
     <Authors>Lee</Authors>
     <Company>SD</Company>
     <Description>SD.Toolkits 序列号生成器组件 - SQL Server种子实现</Description>
     <Copyright>Copyright © SD 2025</Copyright>
-    <Version>2.2.0</Version>
-    <AssemblyVersion>2.2.0</AssemblyVersion>
-    <FileVersion>2.2.0.0</FileVersion>
+    <Version>2.2.1</Version>
+    <AssemblyVersion>2.2.1</AssemblyVersion>
+    <FileVersion>2.2.1.0</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -19,7 +19,7 @@
     <Reference Include="System.Configuration" />
   </ItemGroup>
 
-  <ItemGroup Condition="$(TargetFramework.Equals('netstandard2.0'))">
+  <ItemGroup Condition="$(TargetFramework.Equals('net8.0'))">
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="9.0.11" />
   </ItemGroup>
 
