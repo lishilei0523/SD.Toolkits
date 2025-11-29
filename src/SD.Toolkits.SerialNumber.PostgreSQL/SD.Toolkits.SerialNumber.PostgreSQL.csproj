@@ -1,18 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net462;netstandard2.0</TargetFrameworks>
-    <Authors>Lee</Authors>
-    <Company>SD</Company>
-    <Description>SD.Toolkits 序列号生成器组件 - PostgreSQL种子实现</Description>
-    <Copyright>Copyright © SD 2025</Copyright>
     <Version>2.2.1</Version>
-    <AssemblyVersion>2.2.1</AssemblyVersion>
-    <FileVersion>2.2.1.0</FileVersion>
-  </PropertyGroup>
-
-  <PropertyGroup>
-    <BaseOutputPath>bin\</BaseOutputPath>
-    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <Description>SD.Toolkits 序列号生成器组件 - PostgreSQL种子实现</Description>
   </PropertyGroup>
 
   <ItemGroup Condition="$(TargetFramework.Equals('net462'))">

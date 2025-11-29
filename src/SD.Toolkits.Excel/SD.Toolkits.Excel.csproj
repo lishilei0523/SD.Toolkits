@@ -2,18 +2,8 @@
   <PropertyGroup>
     <TargetFrameworks>net462;netstandard2.0</TargetFrameworks>
     <LangVersion>8.0</LangVersion>
-    <Authors>Lee</Authors>
-    <Company>SD</Company>
-    <Description>SD.Toolkits Excel读写扩展组件</Description>
-    <Copyright>Copyright © SD 2025</Copyright>
     <Version>2.1.1</Version>
-    <AssemblyVersion>2.1.1</AssemblyVersion>
-    <FileVersion>2.1.1.0</FileVersion>
-  </PropertyGroup>
-
-  <PropertyGroup>
-    <BaseOutputPath>bin\</BaseOutputPath>
-    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <Description>SD.Toolkits Excel读写扩展组件</Description>
   </PropertyGroup>
 
   <ItemGroup>

@@ -2,18 +2,8 @@
   <PropertyGroup>
     <TargetFrameworks>net462;netstandard2.0</TargetFrameworks>
     <LangVersion>8.0</LangVersion>
-    <Authors>Lee</Authors>
-    <Company>SD</Company>
-    <Description>SD.Toolkits 序列化扩展组件</Description>
-    <Copyright>Copyright © SD 2025</Copyright>
     <Version>1.0.1</Version>
-    <AssemblyVersion>1.0.1</AssemblyVersion>
-    <FileVersion>1.0.1.0</FileVersion>
-  </PropertyGroup>
-
-  <PropertyGroup>
-    <BaseOutputPath>bin\</BaseOutputPath>
-    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <Description>SD.Toolkits 序列化扩展组件</Description>
   </PropertyGroup>
 
   <ItemGroup>

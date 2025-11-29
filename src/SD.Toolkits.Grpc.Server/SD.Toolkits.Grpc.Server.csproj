@@ -1,18 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;net8.0</TargetFrameworks>
-    <Authors>Lee</Authors>
-    <Company>SD</Company>
-    <Description>SD.Toolkits gRPC服务端扩展组件</Description>
-    <Copyright>Copyright © SD 2025</Copyright>
     <Version>1.2.1</Version>
-    <AssemblyVersion>1.2.1</AssemblyVersion>
-    <FileVersion>1.2.1.0</FileVersion>
-  </PropertyGroup>
-
-  <PropertyGroup>
-    <BaseOutputPath>bin\</BaseOutputPath>
-    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <Description>SD.Toolkits gRPC服务端扩展组件</Description>
   </PropertyGroup>
 
   <ItemGroup>

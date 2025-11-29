@@ -1,18 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net6.0;net8.0</TargetFrameworks>
-    <Authors>Lee</Authors>
-    <Company>SD</Company>
-    <Description>SD.Toolkits ASP.NET Core扩展组件</Description>
-    <Copyright>Copyright © SD 2025</Copyright>
     <Version>2.3.2</Version>
-    <AssemblyVersion>2.3.2</AssemblyVersion>
-    <FileVersion>2.3.2.0</FileVersion>
-  </PropertyGroup>
-
-  <PropertyGroup>
-    <BaseOutputPath>bin\</BaseOutputPath>
-    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <Description>SD.Toolkits ASP.NET Core扩展组件</Description>
   </PropertyGroup>
 
   <ItemGroup>

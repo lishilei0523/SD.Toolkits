@@ -1,4 +1,7 @@
 <Solution>
+  <Folder Name="/00 - Global/">
+    <File Path="Directory.Build.props" />
+  </Folder>
   <Folder Name="/01 - .NET Standard/">
     <Project Path="src/SD.Common/SD.Common.csproj" />
     <Project Path="src/SD.Toolkits.AspNet/SD.Toolkits.AspNet.csproj" />
