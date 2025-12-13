@@ -87,8 +87,8 @@ namespace SD.Toolkits.EntityFrameworkCore.Base
             {
                 const string fieldName = "_disposed";
                 Type type = typeof(DbContext);
-                FieldInfo field = type.GetField(fieldName, BindingFlags.NonPublic | BindingFlags.Instance);
-                object value = field.GetValue(this);
+                FieldInfo fieldInfo = type.GetField(fieldName, BindingFlags.NonPublic | BindingFlags.Instance);
+                object value = fieldInfo.GetValue(this);
                 bool disposed = (bool)value;
 
                 return disposed;
