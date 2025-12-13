@@ -1,8 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net462;netstandard2.0</TargetFrameworks>
-    <LangVersion>8.0</LangVersion>
-    <Version>3.4.1</Version>
     <Description>SD.Toolkits 公共基础类库</Description>
   </PropertyGroup>
 

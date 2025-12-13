@@ -1,6 +1,7 @@
 <Solution>
   <Folder Name="/00 - Global/">
     <File Path="Directory.Build.props" />
+    <File Path="Directory.Build.targets" />
   </Folder>
   <Folder Name="/01 - .NET Standard/">
     <Project Path="src/SD.Common/SD.Common.csproj" />
@@ -14,11 +15,6 @@
     <Project Path="src/SD.Toolkits.Recursion/SD.Toolkits.Recursion.csproj" />
     <Project Path="src/SD.Toolkits.Redis/SD.Toolkits.Redis.csproj" />
     <Project Path="src/SD.Toolkits.Serialization/SD.Toolkits.Serialization.csproj" />
-    <Project Path="src/SD.Toolkits.SerialNumber.MySql/SD.Toolkits.SerialNumber.MySql.csproj" />
-    <Project Path="src/SD.Toolkits.SerialNumber.PostgreSQL/SD.Toolkits.SerialNumber.PostgreSQL.csproj" />
-    <Project Path="src/SD.Toolkits.SerialNumber.Sqlite/SD.Toolkits.SerialNumber.Sqlite.csproj" />
-    <Project Path="src/SD.Toolkits.SerialNumber.SqlServer/SD.Toolkits.SerialNumber.SqlServer.csproj" />
-    <Project Path="src/SD.Toolkits.SerialNumber/SD.Toolkits.SerialNumber.csproj" />
     <Project Path="src/SD.Toolkits.Sql.MySql/SD.Toolkits.Sql.MySql.csproj" />
     <Project Path="src/SD.Toolkits.Sql.Oracle/SD.Toolkits.Sql.Oracle.csproj" />
     <Project Path="src/SD.Toolkits.Sql.PostgreSQL/SD.Toolkits.Sql.PostgreSQL.csproj" />
@@ -51,6 +47,5 @@
     <Project Path="src/SD.Toolkits.Recursion.Tests/SD.Toolkits.Recursion.Tests.csproj" />
     <Project Path="src/SD.Toolkits.Redis.Tests/SD.Toolkits.Redis.Tests.csproj" />
     <Project Path="src/SD.Toolkits.Serialization.Tests/SD.Toolkits.Serialization.Tests.csproj" />
-    <Project Path="src/SD.Toolkits.SerialNumber.Tests/SD.Toolkits.SerialNumber.Tests.csproj" />
   </Folder>
 </Solution>

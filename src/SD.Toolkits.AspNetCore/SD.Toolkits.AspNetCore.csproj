@@ -1,7 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net6.0;net8.0</TargetFrameworks>
-    <Version>2.3.2</Version>
+    <TargetFrameworks>net8.0</TargetFrameworks>
     <Description>SD.Toolkits ASP.NET Core扩展组件</Description>
   </PropertyGroup>
 
