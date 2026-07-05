@@ -1,5 +1,4 @@
 ﻿using NCalc;
-using NCalc.Domain;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
@@ -37,7 +36,7 @@ namespace SD.Toolkits.NCalc
         /// </summary>
         /// <param name="expression">表达式字符串</param>
         /// <param name="options">求值设定</param>
-        public FormulaExpression(string expression, EvaluateOptions options)
+        public FormulaExpression(string expression, ExpressionOptions options)
             : base(expression, options)
         {
 
@@ -48,7 +47,7 @@ namespace SD.Toolkits.NCalc
         /// </summary>
         /// <param name="expression">逻辑表达式</param>
         /// <param name="options">求值设定</param>
-        public FormulaExpression(LogicalExpression expression, EvaluateOptions options)
+        public FormulaExpression(LogicalExpression expression, ExpressionOptions options)
             : base(expression, options)
         {
 
@@ -64,7 +63,7 @@ namespace SD.Toolkits.NCalc
         /// </summary>
         public string RawExpression
         {
-            get { return base.OriginalExpression; }
+            get { return base.ExpressionString; }
         }
         #endregion
 
