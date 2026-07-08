@@ -3,6 +3,7 @@ using SD.Common;
 using StackExchange.Redis;
 using System.Configuration;
 using System.Reflection;
+using System.Threading;
 using Assert = Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
 
 namespace SD.Toolkits.Redis.Tests.TestCases
@@ -31,6 +32,9 @@ namespace SD.Toolkits.Redis.Tests.TestCases
             Configuration configuration = ConfigurationExtension.GetConfigurationFromAssembly(entryAssembly);
             RedisSection.Initialize(configuration);
 #endif
+            //初始化线程池
+            ThreadPool.SetMinThreads(200, 200);
+
             IDatabase database = RedisManager.Instance.GetDatabase();
             database.StringSet(ReadKey, ReadValue);
         }
