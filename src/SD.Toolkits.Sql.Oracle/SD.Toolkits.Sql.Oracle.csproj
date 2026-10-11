@@ -9,7 +9,7 @@
   </ItemGroup>
 
   <ItemGroup Condition="$(TargetFramework.Equals('net472'))">
-    <PackageReference Include="Oracle.ManagedDataAccess" Version="23.26.300" />
+    <PackageReference Include="Oracle.ManagedDataAccess" Version="23.26.301" />
   </ItemGroup>
 
   <ItemGroup Condition="$(TargetFramework.Equals('netstandard2.0'))">
@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup Condition="$(TargetFramework.Equals('netstandard2.1'))">
-    <PackageReference Include="Oracle.ManagedDataAccess.Core" Version="23.26.300" />
+    <PackageReference Include="Oracle.ManagedDataAccess.Core" Version="23.26.301" />
   </ItemGroup>
 
   <ItemGroup>

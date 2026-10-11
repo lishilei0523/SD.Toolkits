@@ -88,22 +88,22 @@ namespace SD.Toolkits.Drawing
             Random random = new Random();
             using SKTypeface typeface = SKTypeface.FromFamilyName("Arial", SKFontStyle.BoldItalic);
             using SKFont font = new SKFont(typeface, 16);
-            using SKTextBlob validCodeBlob = SKTextBlob.Create(validCode, font);
 
-            using SKBitmap bitmap = new SKBitmap((int)Math.Ceiling(validCodeBlob.Bounds.Width - 11), 22);
+            //计算图像宽度
+            float textWidth = font.MeasureText(validCode);
+            int bitmapWidth = (int)Math.Ceiling(textWidth) + 10;
+
+            using SKBitmap bitmap = new SKBitmap(bitmapWidth, 22);
             using SKCanvas canvas = new SKCanvas(bitmap);
             canvas.Clear(SKColors.White);
 
             SKPoint brushStartPoint = new SKPoint(0, 0);
             SKPoint brushEndPoint = new SKPoint(bitmap.Width, bitmap.Height);
-            SKColor[] gradientColors = { SKColors.Blue, SKColors.DarkRed };
+            SKColor[] gradientColors = [SKColors.Blue, SKColors.DarkRed];
             using SKShader brush = SKShader.CreateLinearGradient(brushStartPoint, brushEndPoint, gradientColors, SKShaderTileMode.Clamp);
             using SKPaint textPaint = new SKPaint
             {
                 IsAntialias = true,
-                TextAlign = SKTextAlign.Center,
-                TextSize = 16,
-                Typeface = typeface,
                 Shader = brush
             };
             using SKPaint silverPaint = new SKPaint
@@ -112,8 +112,10 @@ namespace SD.Toolkits.Drawing
                 Style = SKPaintStyle.Stroke
             };
 
-            //画验证码
-            canvas.DrawText(validCodeBlob, 5, 17, textPaint);
+            //画验证码：x 用位图中心，y 用基线位置
+            float textX = bitmap.Width / 2f;
+            float textY = 17;
+            canvas.DrawText(validCode, textX, textY, SKTextAlign.Center, font, textPaint);
 
             //画干扰线
             for (int index = 0; index < 15; index++)
@@ -126,12 +128,13 @@ namespace SD.Toolkits.Drawing
             }
 
             //画干扰点
+            using SKPaint pointPaint = new SKPaint { IsAntialias = true };
             for (int index = 0; index < 100; index++)
             {
                 int x = random.Next(bitmap.Width);
                 int y = random.Next(bitmap.Height);
-                SKColor pointColor = new SKColor((uint)random.Next());
-                canvas.DrawPoint(x, y, pointColor);
+                pointPaint.Color = new SKColor((uint)random.Next());
+                canvas.DrawPoint(x, y, pointPaint);
             }
 
             //画边框线

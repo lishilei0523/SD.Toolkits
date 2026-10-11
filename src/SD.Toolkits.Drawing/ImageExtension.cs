@@ -222,10 +222,9 @@ namespace SD.Toolkits.Drawing
         /// <param name="bitmap">图像</param>
         /// <param name="width">缩略图宽度</param>
         /// <param name="height">缩略图高度</param>
-        /// <param name="quality">质量</param>
         /// <param name="thumbnailMode">缩略图模式</param>
         /// <returns>缩略图</returns>
-        public static SKBitmap MakeThumbnail(this SKBitmap bitmap, int width, int height, SKFilterQuality quality = SKFilterQuality.Medium, ThumbnailMode thumbnailMode = ThumbnailMode.WidthAndHeight)
+        public static SKBitmap MakeThumbnail(this SKBitmap bitmap, int width, int height, ThumbnailMode thumbnailMode = ThumbnailMode.WidthAndHeight)
         {
             #region # 验证
 
@@ -253,7 +252,7 @@ namespace SD.Toolkits.Drawing
             }
 
             SKSizeI size = new SKSizeI(scaledWidth, scaledHeight);
-            SKBitmap thumbnail = bitmap.Resize(size, quality);
+            SKBitmap thumbnail = bitmap.Resize(size, SKSamplingOptions.Default);
 
             return thumbnail;
         }
@@ -286,30 +285,34 @@ namespace SD.Toolkits.Drawing
 
             using SKTypeface typeface = SKTypeface.FromFamilyName(fontName);
             using SKFont font = new SKFont(typeface, fontSize);
-            using SKTextBlob textBlob = SKTextBlob.Create(watermark, font);
+
+            // 测量文本尺寸（Font 自带 MeasureText）
+            float textWidth = font.MeasureText(watermark);
+            SKFontMetrics metrics = font.Metrics;
+
             float x;
             float y;
             if (location.HasValue)
             {
+                //location传入的就是TextAlign.Center的中心点
                 x = location.Value.X;
                 y = location.Value.Y;
             }
             else
             {
-                x = copyBitmap.Width - textBlob.Bounds.Width;
-                y = copyBitmap.Height - textBlob.Bounds.Height;
+                //右下角，保留10px内边距；x取文本中心，y取基线位置
+                x = copyBitmap.Width - textWidth / 2 - 10;
+                y = copyBitmap.Height - 10 - metrics.Descent; // 让文本底边贴住内边距
             }
+
             using SKPaint paint = new SKPaint
             {
                 Color = fontColor,
                 IsAntialias = true,
                 Style = SKPaintStyle.Fill,
-                TextAlign = SKTextAlign.Center,
-                TextSize = fontSize,
-                Typeface = typeface
             };
 
-            canvas.DrawText(textBlob, x, y, paint);
+            canvas.DrawText(watermark, x, y, SKTextAlign.Center, font, paint);
 
             return copyBitmap;
         }
@@ -323,10 +326,9 @@ namespace SD.Toolkits.Drawing
         /// <param name="watermark">水印图像</param>
         /// <param name="watermarkWidth">水印宽度</param>
         /// <param name="watermarkHeight">水印高度</param>
-        /// <param name="watermarkQuality">水印质量</param>
         /// <param name="location">水印位置</param>
         /// <returns>水印图像</returns>
-        public static SKBitmap MakeImageWatermark(this SKBitmap bitmap, SKBitmap watermark, int watermarkWidth, int watermarkHeight, SKFilterQuality watermarkQuality = SKFilterQuality.Medium, SKPoint? location = null)
+        public static SKBitmap MakeImageWatermark(this SKBitmap bitmap, SKBitmap watermark, int watermarkWidth, int watermarkHeight, SKPoint? location = null)
         {
             #region # 验证
 
@@ -345,7 +347,7 @@ namespace SD.Toolkits.Drawing
             using SKCanvas canvas = new SKCanvas(copyBitmap);
 
             SKSizeI size = new SKSizeI(watermarkWidth, watermarkHeight);
-            using SKBitmap resizedWatermark = watermark.Resize(size, watermarkQuality);
+            using SKBitmap resizedWatermark = watermark.Resize(size, SKSamplingOptions.Default);
 
             float x;
             float y;
